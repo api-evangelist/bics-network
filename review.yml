@@ -1,0 +1,114 @@
+aid: bics-network
+name: BICS
+review:
+  question: Does BICS expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: >-
+    No AsyncAPI document was authored. Every documented BICS developer-portal API
+    is request/response REST over HTTPS (OpenAPI 3.0.1). BICS delivers
+    server-to-client events through HTTP callbacks/webhooks (for example inbound
+    SMS and delivery-info subscriptions post to a customer-supplied URL), not a
+    server-push WebSocket or SSE transport on its own API, so there is no
+    WebSocket surface to model.
+findings:
+  summary: >
+    BICS does not publish a documented public WebSocket API. BICS is an
+    international communications enabler and wholesale carrier (part of Proximus
+    Global, alongside Telesign and Route Mobile). Its developer portal at
+    developer.bics.com exposes OAuth2-secured REST APIs under
+    https://api.bics.com (production) and https://sandbox.api.bics.com (sandbox
+    for the MyNumbers family). Eight REST APIs are documented with OpenAPI 3.0.1:
+    SMS (v3), MyNumbers, MyNumbers Address Management, MyNumbers CDR, MyNumbers
+    Disconnection, MyNumbers Emergency Services, MyNumbers Number Porting, and
+    Connect. All are pure request/response REST. Event delivery (inbound SMS,
+    delivery info) is via HTTP callbacks/webhooks to a customer URL - not a
+    WebSocket. No ws:// or wss:// endpoint is documented anywhere on the portal.
+  accessModel: >
+    The developer portal is not fully self-serve. A developer registers to
+    consume an API, BICS approves the consumption (confirmed by email), and the
+    emailed instructions explain how to create an OAuth2 token that is then sent
+    as a Bearer credential. Sandbox base URLs are available for the MyNumbers
+    family. BICS's mobile-identity products - phone number verification,
+    HLR/reachability lookup, SIM-swap detection, and device-location signals for
+    anti-fraud and KYC - are NOT on the self-serve portal; they are marketed and
+    delivered as partner/carrier contract products across the Proximus Global
+    network. Those verification/fraud/device-location entries in apis.yml are
+    therefore endpointsModeled (no published OpenAPI surface), not fabricated
+    request definitions.
+  endpointsModeled:
+    - The BICS Number Verification API entry is modeled from BICS marketing and
+      the Proximus Global identity portfolio; no self-serve OpenAPI is published.
+    - The BICS Fraud Prevention and Reachability API entry (HLR/reachability
+      lookup, SIM-swap, device-location) is modeled and aligns with GSMA Open
+      Gateway / CAMARA network APIs; it is contact-sales, not self-serve.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.bics.com
+      documented: true
+      note: All eight documented developer-portal APIs are OpenAPI 3.0.1 REST. Sandbox at https://sandbox.api.bics.com for the MyNumbers family.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Inbound SMS and delivery-info subscriptions post events to a customer-supplied HTTP callback URL. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented on the BICS developer portal or in any of the eight OpenAPI definitions as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api.bics.com/sms/v3/outbound/{senderAddress}/requests
+    - GET    https://api.bics.com/sms/v3/outbound/{senderAddress}/requests/{requestId}/deliveryInfos
+    - GET,POST,DELETE https://api.bics.com/sms/v3/outbound/subscriptions
+    - GET,POST,DELETE https://api.bics.com/sms/v3/inbound/subscriptions
+    - GET    https://api.bics.com/sms/v3/inbound/registrations/{inboundNumber}/messages
+    - POST   https://api.bics.com/sms/v3/conversions
+    - POST   https://api.bics.com/sms/v3/conversionsinfos
+    - GET    https://api.bics.com/mynumbers-number/v1/numbers
+    - GET    https://api.bics.com/mynumbers-number/v1/numbers/{number}
+    - POST   https://api.bics.com/mynumbers-number/v1/order
+    - POST   https://api.bics.com/mynumbers-number/v1/order/bulk
+    - GET    https://api.bics.com/mynumbers-number/v1/order/{orderId}
+    - GET    https://api.bics.com/mynumbers-number/v1/availablenumbers
+    - GET    https://api.bics.com/mynumbers-number/v1/pricelist/product/{product}
+    - GET,POST https://api.bics.com/mynumbers-porting/v1/portings
+    - GET,DELETE https://api.bics.com/mynumbers-porting/v1/portings/{portingRequestId}
+    - GET,POST https://api.bics.com/mynumbers-porting/v1/portings/{portingRequestId}/documents
+    - POST   https://api.bics.com/mynumbers-cdr/v1/cdrs
+    - GET    https://api.bics.com/mynumbers-cdr/v1/cdrs/{id}/status
+    - GET    https://api.bics.com/mynumbers-cdr/v1/cdrs/{id}/download/{format}
+    - GET,POST https://api.bics.com/mynumbers-address-management/v1/addresses
+    - POST   https://api.bics.com/mynumbers-disconnection/v1/disconnections/orders
+    - GET,POST https://api.bics.com/mynumbers-emergency-services/v1/emergencyservices/orders
+    - GET,POST https://api.bics.com/connect/v1/connections
+    - GET    https://api.bics.com/connect/v1/interconnects
+  sources:
+    - url: https://developer.bics.com/portal/apis
+      type: Documentation
+      note: Developer portal API catalog; eight LIVE REST APIs with OpenAPI 3.0.1 definitions and OAuth2 policy.
+    - url: https://developer.bics.com/portal/welcome
+      type: Documentation
+      note: Access-token (Bearer) authentication required on each request; REST standard.
+    - url: https://www.bics.com/developers-hub/
+      type: Documentation
+      note: Positions messaging, voice, numbering and fraud-prevention products; links to the developer portal.
+    - url: https://www.proximusglobal.com/
+      type: Website
+      note: BICS is part of Proximus Global together with Telesign and Route Mobile; digital identity delivered across the group.
+sources:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: https://developer.bics.com/portal/welcome
+    type: Documentation
+  - url: https://www.bics.com/developers-hub/
+    type: Documentation
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: >
+    No WebSocket protocol surface exists. Every documented BICS API is
+    request/response REST (OpenAPI 3.0.1) with event delivery via HTTP
+    callbacks/webhooks. No AsyncAPI document was created because there is no
+    server-push transport (WebSocket or SSE) on BICS's own API to model.

@@ -1,0 +1,1312 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "mynumbers-porting",
+    "description": "These API methods allow you to manage your porting requests.<br/> <br/> <b>Where can I find the BICS Letter of Authorization (LOA) Forms to submit porting requests?</b><br/> The BICS LOA forms are available in the Number Portability specifications on the MyNumbers Portal. You can request access to the MyNumbers portal by contacting <a href=\"mailto:mynumbers@bics.com\">mynumbers@bics.com</a>.\n<h3>What are the errors that MyNumbers API can return ?</h3>\n\n|\tCode\t|\tDescription\t|\tHttp response\t|\n|\t---\t|\t---\t|\t---\t|\n|\tE001\t|\tThe product does not exist in our system.\t|\t400\t|\n|\tE002\t|\tThe country does not exist in our system.\t|\t400\t|\n|\tE018\t|\tThe product is not yet handled via our API.\t|\t400\t|\n|\tE019\t|\tThe routing details are not valid. CRN Parameter must be filled out for the given CRN type.\t|\t400\t|\n|\tE020\t|\tPlease fill out all the mandatory attributes.\t|\t400\t|\n|\tE021\t|\tThe routing details are not valid. At least one CRN Type must be different than NA.\t|\t400\t|\n|\tE022\t|\tYour price list needs to be defined in our system. Please contact BICS.\t|\t404\t|\n|\tE030\t|\tThe service is temporarily unavailable. Please retry later or contact BICS.\t|\t500\t|\n|\tE031\t|\tThe media type in your header is invalid. Please use application/json.\t|\t400\t|\n|\tE033\t|\tThere is no address with this reference in our system. Please correct the reference.\t|\t400\t|\n|\tE035\t|\tThe length of the attribute {attribute} is too long. The maximum length for this attribute is {size} characters.\t|\t400\t|\n|\tE039\t|\tAddress is not located in the same country as the number. Please fill out the reference of address(es) located in the same country.\t|\t400\t|\n|\tE041\t|\tThere is no file in the request. Please add the file.\t|\t400\t|\n|\tE042\t|\tThe format of the file {documentName} is not valid. Allowed formats are [PDF, TIF, TIFF, JPG, JPEG, PNG, DOC, DOCX, XLS, XLSX].\t|\t400\t|\n|\tE043\t|\tThe size of the file is too large. The maximum size allowed is 10 MB.\t|\t400\t|\n|\tE046\t|\tThe length of the filename is too large. The maximum length for a filename is 240.\t|\t400\t|\n|\tE047\t|\tThe file name must contain only Latin symbols and 0-9_.\t|\t400\t|\n|\tE060\t|\tThe number specified in request does not exist.\t|\t404\t|\n|\tE061\t|\tEnum value is specified incorrectly.\t|\t400\t|\n|\tE080\t|\tList of proof of documents that you have provided does not match the list of proof of documents required. Please upload missing documents.\t|\t400\t|\n|\tE081\t|\tRequest payload is invalid.\t|\t400\t|\n|\tE085\t|\tThe number range not valid.\t|\t400\t|\n|\tE086\t|\tInvalid value for parameter {attribute}.\t|\t400\t|\n|\tE087\t|\tPorting Request can not be created for this country.\t|\t400\t|\n|\tE089\t|\tThis number is specified several times in the request. Please specify every number once only.\t|\t400\t|\n|\tE091\t|\tCancellation of porting request is not possible.\t|\t400\t|\n|\tE092\t|\tThe format of the number is not valid.\t|\t400\t|\n|\tE093\t|\tLimit is {amount} numbers per request.\t|\t400\t|\n|\tE103\t|\tYou are not allowed to edit the order. You can only edit order in status Created or Need more information.\t|\t400\t|\n|\tE119\t|\tA previous task is still pending. Please try again later.\t|\t409\t|\n|\tE120\t|\tThere is no Porting Request with this id in our system.\t|\t404\t|\n|\tE121\t|\tThe 'preferredDate' is a weekend or earlier than current date + 5 business days.\t|\t400\t|\n|\tE122\t|\tNo commercial agreement found. Please contact BICS.\t|\t400\t|\n|\tE129\t|\tPorting document reference does not belong to address.\t|\t400\t|\n|\tE130\t|\tOnly one document can be used per document type code.\t|\t400\t|\n|\tE131\t|\tThe document can not be used due to its current status.\t|\t400\t|\n|\tE132\t|\tPorting document is not relevant to porting specification.\t|\t400\t|\n|\tE133\t|\tPorting document can't be used as it is already linked to another Porting request.\t|\t400\t|\n|\tE134\t|\tThe document is already linked to this porting request.\t|\t400\t|\n|\tE135\t|\tThere is already a document with the given type associated to the porting request.\t|\t400\t|\n|\tE136\t|\tParameter documentReference can not be null.\t|\t400\t|\n|\tE137\t|\tMultiple locations when Porting restrictions are \"Address in Region\" are not allowed.\t|\t400\t|\n|\tE138\t|\tEnd User Address can not be changed as Multiple locations are not allowed when Porting restrictions are \"Address in Region\".\t|\t400\t|\n|\tE144\t|\tThe number is already in your inventory.\t|\t400\t|\n|\tE146\t|\tPorting request is not complete. Please add missing document.\t|\t400\t|\n|\tE147\t|\tCountry and Product are not available in your Pricelist. Please contact your AM.\t|\t400\t|\n",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.bics.com/mynumbers-porting/v1"
+    },
+    {
+      "url": "https://sandbox.api.bics.com/mynumbers-porting/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "porting",
+      "description": ""
+    },
+    {
+      "name": "Porting Specification",
+      "description": "Recive porting specification"
+    }
+  ],
+  "paths": {
+    "/portings/{portingRequestId}/documents": {
+      "summary": "/portings/{portingRequestId}/documents",
+      "get": {
+        "tags": [
+          "porting"
+        ],
+        "summary": "This method allows you to get your documents allowed for porting request.",
+        "description": "Get all the documents and their status linked to specified Porting Request.",
+        "operationId": "get porting request documents",
+        "parameters": [
+          {
+            "name": "portingRequestId",
+            "in": "path",
+            "description": "Unique identifier for a porting request.",
+            "required": true,
+            "allowEmptyValue": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "description": "Unique identifier for a porting request.",
+              "readOnly": false,
+              "example": "10564"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of porting documents.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Document"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'documentReference': 'ac0334bc-da81-48a9-a64d-5f54474b2d35',\n    'fileName': 'proofOfAddress.pdf',\n    'size': 139769,\n    'status': 'Uploaded',\n    'created': '2018-09-07T10:10:59Z',\n    'comment': '',\n    'documentType': {\n      'code': 'POD4',\n      'description': 'Letter of Intent (LOI)'\n    }\n  }\n]\n"
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "examples": {},
+                "example": null
+              }
+            },
+            "links": {}
+          },
+          "404": {
+            "description": "Request is not found.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "examples": {},
+                "example": null
+              }
+            },
+            "links": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "porting"
+        ],
+        "summary": "This method allows you to add documents to the porting request.",
+        "description": "Update documents in the porting request. This method is used to add documents to the porting request.",
+        "operationId": "Update Porting Request Documents",
+        "parameters": [
+          {
+            "name": "portingRequestId",
+            "in": "path",
+            "description": "Unique identifier for a porting request.",
+            "required": true,
+            "allowEmptyValue": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "description": "Unique identifier for a porting request.",
+              "readOnly": false,
+              "example": "10564"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addPortingRequestDocumentsParams"
+              },
+              "examples": {},
+              "example": null
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E033',\n    'description' : 'There is no address with this reference in our system. Please correct the reference.'\n    'timestamp' : '2022-01-11T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            },
+            "links": {}
+          },
+          "204": {
+            "description": "Successful operation. Documents were linked sucessfully.",
+            "headers": {},
+            "content": {},
+            "links": {}
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/portings": {
+      "summary": "/portings",
+      "get": {
+        "tags": [
+          "porting"
+        ],
+        "summary": "This method allows you to get a list of your porting requests.",
+        "description": "Get porting request details by porting request ID , product, country, bicsReference, customerReference.",
+        "operationId": "get porting requests",
+        "parameters": [
+          {
+            "name": "portingRequestId",
+            "in": "query",
+            "description": "Get a porting by id,  this id is returned when you call the method for creating a porting request.",
+            "required": false,
+            "allowEmptyValue": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Get a porting by id,  this id is returned when you call the method for creating a porting request.",
+              "readOnly": false,
+              "example": "123"
+            }
+          },
+          {
+            "name": "product",
+            "in": "query",
+            "description": "Get portings by product. Valid product codes are IBN, GMN and ITFS. IBN referring to Cloud Number, GMN referring to Global Mobile Number and ITFS referring to International Freephone Number.",
+            "required": false,
+            "allowEmptyValue": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Get portings by product. Valid product codes are IBN, GMN and ITFS. IBN referring to Cloud Number, GMN referring to Global Mobile Number and ITFS referring to International Freephone Number.",
+              "readOnly": false,
+              "example": "IBN"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "description": "Get portings by country in ISO 3166-1 alpha-3 format.",
+            "required": false,
+            "allowEmptyValue": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Get portings by country in ISO 3166-1 alpha-3 format.",
+              "readOnly": false,
+              "example": "GBR"
+            }
+          },
+          {
+            "name": "bicsReference",
+            "in": "query",
+            "description": "Get a porting by BICS reference.",
+            "required": false,
+            "allowEmptyValue": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Get a porting by BICS reference.",
+              "readOnly": false,
+              "example": "SC1162160"
+            }
+          },
+          {
+            "name": "customerReference",
+            "in": "query",
+            "description": "Get portings by your reference.",
+            "required": false,
+            "allowEmptyValue": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Get portings by your reference.",
+              "readOnly": false,
+              "example": "CustRef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of porting requests.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/portingRequest"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'portingRequestId': '10564',\n    'bicsReference': 'SC541259',\n    'customerReference': 'your reference',\n    'product': 'IBN',\n    'country': 'FRA',\n    'estimatedVolume': '10.000 - 100.000',\n    'numbers': [\n      {\n        'numberFrom': '33184212841',\n        'numberTo': '33184212848',\n        'numberStatus': 'Partially Accepted',\n        'location': 'Paris',\n        'areaCode': '184',\n        'routing': [\n          {\n            'accessType': 'fixMobPay',\n            'accessNetwork': null,\n            'crnType': 'prefix',\n            'crnValue': '33184A',\n            'pop': 'POP FRANCE'\n          }\n        ]\n      },\n      {\n        'numberFrom': '33184213489',\n        'numberTo': null,\n        'numberStatus': 'Under verification',\n        'location': 'Paris',\n        'areaCode': '184',\n        'routing': [\n          {\n            'accessType': 'fixMobPay',\n            'accessNetwork': 'SMART',\n            'crnType': 'freetext',\n            'crnValue': '334458124588',\n            'pop': 'POP FRANCE'\n          },\n          {\n            'accessType': 'fix',\n            'accessNetwork': null,\n            'crnType': 'freetext',\n            'crnValue': '334458124588',\n            'pop': 'POP FRANCE'\n          }\n        ]\n      }\n    ],\n    'status': 'New',\n    'addresses': {\n      'endUserAddress': {\n        'reference': '1247b1ca-ffec-4576-be45-c837cdbff546'\n      },\n      'portingAddress': {\n        'reference': '365c51a4-07b8-4b04-bb6c-cbf1a1cc2205'\n      }\n    },\n    'preferredDate': '2021-10-12',\n    'comment': 'Please provide a valid LOA',\n    'additionalInfo': 'This is some Additional Info for the Porting Case',\n    'created': '2019-07-09T10:10:59Z',\n    'lastModified': '2019-07-09T10:10:59Z'\n  },\n  {\n    ...\n  }\n]\n"
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "examples": {},
+                "example": null
+              }
+            },
+            "links": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "porting"
+        ],
+        "summary": "This method allows you to create porting request",
+        "description": "Create Porting Request for your numbers via API. The method Create Porting Request will document porting request with all necessary details so our Porting team can process it. </br>You just need to fill out in the request :Product, Country, Estimated Volume, Numbers, End user and Porting Address reference, Document reference. </br>End user address reference and Porting Address reference are response of the API when new address was successfully created. (Create Address method) </br>Document reference are the response from the API when the documents are linked to address. (Add document method) </br>Reference, Preferred date and Additional info are not mandatory fields still they can help customers for better communication with our porting team and add extra info.",
+        "operationId": "Create porting request",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createPortingRequest"
+              },
+              "examples": {},
+              "example": null
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createPortingResponse"
+                },
+                "example": "{\n  'portingRequestId': 10564\n}\n"
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E020',\n    'description' : 'Please fill out all the mandatory attributes.'\n    'timestamp' : '2019-07-11T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            },
+            "links": {}
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/portings/{portingRequestId}/addresses": {
+      "summary": "/portings/{portingRequestId}/addresses",
+      "patch": {
+        "tags": [
+          "porting"
+        ],
+        "summary": "This method allows you to update End User Address and Porting Address in a porting request",
+        "description": "Update address references in a porting request. Address can be updated only for Porting Request in status \"New\" or \"On Hold, More Information Required\".",
+        "operationId": "Update porting request addresses",
+        "parameters": [
+          {
+            "name": "portingRequestId",
+            "in": "path",
+            "description": "Unique identifier for a porting request.",
+            "required": true,
+            "allowEmptyValue": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "description": "Unique identifier for a porting request.",
+              "readOnly": false,
+              "example": "10564"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updatePortingRequestAddressesParams"
+              },
+              "examples": {},
+              "example": null
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E033',\n    'description' : 'There is no address with this reference in our system. Please correct the reference.'\n    'timestamp' : '2022-01-11T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            },
+            "links": {}
+          },
+          "204": {
+            "description": "Successful operation. Addresses were updated sucessfully.",
+            "headers": {},
+            "content": {},
+            "links": {}
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/portings/specifications": {
+      "summary": "/portings/specifications",
+      "get": {
+        "tags": [
+          "Porting Specification"
+        ],
+        "summary": "This API method returns the list of number portability specification per Product, Country.\nA portability specification item is the list of portability specification attributes related to the pair Product and Country.\nIt is possible to filter out the list of portability specifications items by product and/or country.\n",
+        "description": "This API method returns the list of porting specifications. It is possible to filter out the list of porting specifications items by _Product_ and/or _Country_.",
+        "operationId": "get porting specifications",
+        "parameters": [
+          {
+            "name": "product",
+            "in": "query",
+            "description": "Get specifications by product. Possible values\n    - 'IBN' for Cloud Number\n    - 'ITFS' for International Freephone Number\n    - 'GMN' for Global Mobile Number\n",
+            "required": false,
+            "allowEmptyValue": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Get specifications by product. Possible values\n    - 'IBN' for Cloud Number\n    - 'ITFS' for International Freephone Number\n    - 'GMN' for Global Mobile Number\n",
+              "readOnly": false,
+              "example": "IBN"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "description": "Get specifications by country in ISO 3166-1 alpha-3 format.",
+            "required": false,
+            "allowEmptyValue": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Get specifications by country in ISO 3166-1 alpha-3 format.",
+              "readOnly": false,
+              "example": "GBR"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of porting specifications.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PortingSpecification"
+                  },
+                  "example": null
+                },
+                "example": "[\n {\n    'id': '10123',\n    'product': 'IBN',\n    'country': 'AUS',\n    'portabilityType': 'Number Portability',\n    'portingSpecifications': 'LOA:Hand signature and Company stamp are mandatory, name written in capital letters.',\n    'addressRequirement': {\n        'type': 'Required in Region',\n        'proofOfDocuments': true,\n        'documentTypesForIndividual': [\n        {\n            'code': 'POD01',\n            'description': 'Copy of Passport or End-User ID'\n        },\n        { \u2026  }\n        ],\n        'documentTypesForCompany': [\n        {\n            'code': ' POD02',\n            'description': 'Company Registration'\n        },\n        { \u2026  }\n       ]\n    },\n    'minLeadTime': 5,\n    'maxLeadTime': 10,\n    'lastModified': '2020-11-25T15:45:56+01:00'\n },\n {\n    'id': '10124',\n    'product': 'IBN',\n    'country': 'AUT',\n    \u2026\n }\n]\n"
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "examples": {},
+                "example": null
+              }
+            },
+            "links": {}
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/portings/{portingRequestId}": {
+      "summary": "/portings/{portingRequestId}",
+      "get": {
+        "tags": [
+          "porting"
+        ],
+        "summary": "This method allows you to get your porting request.",
+        "description": "Get the details of a specific Porting Request.",
+        "operationId": "get porting request by id",
+        "parameters": [
+          {
+            "name": "portingRequestId",
+            "in": "path",
+            "description": "Unique identifier for a porting request.",
+            "required": true,
+            "allowEmptyValue": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "description": "Unique identifier for a porting request.",
+              "readOnly": false,
+              "example": "10564"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Porting request.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/portingRequestDetails"
+                },
+                "example": "{\n  'portingRequestId': '10564',\n  'bicsReference': 'SC541259',\n  'customerReference': 'your reference',\n  'product': 'IBN',\n  'country': 'FRA',\n  'estimatedVolume': '10.000 - 100.000',\n  'numbers': [\n    {\n      'numberFrom': '33184212841',\n      'numberTo': '33184212848',\n      'numberStatus': 'Partially Accepted',\n      'location': 'Paris',\n      'areaCode': '184',\n      'routing': [\n        {\n          'accessType': 'fixMobPay',\n          'accessNetwork': null,\n          'crnType': 'prefix',\n          'crnValue': '33184A',\n          'pop': 'POP FRANCE'\n        }\n      ]\n    },\n    {\n      'numberFrom': '33184213489',\n      'numberTo': null,\n      'numberStatus': 'Under verification',\n      'location': 'Paris',\n      'areaCode': '184',\n      'routing': [\n        {\n          'accessType': 'fixMobPay',\n          'accessNetwork': 'SMART',\n          'crnType': 'freetext',\n          'crnValue': '334458124588',\n          'pop': 'POP FRANCE'\n        },\n        {\n          'accessType': 'fix',\n          'accessNetwork': null,\n          'crnType': 'freetext',\n          'crnValue': '334458124588',\n          'pop': 'POP FRANCE'\n        }\n      ]\n    }\n  ],\n  'status': 'New',\n  'addresses': {\n    'endUserAddress': {\n      'reference': '1247b1ca-ffec-4576-be45-c837cdbff546',\n      'status': 'Under validation'\n    },\n    'portingAddress': {\n      'reference': '365c51a4-07b8-4b04-bb6c-cbf1a1cc2205',\n      'status': 'Validated'\n    }\n  },\n  'preferredDate': '2021-10-12',\n  'comment': 'Please provide a valid LOA',\n  'additionalInfo': 'This is some Additional Info for the Porting Case',\n  'created': '2019-07-09T10:10:59Z',\n  'lastModified': '2019-07-09T10:10:59Z'\n}\n"
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "examples": {},
+                "example": null
+              }
+            },
+            "links": {}
+          },
+          "404": {
+            "description": "Request is not found.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "examples": {},
+                "example": null
+              }
+            },
+            "links": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "porting"
+        ],
+        "summary": "This method allows you to cancel porting request",
+        "description": "This method allows you to cancel a porting request. With the method get list of porting requests, you can retrieve its current status. <h3>Reference table Status > Cancellation of porting request allowed</h3> <table> <thead> <tr> <th>Status</th><th>Cancellation allowed</th> </tr> </thead> <tbody> <tr><td>New</td><td>Yes</td></tr> <tr><td>Under verification</td><td>Yes</td></tr> <tr><td>On hold, more information required</td><td>Yes</td></tr> <tr><td>Submitted to operator</td><td>Yes if option 'confirmCancel' is specified in the request</td></tr> <tr><td>Accepted</td><td class=\"text-danger\">No</td></tr> <tr><td>Partially Accepted</td><td class=\"text-danger\">No</td></tr> <tr><td>Refused</td><td class=\"text-danger\">No</td></tr> <tr><td>Completed</td><td class=\"text-danger\">No</td></tr> </tbody> </table>",
+        "operationId": "cancel porting request",
+        "parameters": [
+          {
+            "name": "portingRequestId",
+            "in": "path",
+            "description": "Unique identifier for a porting request.",
+            "required": true,
+            "allowEmptyValue": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "description": "Unique identifier for a porting request.",
+              "readOnly": false,
+              "example": "10564"
+            }
+          },
+          {
+            "name": "confirmCancel",
+            "in": "query",
+            "description": "Use this option to cancel the porting request when it is already in status 'Submitted to operator'. You agree that by cancelling the port request at this stage of the process you may be charged for the port request unless some special conditions apply in the respective country.",
+            "required": false,
+            "allowEmptyValue": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "description": "Use this option to cancel the porting request when it is already in status 'Submitted to operator'. You agree that by cancelling the port request at this stage of the process you may be charged for the port request unless some special conditions apply in the respective country.",
+              "readOnly": false,
+              "example": "true"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "headers": {},
+            "content": {},
+            "links": {}
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E091',\n    'description' : 'Cancellation of porting request is not possible.'\n    'timestamp' : '2019-07-11T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            },
+            "links": {}
+          },
+          "404": {
+            "description": "Request id is not found.",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "examples": {},
+                "example": null
+              }
+            },
+            "links": {}
+          }
+        }
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "createPortingResponse": {
+        "type": "object",
+        "properties": {
+          "portingRequestId": {
+            "type": "integer",
+            "description": "our internal reference identifying your request",
+            "format": "int32",
+            "example": 10564
+          }
+        },
+        "example": null
+      },
+      "numberRangeOrigin": {
+        "type": "object",
+        "properties": {
+          "routing": {
+            "type": "array",
+            "description": "The routing configuration you want to apply for this number.",
+            "items": {
+              "$ref": "#/components/schemas/customerRouting"
+            },
+            "example": null
+          },
+          "numberFrom": {
+            "type": "string",
+            "description": "first number of the range",
+            "example": null
+          },
+          "numberTo": {
+            "type": "string",
+            "description": "last number of the range or null when porting a single number",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "addPortingRequestDocumentsParams": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/document"
+        },
+        "example": null
+      },
+      "addresses": {
+        "type": "object",
+        "properties": {
+          "portingAddress": {
+            "$ref": "#/components/schemas/portingAddress"
+          },
+          "endUserAddress": {
+            "$ref": "#/components/schemas/endUserAddress"
+          }
+        },
+        "example": null
+      },
+      "detailedPortingAddress": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Reference of the Porting Address.",
+            "example": null
+          },
+          "status": {
+            "type": "string",
+            "description": "Porting Address status.",
+            "enum": [
+              "Submitted",
+              "Under Validation",
+              "Validated",
+              "Declined"
+            ],
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "documentType": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Document type code.",
+            "example": "POD1"
+          },
+          "description": {
+            "type": "string",
+            "description": "Document type description.",
+            "example": "Letter of Intent"
+          }
+        },
+        "description": "Type of document.",
+        "example": null
+      },
+      "document": {
+        "type": "object",
+        "properties": {
+          "documentReference": {
+            "type": "string",
+            "description": "Saved document reference.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "updatePortingRequestAddressesParams": {
+        "type": "object",
+        "properties": {
+          "addresses": {
+            "$ref": "#/components/schemas/addresses"
+          }
+        },
+        "example": null
+      },
+      "addressDocumentStatus": {
+        "type": "string",
+        "description": "Validation status:\n    <ul>\n      <li>\"Uploaded\": The file is in process of being uploaded, checked by our virus scanners and attached to your address.</li>\n      <li>\"Rejected\": The file is rejected by our virus scanner. It may contain a virus or a malicious script.</li>\n      <li>\"Submitted\": We received your document.</li>\n      <li>\"Under Validation\": Your document is under validation.</li>\n      <li>\"Validated\": Your document has been validated.</li>\n      <li>\"Declined\": Your document has been declined, please upload a new document.</li>\n      <li>\"Expired\": Your document has been expired, please upload a new document.</li>\n    </ul>\n",
+        "enum": [
+          "Uploaded",
+          "Rejected",
+          "Submitted",
+          "Under Validation",
+          "Validated",
+          "Expired",
+          "Declined"
+        ],
+        "example": null
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "File name.",
+            "example": "document.pdf"
+          },
+          "size": {
+            "type": "integer",
+            "description": "File size in bytes.",
+            "format": "int64",
+            "example": 2621440
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/documentType"
+          },
+          "created": {
+            "type": "string",
+            "description": "Created date of the porting request document.",
+            "format": "date-time",
+            "example": null
+          },
+          "comment": {
+            "type": "string",
+            "description": "Reason why your document was Rejected or Declined.",
+            "example": "Not readable. Please provide new document"
+          },
+          "documentReference": {
+            "type": "string",
+            "description": "Saved document reference.",
+            "example": "fb0044bd-da81-48a9-a64d-5f543e8b2d35"
+          },
+          "status": {
+            "$ref": "#/components/schemas/addressDocumentStatus"
+          }
+        },
+        "example": null
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code, the complete description can be found in API documentation",
+            "example": "EXXX"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the error, the complete description can be found in API documentation",
+            "example": "Description of the error that occurred."
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "timestamp of error in UTC format",
+            "format": "date-time",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "numberRange": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/numberRangeOrigin"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "areaCode": {
+                "type": "string",
+                "description": "Area code of the number according to the national numbering plan.",
+                "example": null
+              },
+              "numberStatus": {
+                "type": "string",
+                "description": "number's or number's range status.",
+                "example": null
+              },
+              "location": {
+                "type": "string",
+                "description": "Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.",
+                "example": null
+              }
+            },
+            "example": null
+          }
+        ],
+        "example": null
+      },
+      "accessType": {
+        "type": "string",
+        "description": "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n",
+        "enum": [
+          "fix",
+          "mob",
+          "pay",
+          "fixMob",
+          "fixPay",
+          "mobPay",
+          "fixMobPay"
+        ],
+        "example": null
+      },
+      "PortabilityType": {
+        "type": "string",
+        "description": "Number portability: Change of Telecom Provider at National level.</br>\nChange of Agency: It is a re-allocation of number by the existing Telecom Provider to another customer\n",
+        "enum": [
+          "Number Portability",
+          "Change Of Agency"
+        ],
+        "example": null
+      },
+      "detailedAddresses": {
+        "type": "object",
+        "properties": {
+          "portingAddress": {
+            "$ref": "#/components/schemas/detailedPortingAddress"
+          },
+          "endUserAddress": {
+            "$ref": "#/components/schemas/detailedEndUserAddress"
+          }
+        },
+        "example": null
+      },
+      "AddressRequirementType": {
+        "type": "string",
+        "enum": [
+          "Not Required",
+          "Required Worldwide",
+          "Required In Country",
+          "Required In Region"
+        ],
+        "example": null
+      },
+      "AddressRequirement": {
+        "type": "object",
+        "properties": {
+          "proofOfDocuments": {
+            "type": "boolean",
+            "description": "true: proof of documents is mandatory</br>\nfalse: proof of documents is optional</br>\nnull: Not applicable for this address requirement type</br>\n",
+            "example": null
+          },
+          "documentTypesForIndividual": {
+            "type": "array",
+            "description": "List of required documents for individual.",
+            "items": {
+              "$ref": "#/components/schemas/PortingSpecificationDocumentType"
+            },
+            "example": null
+          },
+          "documentTypesForCompany": {
+            "type": "array",
+            "description": "List of required documents for company.",
+            "items": {
+              "$ref": "#/components/schemas/PortingSpecificationDocumentType"
+            },
+            "example": null
+          },
+          "type": {
+            "$ref": "#/components/schemas/AddressRequirementType"
+          }
+        },
+        "example": null
+      },
+      "customerRouting": {
+        "required": [
+          "crnType"
+        ],
+        "type": "object",
+        "properties": {
+          "accessType": {
+            "$ref": "#/components/schemas/accessType"
+          },
+          "pop": {
+            "type": "string",
+            "description": "Point of Presence (PoP) refers to your access point to which the traffic is routed.",
+            "example": "America"
+          },
+          "accessNetwork": {
+            "type": "string",
+            "description": "The network of the calling party. Routing detail can differ per access network of the calling party.",
+            "example": "SMART"
+          },
+          "crnValue": {
+            "type": "string",
+            "description": "The value to be used by the translation rule of the crnType. Only applicable to crnTypes prefix, suffix and freetext.\n",
+            "example": "259AB"
+          },
+          "crnType": {
+            "$ref": "#/components/schemas/crnType"
+          }
+        },
+        "description": "This parameter allows you to specify routing information for the numbers you port. You can differentiate calls based on access type/access network by defining a different customer routing number per access type/access network. For more info about the combination access type/access network, please consult the method Get Pricelist. If you want to define the same routing configuration for every combination access type/access network, you can omit the routing attributes Access Type and Access Network, and only specify crnType and crnValue.",
+        "example": null
+      },
+      "PortingSpecificationDocumentType": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Document type code.",
+            "example": null
+          },
+          "description": {
+            "type": "string",
+            "description": "Document type description.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "PortingSpecification": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code in ISO 3166-1 alpha-3 format.",
+            "example": null
+          },
+          "addressRequirement": {
+            "$ref": "#/components/schemas/AddressRequirement"
+          },
+          "product": {
+            "type": "string",
+            "description": "Valid product codes are \u2018IBN\u2019, 'ITFS\u2019, 'GMN\u2019. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Number.\n",
+            "example": null
+          },
+          "portabilityType": {
+            "$ref": "#/components/schemas/PortabilityType"
+          },
+          "portingSpecifications": {
+            "type": "string",
+            "description": "Additional information about Number Portability.",
+            "example": null
+          },
+          "maxLeadTime": {
+            "type": "integer",
+            "description": "Maximum time to complete (in days) the porting request.",
+            "format": "int64",
+            "example": null
+          },
+          "id": {
+            "type": "string",
+            "description": "Identifier of the porting specification item",
+            "example": null
+          },
+          "lastModified": {
+            "type": "string",
+            "description": "Modified date of the porting specification.",
+            "format": "date-time",
+            "example": null
+          },
+          "minLeadTime": {
+            "type": "integer",
+            "description": "Minimum time to complete (in days) the porting request.",
+            "format": "int64",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "createPortingRequest": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Your reference.",
+            "example": null
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code in ISO 3166-1 alpha-3 format for which numbers will be ported.",
+            "example": null
+          },
+          "addresses": {
+            "$ref": "#/components/schemas/addresses"
+          },
+          "product": {
+            "type": "string",
+            "description": "Valid product codes. Possible values <ul> <li>\"IBN\" for Cloud Number</li> <li>\"ITFS\" for International Freephone Number</li> <li>\"GMN\" for Global Mobile Number</li> </ul>",
+            "example": null
+          },
+          "documents": {
+            "type": "array",
+            "description": "List of documents.",
+            "items": {
+              "$ref": "#/components/schemas/document"
+            },
+            "example": null
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "Customer Additional Info for the Porting Case.",
+            "example": null
+          },
+          "numbers": {
+            "type": "array",
+            "description": "List of numbers",
+            "items": {
+              "$ref": "#/components/schemas/numberRangeOrigin"
+            },
+            "example": null
+          },
+          "estimatedVolume": {
+            "type": "integer",
+            "description": "Estimated Volume in minutes per month.",
+            "format": "int32",
+            "example": null
+          },
+          "preferredDate": {
+            "type": "string",
+            "description": "Indicative date that is Customer Preffered Date for the porting and it is current date + 5 days and not weekends.",
+            "format": "date",
+            "example": "Mon Nov 05 00:00:00 GMT 2018"
+          },
+          "email": {
+            "type": "string",
+            "description": "address(es) of porting responsible(s),  multiple addresses are separated by semi-colon ';'.   This value is included in all communications regarding this request.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "detailedEndUserAddress": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Reference of the End User Address.",
+            "example": null
+          },
+          "status": {
+            "type": "string",
+            "description": "End User Address status.",
+            "enum": [
+              "Need more information",
+              "Under validation",
+              "Validated",
+              "No validation required"
+            ],
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "portingRequest": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/portingRequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "addresses": {
+                "$ref": "#/components/schemas/addresses"
+              }
+            },
+            "example": null
+          }
+        ],
+        "example": null
+      },
+      "portingAddress": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Reference of the Porting Address.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "portingRequestBase": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code in ISO 3166-1 alpha-3 format for which numbers will be ported.",
+            "example": null
+          },
+          "product": {
+            "type": "string",
+            "description": "Valid product codes. Possible values <ul> <li>\"IBN\" for Cloud Number</li> <li>\"ITFS\" for International Freephone Number</li> <li>\"GMN\" for Global Mobile Number</li> </ul>",
+            "example": null
+          },
+          "created": {
+            "type": "string",
+            "description": "Created date of the porting request.",
+            "format": "date-time",
+            "example": null
+          },
+          "numbers": {
+            "type": "array",
+            "description": "List of numbers",
+            "items": {
+              "$ref": "#/components/schemas/numberRange"
+            },
+            "example": null
+          },
+          "estimatedVolume": {
+            "type": "string",
+            "description": "Estimated Volume in minutes per month. Possible values are <ul> <li>\"&lt; 1000\" \u2013 less than 1000 minutes per month</li> <li>\"1000 \u2013 10.000\" \u2013 between 1000 and 10.000 minutes per month</li> <li>\"10.000 \u2013 100.000\" - between 10.000 and 100.000 minutes per month</li> <li>\"&gt; 100.000\" \u2013 more than 100.000 minutes per month</li> </ul>",
+            "enum": [
+              "< 1000",
+              "1000 - 10.000",
+              "10.000 - 100.000",
+              "> 100.000"
+            ],
+            "example": null
+          },
+          "bicsReference": {
+            "type": "string",
+            "description": "BICS reference.",
+            "example": null
+          },
+          "customerReference": {
+            "type": "string",
+            "description": "Your reference.",
+            "example": null
+          },
+          "additionalInfo": {
+            "type": "string",
+            "description": "Customer Additional Info for the Porting Case.",
+            "example": null
+          },
+          "comment": {
+            "type": "string",
+            "description": "Additional information on the status of the Porting Request. It helps you to understand what you need to provide to fulfil your porting request.",
+            "example": null
+          },
+          "portingRequestId": {
+            "type": "string",
+            "description": "Id received when creating a porting request.",
+            "example": null
+          },
+          "lastModified": {
+            "type": "string",
+            "description": "Modified date of the porting request.",
+            "format": "date-time",
+            "example": null
+          },
+          "preferredDate": {
+            "type": "string",
+            "description": "Indicative date that is Customer Preffered Date for the porting and it is current date + 5 days and not weekends.",
+            "format": "date",
+            "example": "Mon Nov 05 00:00:00 GMT 2018"
+          },
+          "status": {
+            "type": "string",
+            "description": "Status of this request. Possible values are",
+            "enum": [
+              "New",
+              "Under verification",
+              "Accepted",
+              "Partially Accepted",
+              "Refused",
+              "Completed",
+              "Cancelled",
+              "Submitted to operator",
+              "On hold, more information required",
+              "Cancelled by BICS",
+              "Cancelled by you"
+            ],
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "endUserAddress": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Reference of the End User Address.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "portingRequestDetails": {
+        "type": "object",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/portingRequestBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "addresses": {
+                "$ref": "#/components/schemas/detailedAddresses"
+              }
+            },
+            "example": null
+          }
+        ],
+        "example": null
+      },
+      "crnType": {
+        "type": "string",
+        "description": "The translation rule for the customer routing number that you want to apply to the number.\n<ul>\n  <li>`prefix` - To prefix the access number with the specified crnValue.</li>\n  <li>`suffix` - To suffix the access number with the specified crnValue.</li>\n  <li>`freetext` - To define your own customer routing number.</li>\n  <li>`copy` - To use the access number as your customer routing number.</li>\n  <li>`NA` - To bar incoming calls for this routing.</li>\n</ul>\n",
+        "example": "prefix",
+        "enum": [
+          "prefix",
+          "suffix",
+          "freetext",
+          "copy",
+          "NA"
+        ]
+      }
+    },
+    "responses": {},
+    "parameters": {},
+    "examples": {},
+    "requestBodies": {},
+    "headers": {},
+    "links": {},
+    "callbacks": {}
+  }
+}

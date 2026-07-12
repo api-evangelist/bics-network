@@ -1,0 +1,29 @@
+aid: bics-network
+name: BICS
+authentication:
+  type: OAuth2
+  scheme: Bearer
+  summary: >-
+    BICS developer-portal APIs are protected with OAuth2. Access is not fully
+    self-serve - a developer registers to consume an API on the portal, the
+    consumption request is approved by BICS (confirmed by email), and the email
+    contains instructions for creating an OAuth2 token. Each request then carries
+    the access token in an Authorization header.
+  tokenModel: OAuth2 access token presented as a Bearer credential in the Authorization request header
+  onboarding: >-
+    Register on developer.bics.com to consume an API, wait for approval, then
+    follow the emailed instructions to generate an OAuth2 token. Sandbox base
+    URLs (sandbox.api.bics.com) are available for the MyNumbers family for
+    testing before production.
+  gatedProducts: >-
+    Mobile identity, number verification, HLR/reachability lookup, SIM-swap and
+    device-location products are not exposed on the self-serve portal; they are
+    provisioned through a BICS / Proximus Global commercial agreement with
+    credentials issued per contract.
+  sources:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+    note: Portal API policy states OAuth2 token auth, register-to-consume, approval by email.
+  - url: https://developer.bics.com/portal/welcome
+    type: Documentation
+    note: Access token required in request headers for each API request.

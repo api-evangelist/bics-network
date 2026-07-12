@@ -1,0 +1,19 @@
+aid: bics-network
+name: BICS
+rateLimits:
+  summary: >-
+    BICS does not publish numeric public rate limits for its developer-portal
+    APIs. Throughput is governed by the commercial agreement and by carrier-grade
+    traffic controls - A2P SMS in particular is subject to operator-level
+    throttling, sender registration, and anti-spam filtering. Applications should
+    handle standard HTTP throttling responses and honor any per-account limits
+    defined in their contract.
+  documented: false
+  notes:
+  - SMS API delivery is subject to A2P routing rules and operator throttling.
+  - Per-account throughput and burst limits are set by the commercial agreement.
+  - No public numeric quota, requests-per-second, or rate-limit header is documented on the portal as of the review date.
+  sources:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+    note: No public rate-limit numbers published on the developer portal.

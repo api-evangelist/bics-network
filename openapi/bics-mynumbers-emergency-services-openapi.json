@@ -1,0 +1,1446 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "mynumbers-emergency-services",
+    "description": "Emergency Services API endpoints for requesting Emergency Services on your SIP-T numbers.<br/><br/>\n<h3>What are the errors that MyNumbers API can return ?</h3>\n\n|\tCode\t|\tDescription\t|\tHttp response\t|\n|\t---\t|\t---\t|\t---\t|\n|\tE001\t|\tThe product does not exist in our system.\t|\t400\t|\n|\tE002\t|\tThe country does not exist in our system.\t|\t400\t|\n|\tE018\t|\tThe product is not yet handled via our API.\t|\t400\t|\n|\tE019\t|\tThe routing details are not valid. CRN Parameter must be filled out for the given CRN type.\t|\t400\t|\n|\tE020\t|\tPlease fill out all the mandatory attributes.\t|\t400\t|\n|\tE023\t|\tThe format of the quantity is invalid. The quantity must be a positive number.\t|\t400\t|\n|\tE028\t|\tThe Location can not be filled out for the given Product.\t|\t400\t|\n|\tE030\t|\tThe service is temporarily unavailable. Please retry later or contact BICS.\t|\t500\t|\n|\tE031\t|\tThe media type in your header is invalid. Please use application/json.\t|\t400\t|\n|\tE033\t|\tThere is no address with this reference in our system. Please correct the reference.\t|\t400\t|\n|\tE035\t|\tThe length of the attribute {attribute} is too long. The maximum length for this attribute is {size} characters.\t|\t400\t|\n|\tE055\t|\tThe format of the email is not valid. Please correct it.\t|\t400\t|\n|\tE060\t|\tThe number specified in request does not exist.\t|\t404\t|\n|\tE061\t|\tEnum value is specified incorrectly.\t|\t400\t|\n|\tE081\t|\tRequest payload is invalid.\t|\t400\t|\n|\tE086\t|\tInvalid value for parameter {attribute}.\t|\t400\t|\n|\tE088\t|\tDate range not valid.\t|\t400\t|\n|\tE093\t|\tLimit is {amount} numbers per request.\t|\t400\t|\n|\tE100\t|\tThere is no order with this identifier in our system. Please correct the identifier.\t|\t400\t|\n|\tE117\t|\tThis API does not support product {product}.\t|\t400\t|\n|\tE119\t|\tA previous task is still pending. Please try again later.\t|\t409\t|\n|\tE122\t|\tNo commercial agreement found. Please contact BICS.\t|\t400\t|\n|\tE123\t|\tDELETE is not possible due to current status.\t|\t400\t|\n|\tE124\t|\tUPDATE is not possible due to current status.\t|\t400\t|\n|\tE125\t|\tThis number is already in another active Emergency Services Order.\t|\t400\t|\n|\tE126\t|\tThe requested service is not available on this number.\t|\t400\t|\n|\tE127\t|\tThe requested service is already active on this number.\t|\t400\t|\n|\tE128\t|\tSubmit is not possible due to current status.\t|\t400\t|\n|\tE150\t|\tEmergency Services are automatically activated for this number.\t|\t400\t|\n",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.bics.com/mynumbers-emergency-services/v1"
+    },
+    {
+      "url": "https://sandbox.api.bics.com/mynumbers-emergency-services/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Emergency Services",
+      "description": "Manage your emergency services request"
+    }
+  ],
+  "paths": {
+    "/emergencyservices/requirements/{country}": {
+      "get": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Get list of extra requirement fields per country",
+        "description": "Every country has specific requirements for the activation of Emergency Services. This method will return a list of additional information. In the result, we specify some attributes, like type of attribute, min-length, max-length and if it is mandatory or optional.",
+        "operationId": "get Emergency Service Country Specific Fields",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "description": "Country for country specific fields",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "description": "Country for country specific fields",
+              "readOnly": false,
+              "example": "FRA"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Country specific fields for France",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmergencyServiceCountryConfig"
+                },
+                "example": "{\n  'country': 'FRA',\n  'additionalInformation': [\n    {\n      'key': 'FRA3',\n      'label': 'Building',\n      'type': 'select',\n      'attributes': [\n        {\n          'key': 'required',\n          'value': 'true'\n        }\n      ],\n      'values': [\n        'Underground',\n        'Skyscraper',\n        'House'\n      ]\n    },\n    {\n      'key': 'FRA1',\n      'label': 'Code',\n      'type': 'number',\n      'attributes': [\n        {\n          'key': 'minlength',\n          'value': '5'\n        },\n        {\n          'key': 'required',\n          'value': 'true'\n        },\n        {\n          'key': 'maxlength',\n          'value': '5'\n        }\n      ],\n      'values': []\n    },\n    {\n      'key': 'FRA2',\n      'label': 'Additional Instructions',\n      'type': 'text',\n      'attributes': [\n        {\n          'key': 'maxlength',\n          'value': '50'\n        }\n      ],\n      'values': []\n    }\n  ]\n}\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    \"code\": \"E002\",\n    \"description\": \"The country does not exist in our system.\",\n    \"timestamp\": \"2022-02-16T13:48:05.61+01:00\"\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/emergencyservices/orders": {
+      "get": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Get list of all emergency services orders by query parameters",
+        "description": "This method allows you to get a paged list of all your Emergency Services orders",
+        "operationId": "get Emergency Services Orders",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "description": "Country code in ISO 3166-1 alpha-3 format",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "description": "Country code in ISO 3166-1 alpha-3 format",
+              "readOnly": false,
+              "example": "BEL"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status of emergency service order",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "description": "Status of emergency service order",
+              "readOnly": false,
+              "example": "DRAFT"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Sorting by parameter. Possible values: 'orderId', 'createdDate', 'modifiedDate'",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "description": "Sorting by parameter. Possible values: 'orderId', 'createdDate', 'modifiedDate'",
+              "readOnly": false,
+              "example": "createdDate",
+              "default": "orderId"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Sort result ascending or descending",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort result ascending or descending",
+              "readOnly": false,
+              "example": "desc",
+              "default": "asc"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Get a specific page for your list of orders",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "description": "Get a specific page for your list of orders",
+              "readOnly": false,
+              "example": "5",
+              "default": "1"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Amount of results per page.  Maximum = 100",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "description": "Amount of results per page.  Maximum = 100",
+              "readOnly": false,
+              "example": "25",
+              "default": "25"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of emergecy services orders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EmergencyServiceOrder"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'orderId': 2542,\n    'country': 'HRV',\n    'reference': 'TestAPI',\n    'email': 'TestAPI@bics.com',\n    'contactNumber': '+32123345',\n    'additionalNotes': 'Some notes',\n    'quantity': 0,\n    'status': 'draft',\n    'createdDate': '2022-02-15T11:27:49Z',\n    'lastModifiedDate': '2022-02-15T11:27:49Z'\n  },\n  {\n    'orderId': 2541,\n    'country': 'FRA',\n    'reference': null,\n    'email': 'TestAPI@bics.com',\n    'contactNumber': null,\n    'additionalNotes': null,\n    'quantity': 1,\n    'status': 'delivered',\n    'createdDate': '2022-02-15T11:05:16Z',\n    'lastModifiedDate': '2022-02-15T12:25:08Z'\n  }\n]\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code': 'E086',\n    'description': 'Invalid value for parameter 'sortBy'.',\n    'timestamp': '2022-02-16T15:29:11.287+01:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "the API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "this service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Create an empty Emergency Services Order",
+        "description": "Create an empty Emergency Services Order for a specific country.  The location to the order is specified in the response header - **location:** /emergencyservices/orders/**{orderId}**.  With the add Order Item, you can now add numbers to your Emergency Services order.\n",
+        "operationId": "create Emergency Services Order",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmergencyServiceOrderCreateRequest"
+              },
+              "example": null
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation. Created order id is returned in response header **location:** /emergencyservices/orders/**{orderId}**\n"
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E020',\n    'description' : 'Please fill out all the mandatory attributes.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/emergencyservices/orders/{orderId}": {
+      "get": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Get emergency service order details by order id",
+        "description": "Get the details of a complete Emergency Service Order.",
+        "operationId": "get Emergency Service Order Details",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "80"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Emergency service order details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmergencyServiceOrderDetails"
+                },
+                "example": "{\n  'orderId': 80,\n  'country': 'FRA',\n  'reference': 'TestAPI',\n  'email': 'SomeEmail@bics.com',\n  'contactNumber': null,\n  'additionalNotes': null,\n  'status': 'draft',\n  'createdDate': '2022-02-11T10:42:30Z',\n  'lastModifiedDate': '2022-02-11T10:42:30Z',\n  'quantity': 1,\n  'orderItems': [\n    {\n      'orderItemId': 20725,\n      'accessNumber': '33185464561',\n      'addressReference': '394431',\n      'additionalInformation': [\n        {\n          'key': 'FRA2',\n          'label': 'Additional Instructions',\n          'value': null\n        },\n        {\n          'key': 'FRA1',\n          'label': 'Code',\n          'value': null\n        },\n        {\n          'key': 'FRA3',\n          'label': 'Building',\n          'value': null\n        }\n      ]\n    }\n  ]\n}\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E100',\n    'description' : 'There is no order with this identifier in our system. Please correct the identifier.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Cancel emergency service order by order id",
+        "description": "Cancellation of an Emergency Services Order is allowed when the status = \"Draft\".",
+        "operationId": "cancel Emergency Service Order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Unique identifier for an emergency service order",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Unique identifier for an emergency service order",
+              "format": "int64",
+              "readOnly": false,
+              "example": "10564"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E123',\n    'description' : 'DELETE is not possible due to current status.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E100',\n    'description' : 'There is no order with this identifier in our system. Please correct the identifier.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Update emergency service order by order id",
+        "description": "Update Emergency Services Order.",
+        "operationId": "update Emergency Service Order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "80"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Emergency Service order request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmergencyServiceOrderUpdateRequest"
+              },
+              "example": null
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmergencyServiceOrder"
+                },
+                "example": "{\n  'orderId': 80,\n  'country': 'FRA',\n  'reference': 'TestAPI',\n  'email': 'SomeEmail@bics.com',\n  'contactNumber': '+32123345',\n  'additionalNotes': 'Some Notes',\n  'quantity': 1,\n  'status': 'draft',\n  'createdDate': '2022-02-02T19:06:07Z',\n  'lastModifiedDate': '2022-02-16T16:21:17.045Z'\n}\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code': 'E035',\n    'description': 'The length of the attribute 'reference' is too long. The maximum length for this attribute is 255 characters.',\n    'timestamp': '2022-02-16T17:26:22.17+01:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "the API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "this service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": "[\n  {\n    'code' : 'E100',\n    'description' : 'There is no order with this identifier in our system. Please correct the identifier.'\n    'timestamp' : '2019-07-11T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/emergencyservices/orders/{orderId}/orderitems": {
+      "post": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Create emergency service order item for order",
+        "description": "Add numbers to your Emergency Services Order. A number must be in the same country as the Order, must have a valid address linked to it, and Emergency Services is available. This can be checked by calling the '/numbers/{number}' and '/numbers/{number}/services' API.",
+        "operationId": "create Emergency Service Order Item",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "80"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object containing emergency service order item properties",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderItemRequest"
+              },
+              "example": null
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E064',\n    'description' : 'The country, which specified in the order, doesn't match to the country of access number.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E100',\n    'description' : 'There is no order with this identifier in our system. Please correct the identifier.'\n    'timestamp' : '2019-07-11T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/emergencyservices/orders/{orderId}/orderitems/{orderItemId}": {
+      "delete": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Delete emergency service order item by order id",
+        "description": "Remove a number from your order. This method is only allowed when the status is 'Draft' or 'On hold'.",
+        "operationId": "delete Emergency Service Order Item",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "80"
+            }
+          },
+          {
+            "name": "orderItemId",
+            "in": "path",
+            "description": "Order Item Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Item Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "120"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E123',\n    'description' : 'DELETE is not possible due to current status.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E100',\n    'description' : 'There is no order with this identifier in our system. Please correct the identifier.'\n    'timestamp' : '2019-07-11T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Request to update emergency service order item properties",
+        "operationId": "update Emergency Service Order Item",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Emergency service order id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Emergency service order id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "80"
+            }
+          },
+          {
+            "name": "orderItemId",
+            "in": "path",
+            "description": "Emergency service order item id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Emergency service order item id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "120"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderItemUpdateRequest"
+              },
+              "example": null
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code': 'E081',\n    'description': 'Request payload is invalid.',\n    'timestamp': '2022-02-16T16:56:28.785+01:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order or order item does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E100',\n    'description' : 'There is no order with this identifier in our system. Please correct the identifier.'\n    'timestamp' : '2019-07-11T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/emergencyservices/orders/{orderId}/submit": {
+      "post": {
+        "tags": [
+          "Emergency Services"
+        ],
+        "summary": "Request to submit emergency service order",
+        "description": "Submit your order so that we can start processing it and enable Emergency Services as soon as possible.",
+        "operationId": "submit Emergency Service Order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "80"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitEmergencyServiceResponse"
+                },
+                "example": "{\n  'orderId': 2502,\n  'status': 'SUBMITTED'\n}\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code': 'E128',\n    'description': 'Submit is not possible due to current status.',\n    'timestamp': '2022-02-16T16:08:53.528+01:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available"
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E100',\n    'description' : 'There is no order with this identifier in our system. Please correct the identifier.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "OrderItemRequest": {
+        "required": [
+          "accessNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "additionalInformation": {
+            "type": "array",
+            "description": "Additional information",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemCountryConfig"
+            },
+            "example": null
+          },
+          "accessNumber": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string",
+            "description": "Number in E164 format in the same country as the order.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "OrderItemCountryConfig": {
+        "type": "object",
+        "properties": {
+          "tooltip": {
+            "type": "string",
+            "description": "Tooltip of country specific field",
+            "example": null
+          },
+          "label": {
+            "type": "string",
+            "description": "Label for country specific field",
+            "example": null
+          },
+          "value": {
+            "type": "string",
+            "description": "Value of country specific field",
+            "example": null
+          },
+          "key": {
+            "type": "string",
+            "description": "Key of country specific field",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "EmergencyServiceOrderDetails": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Your reference",
+            "example": null
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code in ISO 3166-1 alpha-3 format",
+            "example": null
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "Timestamp on which the order was created / Submitted.",
+            "format": "date-time",
+            "example": null
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Order items quantity",
+            "format": "int64",
+            "example": null
+          },
+          "orderId": {
+            "type": "integer",
+            "description": "Our internal reference identifying your request",
+            "format": "int64",
+            "example": null
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "description": "Timestamp of last modification of the order.",
+            "format": "date-time",
+            "example": null
+          },
+          "contactNumber": {
+            "type": "string",
+            "description": "Your telephone number, multiple numbers are separated by semi-colon ';'.",
+            "example": null
+          },
+          "additionalNotes": {
+            "type": "string",
+            "description": "Your additional information about this Emergency Services Order.",
+            "example": null
+          },
+          "orderItems": {
+            "minItems": 1,
+            "type": "array",
+            "description": "Order items",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            },
+            "example": null
+          },
+          "email": {
+            "type": "string",
+            "description": "Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.",
+            "example": null
+          },
+          "status": {
+            "$ref": "#/components/schemas/EmergencyServicesOrderStatus"
+          }
+        },
+        "example": null
+      },
+      "EmergencyServiceCountryConfig": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "description": "Country code in ISO 3166-1 alpha-3 format",
+            "example": null
+          },
+          "additionalInformation": {
+            "type": "array",
+            "description": "Additional information",
+            "items": {
+              "$ref": "#/components/schemas/EmergencyServiceCountryConfigInfo"
+            },
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "EmergencyServiceCountryConfigInfo": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "description": "Possible values for a country specific field of type 'select'",
+            "items": {
+              "type": "string",
+              "example": null
+            },
+            "example": null
+          },
+          "tooltip": {
+            "type": "string",
+            "description": "Tooltip for the field.",
+            "example": null
+          },
+          "attributes": {
+            "type": "array",
+            "description": "List of restrictions for country specific field",
+            "items": {
+              "$ref": "#/components/schemas/EmergencyServiceCountryConfigAttribute"
+            },
+            "example": null
+          },
+          "label": {
+            "type": "string",
+            "description": "Description of the field.",
+            "example": null
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of field. Possible types: 'number', 'text', 'select', 'date'.",
+            "example": null
+          },
+          "key": {
+            "type": "string",
+            "description": "Unique key per country specific requirement.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "EmergencyServiceCountryConfigAttribute": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Value of restriction",
+            "example": null
+          },
+          "key": {
+            "type": "string",
+            "description": "Key of restriction",
+            "example": null
+          }
+        },
+        "description": "An object representing restriction for country specific field",
+        "example": null
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code, the complete description can be found in API documentation",
+            "example": "EXXX"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the error, the complete description can be found in API documentation",
+            "example": "Description of the error that occurred."
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "timestamp of error in UTC format",
+            "format": "date-time",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "OrderItemUpdateRequest": {
+        "required": [
+          "key"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "maxLength": 255,
+            "type": "string",
+            "description": "Value of country specific field",
+            "example": null
+          },
+          "key": {
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string",
+            "description": "Key of country specific field",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "EmergencyServiceOrderCreateRequest": {
+        "required": [
+          "country",
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Your reference",
+            "example": null
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code in ISO 3166-1 alpha-3 format",
+            "example": null
+          },
+          "contactNumber": {
+            "type": "string",
+            "description": "Your telephone number, multiple numbers are separated by semi-colon ';'.",
+            "example": null
+          },
+          "additionalNotes": {
+            "type": "string",
+            "description": "Your additional information about this Emergency Services Order.",
+            "example": null
+          },
+          "email": {
+            "type": "string",
+            "description": "Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "OrderItem": {
+        "required": [
+          "accessNumber",
+          "addressReference"
+        ],
+        "type": "object",
+        "properties": {
+          "additionalInformation": {
+            "type": "array",
+            "description": "Additional information",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemCountryConfig"
+            },
+            "example": null
+          },
+          "addressReference": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string",
+            "description": "Address reference",
+            "example": null
+          },
+          "accessNumber": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string",
+            "description": "Access number",
+            "example": null
+          },
+          "orderItemId": {
+            "type": "integer",
+            "description": "Unique identifier per item in an Emergency Services Order",
+            "format": "int64",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "EmergencyServiceOrder": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Your reference",
+            "example": null
+          },
+          "country": {
+            "type": "string",
+            "description": "Country code in ISO 3166-1 alpha-3 format",
+            "example": null
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Amount of numbers in this order.",
+            "format": "int64",
+            "example": null
+          },
+          "createdDate": {
+            "type": "string",
+            "description": "Timestamp on which the order was created / Submitted.",
+            "format": "date-time",
+            "example": null
+          },
+          "orderId": {
+            "type": "integer",
+            "description": "Our internal reference identifying your request",
+            "format": "int64",
+            "example": null
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "description": "Timestamp of last modification of the order.",
+            "format": "date-time",
+            "example": null
+          },
+          "contactNumber": {
+            "type": "string",
+            "description": "Your telephone number, multiple numbers are separated by semi-colon ';'.",
+            "example": null
+          },
+          "additionalNotes": {
+            "type": "string",
+            "description": "Your additional information about this Emergency Services Order.",
+            "example": null
+          },
+          "email": {
+            "type": "string",
+            "description": "Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.",
+            "example": null
+          },
+          "status": {
+            "$ref": "#/components/schemas/EmergencyServicesOrderStatus"
+          }
+        },
+        "example": null
+      },
+      "EmergencyServiceOrderUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Your reference",
+            "example": null
+          },
+          "contactNumber": {
+            "type": "string",
+            "description": "Your telephone number, multiple numbers are separated by semi-colon ';'.",
+            "example": null
+          },
+          "additionalNotes": {
+            "type": "string",
+            "description": "Your additional information about this Emergency Services Order.",
+            "example": null
+          },
+          "email": {
+            "type": "string",
+            "description": "Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "EmergencyServicesOrderStatus": {
+        "type": "string",
+        "description": "<b>draft</b>: Order is created<br/>\n<b>submitted</b>: Your order is submitted to BICS<br/>\n<b>on_hold</b>: Some information is missing<br/>\n<b>being_processed</b>: Order is being processed. Emergency Services will be activated soon<br/>\n<b>delivered</b>: Emergency Services is activated on the requested numbers<br/>\n<b>customer_canceled</b>: Cancelled by Customer<br/>\n<b>bics_canceled</b>: Cancelled by BICS<br/>\n<b>customer_request_to_cancel</b>: Cancelled on request by customer<br/>\n",
+        "enum": [
+          "draft",
+          "submitted",
+          "on_hold",
+          "being_processed",
+          "delivered",
+          "customer_canceled",
+          "bics_canceled",
+          "customer_request_to_cancel"
+        ],
+        "example": null
+      },
+      "SubmitEmergencyServiceResponse": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "description": "Order Id",
+            "format": "int64",
+            "example": null
+          },
+          "status": {
+            "type": "string",
+            "description": "X",
+            "default": "Order status",
+            "example": null
+          }
+        },
+        "description": "An object representing response for submit emergency order request",
+        "example": null
+      }
+    }
+  }
+}

@@ -1,0 +1,483 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "mynumbers-disconnection",
+    "description": "Disconnection Services API for requesting disconnection of your numbers.<br/><br/>\n<h3>What are the errors that MyNumbers API can return ?</h3>\n\n|\tCode\t|\tDescription\t|\tHttp response\t|\n|\t---\t|\t---\t|\t---\t|\n|\tE001\t|\tThe product does not exist in our system.\t|\t400\t|\n|\tE002\t|\tThe country does not exist in our system.\t|\t400\t|\n|\tE003\t|\tThe Location (Area Code) does not exist in the Country for Product.\t|\t400\t|\n|\tE018\t|\tThe product is not yet handled via our API.\t|\t400\t|\n|\tE020\t|\tPlease fill out all the mandatory attributes.\t|\t400\t|\n|\tE030\t|\tThe service is temporarily unavailable. Please retry later or contact BICS.\t|\t500\t|\n|\tE031\t|\tThe media type in your header is invalid. Please use application/json.\t|\t400\t|\n|\tE033\t|\tThere is no address with this reference in our system. Please correct the reference.\t|\t400\t|\n|\tE035\t|\tThe length of the attribute {attribute} is too long. The maximum length for this attribute is {size} characters.\t|\t400\t|\n|\tE055\t|\tThe format of the email is not valid. Please correct it.\t|\t400\t|\n|\tE060\t|\tThe number specified in request does not exist.\t|\t404\t|\n|\tE061\t|\tEnum value is specified incorrectly.\t|\t400\t|\n|\tE081\t|\tRequest payload is invalid.\t|\t400\t|\n|\tE086\t|\tInvalid value for parameter {attribute}.\t|\t400\t|\n|\tE089\t|\tThis number is specified several times in the request. Please specify every number once only.\t|\t400\t|\n|\tE093\t|\tLimit is {amount} numbers per request.\t|\t400\t|\n|\tE117\t|\tThis API does not support product {product}.\t|\t400\t|\n|\tE119\t|\tA previous task is still pending. Please try again later.\t|\t409\t|\n|\tE122\t|\tNo commercial agreement found. Please contact BICS.\t|\t400\t|\n|\tE123\t|\tDELETE is not possible due to current status.\t|\t400\t|\n|\tE124\t|\tUPDATE is not possible due to current status.\t|\t400\t|\n|\tE125\t|\tThis number is already in another active Emergency Services Order.\t|\t400\t|\n|\tE126\t|\tThe requested service is not available on this number.\t|\t400\t|\n|\tE127\t|\tThe requested service is already active on this number.\t|\t400\t|\n|\tE128\t|\tSubmit is not possible due to current status.\t|\t400\t|\n",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://api.bics.com/mynumbers-disconnection/v1"
+    },
+    {
+      "url": "https://sandbox.api.bics.com/mynumbers-disconnection/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Disconnection Services",
+      "description": "Manage your disconnection order"
+    }
+  ],
+  "paths": {
+    "/disconnections/orders/{orderId}/submit": {
+      "post": {
+        "tags": [
+          "Disconnection Services"
+        ],
+        "summary": "Request to submit disconnection order",
+        "description": "Submit your order so that we can start processing it and disconnect numbers as soon as possible.",
+        "operationId": "submit Disconnection Order",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "80"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitDisconnectionOrderResponse"
+                },
+                "example": "{\n  'orderId': 2503,\n  'status': 'SUBMITTED'\n}\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code': 'E128',\n    'description': 'Submit is not possible due to current status.',\n    'timestamp': '2022-02-16T16:08:53.528+01:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available"
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order does not exist"
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/disconnections/orders/{orderId}/orderitems/{orderItemId}": {
+      "delete": {
+        "tags": [
+          "Disconnection Services"
+        ],
+        "summary": "Delete disconnection order item by order id and order item id",
+        "description": "Remove a number from your order. This method is only allowed when the status is 'Draft'.",
+        "operationId": "delete Disconnection Order Item",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "81"
+            }
+          },
+          {
+            "name": "orderItemId",
+            "in": "path",
+            "description": "Order Item Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Item Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "121"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation."
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E123',\n    'description' : 'DELETE is not possible due to current status.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order or order item does not exist"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/disconnections/orders": {
+      "post": {
+        "tags": [
+          "Disconnection Services"
+        ],
+        "summary": "Create an empty Disconnection Order",
+        "description": "Create an empty Disconnection Order. With the add Order Item, you can now add numbers to your Disconnection Order.  The location to the order is specified in the response header - **location:** /disconnection/orders/**{orderId}**.\n",
+        "operationId": "create Disconnection Order",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisconnectionOrderCreateRequest"
+              },
+              "example": null
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation. Created order id is returned in response header **location:** /disconnection/orders/**{orderId}**\n"
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E020',\n    'description' : 'Please fill out all the mandatory attributes.'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "405": {
+            "description": "Method not allowed"
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/disconnections/orders/{orderId}/orderitems": {
+      "post": {
+        "tags": [
+          "Disconnection Services"
+        ],
+        "summary": "Add disconnection order item by order id",
+        "description": "Add a number to your order. This method is allowed only when the status is \"Draft\".",
+        "operationId": "add Disconnection Order Item",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "Order Id",
+            "required": true,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "description": "Order Id",
+              "format": "int64",
+              "readOnly": false,
+              "example": "12"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisconnectionOrderItemRequest"
+              },
+              "example": null
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of disconnection services order items",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DisconnectionOrderItemResponse"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n      'accessNumber': '34932202752',\n      'preferredDisconnectionDate': '2050-07-13',\n      'id': '10'\n  },\n  {\n      'accessNumber': '34932202753',\n      'preferredDisconnectionDate': '2050-07-13',\n      'id': '11'\n  }\n]\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, An issue occurred while processing the input parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/error"
+                  },
+                  "example": null
+                },
+                "example": "[\n  {\n    'code' : 'E117',\n    'description' : 'This API does not support product UIFN'\n    'timestamp' : '2022-01-01T15:16:49.53+02:00'\n  }\n]\n"
+              }
+            }
+          },
+          "401": {
+            "description": "The API Key was not mentioned or is invalid (see authentication)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "500": {
+            "description": "Service not available."
+          },
+          "403": {
+            "description": "This service cannot be used according to your API Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                },
+                "example": null
+              }
+            }
+          },
+          "404": {
+            "description": "Order does not exist"
+          }
+        }
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "SubmitDisconnectionOrderResponse": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "description": "Order Id",
+            "format": "int64",
+            "example": null
+          },
+          "status": {
+            "type": "string",
+            "description": "Order status",
+            "example": null
+          }
+        },
+        "description": "An object representing response for submit disconnection order",
+        "example": null
+      },
+      "DisconnectionOrderCreateRequest": {
+        "required": [
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "Your reference",
+            "example": null
+          },
+          "contactNumber": {
+            "type": "string",
+            "description": "Your telephone number, multiple numbers are separated by semi-colon ';'.",
+            "example": null
+          },
+          "additionalNotes": {
+            "type": "string",
+            "description": "Your additional information about this Disconnection Order.",
+            "example": null
+          },
+          "email": {
+            "type": "string",
+            "description": "Address(es) of Disconnection order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code, the complete description can be found in API documentation",
+            "example": "EXXX"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the error, the complete description can be found in API documentation",
+            "example": "Description of the error that occurred."
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "timestamp of error in UTC format",
+            "format": "date-time",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "DisconnectionOrderItemRequest": {
+        "type": "object",
+        "properties": {
+          "accessNumber": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string",
+            "description": "Number in E164 format.",
+            "example": null
+          },
+          "preferredDisconnectionDate": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Disconnection desired date in \"YYYY-MM-DD\" format.",
+            "example": null
+          }
+        },
+        "example": null
+      },
+      "DisconnectionOrderItemResponse": {
+        "type": "object",
+        "properties": {
+          "accessNumber": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "string",
+            "description": "Number in E164 format.",
+            "example": null
+          },
+          "preferredDisconnectionDate": {
+            "type": "string",
+            "description": "Disconnection desired date in \"YYYY-MM-DD\" format.",
+            "example": null
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": null
+          }
+        },
+        "example": null
+      }
+    }
+  }
+}

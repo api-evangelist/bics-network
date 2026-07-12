@@ -1,0 +1,34 @@
+aid: bics-network
+name: BICS
+plans:
+  model: Enterprise and carrier contract pricing (contact sales)
+  summary: >-
+    BICS does not publish public, self-serve, metered price cards for its
+    developer APIs. Pricing is established through a commercial agreement as a
+    wholesale carrier and communications enabler. The MyNumbers API exposes a
+    price-list endpoint so that contracted customers can retrieve per-product,
+    per-country pricing programmatically, but the underlying rates are governed
+    by the account agreement.
+  tiers:
+  - name: Sandbox
+    price: Free
+    notes: >-
+      Sandbox base URLs (sandbox.api.bics.com) are published for the MyNumbers
+      family for pre-production testing.
+  - name: Production (contract)
+    price: Contact sales
+    notes: >-
+      Production access to SMS, MyNumbers, Connect and related APIs is granted
+      per commercial agreement after portal registration and approval.
+  - name: Mobile identity and anti-fraud (contract)
+    price: Contact sales
+    notes: >-
+      Number verification, HLR/reachability lookup, SIM-swap and device-location
+      products are priced per Proximus Global commercial agreement.
+  sources:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+    note: MyNumbers exposes GET /pricelist endpoints; no public price card on the portal.
+  - url: https://www.bics.com/developers-hub/
+    type: Documentation
+    note: Developer products are positioned as enterprise/carrier offerings.

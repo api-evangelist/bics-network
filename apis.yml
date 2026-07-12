@@ -1,0 +1,248 @@
+aid: bics-network
+url: https://raw.githubusercontent.com/api-evangelist/bics-network/refs/heads/main/apis.yml
+name: BICS
+kind: company
+description: >-
+  BICS is an international communications enabler and wholesale carrier, part of
+  Proximus Global (alongside Telesign and Route Mobile). Its developer portal
+  exposes OAuth2-secured REST APIs at api.bics.com for A2P SMS and OTP delivery,
+  global number provisioning and portability (MyNumbers), call detail records,
+  emergency services, and carrier-grade cloud connectivity. BICS also offers
+  mobile identity capabilities - phone number verification, HLR/reachability
+  lookup, SIM-swap detection and device-location signals for anti-fraud and KYC -
+  as partner and carrier contract products across the Proximus Global network
+  rather than as self-serve endpoints.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Number Verification
+- Telecom
+- Mobile Identity
+- Anti-Fraud
+- Device Location
+- OTP
+- SMS
+- Numbering
+- Number Portability
+- Fraud Prevention
+- Carrier
+- CPaaS
+created: '2026-07-11'
+modified: '2026-07-11'
+specificationVersion: '0.19'
+apis:
+- aid: bics-network:bics-sms-api
+  name: BICS SMS API
+  tags:
+  - SMS
+  - OTP
+  - Number Verification
+  - A2P
+  - Messaging
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  properties:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: openapi/bics-sms-openapi.json
+    type: OpenAPI
+  description: >-
+    RESTful A2P messaging API for sending text messages to mobile phones
+    worldwide, including one-time passcodes (OTP) for phone number verification
+    and two-factor authentication. Supports single and bulk outbound requests,
+    delivery-info retrieval, inbound message subscriptions, and conversion
+    reporting. Confirmed endpoints from the OpenAPI 3.0.1 definition.
+- aid: bics-network:bics-mynumbers-api
+  name: BICS MyNumbers API
+  tags:
+  - Numbering
+  - Telecom
+  - Provisioning
+  - Cloud Numbers
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/mynumbers-number/v1
+  properties:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: openapi/bics-mynumbers-openapi.json
+    type: OpenAPI
+  description: >-
+    Order and manage ready-to-use BICS Cloud Numbers (IBN), International
+    Freephone Numbers (ITFS) and Global Mobile Numbers (GMN). Check stock,
+    price lists, and reference data (locations, POPs, languages), place single
+    or bulk orders, configure routes, and manage number-to-address references.
+    A sandbox base URL is published at sandbox.api.bics.com. Confirmed endpoints
+    from the OpenAPI 3.0.1 definition.
+- aid: bics-network:bics-mynumbers-number-porting-api
+  name: BICS MyNumbers Number Porting API
+  tags:
+  - Number Portability
+  - Numbering
+  - Telecom
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/mynumbers-porting/v1
+  properties:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: openapi/bics-mynumbers-porting-openapi.json
+    type: OpenAPI
+  description: >-
+    Submit and track number portability (porting) requests - create porting
+    requests, attach Letter of Authorization documents, update addresses, and
+    check porting specifications and statuses. Confirmed endpoints from the
+    OpenAPI 3.0.1 definition.
+- aid: bics-network:bics-mynumbers-cdr-api
+  name: BICS MyNumbers CDR API
+  tags:
+  - CDR
+  - Call Detail Records
+  - Reporting
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/mynumbers-cdr/v1
+  properties:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: openapi/bics-mynumbers-cdr-openapi.json
+    type: OpenAPI
+  description: >-
+    Request, poll, and download Call Detail Records (CDRs) for inbound and
+    outbound calls on your BICS numbers, with available-date discovery and
+    multiple download formats. Confirmed endpoints from the OpenAPI 3.0.1
+    definition.
+- aid: bics-network:bics-mynumbers-address-management-api
+  name: BICS MyNumbers Address Management API
+  tags:
+  - Address Management
+  - Compliance
+  - Numbering
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/mynumbers-address-management/v1
+  properties:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: openapi/bics-mynumbers-address-management-openapi.json
+    type: OpenAPI
+  description: >-
+    Create, edit, retrieve and delete the addresses and supporting documents
+    required by local regulation for number provisioning. Confirmed endpoints
+    from the OpenAPI 3.0.1 definition.
+- aid: bics-network:bics-mynumbers-disconnection-api
+  name: BICS MyNumbers Disconnection API
+  tags:
+  - Disconnection
+  - Numbering
+  - Lifecycle
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/mynumbers-disconnection/v1
+  properties:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: openapi/bics-mynumbers-disconnection-openapi.json
+    type: OpenAPI
+  description: >-
+    Request disconnection of your numbers by building disconnection orders,
+    adding or removing order items, and submitting them for processing.
+    Confirmed endpoints from the OpenAPI 3.0.1 definition.
+- aid: bics-network:bics-mynumbers-emergency-services-api
+  name: BICS MyNumbers Emergency Services API
+  tags:
+  - Emergency Services
+  - Numbering
+  - Compliance
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/mynumbers-emergency-services/v1
+  properties:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: openapi/bics-mynumbers-emergency-services-openapi.json
+    type: OpenAPI
+  description: >-
+    Enable emergency services on SIP-T numbers - check per-country requirements
+    and create, update, and submit emergency-service orders and order items.
+    Confirmed endpoints from the OpenAPI 3.0.1 definition.
+- aid: bics-network:bics-connect-api
+  name: BICS Connect API
+  tags:
+  - Connectivity
+  - Cloud
+  - Carrier
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/connect/v1
+  properties:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+  - url: openapi/bics-connect-openapi.json
+    type: OpenAPI
+  description: >-
+    Carrier-grade Cloud Connect service combining BICS layer-2 transport with
+    dedicated connectivity to cloud providers - create, list, modify, and delete
+    connections and interconnects and browse reference data. Confirmed endpoints
+    from the OpenAPI 3.0.1 definition.
+- aid: bics-network:bics-number-verification-api
+  name: BICS Number Verification API
+  tags:
+  - Number Verification
+  - Mobile Identity
+  - Anti-Fraud
+  - OTP
+  - KYC
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.bics.com/developers-hub/
+  properties:
+  - url: https://www.bics.com/developers-hub/
+    type: Documentation
+  description: >-
+    Phone number verification and mobile authentication for anti-fraud, KYC and
+    onboarding - validating that a mobile number is real, active, and controlled
+    by the user, including OTP-based flows. Marketed by BICS and delivered across
+    the Proximus Global network as a partner and carrier contract product;
+    access is via contact-sales onboarding rather than the self-serve developer
+    portal, so any request surface here is endpointsModeled, not a published
+    OpenAPI definition.
+- aid: bics-network:bics-fraud-prevention-reachability-api
+  name: BICS Fraud Prevention and Reachability API
+  tags:
+  - Anti-Fraud
+  - Fraud Prevention
+  - HLR Lookup
+  - Reachability
+  - Device Location
+  - Mobile Identity
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.bics.com/developers-hub/
+  properties:
+  - url: https://www.bics.com/developers-hub/
+    type: Documentation
+  description: >-
+    Network-signal services for fraud prevention and mobile identity - HLR and
+    reachability lookup (operator, ported status, active/blocked SIM state),
+    SIM-swap detection, and device-location signals used to score risk on logins
+    and transactions. These carrier-network capabilities are offered by BICS as
+    contract products across the Proximus Global network and align with GSMA Open
+    Gateway / CAMARA network APIs; they are contact-sales rather than self-serve,
+    so the surface here is endpointsModeled, not a published OpenAPI definition.
+common:
+- type: Authentication
+  url: authentication/bics-network-authentication.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/company/bics
+- type: Website
+  url: https://www.bics.com/
+- type: Documentation
+  url: https://developer.bics.com/portal/apis
+- type: Plans
+  url: plans/bics-network-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/bics-network-rate-limits.yml
+- type: FinOps
+  url: finops/bics-network-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

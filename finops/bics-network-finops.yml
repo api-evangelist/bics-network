@@ -1,0 +1,24 @@
+aid: bics-network
+name: BICS
+finops:
+  model: Wholesale carrier / enterprise contract billing
+  summary: >-
+    Cost management for BICS APIs is contract-based rather than public
+    pay-as-you-go. There is no published metered price card or usage-based
+    calculator on the developer portal. FinOps levers available to customers are
+    the negotiated wholesale rates in their agreement, the MyNumbers price-list
+    endpoints for retrieving per-product and per-country pricing, and CDR data
+    (MyNumbers CDR API) for reconciling call and usage charges.
+  costControls:
+  - Negotiated wholesale / enterprise rates per commercial agreement.
+  - MyNumbers price-list endpoints for programmatic price discovery.
+  - MyNumbers CDR API for downloading Call Detail Records to reconcile usage.
+  - Sandbox environment (sandbox.api.bics.com) to develop and test without production charges.
+  publicPricing: false
+  sources:
+  - url: https://developer.bics.com/portal/apis
+    type: Documentation
+    note: Price-list and CDR endpoints exist; no public pay-as-you-go pricing.
+  - url: https://www.bics.com/developers-hub/
+    type: Documentation
+    note: Positioned as enterprise/carrier products, contact-sales model.
