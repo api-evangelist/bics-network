@@ -229,6 +229,8 @@ apis:
     Gateway / CAMARA network APIs; they are contact-sales rather than self-serve,
     so the surface here is endpointsModeled, not a published OpenAPI definition.
 common:
+- type: AgenticAccess
+  url: agentic-access/bics-network-agentic-access.yml
 - type: Authentication
   url: authentication/bics-network-authentication.yml
 - type: LinkedIn
