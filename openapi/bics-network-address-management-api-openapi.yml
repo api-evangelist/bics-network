@@ -1,0 +1,865 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Address Management
+  description: Manage your addresses
+paths:
+  /addresses/{reference}:
+    summary: /addresses/{reference}
+    parameters: []
+    get:
+      tags:
+      - Address Management
+      summary: Retrieve the address by address reference
+      description: Retrieve a single address identified by its address reference. An address is composed of the address detail (Street Name, Street Number,...) and the reference.
+      operationId: Get Address By Reference
+      parameters:
+      - name: reference
+        in: path
+        description: reference of the address
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: reference of the address
+          readOnly: false
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+      responses:
+        '200':
+          description: successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addressDetails'
+              example: "{\n  'alias': 'BICS France Office',\n  'street': 'Avenue Anatole',\n  'streetNumber': '5',\n  'box': 'A',\n  'residence': 'Eiffel',\n  'floor': '15',\n  'postalCode': '75007',\n  'city': 'Paris',\n  'state': 'Paris',\n  'country': 'FRA',\n  'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\n  'status': 'Submitted',\n  'comment': '',\n  'serviceUsage': 'Customer Support France',\n  'addressDocuments': [\n    {\n      'documentReference': 'ac0334bc-da81-48a9-a64d-5f54474b2d35',\n      'fileName': 'proofOfAddress.pdf',\n      'size': 139769,\n      'status': 'Uploaded',\n      'created': '2018-09-07T10:10:59Z',\n      'comment': '',\n      'documentType': {\n        'code': 'POD4',\n        'description': 'Letter of Intent (LOI)'\n      }\n    }\n  ],\n  'userIdentity': {\n       'endSubscriberType': 'Company',\n       'emailAddress' : 'mail@bics.com',\n       'companyName' : 'BICS',\n       'firstName' : null,\n       'lastName' : null,\n       'vatNumber' : 'BE0999999993',\n       'phoneNumber' : '3225551234'\n  },\n  'allowedLocations': ['Paris', 'National'],\n  'allowedLocationsAreaCodes': [\n    {\n      'location': 'Paris',\n      'areaCode': '187',\n      'nonGeographic': false\n    },\n    {\n      'location': 'National',\n      'areaCode': '9',\n      'nonGeographic': true\n    }\n  ]\n}\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '403':
+          description: this service cannot be used according to your API Key
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+    put:
+      tags:
+      - Address Management
+      summary: Edit an address in your address book.
+      description: Edit an address in your address book. You must specify in the request all the attributes of the address even those you do not want to change. The end subscriber type cannot change after the creation of an address. If an address is linked to any active numbers, or any order, it can not be updated.
+      operationId: Update Address
+      parameters:
+      - name: reference
+        in: path
+        description: reference of the address
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: reference of the address
+          readOnly: false
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addressRequest'
+            examples: {}
+            example: null
+      responses:
+        '200':
+          description: successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addressDetails'
+              example: "{\n  'alias': 'BICS France Office',\n  'street': 'Avenue Anatole',\n  'streetNumber': '5',\n  'box': 'A',\n  'residence': 'Eiffel',\n  'floor': '15',\n  'postalCode': '75007',\n  'city': 'Paris',\n  'state': 'Paris',\n  'country': 'FRA',\n  'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\n  'status': 'Submitted',\n  'comment': null,\n  'serviceUsage': 'Customer Support France,\n  'addressDocuments':\n  [\n    {\n      'documentReference': 'ac0334bc-da81-48a9-a64d-5f54474b2d35',\n      'fileName': 'proofOfAddress.pdf',\n      'size': 139769,\n      'status': 'Uploaded',\n      'created': '2018-09-07T10:10:59Z',\n      'comment': '',\n      'documentType'\n      {\n        'code': 'POD4',\n        'description': 'Letter of Intent (LOI)'\n      }\n    }\n  ],\n  'userIdentity': {\n       'endSubscriberType': 'Company',\n       'emailAddress': 'mail@bics.com',\n       'companyName': 'BICS France Office',\n       'firstName': '',\n       'lastName': '',\n       'vatNumber': 'BE0999999993',\n       'phoneNumber': '3225551234'\n  },\n  'allowedLocations': ['Paris', 'National'],\n  'allowedLocationsAreaCodes': [\n    {\n      'location': 'Paris',\n      'areaCode': '187',\n      'nonGeographic': false\n    },\n    {\n      'location': 'National',\n      'areaCode': '9',\n      'nonGeographic': true\n    }\n  ]\n}\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '403':
+          description: this service cannot be used according to your API Key
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+    delete:
+      tags:
+      - Address Management
+      summary: Delete an address from your address book.
+      description: Delete an address identified by its reference. This service deletes the address from your address book as well as all documents linked to this address. It is not possible to delete an address as long as you have active Cloud Numbers linked to this address.
+      operationId: Delete Address
+      parameters:
+      - name: reference
+        in: path
+        description: Reference of the address
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Reference of the address
+          readOnly: false
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+      responses:
+        '200':
+          description: successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addressDeletionResponse'
+              example: "{\n  'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\n  'status': 'Deleted'\n}\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '403':
+          description: this service cannot be used according to your API Key
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+  /addresses/{reference}/documentTypeCode/{code}:
+    summary: /addresses/{reference}/documentTypeCode/{code}
+    parameters: []
+    delete:
+      tags:
+      - Address Management
+      summary: Delete Document
+      description: '<h2><b><span class="warning">***<i>DEPRECATED</i></span></b></h2><br/> <span class="warning">This method is deprecated. Please use new Delete By Reference method.</span><br/> Delete a proof document linked to one of your addresses. You can only delete existing documents when the status of the document is ''Submitted'', ''Rejected'' or ''Declined''.
+
+
+        The Address reference and document type code must be specified in the url.'
+      operationId: Delete Document
+      parameters:
+      - name: reference
+        in: path
+        description: address reference
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: address reference
+          readOnly: false
+          example: 4a5f613a-1d02-4b66-9914-974f96901f1b
+      - name: code
+        in: path
+        description: 'Code of type of uploaded document.
+
+
+          See API _/reference/documenttypes_ for all possible values.'
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: 'Code of type of uploaded document.
+
+
+            See API _/reference/documenttypes_ for all possible values.'
+          readOnly: false
+          example: POD4
+      responses:
+        '200':
+          description: Successful operation.
+          headers: {}
+          content: {}
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '403':
+          description: this service cannot be used according to your API Key
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+      deprecated: true
+  /addresses/{reference}/documents:
+    summary: /addresses/{reference}/documents
+    parameters: []
+    post:
+      tags:
+      - Address Management
+      summary: Add a proof document
+      description: Add a proof document and link it to one of your addresses.  After the creation of an address, you can call this service for each document you want to link to this address.  Multiple documents can be added to the same address.  The allowed formats of a document are pdf, doc, docx, png, jpg and tiff.  The Address reference must be specified in the url, the content type of the request must be form-data and the document need to be added as an attachment in the request. In the response of this service for the uploaded document system will return unique documentReference which will be identifier for the document that need to be used in other calls.
+      operationId: Add Document
+      parameters:
+      - name: reference
+        in: path
+        description: reference of the address
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: reference of the address
+          readOnly: false
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: Multipart form data file
+                  format: binary
+                  readOnly: false
+                  example: null
+                documentTypeCode:
+                  type: string
+                  description: Code of type of uploaded document. See API _/reference/documenttypes_ for all possible values.
+                  readOnly: false
+                  example: POD4
+              example: null
+            examples: {}
+            example: null
+      responses:
+        '200':
+          description: successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addressDocumentResponse'
+              example: "{\n  'status': 'Uploaded',\n  'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\n  'documentName': 'LOI.pdf',\n  'comment': '',\n  'documentReference': 'ac0334bc-da81-48a9-a64d-5f54474b2d35',\n  'documentType':\n  {\n    'code': 'POD4',\n    'description': 'Letter of Intent (LOI)'\n  }\n}\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: "{\n  'code': 'E033',\n  'description': 'There is no address with this reference in our system.  Please correct the reference.',\n  'timestamp': '2019-07-11T15:16:49.53+02:00'\n}\n"
+          links: {}
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '403':
+          description: this service cannot be used according to your API Key
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+  /addresses:
+    summary: /addresses
+    parameters: []
+    get:
+      tags:
+      - Address Management
+      summary: Retrieve the list of your addresses.
+      description: 'Retrieve the list of your addresses. Each address is composed of the address detail (Street Name, Street Number, etc.) and the reference of the address.
+
+
+        If you want to get the list of your addresses for a specific country, you can use the input parameter country.'
+      operationId: Get Addresses
+      parameters:
+      - name: country
+        in: query
+        description: Country code in ISO 3166-1 alpha-3 format.
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: FRA
+      responses:
+        '200':
+          description: successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/address'
+                example: null
+              example: "[\n    {\n        'alias': 'BICS France Office',\n        'street': 'Avenue Anatole',\n        'streetNumber': '5',\n        'box': 'A',\n        'residence': 'Eiffel',\n        'floor': '15',\n        'postalCode': '75007',\n        'city': 'Paris',\n        'state': 'Paris',\n        'country': 'FRA',\n        'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\n        'status': 'Accepted',\n        'comment': '',\n        'serviceUsage': 'Customer Support France',\n        'userIdentity': {\n             'endSubscriberType': 'Company',\n             'emailAddress' : 'info@bics.com',\n             'companyName' : 'BICS',\n             'firstName' : ' ',\n             'lastName' : ' ',\n             'vatNumber' : 'BE0999999993',\n             'phoneNumber' : '3225551234'\n        }\n    },\n    {\n        'alias': 'ITAT Belgium Office',\n        'street': 'Paradeplein',\n        'streetNumber': '1',\n        'box': '',\n        'residence': '',\n        'floor': '',\n        'postalCode': '2030',\n        'city': 'Antwerpen',\n        'state': 'Antwerpen',\n        'country': 'BEL',\n        'reference': 'fa454bd-da81-48a9-a64d-5f543e8b2d320',\n        'status': 'Submitted',\n        'comment': '',\n        'serviceUsage': 'Customer Support France',\n        'userIdentity': {\n              'endSubscriberType': 'Company',\n              'emailAddress' : '',\n              'companyName' : 'ITAT Belgium Office',\n              'firstName' : ' ',\n              'lastName' : ' ',\n              'vatNumber' : 'BE0999999991',\n              'phoneNumber' : '3225551234'\n        }\n    },\n    {\n        'alias': 'BICS US Office',\n        'street': 'Mission Street 19th Floor',\n        'streetNumber': '535',\n        'box': '',\n        'residence': '',\n        'floor': '19',\n        'postalCode': 'CA-94105',\n        'city': 'San Francisco',\n        'state': 'San Francisco',\n        'country': 'USA',\n        'reference': 'e5234bd-da81-48a9-a64d-5f543e8b2e865',\n        'status': 'More information required',\n        'comment': 'Please add a the proof of address.',\n        'serviceUsage': 'Customer Support France',\n        'userIdentity': {\n             'endSubscriberType': 'Company',\n             'emailAddress' : ' ',\n             'companyName' : 'BICS US Office',\n             'firstName' : ' ',\n             'lastName' : ' ',\n             'vatNumber' : 'BE0999999999',\n             'phoneNumber' : '3225551234'\n        }\n    }\n]\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '403':
+          description: this service cannot be used according to your API Key
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+    post:
+      tags:
+      - Address Management
+      summary: Add an address in your address book
+      description: Create a new address in your address book with the aim of ordering Cloud Numbers in countries where address is required. BICS is obliged to collect the address of the end user for these countries.
+      operationId: Create Address
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addressRequest'
+            examples: {}
+            example: null
+      responses:
+        '200':
+          description: successful operation
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addressDetails'
+              example: "{\n    'alias': 'BICS France Office',\n    'street': 'Avenue Anatole',\n    'streetNumber': '5',\n    'box': 'A',\n    'residence': 'Eiffel',\n    'floor': '15',\n    'postalCode': '75007',\n    'city': 'Paris',\n    'state': 'Paris',\n    'country': 'FRA',\n    'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\n    'status': 'Submitted',\n    'comment': '',\n    'serviceUsage': 'Customer Support France',\n    'addressDocuments': [],\n    'userIdentity': {\n         'endSubscriberType': 'Company',\n         'emailAddress' : 'mail@bics.com',\n         'companyName' : 'BICS',\n         'firstName' : '',\n         'lastName' : '',\n         'vatNumber' : 'BE0999999993',\n         'phoneNumber' : '3225551234'\n    },\n    'allowedLocations': [],\n    'allowedLocationsAreaCodes': []\n}\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '403':
+          description: this service cannot be used according to your API Key
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+components:
+  schemas:
+    address:
+      required:
+      - reference
+      - status
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: FRA
+        serviceUsage:
+          type: string
+          description: Service usage
+          example: null
+        city:
+          type: string
+          description: City.
+          example: Paris
+        streetNumber:
+          type: string
+          description: House number.
+          example: '2'
+        postalCode:
+          type: string
+          description: Optional parameter. Postal Code.
+          example: '1060'
+        box:
+          type: string
+          description: Optional parameter. Postal box.
+          example: B
+        language:
+          type: string
+          description: Language code, case insensitive.
+          example: en
+        userIdentity:
+          $ref: '#/components/schemas/userIdentityDetail'
+        reference:
+          type: string
+          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end user is required.
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+        street:
+          type: string
+          description: Street name.
+          example: Rue Lebeau
+        alias:
+          type: string
+          description: Alias of the Address. It helps you to identify the address of the end user. Alias must be unique.
+          example: BICS France office
+        comment:
+          type: string
+          description: 'Give additional information in case more information is required to validate the address or in case the address is rejected.
+
+            '
+          example: This address does not exist. Please correct it.
+        state:
+          type: string
+          description: Optional parameter. State.
+          example: California
+        floor:
+          type: string
+          description: Optional parameter. Floor number.
+          example: '5'
+        residence:
+          type: string
+          description: Optional parameter. Residence name.
+          example: Argenteuil
+        status:
+          type: string
+          description: "Validation status of the address.\n          <ul>\n            <li>`Submitted` - Your address has been submitted and is in the process of been validated.</li>\n          </ul>\n"
+          example: Submitted
+      example: null
+    addressDetails:
+      required:
+      - reference
+      - status
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: BEL
+        serviceUsage:
+          type: string
+          description: Free text to describe usage of numbers.
+          example: null
+        city:
+          type: string
+          description: City.
+          example: Brussels
+        streetNumber:
+          type: string
+          description: House number.
+          example: '2'
+        postalCode:
+          type: string
+          description: Postal Code.
+          example: '1060'
+        box:
+          type: string
+          description: Postal box.
+          example: B
+        language:
+          type: string
+          description: Language code, case insensitive.
+          example: en
+        userIdentity:
+          $ref: '#/components/schemas/userIdentityDetail'
+        allowedLocationsAreaCodes:
+          type: array
+          description: List of locations and area codes. It mentions all the locations and area codes that can be ordered with this address.
+          items:
+            $ref: '#/components/schemas/locationAreaCode'
+          example: null
+        reference:
+          type: string
+          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end user is required.
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+        addressDocuments:
+          type: array
+          description: List of documents submitted for this address.
+          example: 'null'
+          items:
+            $ref: '#/components/schemas/addressDocumentMetadata'
+        street:
+          type: string
+          description: Street name.
+          example: Rue Lebeau
+        alias:
+          type: string
+          description: Alias of the Address. It helps you to identify the address of the end user. Alias must be unique.
+          example: BICS Belgium office
+        comment:
+          type: string
+          description: 'Additional information about validation status of the address. It helps you to correct the address to be accepted.
+
+            '
+          example: This address does not exist. Please correct it.
+        state:
+          type: string
+          description: State.
+          example: California
+        floor:
+          type: string
+          description: Floor number.
+          example: '5'
+        residence:
+          type: string
+          description: Residence name.
+          example: Argenteuil
+        allowedLocations:
+          type: array
+          description: List of  all locations that can be ordered with this address.
+          example: '["NA","National"]'
+          items:
+            type: string
+            example: null
+        status:
+          type: string
+          description: "Validation status of the address.\n         <ul>\n            <li>`Submitted` - Your address has been submitted.</li>\n            <li><strike>`Accepted` - Your address has been accepted and can be used to order Cloud Numbers in the country concerned.</strike></li>\n            <li><strike>`More information  required` - Some information are missing. You must provide necessary information in order to have your ' addressAccepted'</strike></li>\n            <li><strike>`Rejected` - You address has been rejected. It cannot be used anymore.</strike></li>\n          </ul>\n"
+          example: Submitted
+      example: null
+    locationAreaCode:
+      type: object
+      properties:
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '2'
+        location:
+          type: string
+          description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
+          example: Brussels
+        nonGeographic:
+          type: boolean
+          description: Indicates if the location is non geographic (e.g. National).
+          example: true
+      example: null
+    addressRequest:
+      required:
+      - alias
+      - city
+      - country
+      - postalCode
+      - street
+      - streetNumber
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: FRA
+        serviceUsage:
+          type: string
+          description: Free text to describe usage of numbers.
+          example: null
+        city:
+          type: string
+          description: City.
+          example: Paris
+        streetNumber:
+          type: string
+          description: House number.
+          example: '5'
+        postalCode:
+          type: string
+          description: Postal Code.
+          example: '75007'
+        box:
+          type: string
+          description: Postal box.
+          example: B
+        language:
+          type: string
+          description: Language code, case insensitive.
+          example: en
+        userIdentity:
+          $ref: '#/components/schemas/userIdentityDetail'
+        street:
+          type: string
+          description: Street name.
+          example: Rue Anatole
+        alias:
+          type: string
+          description: Alias of the Address. It helps you to identify the address of the end user.
+          example: BICS France office
+        state:
+          type: string
+          description: State.
+          example: Paris
+        floor:
+          type: string
+          description: Floor number.
+          example: '15'
+        residence:
+          type: string
+          description: Residence name.
+          example: Eiffel
+      example: null
+    userIdentityDetail:
+      required:
+      - emailAddress
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First Name of the end subscriber
+          example: Kernel
+        lastName:
+          type: string
+          description: Last Name of the end subscriber
+          example: Braun
+        emailAddress:
+          type: string
+          description: Email address of owner of address
+          example: email@bics.com
+        phoneNumber:
+          type: string
+          description: Phonenumber of owner of address
+          example: '325648855'
+        companyName:
+          type: string
+          description: Name of the company which is the owner of address
+          example: BICS
+        endSubscriberType:
+          type: string
+          description: "Possible values are :\n  <ul>\n    <li>\"Company\": end subscriber is a company</li>\n    <li>\"Individual\": end subscriber is a private person</li>\n  </ul>\n"
+          example: null
+        vatNumber:
+          type: string
+          description: Unique identification number used for tax (e.g. VAT, GST, TIN)
+          example: BE0999999999
+      description: User identity of the end subscriber
+      example: null
+    addressDocumentResponse:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end-user is required.
+          example: 3ff35db2-1301-43b1-89f8-4df00faa8a50
+        documentType:
+          $ref: '#/components/schemas/documentType'
+        comment:
+          type: string
+          description: Reason why your document was Rejected or Declined
+          example: Not readable. Please provide new document
+        documentReference:
+          type: string
+          description: Saved document reference
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+        documentName:
+          type: string
+          description: Name of the document
+          example: someName.ext
+        status:
+          $ref: '#/components/schemas/addressDocumentStatus'
+      example: null
+    addressDeletionResponse:
+      type: object
+      properties:
+        reference:
+          type: string
+          example: d9224465-cce9-4df1-b2b8-4f39cce00959
+        status:
+          $ref: '#/components/schemas/addressDeletionStatus'
+      example: null
+    addressDocumentMetadata:
+      type: object
+      properties:
+        fileName:
+          type: string
+          example: fileName
+        size:
+          type: integer
+          format: int64
+          example: null
+        documentType:
+          $ref: '#/components/schemas/documentType'
+        created:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
+        comment:
+          type: string
+          description: Reason why your document was Rejected or Declined
+          example: Not readable. Please provide new document
+        documentReference:
+          type: string
+          description: Saved document reference
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+        status:
+          $ref: '#/components/schemas/addressDocumentStatus'
+      example: null
+    addressDeletionStatus:
+      type: string
+      description: Address deletion result status
+      enum:
+      - Deleted
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation.
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation.
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
+      example: null
+    documentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: document type code
+          example: POD1
+        description:
+          type: string
+          description: document type description
+          example: Letter of Intent
+      description: Type of document
+      example: null
+    addressDocumentStatus:
+      type: string
+      description: "Validation status:\n    <ul>\n      <li>\"Uploaded\": The file is in process of being uploaded, checked by our virus scanners and attached to your address.</li>\n      <li>\"Verified\":  <b class=\"warning\">obsolete/deprecated</b>, replaced by \"Submitted\".</li>\n      <li>\"Rejected\": The file is rejected by our virus scanner. It may contain a virus or a malicious script.</li>\n      <li>\"Submitted\": We received your document.</li>\n      <li>\"Under Validation\": Your document is under validation.</li>\n      <li>\"Validated\": Your document has been validated.</li>\n      <li>\"Declined\": Your document has been declined, please upload a new document.</li>\n    </ul>\n"
+      enum:
+      - Uploaded
+      - Rejected
+      - Submitted
+      - Under Validation
+      - Validated
+      - Expired
+      - Declined
+      example: null

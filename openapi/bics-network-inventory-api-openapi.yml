@@ -1,0 +1,479 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management inventory API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: inventory
+  description: Query the numbers you have bought over time.
+paths:
+  /numbers:
+    parameters: []
+    get:
+      tags:
+      - inventory
+      summary: Retrieve the list of numbers in your inventory.
+      description: The _/numbers_ method allows you to retrieve the list of numbers in your inventory. You can retrieve the full list of your numbers in one call or filter out your request by providing the product, country, location, area code, status and number. As a response you will receive information linked to the number(s) that would help you manage them at your convenience.
+      operationId: get Inventory
+      parameters:
+      - name: product
+        in: query
+        description: Filter your inventory by product.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter your inventory by product.
+          readOnly: false
+          example: IBN
+      - name: country
+        in: query
+        description: Filter your inventory by country in ISO 3166-1 alpha-3 format.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter your inventory by country in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: GBR
+      - name: location
+        in: query
+        description: Filter your inventory by location. (Not applicable for product GMN).
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter your inventory by location. (Not applicable for product GMN).
+          readOnly: false
+          example: National
+      - name: areaCode
+        in: query
+        description: Filter your inventory by areaCode.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter your inventory by areaCode.
+          readOnly: false
+          example: '3'
+      - name: status
+        in: query
+        description: Filter your inventory by status. Valid status values are _Active_ and _Deactivated_. _Active_ referring to numbers provisioned and _Deactivated_ referring to numbers disconnected.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter your inventory by status. Valid status values are _Active_ and _Deactivated_. _Active_ referring to numbers provisioned and _Deactivated_ referring to numbers disconnected.
+          readOnly: false
+          example: Active
+      - name: number
+        in: query
+        description: Filter your inventory by number. Exact match is applied.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter your inventory by number. Exact match is applied.
+          readOnly: false
+          example: '445706070212'
+      - name: activeServiceCode
+        in: query
+        description: Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: array
+          description: Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>
+          readOnly: false
+          items:
+            type: string
+            enum:
+            - IC
+            - NOC
+            - IOC
+            - ES
+            - DS
+            - IM
+            - NOM
+            - IOM
+            example: null
+          example: null
+      - name: availableServiceCode
+        in: query
+        description: Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: array
+          description: Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>
+          readOnly: false
+          items:
+            type: string
+            enum:
+            - IC
+            - NOC
+            - IOC
+            - ES
+            - DS
+            - IM
+            - NOM
+            - IOM
+            example: null
+          example: null
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/customerNumber'
+                example: null
+              example: "[\n  {\n    'number': '445706070212',\n    'product': 'IBN',\n    'country': 'GBR',\n    'location': 'National',\n    'areaCode': '3',\n    'accessArea': 'NA',\n    'profile': 'Profile A',\n    'status': 'Active',\n    'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\n    'startDate': '2018-11-05',\n    'endDate': null\n  },\n  {\n    'number': '445706070215',\n    'product': 'IBN',\n    'country': 'GBR',\n    'location': 'National',\n    'areaCode': '3',\n    'accessArea': 'NA',\n    'profile': 'Profile A',\n    'status': 'Active',\n    'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\n    'startDate': '2018-11-05',\n    'endDate': null\n  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /numbers/{number}:
+    parameters: []
+    get:
+      tags:
+      - inventory
+      summary: Retrieve the details of a given number from your inventory.
+      description: The _/numbers/{number}_ method allows you to retrieve the details of a given number from your inventory. As a response you will receive all information linked to the numbers that would help you manage them at your convenience (origin, status, address reference, pricing and routing details).
+      operationId: get Number Details
+      parameters:
+      - name: number
+        in: path
+        description: A given number from your inventory.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: A given number from your inventory.
+          readOnly: false
+          example: '445706070212'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customerNumberWithDetails'
+              example: "{\n  'number': '443706070212',\n  'product': 'IBN',\n  'country': 'GBR',\n  'location': 'National',\n  'areaCode': '3',\n  'accessArea': 'NA',\n  'profile': 'Profile A',\n  'status': 'Active',\n  'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\n  'startDate': '2018-11-05',\n  'endDate': null,\n  'endUserInfoValidation': {\n    'address': 'Need more information',\n    'addressDocuments': 'No validation required'\n  },\n  'routing': [\n    {\n      'accessType': 'fixMobPay',\n      'accessNetwork': null,\n      'crn': '234A443706070212',\n      'pop': 'ASIA'\n    }\n  ],\n  'nonUsageFees': {\n    'setUpFee': 10.00,\n    'MonthlyFee': 5.00,\n    'currency': 'EUR'\n  },\n  'usageFees': [\n    {\n      'accessType': 'FixMobPay',\n      'accessNetwork': null,\n      'tde': 'STD',\n      'callSetUpFee': 0.0010,\n      'perMinuteFee': 0.0015,\n      'currency': 'EUR'\n    }\n  ]\n}\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/numberSpecificError'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '404':
+          description: Number not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/numberSpecificError'
+              example: null
+  /numbers/addressReferences:
+    parameters: []
+    post:
+      tags:
+      - inventory
+      summary: Add or update address reference linked to number(s)
+      description: The method _/numbers/addressReferences_ allows you to add or change the address linked to one or multiple number(s). You can retrieve the current address linked to a number by calling the method _/numbers/{number}_. You can retrieve a list of your addresses by calling the method _/addresses_.
+      operationId: Update address reference
+      parameters: []
+      requestBody:
+        description: TBF
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/addressReferenceUpdateRequest'
+              example: null
+            example: null
+        required: false
+      responses:
+        '200':
+          description: Address references updated for given numbers.
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/numberSpecificError'
+              example: null
+components:
+  schemas:
+    customerNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The provisioned number.
+          example: '443706070215'
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: GBR
+        product:
+          type: string
+          description: Valid product codes are 'IBN' and 'ITFS'. IBN referring to Cloud Number and ITFS referring to International Freephone Number.
+          example: IBN
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '3'
+        accessArea:
+          type: string
+          description: Used to differentiate the tariff of the number when relevant.
+          example: NA
+        addressReference:
+          type: string
+          description: Reference of the address you have linked to the numbers.
+          example: 3f47bde5-d198-4a04-ba04-7274012ff34a
+        endDate:
+          type: string
+          description: Date when the number has been disconnected. The format of the date is yyyy-mm-dd.
+          format: date
+          example: 'null'
+        profile:
+          type: string
+          description: Tariff differentiator within a country. It intervenes in the billing.
+          example: Profile A
+        location:
+          type: string
+          description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
+          example: National
+        startDate:
+          type: string
+          description: Date when the number has been provisioned. The format of the date is yyyy-mm-dd.
+          format: date
+          example: '2018-11-05'
+        virtualSimCardNumber:
+          type: string
+          description: Virtual Sim Card Number linked to Access Number.  (For GMN only)
+          example: null
+        status:
+          type: string
+          description: This attribute indicates the status of the number. Active if the number is provisioned or Deactivated if the number has been disconnected.
+          example: Active
+          enum:
+          - Active
+          - Deactivated
+      example: null
+    nonUsageFees:
+      type: object
+      properties:
+        MonthlyFee:
+          type: string
+          description: Monthly recurring fee.
+          example: '0.2'
+        setUpFee:
+          type: string
+          description: Setup Fee
+          example: '0.4'
+        currency:
+          $ref: '#/components/schemas/currency'
+      description: Non usage fees define the setup and monthly recurring fees.
+      example: null
+    responseRouting:
+      type: object
+      properties:
+        accessType:
+          type: string
+          description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+          example: fixMobPay
+        pop:
+          type: string
+          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
+          example: ASIA
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network.
+          example: BICS
+        crn:
+          type: string
+          description: Customer Routing Number.
+          example: 259AB81345785554
+      example: null
+    accessType:
+      type: string
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+      enum:
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
+      example: null
+    endUserInfoValidation:
+      type: object
+      properties:
+        addressDocuments:
+          $ref: '#/components/schemas/validationStatus'
+        address:
+          $ref: '#/components/schemas/validationStatus'
+      description: 'Set of attributes indicates the validation status of the end user information. Attribute address gives the
+
+        status of the address of the end user and attribute addressDocuments gives the status of the documents provided
+
+        against the country specifications.
+
+        '
+      example: null
+    validationStatus:
+      type: string
+      enum:
+      - Need more information
+      - Under validation
+      - Validated
+      - No validation required
+      example: null
+    currency:
+      type: string
+      enum:
+      - EUR
+      - USD
+      - ZAR
+      example: null
+    addressReferenceUpdateRequest:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The provisioned number for which you want to add/update the address.
+          example: '81345785554'
+        country:
+          type: string
+          description: Origin Country code in ISO 3166-1 alpha-3 format of the Access Number. The attribute is mandatory for update address reference of UIFN or MSC numbers.
+          example: BEL
+        addressReference:
+          type: string
+          description: The reference of an address that you want to link to the number. The address linked to this reference must have the status ‘Accepted’.
+          example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
+      example: null
+    customerNumberWithDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/customerNumber'
+      - type: object
+        properties:
+          usageFees:
+            type: array
+            items:
+              $ref: '#/components/schemas/usageFees'
+            example: null
+          routing:
+            type: array
+            items:
+              $ref: '#/components/schemas/responseRouting'
+            example: null
+          endUserInfoValidation:
+            $ref: '#/components/schemas/endUserInfoValidation'
+          nonUsageFees:
+            $ref: '#/components/schemas/nonUsageFees'
+        example: null
+      example: null
+    usageFees:
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/accessType'
+        calendar:
+          type: string
+          description: Pricing Calendar Code.
+          example: SINT
+        tde:
+          type: string
+          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>`STD` - Standard</li> <li>`P` - Peak</li> <li>`OP` - Off Peak</li> <li>`OOP` - Off Off Peak</li> <li>`WED` - Weekend</li> </ul>
+          example: OP
+          enum:
+          - STD
+          - P
+          - OP
+          - OOP
+          - WED
+        callSetUpFee:
+          type: string
+          example: '0.001'
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network. If not specified the same routing will be applied to all access Networks.
+          example: SMART
+        currency:
+          $ref: '#/components/schemas/currency'
+        perMinuteFee:
+          type: string
+          example: '0.0015'
+      description: Usage fees define the call setup and per minute fees.
+      example: null
+    numberSpecificError:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/error'
+      - type: object
+        properties:
+          number:
+            type: string
+            example: Number to which error corresponds to.
+          country:
+            type: string
+            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
+        example: null
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null

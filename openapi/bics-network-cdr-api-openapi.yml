@@ -1,0 +1,417 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management CDR API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: CDR
+  description: The following methods allows you to request your Call Detail Records (CDRs), request the status of your requests and download your CDRs. The CDRs are available for both Inbound and Outbound calls terminated/originated to/from BICS numbers as from the 1st of January  2020.
+paths:
+  /cdrs/{id}/download/{format}:
+    summary: /cdrs/{id}/download/{format}
+    parameters: []
+    get:
+      tags:
+      - CDR
+      summary: Download CDR Request
+      description: This method allows you download CDR requests.
+      operationId: Download CDR Request
+      parameters:
+      - name: id
+        in: path
+        description: CDR request ID
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: CDR request ID
+          readOnly: false
+          example: '123'
+      - name: format
+        in: path
+        description: allowed values are <ul> <li>"json" - default value if not specified in the request</li> <li>"csv" - values are separated by semi-colon</li> </ul>
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: allowed values are <ul> <li>"json" - default value if not specified in the request</li> <li>"csv" - values are separated by semi-colon</li> </ul>
+          readOnly: false
+          example: csv
+      responses:
+        '200':
+          description: Download CDRS (application/octet-stream)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/downloadCdrResponse'
+                example: null
+              example: "[\n  {\n     'product': 'IBN',\n     'customerPoP': 'POP EU',\n     'direction': 'Inbound',\n     'originCountry': 'BEL',\n     'destinationCountry': 'FRA',\n     'accessNumber': '3315467894',\n     'customerRoutingNumber': '1233311551556',\n     'aNumber': '3221236598',\n     'bNumber': '3311551556',\n     'accessType': 'FixMobPay',\n     'callTimestamp': '2019-07-11 15:16:49',\n     'durationMinutes': 24.267,\n     'durationSeconds': 1456,\n     'releaseCauseCode': 16,\n     'releaseCauseDescription': 'normal call clearing',\n     'ibisCode': '',\n     'profile': 'Profile A',\n     'sipCallId': '',\n     'calendar': 'SINT',\n     'tde': 'STD'\n  },\n  {\n    …\n  }\n]\n"
+            application/octet-stream:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/downloadCdrResponse'
+                example: null
+              example: "[\n  {\n     'product': 'IBN',\n     'customerPoP': 'POP EU',\n     'direction': 'Inbound',\n     'originCountry': 'BEL',\n     'destinationCountry': 'FRA',\n     'accessNumber': '3315467894',\n     'customerRoutingNumber': '1233311551556',\n     'aNumber': '3221236598',\n     'bNumber': '3311551556',\n     'accessType': 'FixMobPay',\n     'callTimestamp': '2019-07-11 15:16:49',\n     'durationMinutes': 24.267,\n     'durationSeconds': 1456,\n     'releaseCauseCode': 16,\n     'releaseCauseDescription': 'normal call clearing',\n     'ibisCode': '',\n     'profile': 'Profile A',\n     'sipCallId': '',\n     'calendar': 'SINT',\n     'tde': 'STD'\n  },\n  {\n    …\n  }\n]\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '404':
+          description: Not found, verify url and/or id used in the request.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+  /cdrs/{id}/status:
+    summary: /cdrs/{id}/status
+    parameters: []
+    get:
+      tags:
+      - CDR
+      summary: Get status of CDR Request
+      description: This method allows you to request the status of your CDR request.
+      operationId: Get status of CDR Request
+      parameters:
+      - name: id
+        in: path
+        description: CDR request ID
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: CDR request ID
+          readOnly: false
+          example: '123'
+      responses:
+        '200':
+          description: Successful operation.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cdrRequestStatusResponse'
+              example: "{\n  'status': 'Executing'\n}\n"
+          links: {}
+        '404':
+          description: Not found, verify url and/or id used in the request.
+          headers: {}
+          content: {}
+          links: {}
+  /cdrs/availableDates:
+    summary: /cdrs/availableDates
+    parameters: []
+    get:
+      tags:
+      - CDR
+      summary: Get available CDR dates
+      description: This method allows you to verify upfront if CDR data is available for a specific date range.
+      operationId: Get available CDR dates
+      parameters:
+      - name: fromDate
+        in: query
+        description: Filter by from date. Not earlier than today – 1 year. The format of the date is YYYY-MM-DD.
+        required: true
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Filter by from date. Not earlier than today – 1 year. The format of the date is YYYY-MM-DD.
+          readOnly: false
+          example: '2022-08-01'
+      - name: toDate
+        in: query
+        description: Filter by to date. Not earlier than today – 1 year. The format of the date is YYYY-MM-DD.
+        required: true
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Filter by to date. Not earlier than today – 1 year. The format of the date is YYYY-MM-DD.
+          readOnly: false
+          example: '2022-08-03'
+      responses:
+        '200':
+          description: List of available CDR dates.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/availableDate'
+                example: null
+              example: "[\n  {\n    'date': '2022-08-01',\n    'status': 0\n  },\n  {\n    'date': '2022-08-02',\n    'status': 1\n  },\n  {\n    'date': '2022-08-03',\n    'status': 2\n  },\n  {\n  ...\n  }\n]\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: "{\n  'code' : 'E088',\n  'description' : 'Date range not valid.'\n  'timestamp' : '2022-08-15T15:02:35.737+02:00'\n}\n"
+          links: {}
+  /cdrs:
+    summary: /cdrs
+    parameters: []
+    post:
+      tags:
+      - CDR
+      summary: Request CDRs
+      operationId: Request CDRs
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCdrRequest'
+            examples: {}
+            example: null
+      responses:
+        '200':
+          description: Successful operation.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCdrResponse'
+              example: "{\n  'id': 105148,\n  'status': 'Requested'\n}\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: "{\n  'code' : 'E020',\n  'description' : 'Please fill out all the mandatory attributes.'\n  'timestamp' : '2019-07-11T15:16:49.53+02:00'\n}\n"
+          links: {}
+components:
+  schemas:
+    createCdrResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: unique identifier of your request.
+          format: int64
+          example: null
+        status:
+          type: string
+          description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
+          example: null
+      example: null
+    cdrRequestStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
+          example: null
+      example: null
+    downloadCdrResponse:
+      type: object
+      properties:
+        calendar:
+          type: string
+          description: Pricing Calendar Reference. See Get Calendar and Get Calendar by Product.
+          example: null
+        releaseCauseCode:
+          type: integer
+          description: code why the call was closed (see also <a href="#appendixes">APPENDIX A – Release Cause codes</a>)
+          format: int32
+          example: null
+        product:
+          type: string
+          description: Product code,  IBN for cloud number, ITFS for International Freephone Number, "UIFN" for Universal International Freephone Numbers, "SCS" for Shared Cost Services
+          example: null
+        sipCallId:
+          type: string
+          description: Global unique identifier for the call.
+          example: null
+        durationSeconds:
+          type: integer
+          description: Duration in seconds of the call
+          format: int32
+          example: null
+        customerRoutingNumber:
+          type: string
+          description: Routing number
+          example: null
+        profile:
+          type: string
+          description: Tariff differentiation within a country for Inbound Traffic. It intervenes in the billing.
+          example: null
+        bNumber:
+          type: string
+          description: Destination number in E164 format
+          example: null
+        destinationCountry:
+          type: string
+          description: Destination country in ISO 3166-1 alpha-3 format
+          example: null
+        ibisCode:
+          type: string
+          description: Tariff differentiation within a country for Outbound Traffic. It intervenes in the billing.
+          example: null
+        releaseCauseDescription:
+          type: string
+          description: Description of the close of call code
+          example: null
+        aNumber:
+          type: string
+          description: Origin number in E164 format
+          example: null
+        accessType:
+          type: string
+          description: Access type of the calling party.  The possible values are <ul> <li>"Fix" - Fix line</li> <li>"Mob" - Mobile line</li> <li>"Pay" - Payphone line</li> <li>"fixMob" - Fix and Mobile lines</li> <li>"fixPay" - Fix and Payphone lines</li> <li>"mobPay" - Mobile and Payphone lines</li> <li>"fixMobPay" - Fix, Mobile and Payphone lines</li> </ul>
+          example: null
+        durationMinutes:
+          type: number
+          description: Duration in minutes of the call
+          format: decimal
+          example: null
+        customerPoP:
+          type: string
+          description: Point of Presence (PoP) refers to your access point to which the traffic is routed
+          example: null
+        tde:
+          type: string
+          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>STD - Standard</li> <li>P - Peak</li> <li>OP - Off Peak</li> <li>OOP - Off Off Peak</li> <li>WED - Weekend</li> </ul>
+          example: null
+        accessNumber:
+          type: string
+          description: Provisioned number
+          example: null
+        callTimestamp:
+          type: string
+          description: Start date and time of the call in format "yyyy-mm-dd hh:mm:ss" in CET (Central European Time)
+          example: null
+        originCountry:
+          type: string
+          description: Origin country in ISO 3166-1 alpha-3 format
+          example: null
+        direction:
+          type: string
+          description: possible values are <ul> <li>IN for inbound traffic</li> <li>OUT for outbound traffic. Not available for UIFN and SCS products</li> </ul>
+          example: null
+      example: null
+    availableDate:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Available date in format YYYY-MM-DD
+          format: date
+          example: Wed Sep 14 00:00:00 GMT 2022
+        status:
+          type: integer
+          description: Available date status. Possible values are <ul> <li>`0` - All cdrs for this date are available</li> <li>`1` - Cdr data is partially available</li> <li>`2` - No cdr data available</li> </ul>
+          format: int32
+          example: 1
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    createCdrRequest:
+      required:
+      - fromDate
+      - product
+      - toDate
+      type: object
+      properties:
+        aNumber:
+          type: string
+          description: Origin number in E164 format.
+          example: null
+        fromDate:
+          type: string
+          description: Not earlier than today – 1 year.
+          format: date
+          example: null
+        releaseCauseCode:
+          type: integer
+          description: Release cause code. (see <a href="#appendixes">APPENDIX A – Release Cause codes</a>)
+          format: int64
+          example: null
+        product:
+          type: string
+          description: Valid product codes. Possible values <ul> <li>"IBN" for Cloud Numbers</li> <li>"ITFS" for International Freephone Numbers</li> <li>"GMN" for Global Mobile Numbers</li> <li>"UIFN" for Universal International Freephone Numbers</li> <li>"SCS" for Shared Cost Services</li> </ul>
+          example: null
+        aCountry:
+          type: string
+          description: Origin country in ISO 3166-1 alpha-3 format.
+          example: null
+        include0Duration:
+          type: boolean
+          description: Include CDRs where the call duration is 0. Possible values are <ul> <li>true</li> <li>false (default value if not specified in the request)</li> </ul>
+          example: null
+        bCountry:
+          type: string
+          description: Destination country in ISO 3166-1 alpha-3 format.
+          example: null
+        toDate:
+          type: string
+          description: 'Maximum 31 days after ''fromDate'' <br/> e.g.: 1 May till 31 May or 15 June till 15 July
+
+            '
+          format: date
+          example: null
+        bNumber:
+          type: string
+          description: Destination number in E164 format.
+          example: null
+        direction:
+          type: string
+          description: Valid options are <ul> <li>"IN" for inbound traffic (default value if not specified in the request)</li> <li>"OUT" for outbound. Not available for UIFN and SCS products</li> </ul>
+          example: null
+      example: null

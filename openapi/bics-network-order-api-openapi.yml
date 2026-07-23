@@ -1,0 +1,646 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management order API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: order
+  description: Purchase a number from the stock.
+paths:
+  /order/bulk:
+    parameters: []
+    post:
+      tags:
+      - order
+      summary: Order easily single or multiple number(s) that we have in our stock.
+      description: 'Order easily single or multiple number(s) that we have in our stock. The method _/order_ provisions the number on the fly. In other words, the number can be used immediately after the API call.
+
+
+        You just have to fill out in your request the product and the country. Location, area code, quantity of numbers and routing details can be provided to better fit your needs. The content type of the request must be _application/json_.
+
+
+        You can also provide as an input one or multiple specific number(s) that we have in stock. The list of available numbers can be retrieved by calling the method _/availablenumbers_.
+
+
+        For some countries, you also need to specify the reference of the address of the end subscriber. For more information about address requirements, please read the Specifications API section and section Address Management API.
+
+
+        In case there are not enough numbers in stock, you also have the opportunity to split order in two orders: A regular order composed of the numbers that are available in stock and a back order for the remaining numbers that our operational team will fulfill as soon as possible. You can mention the order options in your request to specify the type of orders that API can create for you.'
+      operationId: Order Numbers In Bulk
+      parameters: []
+      requestBody:
+        description: Criteria's to order and provision routings of bulk numbers.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bulkOrder'
+            example: null
+        required: true
+      responses:
+        '200':
+          description: The provisioned number
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/bulkOrderResponse'
+                example: null
+              example: null
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/numberSpecificError'
+              example: null
+        '404':
+          description: No available numbers in stock anymore.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /order/{orderId}:
+    parameters: []
+    get:
+      tags:
+      - order
+      summary: Get order by order id
+      description: The _/order/{orderId}_ method allows you to retrieve the details of a given order. As a response you will receive all information linked to the order that would help you manage it at your convenience.
+      operationId: Get Order Details
+      parameters:
+      - name: orderId
+        in: path
+        description: A given order identifier
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: A given order identifier
+          readOnly: false
+          example: '34535'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bulkOrderResponse'
+              example: null
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '404':
+          description: Order does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /order:
+    parameters: []
+    post:
+      tags:
+      - order
+      summary: Order a single available number
+      description: 'Order easily single number that we have in our stock. The method _/order_ provisions the number on the fly. In other words, the number can be used immediately after the API call.
+
+
+        You just have to fill out in your request the product and the country. Location, area code,  and routing details can be provided to better fit your needs.
+
+
+        The content type of the request must be application/json. For some countries, you also need to specify the reference of the address of the end subscriber. For more information about address requirements, please read the Specifications API section and section Address Management API.
+
+
+        In case there are not enough numbers in stock, you also have an opportunity to create an order that our operational team will fulfill as soon as possible. You can mention the order options in your request to specify the type of orders that API can create for you.'
+      operationId: Order Single Number
+      parameters: []
+      requestBody:
+        description: Criteria's to order and provision routing of one number.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+            example: null
+        required: true
+      responses:
+        '200':
+          description: The provisioned number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderResponse'
+              example: "{\n  'number': '81345785554',\n  'product': 'IBN',\n  'country': 'JPN',\n  'accessArea': 'NA',\n  'location': 'Tokyo',\n  'areaCode': '3',\n  'orderId': '34521',\n  'addressReference': '1247b1ca-ffec-4576-be45-c837cdbff546'\n  'routing': [\n    {\n      'accessType': 'fixMobPay',\n      'accessNetwork': null,\n      'crnType': 'prefix',\n      'crnValue': '234A',\n      'crn': '234A81345785554',\n      'pop': 'ASIA'\n    }\n  ]\n}\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '404':
+          description: No available numbers in stock anymore.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /order/{orderReference}/orderItem/{orderItemReference}:
+    parameters: []
+    patch:
+      tags:
+      - order
+      summary: Edit order by change address reference
+      description: The _/order/{orderReference}/orderItem/{orderItemReference}_ method allows you to change the address reference linked to an order item. It must be used in case the address that you initially provided is not valid and you want to provide another one to fulfil the order.
+      operationId: Edit Order
+      parameters:
+      - name: orderReference
+        in: path
+        description: A given order reference
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: A given order reference
+          readOnly: false
+          example: '34535'
+      - name: orderItemReference
+        in: path
+        description: A given order item reference
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: A given order item reference
+          readOnly: false
+          example: '45953'
+      requestBody:
+        description: Customer's address reference
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orderItemPatchRequest'
+            example: null
+        required: true
+      responses:
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '204':
+          description: Address Reference updated for given order item.
+components:
+  schemas:
+    order:
+      type: object
+      allOf:
+      - required:
+        - country
+        - product
+        type: object
+        properties:
+          country:
+            type: string
+            description: Country code in ISO 3166-1 alpha-3 format.
+            example: BEL
+          product:
+            type: string
+            description: Valid product codes are 'IBN', 'ITFS' and 'GMN'. IBN referring to Cloud Numbers, ITFS referring to International Freephone and GMN referring to Global Mobile Number.
+            example: IBN
+          areaCode:
+            type: string
+            description: Optional parameter that indicates the area code of the number according to the national numbering plan. This attribute is not mandatory.
+            example: '2'
+          orderOptions:
+            $ref: '#/components/schemas/orderOptions'
+          accessArea:
+            type: string
+            description: Optional parameter allowing to select an exact price definition. See pricelist method for more info.
+            example: NA
+          addressReference:
+            type: string
+            description: Optional parameter allowing to specify the reference of the address you want to link to the Cloud Number. It must be used to order numbers in countries where address of the end subscriber is required.
+            example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
+          profile:
+            type: string
+            description: Optional parameter allowing to select an exact price definition. See pricelist method for more info.
+            example: Profile A
+          location:
+            type: string
+            description: Optional parameter that indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number. This attribute is not mandatory and can be filled in for Cloud Number (IBN) only.
+            example: Brussels
+          myReference:
+            type: string
+            description: Optional parameter that allows you to specify your own order reference.
+            example: AB4569
+        example: null
+      - $ref: '#/components/schemas/customerRoutingContainer'
+      example: null
+    crnType:
+      type: string
+      description: "The translation rule for the customer routing number that you want to apply to the number.\n<ul>\n  <li>`prefix` - To prefix the access number with the specified crnValue.</li>\n  <li>`suffix` - To suffix the access number with the specified crnValue.</li>\n  <li>`freetext` - To define your own customer routing number.</li>\n  <li>`copy` - To use the access number as your customer routing number.</li>\n  <li>`NA` - To bar incoming calls for this routing.</li>\n</ul>\n"
+      example: prefix
+      enum:
+      - prefix
+      - suffix
+      - freetext
+      - copy
+      - NA
+    validationStatus:
+      type: string
+      enum:
+      - Need more information
+      - Under validation
+      - Validated
+      - No validation required
+      example: null
+    orderRequestItem:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          number:
+            type: string
+            description: The number that you want to order. This attribute needs to be specified if you buy specific numbers.
+            example: '81345785554'
+          addressReference:
+            type: string
+            description: Optional parameter that allows you to specify the reference of the address you want to link to the number. It must be used to order number in countries where the end-user address is required.
+            example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
+        description: If you want to buy one or multiple specific numbers, you can provide the numbers in the appropriate format. For each number you can provide the address reference and the routing information.
+        example: null
+      - $ref: '#/components/schemas/customerRoutingContainer'
+      example: null
+    responseRoutingWithDetails:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          crnValue:
+            type: string
+            description: 'The value to be used by the translation rule of the crnType. Only applicable to crnTypes prefix, suffix and freetext.
+
+              '
+            example: 259AB
+          crnType:
+            $ref: '#/components/schemas/crnType'
+        example: null
+      - $ref: '#/components/schemas/responseRouting'
+      example: null
+    customerRoutingContainer:
+      type: object
+      properties:
+        routing:
+          type: array
+          description: The routing configuration you want to apply for this number.
+          items:
+            $ref: '#/components/schemas/customerRouting'
+          example: null
+      example: null
+    responseRouting:
+      type: object
+      properties:
+        accessType:
+          type: string
+          description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+          example: fixMobPay
+        pop:
+          type: string
+          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
+          example: ASIA
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network.
+          example: BICS
+        crn:
+          type: string
+          description: Customer Routing Number.
+          example: 259AB81345785554
+      example: null
+    orderItemPatchRequest:
+      type: object
+      properties:
+        addressReference:
+          type: string
+          description: Address reference id.
+          example: 365c51a4-07b8-4b04-bb6c-cbf1a1cc2205
+      example: null
+    orderStatus:
+      type: string
+      description: "Status of the order. For real-time number provisioning, the order status starts as <b>Provisioning</b> and updates to <b>Delivered</b> once completed in backend systems.\n<ul>\n  <li>Created: Order is created. BICS will fulfil it as soon as possible.</li>\n  <li>End user information under validation: BICS validates provided end user information.</li>\n  <li>On hold, need more information: Some information is missing such as proof of document. Attribute Comment gives additional information.</li>\n  <li>Being processed: Order is being processed. Numbers will be provisioned soon.</li>\n  <li>Provisioning: Numbers are currently being set up and are not yet available for use. Once provisioning is complete, the status will be updated to <b>Delivered</b>.</li>\n  <li>Delivered: Order is delivered, and numbers are provisioned.</li>\n  <li>Cancelled by you: Order cancelled by you.</li>\n  <li>Cancelled by BICS: Order cancelled by BICS.</li>\n</ul>\n"
+      enum:
+      - Created
+      - End user information under validation
+      - On hold, more information required
+      - Being processed
+      - Provisioning
+      - Delivered
+      - Cancelled by you
+      - Cancelled by BICS
+      example: null
+    orderResponse:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The provisioned access number
+          example: '81345785554'
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: JPN
+        routing:
+          type: array
+          description: The routing configuration applied.
+          items:
+            $ref: '#/components/schemas/responseRoutingWithDetails'
+          example: null
+        product:
+          type: string
+          description: Valid product codes are 'IBN' and 'ITFS'. IBN referring to Cloud Numbers and ITFS referring to International Freephone.
+          example: IBN
+        areaCode:
+          type: string
+          description: Optional parameter that indicates the area code of the number according to the national numbering plan. This attribute is not mandatory.
+          example: '3'
+        accessArea:
+          type: string
+          description: The tariff differentiator the access number belongs to.
+          example: NA
+        addressReference:
+          type: string
+          description: Identifier of the address of the end subscriber. It must be used to order numbers in countries where address of the end subscriber is required.
+          example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
+        orderId:
+          type: string
+          description: SHOUL BE ADAPTED - Reference of your order. This will refer to your order on the MyNumbers portal.
+          example: '34521'
+        location:
+          type: string
+          description: A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number.
+          example: Tokyo
+        status:
+          $ref: '#/components/schemas/orderStatus'
+      example: null
+    accessType:
+      type: string
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+      enum:
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
+      example: null
+    bulkOrderResponse:
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: JPN
+        product:
+          type: string
+          description: Valid product codes are 'IBN' and 'ITFS'. IBN referring to Cloud Numbers and ITFS referring to International Freephone.
+          example: IBN
+        orderId:
+          type: string
+          description: Identifier of your order.
+          example: '34521'
+        profile:
+          type: string
+          description: Tariff differentiator within a country. It intervenes in the billing.
+          example: Profile A
+        orderItems:
+          type: array
+          description: An order is composed of an array of items. There is an order item per number provisioned.
+          items:
+            $ref: '#/components/schemas/orderItem'
+          example: null
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '3'
+        createdDate:
+          type: string
+          description: Created date of the order.
+          format: date-time
+          example: '2019-12-17T01:00:00+01:00'
+        accessArea:
+          type: string
+          description: Used to differentiate the tariff of the number when relevant.
+          example: NA
+        modifiedDate:
+          type: string
+          description: Modified date of the order.
+          format: date-time
+          example: '2019-12-18T03:20:00+01:00'
+        comment:
+          type: string
+          description: Additional information on the status of the order. It helps you to understand what you need to provide to fulfil your order.
+          example: Please provide the company registration
+        location:
+          type: string
+          description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
+          example: Tokyo
+        myReference:
+          type: string
+          description: Your internal order reference.
+          example: AB4569
+        status:
+          $ref: '#/components/schemas/orderStatus'
+      example: null
+    orderItem:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The provisioned number.
+          example: '81345785554'
+        routing:
+          type: array
+          description: Routing configuration applied.
+          items:
+            $ref: '#/components/schemas/responseRoutingWithDetails'
+          example: null
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '3'
+        addressReference:
+          type: string
+          description: Reference of the address you have linked to the number.
+          example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
+        orderItemId:
+          type: string
+          description: Reference of the order item.
+          example: '63451'
+        location:
+          type: string
+          description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
+          example: Tokyo
+        endUserInfoValidation:
+          $ref: '#/components/schemas/endUserInfoValidation'
+      example: null
+    endUserInfoValidation:
+      type: object
+      properties:
+        addressDocuments:
+          $ref: '#/components/schemas/validationStatus'
+        address:
+          $ref: '#/components/schemas/validationStatus'
+      description: 'Set of attributes indicates the validation status of the end user information. Attribute address gives the
+
+        status of the address of the end user and attribute addressDocuments gives the status of the documents provided
+
+        against the country specifications.
+
+        '
+      example: null
+    bulkOrder:
+      type: object
+      allOf:
+      - type: object
+        properties:
+          country:
+            type: string
+            description: Country code in ISO 3166-1 alpha-3 format. This attribute does not need to be specified if you buy specific numbers, otherwise it is mandatory.
+            example: BEL
+          orderRequestItems:
+            type: array
+            description: If you want to buy one or multiple specific numbers, you can provide the numbers in the appropriate format. For each number you can provide the address reference and the routing information.
+            items:
+              $ref: '#/components/schemas/orderRequestItem'
+            example: null
+          product:
+            type: string
+            description: Valid product codes are IBN, ITFS and GMN. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Number. This attribute does not need to be specified if you buy specific numbers, otherwise it is mandatory.
+            example: IBN
+          areaCode:
+            type: string
+            description: Optional parameter that indicates the area code of the number according to the national numbering plan. This attribute is not mandatory.
+            example: '2'
+          quantity:
+            type: integer
+            description: Quantity of numbers you want to buy. If not specified only 1 number will be ordered.
+            example: 1
+          orderOptions:
+            $ref: '#/components/schemas/orderOptions'
+          addressReference:
+            type: string
+            description: Optional parameter that allows you to specify the reference of the address you want to link to the numbers. It must be used to order numbers in countries where the end-user address is required.
+            example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
+          location:
+            type: string
+            description: Optional parameter that indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number. This attribute is not mandatory and can be filled in for Cloud Number (IBN) only.
+            example: brussels
+          myReference:
+            type: string
+            description: Optional parameter that allows you to specify your own order reference.
+            example: AB4569
+        example: null
+      - $ref: '#/components/schemas/customerRoutingContainer'
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    orderOptions:
+      type: object
+      properties:
+        backOrderAllowed:
+          type: boolean
+          description: Optional parameter that indicates if MyNumbers API is allowed to create an order that will be fulfilled by our operational team. It occurs when there are no numbers available in our stock. By default, this attribute is set to False.
+          example: true
+        consecutiveNumbers:
+          type: boolean
+          description: Optional parameter to indicate if consecutive numbers should be ordered. By default, this attribute is set to False.
+          example: true
+        firstNumberEndsWith:
+          type: string
+          description: Optional parameter to specify the ending digits of the first consecutive number. Only digits are allowed, and it must be a maximum of 4 digits.
+          example: '1234'
+        regularOrderAllowed:
+          type: boolean
+          description: Optional parameter that indicates if MyNumbers API is allowed to create an order that will be fulfilled by our operational team. It occurs when manual end user information is required. By default, this attribute is set to False.
+          example: true
+      description: Optional parameters that allow you to specify the type of orders you want to get.
+      example: null
+    numberSpecificError:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/error'
+      - type: object
+        properties:
+          number:
+            type: string
+            example: Number to which error corresponds to.
+          country:
+            type: string
+            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
+        example: null
+      example: null
+    customerRouting:
+      required:
+      - crnType
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/accessType'
+        pop:
+          type: string
+          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
+          example: America
+        accessNetwork:
+          type: string
+          description: The network of the calling party. Routing detail can differ per access network of the calling party.
+          example: SMART
+        crnValue:
+          type: string
+          description: 'The value to be used by the translation rule of the crnType. Only applicable to crnTypes prefix, suffix and freetext.
+
+            '
+          example: 259AB
+        crnType:
+          $ref: '#/components/schemas/crnType'
+      description: This parameter allows you to specify routing information for the numbers you buy. You can differentiate calls based on access type/access network by defining a different customer routing number per access type/access network. For more info about the combination access type/access network, please consult the method Get Pricelist. If you want to define the same routing configuration for every combination access type/access network, you can omit the routing attributes Access Type and Access Network, and only specify crnType and crnValue. If you order multiple numbers at once (by providing the quantity parameter) the same routing will be applied to all numbers ordered.
+      example: null

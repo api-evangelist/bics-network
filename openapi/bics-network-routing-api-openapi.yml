@@ -1,0 +1,220 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management routing API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: routing
+  description: Modify routing details for customer numbers.
+paths:
+  /routes:
+    parameters: []
+    post:
+      tags:
+      - routing
+      summary: Change your routing details.
+      description: The _/routes_ method allows you to change your routing details for one or multiple number(s). You can provide for each access type (fixed, mobile and payphone) if relevant the PoP and routing number to use. You can retrieve the current routing by calling the _/numbers/{number}_ method and your PoP names by calling the method _/reference/pops_.
+      operationId: Update routes
+      parameters: []
+      requestBody:
+        description: Criteria's to edit routing info for customer numbers.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/routeUpdateRequest'
+              example: null
+            example: null
+        required: false
+      responses:
+        '200':
+          description: Routes updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/routeUpdateResponse'
+                example: null
+              example: "[\n  {\n    'number': '443706070212',\n    'product': 'IBN',\n    'country': 'GBR',\n    'location': 'National',\n    'areaCode': '3',\n    'accessArea': 'NA',\n    'profile': 'Profile A',\n    'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\n    'routing': [\n      {\n        'accessType': 'fixMobPay',\n        'accessNetwork': '',\n        'crn': '445706070212A124',\n        'pop': 'POP ASIA'\n      }\n    ]\n  },\n  {\n    'number': '443706070215',\n    'product': 'IBN',\n    'country': 'GBR',\n    'location': 'National',\n    'areaCode': '3',\n    'accessArea': 'NA',\n    'profile': 'Profile A',\n    'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\n    'routing': [\n      {\n        'accessType': 'fixMobPay',\n        'accessNetwork': '',\n        'crn': '445706070215',\n        'pop': 'POP ASIA'\n      }\n    ]\n  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/numberSpecificError'
+              example: null
+        '409':
+          description: Conflict, A previous route update is still pending.  Please try again later.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/numberSpecificError'
+              example: null
+components:
+  schemas:
+    routeUpdateResponse:
+      type: object
+      properties:
+        number:
+          type: string
+          description: Customer access number
+          example: '81345785554'
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: JPN
+        routing:
+          type: array
+          description: Routing details
+          items:
+            $ref: '#/components/schemas/responseRouting'
+          example: null
+        product:
+          type: string
+          description: Type of booked product
+          example: IBN
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '3'
+        accessArea:
+          type: string
+          description: Tariff and/or service differentiator within a country. It intervenes in the billing.
+          example: NA
+        addressReference:
+          type: string
+          description: Identifier of the address of the end subscriber. It must be used to order numbers in countries where address of the end subscriber is required.
+          example: 1247b1ca-ffec-4576-be45-c837cdbff546
+        profile:
+          type: string
+          description: Parameter which allows to select an exact price definition. See pricelist method for more info.
+          example: Profile A
+        location:
+          type: string
+          description: A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number.
+          example: Tokyo
+      example: null
+    crnType:
+      type: string
+      description: "The translation rule for the customer routing number that you want to apply to the number.\n<ul>\n  <li>`prefix` - To prefix the access number with the specified crnValue.</li>\n  <li>`suffix` - To suffix the access number with the specified crnValue.</li>\n  <li>`freetext` - To define your own customer routing number.</li>\n  <li>`copy` - To use the access number as your customer routing number.</li>\n  <li>`NA` - To bar incoming calls for this routing.</li>\n</ul>\n"
+      example: prefix
+      enum:
+      - prefix
+      - suffix
+      - freetext
+      - copy
+      - NA
+    responseRouting:
+      type: object
+      properties:
+        accessType:
+          type: string
+          description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+          example: fixMobPay
+        pop:
+          type: string
+          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
+          example: ASIA
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network.
+          example: BICS
+        crn:
+          type: string
+          description: Customer Routing Number.
+          example: 259AB81345785554
+      example: null
+    accessType:
+      type: string
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+      enum:
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
+      example: null
+    numberSpecificError:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/error'
+      - type: object
+        properties:
+          number:
+            type: string
+            example: Number to which error corresponds to.
+          country:
+            type: string
+            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
+        example: null
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    customerRouting:
+      required:
+      - crnType
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/accessType'
+        pop:
+          type: string
+          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
+          example: America
+        accessNetwork:
+          type: string
+          description: The network of the calling party. Routing detail can differ per access network of the calling party.
+          example: SMART
+        crnValue:
+          type: string
+          description: 'The value to be used by the translation rule of the crnType. Only applicable to crnTypes prefix, suffix and freetext.
+
+            '
+          example: 259AB
+        crnType:
+          $ref: '#/components/schemas/crnType'
+      description: This parameter allows you to specify routing information for the numbers you buy. You can differentiate calls based on access type/access network by defining a different customer routing number per access type/access network. For more info about the combination access type/access network, please consult the method Get Pricelist. If you want to define the same routing configuration for every combination access type/access network, you can omit the routing attributes Access Type and Access Network, and only specify crnType and crnValue. If you order multiple numbers at once (by providing the quantity parameter) the same routing will be applied to all numbers ordered.
+      example: null
+    routeUpdateRequest:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The provisioned number for which you want to update the route.
+          example: '81345785554'
+        country:
+          type: string
+          description: Origin Country code in ISO 3166-1 alpha-3 format of the Access Number. The attribute is mandatory for update routes of UIFN or MSC numbers.
+          example: BEL
+        routing:
+          type: array
+          description: This parameter allows you to specify routing information for the numbers you buy. You can differentiate calls based on access type/access network by defining a different customer routing number per access type/access network. For more info about the combination access type/access network, please consult the method Get Pricelist. If you want to define the same routing configuration for every combination access type/access network, you can omit the routing attributes Access Type and Access Network, and only specify crnType and crnValue. If you order multiple numbers at once (by providing the quantity parameter) the same routing will be applied to all numbers ordered.
+          items:
+            $ref: '#/components/schemas/customerRouting'
+          example: null
+        profile:
+          type: string
+          description: Tariff differentiator within a country. It intervenes in the billing.
+          example: Profile A
+      example: null

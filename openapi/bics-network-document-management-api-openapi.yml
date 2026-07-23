@@ -1,0 +1,113 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Document Management API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Document Management
+  description: ''
+paths:
+  /addresses/{reference}/documents/{documentReference}:
+    summary: /addresses/{reference}/documents/{documentReference}
+    parameters: []
+    delete:
+      tags:
+      - Document Management
+      summary: Delete Document By Reference
+      description: 'Delete a proof document linked to one of your addresses. You can only delete existing documents when the status of the document is ''Submitted'', ''Rejected'' or ''Declined''.
+
+
+        The Address reference and document reference must be specified in the url.'
+      operationId: Delete Document By Reference
+      parameters:
+      - name: reference
+        in: path
+        description: Identifier of the address
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Identifier of the address
+          readOnly: false
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+      - name: documentReference
+        in: path
+        description: Identifier of the document
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          description: Identifier of the document
+          readOnly: false
+          example: 24bebc37-505f-4b46-9021-6d31b839cd7c
+      responses:
+        '200':
+          description: successful operation
+          headers: {}
+          content: {}
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '403':
+          description: this service cannot be used according to your API Key
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+        '404':
+          description: resource is not found
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              examples: {}
+              example: null
+          links: {}
+components:
+  schemas:
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation.
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation.
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
+      example: null

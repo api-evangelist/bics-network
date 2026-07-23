@@ -1,0 +1,231 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management specification API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: specification
+  description: ''
+paths:
+  /specifications:
+    parameters: []
+    get:
+      tags:
+      - specification
+      summary: Get specifications by product including not offered anymore
+      description: This method allows you to get specifications/restrictions for products offered within your pricelist and/or inventory.
+      operationId: get specifications
+      parameters:
+      - name: product
+        in: query
+        description: "Get specifications by product. Possible values\n<ul>\n  <li>\"IBN\" for Cloud Number</li>\n  <li>\"ITFS\" for International Freephone Number</li>\n  <li>\"GMN\" for Global Mobile Number</li>\n</ul>\n"
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: "Get specifications by product. Possible values\n<ul>\n  <li>\"IBN\" for Cloud Number</li>\n  <li>\"ITFS\" for International Freephone Number</li>\n  <li>\"GMN\" for Global Mobile Number</li>\n</ul>\n"
+          readOnly: false
+          example: IBN
+      - name: country
+        in: query
+        description: Get specifications by country in ISO 3166-1 alpha-3 format.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Get specifications by country in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: GBR
+      - name: profile
+        in: query
+        description: Tariff differentiation within a country. It intervenes in the billing. Only valid in combination with country.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Tariff differentiation within a country. It intervenes in the billing. Only valid in combination with country.
+          readOnly: false
+          example: Profile A
+      - name: includeNotOfferedAnymore
+        in: query
+        description: Show specifications for active numbers for products and countries that are not offered anymore.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: boolean
+          description: Show specifications for active numbers for products and countries that are not offered anymore.
+          readOnly: false
+          example: 'true'
+      responses:
+        '200':
+          description: List of specifications.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/specification'
+                example: null
+              example: "[\n  {\n    'product': 'IBN',\n    'country': 'AUS',\n    'nationalRegulatoryAuthority': 'Austrian Regulatory Authority for Broadcasting and Telecommunications (RTR-GmbH) http://www.rtr.at/',\n    'legalRestrictions': ' A physical endpoint for geo numbers is needed.',\n    'addressRequirement': {\n       'type': 'Required in Region',\n       'proofOfDocuments': 'true',\n       'proofOfDocumentsNonGeo': 'false',\n       'realTimeProvisioning': 'false',\n       'phoneNumber': false,\n       'documents': [\n       {\n           'description': 'invoice'\n       }, { …  }\n       ],\n       'documentTypesForIndividual':\n            [\n               {\n                  'code': 'POD3',\n                  'description': 'Copy of Passport or End-User ID'\n               },\n               {\n                 …\n               }\n            ],\n       'documentTypesForCompany':\n            [\n               {\n                  'code': 'POD4',\n                  'description': 'Letter of Intent (LOI)'\n               },\n               {\n                 …\n               }\n            ]\n       'addressValidationInfo': null\n    },\n    'profiles':\n         [\n           {\n                'profile': 'Profile A',\n                'serviceRestrictions': 'No limitations',\n                'backorderDurationMin': 5,\n                'backorderDurationMax': 10,\n                'status': 'Offered'\n           },\n           { … }\n         ],\n    'lastModified': '2019-05-25T00:00:00+1:00'\n  },\n  {\n    …\n  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+components:
+  schemas:
+    profileSpecification:
+      type: object
+      properties:
+        serviceRestrictions:
+          type: string
+          description: text describing service restrictions
+          example: null
+        backorderDurationMax:
+          type: string
+          description: Maximum time to delivery (in days) for a backorder
+          example: null
+        profile:
+          type: string
+          description: List of tariff differentiators
+          example: null
+        backorderDurationMin:
+          type: string
+          description: Minimum time to delivery (in days) for a backorder
+          example: null
+        status:
+          type: string
+          description: "<ul>\n  <li>\"Offered\" : product and country within your current pricelist</li>\n  <li>\"Not offered anymore\" : product and country not in your pricelist, but there are active numbers in your inventory</li>\n</ul>\n"
+          enum:
+          - Offered
+          - Not offered anymore
+          example: null
+      example: null
+    documentTypeDescription:
+      type: object
+      properties:
+        description:
+          type: string
+          description: document type description.
+          example: Company registration
+      example: null
+    addressRequirement:
+      type: object
+      properties:
+        realTimeProvisioning:
+          type: boolean
+          description: "<ul>\n  <li>true: numbers can be delivered in real time</li>\n  <li>false: numbers can not be delivered in real time</li>\n  <li>null: Not applicable for this address requirement type</li>\n</ul>\n"
+          example: null
+        proofOfDocumentsNonGeo:
+          type: boolean
+          description: "<ul>\n  <li>true: proofing of documents is mandatory for every order of national (non-geo) numbers</li>\n  <li>false: proofing of documents is optional for every order of national (non-geo) numbers</li>\n  <li>null: Not applicable for this address requirement type</li>\n</ul>\n"
+          example: null
+        proofOfDocuments:
+          type: boolean
+          description: "<ul>\n  <li>true: proofing of documents is mandatory for every order</li>\n  <li>false: proofing of documents is optional for every order</li>\n  <li>null: Not applicable for this address requirement type</li>\n</ul>\n"
+          example: null
+        phoneNumber:
+          type: boolean
+          description: "<ul>\n  <li>true: phone number is mandatory for this order according the specs</li>\n  <li>false: phone number is not mandatory for this order according the specs</li>\n</ul>\n"
+          example: null
+        documentTypesForIndividual:
+          type: array
+          description: List of required documents for individual
+          items:
+            $ref: '#/components/schemas/documentType'
+          example: null
+        documents:
+          type: array
+          description: list of documents needed for address requirements. See documentTypesForIndividual and documentTypesForCompany
+          items:
+            $ref: '#/components/schemas/documentTypeDescription'
+          example: null
+        addressValidationInfo:
+          type: string
+          description: More information about address validation
+          example: null
+        documentTypesForCompany:
+          type: array
+          description: List of required documents for Company
+          items:
+            $ref: '#/components/schemas/documentType'
+          example: null
+        type:
+          type: string
+          description: "<ul>\n  <li>\"Not required\" : no address required</li>\n  <li>\"Required in region\" : address mandatory within region</li>\n  <li>\"Required in country\" : address mandatory within country</li>\n  <li>\"Required worldwide\" : address mandatory worldwide</li>\n</ul>\n"
+          enum:
+          - Not required
+          - Required in region
+          - Required in country
+          - Required worldwide
+          example: null
+        vatNumber:
+          type: boolean
+          description: "<ul>\n  <li>true: VAT number is mandatory for this order according the specs</li>\n  <li>false: VAT number is not mandatory for this order according the specs</li>\n  <li>null: Not applicable for this address requirement type</li>\n</ul>\n"
+          example: null
+      example: null
+    specification:
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country in ISO 3166-1 alpha-3 format.
+          example: null
+        product:
+          type: string
+          description: "Get specifications by product. Possible values\n<ul>\n  <li>\"IBN\" for Cloud Number</li>\n  <li>\"ITFS\" for International Freephone Number</li>\n  <li>\"GMN\" for Global Mobile Number</li>\n</ul>\n"
+          example: null
+        addressRequirement:
+          $ref: '#/components/schemas/addressRequirement'
+        nationalRegulatoryAuthority:
+          type: string
+          description: National Regulatory Authority
+          example: null
+        legalRestrictions:
+          type: string
+          description: legal restrictions.
+          example: null
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/profileSpecification'
+          example: null
+        lastModified:
+          type: string
+          description: timestamp of the last modification
+          format: date-time
+          example: null
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    documentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: document type code
+          example: POD1
+        description:
+          type: string
+          description: document type description
+          example: Letter of Intent
+      example: null

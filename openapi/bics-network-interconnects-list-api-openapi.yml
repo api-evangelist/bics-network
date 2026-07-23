@@ -1,0 +1,118 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Interconnects List API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Interconnects List
+  description: ''
+paths:
+  /interconnects:
+    summary: /interconnects
+    parameters: []
+    get:
+      tags:
+      - Interconnects List
+      summary: Get list of current customer's interconnects
+      operationId: getInterconnects
+      parameters:
+      - name: type
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - ACCESS_LINE
+            - MARKETPLACE
+            example: null
+          example: null
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InterconnectDto'
+                example: null
+              example: '[{"id":"1000007895","type":"ACCESS_LINE","label":"1000007895","city":"LOS ANGELES","countryIso3":"USA","houser":"One Wilshire","datacenter":"LA1","capacity":"1GBS","capacityLabel":"1 Gbps","usage":0.19,"portMode":"dot1Q","status":"Active","portTag":null,"additionalData":null},{"id":"1000285300","type":"ACCESS_LINE","label":"1000285300","city":"London","countryIso3":"GBR","houser":"Equinix","datacenter":null,"capacity":"1GBS","capacityLabel":"1 Gbps","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null}]'
+          links: {}
+components:
+  schemas:
+    InterconnectDto:
+      type: object
+      properties:
+        capacityLabel:
+          type: string
+          description: Capacity display label
+          example: null
+        portMode:
+          type: string
+          description: Interconnect port mode
+          example: null
+        city:
+          type: string
+          description: Interconnect city
+          example: null
+        usage:
+          type: number
+          description: Average usage rate percentage for interconnect
+          example: null
+        datacenter:
+          type: string
+          description: Interconnect datacenter
+          example: null
+        label:
+          type: string
+          description: Interconnect name
+          example: null
+        type:
+          type: string
+          description: Interconnect type
+          enum:
+          - ACCESS_LINE
+          - MARKETPLACE
+          example: null
+        capacity:
+          type: string
+          description: Capacity (Bandwidth reference data ID)
+          example: null
+        houser:
+          type: string
+          description: Interconnect houser
+          example: null
+        portTag:
+          type: string
+          description: Interconnect port tag
+          example: null
+        additionalData:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional data
+            example: null
+          description: Additional data
+          example: null
+        id:
+          type: string
+          description: Interconnect service ID
+          example: null
+        countryIso3:
+          type: string
+          description: Interconnect Country ISO3 code
+          example: null
+        status:
+          type: string
+          description: Sirius status
+          example: null
+      description: Interconnect B details
+      example: null

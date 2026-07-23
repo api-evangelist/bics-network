@@ -1,0 +1,508 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management reference API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: reference
+  description: Query BICS reference data.
+paths:
+  /reference/languages:
+    parameters: []
+    get:
+      tags:
+      - reference
+      summary: ''
+      description: This method allows you to get all available languages. You will need this information to identify what language you are adding to an existing or newly created address.
+      operationId: Get Languages
+      parameters: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/language'
+                example: null
+              example: "[\n    {\n        'code': 'en',\n        'description': 'English'\n    }, { …  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /reference/locations/country/{country}:
+    parameters: []
+    get:
+      tags:
+      - reference
+      summary: Query the available locations.
+      description: 'List of all locations where you can order Cloud Numbers for a specific country. A location is represented by a name and an area code.
+
+
+        Location indicates in most cases a city the number belongs to. It is also used to specify if it is a national or a mobile number.'
+      operationId: get Locations By Country
+      parameters:
+      - name: country
+        in: path
+        description: Filter locations by country in ISO 3166-1 alpha-3 format.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter locations by country in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: ITA
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/locations'
+                example: null
+              example: "[\n    {\n        'location': 'Ancona',\n        'areaCode': '71',\n        'country': 'ITA',\n        'product': 'IBN'\n    },\n    {\n        'location': 'Bari',\n        'areaCode': '80',\n        'country': 'ITA',\n        'product': 'ITFS'\n    },\n    {\n        'location': 'Napoli',\n        'areaCode': '81',\n        'country': 'ITA',\n        'product': 'IBN'\n    }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /reference/locations:
+    parameters: []
+    get:
+      tags:
+      - reference
+      summary: Query the available locations.
+      description: 'List of all locations where you can order Cloud Numbers. A location is represented by a name and an area code. For Cloud Numbers, location indicates in most cases a city the number belongs to. It is also used to specify if it is a national or a mobile number.
+
+
+        You can also retrieve the list of area codes available for International Freephone Numbers or Global Mobile Numbers by specifying the product.
+
+
+        Additionally, you can filter out your request by providing the country.'
+      operationId: get Locations
+      parameters:
+      - name: product
+        in: query
+        description: Filter by product. Valid product codes are IBN, ITFS and GMN. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Numbers.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter by product. Valid product codes are IBN, ITFS and GMN. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Numbers.
+          readOnly: false
+          example: ITFS
+      - name: country
+        in: query
+        description: Filter by country in ISO 3166-1 alpha-3 format.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter by country in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: BEL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/locations'
+                example: null
+              example: "[\n    {\n        'location': 'Brussels',\n        'areaCode': '2',\n        'country': 'BEL',\n        'product': 'IBN'\n    },\n    {\n        'location': 'Paris',\n        'areaCode': '1',\n        'country': 'FRA',\n        'product': 'ITFS'\n    },\n    {\n        'location': 'Bari',\n        'areaCode': '53',\n        'country': 'ITA',\n        'product': 'IBN'\n    }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /reference/calendar:
+    parameters: []
+    get:
+      tags:
+      - reference
+      summary: Get Pricing Calendar Reference.
+      description: Query Calendar from your Pricelist.
+      operationId: get Calendars
+      parameters: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/calendar'
+                example: null
+              example: "[\n {\n  'calendar': 'SINT',\n  'tde': 'STD',\n  'dayOfWeek': 'Monday',\n  'from': '00:00',\n  'until': '23:59'\n },{\n\n  'calendar': 'SINT',\n  'tde': 'STD',\n  'dayOfWeek': 'Tuesday',\n  'from': '00:00',\n  'until': '23:59'\n },{ …  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /reference/pops:
+    parameters: []
+    get:
+      tags:
+      - reference
+      summary: Query your available POPs.
+      description: <h2><b><span class="warning">***<i>DEPRECATED</i></span></b></h2><br/> <span class="warning">This method is deprecated. Please use new /reference/pops/product/{product} method.</span><br/> List your available Points of Presence (POPs). In case you have several POPs, you need to specify which one to be used when you order a number.
+      operationId: get POPs
+      parameters: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: null
+                example: null
+              example: "[\n  '',\n  'POP SOUTH',\n  'POP NORTH'\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+      deprecated: true
+  /reference/pops/product/{product}:
+    parameters: []
+    get:
+      tags:
+      - reference
+      summary: Query your available POPs by Product.
+      description: List your available Points of Presence (POPs). In case you have several POPs, you need to specify which one to be used when you order a number.
+      operationId: get POPs by Product
+      parameters:
+      - name: product
+        in: path
+        description: Filter POPs by product. Valid product codes are IBN, GMN and ITFS.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter POPs by product. Valid product codes are IBN, GMN and ITFS.
+          readOnly: false
+          example: IBN
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: null
+                example: null
+              example: "[\n  'EU',\n  'POP ASIA',\n  ''\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /reference/calendar/product/{product}:
+    parameters: []
+    get:
+      tags:
+      - reference
+      summary: Get Pricing Calendar Reference.
+      description: Query Calendar from your Pricelist by Product.
+      operationId: get Calendars by Product
+      parameters:
+      - name: product
+        in: path
+        description: Filter Calendars by Calendar Codes from Prices for specified product. Valid product codes are IBN, GMN, SCS, UIFN and ITFS.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter Calendars by Calendar Codes from Prices for specified product. Valid product codes are IBN, GMN, SCS, UIFN and ITFS.
+          readOnly: false
+          example: IBN
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/calendar'
+                example: null
+              example: "[\n {\n  'calendar': 'SINT',\n  'tde': 'STD',\n  'dayOfWeek': 'Monday',\n  'from': '00:00',\n  'until': '23:59'\n },{\n\n  'calendar': 'SINT',\n  'tde': 'STD',\n  'dayOfWeek': 'Tuesday',\n  'from': '00:00',\n  'until': '23:59'\n },{ …  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '404':
+          description: Pricelist is not defined for specified product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /reference/documenttypes:
+    parameters: []
+    get:
+      tags:
+      - reference
+      summary: ''
+      description: This method allows you to get all document types. You will need this information to identify which type of documents you are adding to an existing or newly created address.
+      operationId: Get Document Types
+      parameters: []
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/documentTypesComposed'
+              example: "{\n  'documentTypesForIndividual': [\n    {\n      'code': 'POD01',\n      'description': 'Copy of Passport or End-User ID'\n    }, { …  }\n  ],\n  'documentTypesForCompany': [\n    {\n      'code': 'POD02',\n      'description': 'Company Registration'\n    },\n    {\n      'code': 'POD10',\n      'description': 'Letter of Autorization'\n    },{ …  }\n  ]\n}\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+components:
+  schemas:
+    calendar:
+      type: object
+      properties:
+        calendar:
+          type: string
+          description: Pricing Calendar Code.
+          example: SINT
+        dayOfWeek:
+          type: string
+          description: Day of week Monday, Tuesday, … .
+          example: Monday
+        tde:
+          type: string
+          description: Time division element that differentiates the price based on the day and time of the call. STD - Standard P - Peak OP - Off Peak OOP - Off Off Peak WED - Weekend
+          example: STD
+        from:
+          type: string
+          description: time in format hh:mm.
+          example: 00:00
+        until:
+          type: string
+          description: time in format hh:mm
+          example: 00:00
+      example: null
+    documentTypesComposed:
+      type: object
+      properties:
+        documentTypesForIndividual:
+          type: array
+          description: List of available document types for individual
+          items:
+            $ref: '#/components/schemas/documentType'
+          example: null
+        documentTypesForCompany:
+          type: array
+          description: List of available document types for Company
+          items:
+            $ref: '#/components/schemas/documentType'
+          example: null
+      example: null
+    language:
+      type: object
+      properties:
+        code:
+          type: string
+          description: language code
+          example: en
+        description:
+          type: string
+          description: full language name
+          example: English
+      example: null
+    locations:
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: BEL
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '2'
+        product:
+          type: string
+          description: Product code.
+          example: IBN
+        location:
+          type: string
+          description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
+          example: Brussels
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    documentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: document type code
+          example: POD1
+        description:
+          type: string
+          description: document type description
+          example: Letter of Intent
+      example: null

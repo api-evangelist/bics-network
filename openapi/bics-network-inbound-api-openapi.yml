@@ -1,0 +1,239 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Inbound API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Inbound
+paths:
+  /inbound/subscriptions:
+    parameters: []
+    get:
+      description: Your subscription for Inbound Messages
+      operationId: Get Inbound Messages Subscription
+      parameters: []
+      responses:
+        '200':
+          description: subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboundCallback'
+              example: "{\n  \"callback\": {\n    \"url\": \"string\",\n    \"securityToken\": \"string\",\n    \"concat\": true\n  }\n}\n"
+        '401':
+          description: Not authorized
+          content: {}
+        '404':
+          description: No subscription found
+          content: {}
+      x-request-id-header: true
+      tags:
+      - Inbound
+    post:
+      description: "Subscribe for Inbound Messages. This is an alternative way to the Get Inbound Messages method to retrieve Inbound Messages.\n\nAn Inbound Message will be sent to the specified URL whenever the message arrives to OpenSMS API Server.\n\n### Be aware that\n\n* There is a retry mechanism if the URL is not reachable:\n\n  *   During the first 10 minutes, retry every 2 minutes\n\n  *   Then during 2 hours, retry every hour\n\n  *   Then until reaching the max retry time (3 days), retry every 6 hours\n\n  *   After that the message will be deleted\n\n* For the subscriptions with enabled concatenation:\n\n  * Although you may receive a long concatenated message, you will be charged for each individual part of the message. All messaging parts, regardless of how they are grouped, are subject to separate charges.\n\n\n### Example of the request sent to the client:\n```yaml\n\"Authorization\" : \"Bearer <securityToken>\"\n\"Content-type\" : \"application/json; charset=UTF-8\"\n```\n*   **\\<securityToken\\>** - security token given during the subscription creation\n\n```yaml\nbody:\n  {\n    \"InboundSmsMessage\": {\n      \"dateTime\": \"2021-11-24T09:13:40.639\",\n      \"destinationAddress\": \"1234567890\",\n      \"senderAddress\": \"1234567899\",\n      \"messageId\": \"e7e34bb7-91a9-443e-a7e1-5257f6cf8d42\",\n      \"message\": \"Test Inbound Message\"\n    }\n  }\n```\n"
+      operationId: Create Inbound Messages Subscription
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InboundCallback'
+            example: "{\n  \"callback\": {\n    \"concat\": false,\n    \"url\": \"https://your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n"
+        required: true
+      responses:
+        '201':
+          description: subscription created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboundCallback'
+              example: "{\n  \"callback\": {\n    \"concat\": false,\n    \"url\": \"https://your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n"
+        '400':
+          description: The request is not well formed.
+          content: {}
+        '406':
+          description: The request is not accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAcceptableCallback'
+              example: null
+      x-request-id-header: true
+      tags:
+      - Inbound
+    delete:
+      description: Delete your subscription for Inbound Messages
+      operationId: Delete Inbound Messages Subscription
+      parameters: []
+      responses:
+        '401':
+          description: Not authorized
+          content: {}
+        '204':
+          description: Subscription removed
+          content: {}
+        '404':
+          description: Delivery subscription not found
+          content: {}
+      x-request-id-header: true
+      tags:
+      - Inbound
+  /inbound/registrations/{inboundNumber}/messages:
+    parameters: []
+    get:
+      description: 'Return the messages of your inbound number.
+
+        '
+      operationId: Get Inbound Messages
+      parameters:
+      - name: inboundNumber
+        in: path
+        description: The inbound number's inbox to check.
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: null
+        example: abc123
+      - name: maxBatchSize
+        in: query
+        description: The number of messages to retrieve. This must be a number between 0 and 200. The default is 20 if this parameter is not specified.
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          example: null
+        example: '200'
+      responses:
+        '200':
+          description: A list of incoming messages for the given number
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboundSMSMessageList'
+              example: null
+      x-request-id-header: true
+      tags:
+      - Inbound
+components:
+  schemas:
+    NotAcceptableCallback:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - NOT_HTTPS
+          example: null
+        description:
+          type: string
+          example: null
+      example: null
+    InboundCallback:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          concat:
+            type: boolean
+            description: 'Determines how multipart messages are handled:
+
+
+              - **true**: The API waits for all parts of a multipart message, concatenates them into a single message, and then sends the complete message to the customer.
+
+              - **false**: The API sends message parts individually, including metadata such as `udhMessageId`, `concatPart`, and `concatTotal`, allowing the client to perform concatenation.
+
+              - **absent**: Maintains the legacy behavior, where each message part is sent as a separate message without concatenation.
+
+              '
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
+      example: null
+    Callback:
+      required:
+      - securityToken
+      - url
+      type: object
+      properties:
+        securityToken:
+          type: string
+          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
+          nullable: false
+          example: null
+        url:
+          type: string
+          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
+          nullable: false
+          example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
+      example: null
+    InboundSmsMessage:
+      type: object
+      properties:
+        dateTime:
+          type: string
+          description: The time that the message was sent out to the customer.
+          format: date-time
+          example: null
+        udhMessageId:
+          type: integer
+          description: The identifier (1 byte [0..255]) of the concatenated message:.
+          example: null
+        senderAddress:
+          type: string
+          description: The address of the sender of the message.
+          example: null
+        destinationAddress:
+          type: string
+          description: The destination address of the message. This will usually always be the number associated with your inbox.
+          example: null
+        resourceURL:
+          type: string
+          description: A resource URL for this specific message (Returned only for get inbound messages endpoint, not in case of subscription).
+          example: null
+        concatTotal:
+          type: integer
+          description: The total number of parts in the concatenated message.
+          example: null
+        messageId:
+          type: string
+          description: A unique identifier of the message.
+          example: null
+        message:
+          type: string
+          description: The message itself.
+          example: null
+        concatPart:
+          type: integer
+          description: The part number of the concatenated message.
+          example: null
+      example: null
+    InboundSMSMessageList:
+      type: object
+      properties:
+        totalNumberOfPendingMessages:
+          type: integer
+          description: Number of messages that can be retrieved, including the ones that are currently being retrieved.
+          example: null
+        resourceURL:
+          type: string
+          description: A resouce URL with which this message list can be retrieved.
+          example: null
+        numberOfMessagesInThisBatch:
+          type: integer
+          example: null
+        inboundSMSMessage:
+          type: array
+          items:
+            $ref: '#/components/schemas/InboundSmsMessage'
+          example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("inboundSMSMessageList")'
+      example: null

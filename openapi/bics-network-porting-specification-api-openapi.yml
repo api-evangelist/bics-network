@@ -1,0 +1,196 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Porting Specification API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Porting Specification
+  description: Recive porting specification
+paths:
+  /portings/specifications:
+    summary: /portings/specifications
+    parameters: []
+    get:
+      tags:
+      - Porting Specification
+      summary: 'This API method returns the list of number portability specification per Product, Country.
+
+        A portability specification item is the list of portability specification attributes related to the pair Product and Country.
+
+        It is possible to filter out the list of portability specifications items by product and/or country.
+
+        '
+      description: This API method returns the list of porting specifications. It is possible to filter out the list of porting specifications items by _Product_ and/or _Country_.
+      operationId: get porting specifications
+      parameters:
+      - name: product
+        in: query
+        description: "Get specifications by product. Possible values\n    - 'IBN' for Cloud Number\n    - 'ITFS' for International Freephone Number\n    - 'GMN' for Global Mobile Number\n"
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: "Get specifications by product. Possible values\n    - 'IBN' for Cloud Number\n    - 'ITFS' for International Freephone Number\n    - 'GMN' for Global Mobile Number\n"
+          readOnly: false
+          example: IBN
+      - name: country
+        in: query
+        description: Get specifications by country in ISO 3166-1 alpha-3 format.
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          description: Get specifications by country in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: GBR
+      responses:
+        '200':
+          description: List of porting specifications.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PortingSpecification'
+                example: null
+              example: "[\n {\n    'id': '10123',\n    'product': 'IBN',\n    'country': 'AUS',\n    'portabilityType': 'Number Portability',\n    'portingSpecifications': 'LOA:Hand signature and Company stamp are mandatory, name written in capital letters.',\n    'addressRequirement': {\n        'type': 'Required in Region',\n        'proofOfDocuments': true,\n        'documentTypesForIndividual': [\n        {\n            'code': 'POD01',\n            'description': 'Copy of Passport or End-User ID'\n        },\n        { …  }\n        ],\n        'documentTypesForCompany': [\n        {\n            'code': ' POD02',\n            'description': 'Company Registration'\n        },\n        { …  }\n       ]\n    },\n    'minLeadTime': 5,\n    'maxLeadTime': 10,\n    'lastModified': '2020-11-25T15:45:56+01:00'\n },\n {\n    'id': '10124',\n    'product': 'IBN',\n    'country': 'AUT',\n    …\n }\n]\n"
+          links: {}
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/error'
+                example: null
+              examples: {}
+              example: null
+          links: {}
+components:
+  schemas:
+    AddressRequirement:
+      type: object
+      properties:
+        proofOfDocuments:
+          type: boolean
+          description: 'true: proof of documents is mandatory</br>
+
+            false: proof of documents is optional</br>
+
+            null: Not applicable for this address requirement type</br>
+
+            '
+          example: null
+        documentTypesForIndividual:
+          type: array
+          description: List of required documents for individual.
+          items:
+            $ref: '#/components/schemas/PortingSpecificationDocumentType'
+          example: null
+        documentTypesForCompany:
+          type: array
+          description: List of required documents for company.
+          items:
+            $ref: '#/components/schemas/PortingSpecificationDocumentType'
+          example: null
+        type:
+          $ref: '#/components/schemas/AddressRequirementType'
+      example: null
+    PortabilityType:
+      type: string
+      description: 'Number portability: Change of Telecom Provider at National level.</br>
+
+        Change of Agency: It is a re-allocation of number by the existing Telecom Provider to another customer
+
+        '
+      enum:
+      - Number Portability
+      - Change Of Agency
+      example: null
+    PortingSpecification:
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: null
+        addressRequirement:
+          $ref: '#/components/schemas/AddressRequirement'
+        product:
+          type: string
+          description: 'Valid product codes are ‘IBN’, ''ITFS’, ''GMN’. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Number.
+
+            '
+          example: null
+        portabilityType:
+          $ref: '#/components/schemas/PortabilityType'
+        portingSpecifications:
+          type: string
+          description: Additional information about Number Portability.
+          example: null
+        maxLeadTime:
+          type: integer
+          description: Maximum time to complete (in days) the porting request.
+          format: int64
+          example: null
+        id:
+          type: string
+          description: Identifier of the porting specification item
+          example: null
+        lastModified:
+          type: string
+          description: Modified date of the porting specification.
+          format: date-time
+          example: null
+        minLeadTime:
+          type: integer
+          description: Minimum time to complete (in days) the porting request.
+          format: int64
+          example: null
+      example: null
+    PortingSpecificationDocumentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Document type code.
+          example: null
+        description:
+          type: string
+          description: Document type description.
+          example: null
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    AddressRequirementType:
+      type: string
+      enum:
+      - Not Required
+      - Required Worldwide
+      - Required In Country
+      - Required In Region
+      example: null

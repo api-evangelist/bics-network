@@ -1,0 +1,67 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Conversionsinfos API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Conversionsinfos
+paths:
+  /conversionsinfos:
+    parameters: []
+    post:
+      description: 'Process an array of conversion info ids from customer.
+
+
+        HTTP request should contain authorization bearer token with assigned ''conversion'' role
+
+        '
+      operationId: Process SMS Conversion infos
+      parameters: []
+      requestBody:
+        description: List of customer references.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageIdsDTO'
+            example: ''
+        required: true
+      responses:
+        '200':
+          description: '* Empty body, in case all conversion message ids were processed correctly
+
+
+            * List of address_ids, which are not valid
+
+            '
+          content: {}
+        '400':
+          description: The request is not well formed
+          content: {}
+        '403':
+          description: 'Forbidden: this service cannot be used according to your API Key'
+          content: {}
+      tags:
+      - Conversionsinfos
+components:
+  schemas:
+    MessageIdsDTO:
+      required:
+      - message_id
+      type: object
+      properties:
+        message_id:
+          type: array
+          description: List of customer references.
+          example: '["xxxx-xxxx-xxxx-xxxx-xxxx-xxxx","yyyy-yyyy-yyyy-yyyy-yyyy-yyyy","zzzz-zzzz-zzzz-zzzz-zzzz-zzzz"]'
+          items:
+            type: string
+            description: Customer reference.
+            example: null
+          x-jsonproperty: message_id
+        type:
+          type: string
+          description: The protocol used during sending of message(s) to be marked as converted
+          example: null
+      example: null

@@ -1,0 +1,731 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Connections Management API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Connections Management
+  description: ''
+paths:
+  /connections/{connectionId}:
+    summary: /connections/{connectionId}
+    parameters: []
+    get:
+      tags:
+      - Connections Management
+      summary: Get connection details
+      operationId: getConnection
+      parameters:
+      - name: connectionId
+        in: path
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+          example: null
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                oneOf:
+                - $ref: '#/components/schemas/CloudConnectConnection'
+                - $ref: '#/components/schemas/CarrierEthernetConnection'
+                example: null
+              example: '{"serviceType":"CLOUD_CONNECT","cloudServiceProvider":"AZURE_ER_C3","cloudServiceProviderLabel":"Azure Express Route","cloudServiceRegion":"WESTEUROPE","cloudServiceRegionLabel":"westeurope","orderId":44654,"price":"1050","currency":"EUR","currencyLabel":"EUR","bandwidth":"50MBS","bandwidthLabel":"50 Mbps","contractTerm":"1MONTH","contractTermLabel":"1 Month","protectionScheme":"CC_PROTECTED","protectionSchemeLabel":"CC Protected","companyName":"MM22AzureDirectProtectedPRIVMICROSOFT","customerComment":"Customer comment","customerPurchaseId":"PR: MM22","contactEmailAddress":"customer@mail.com","activationDate":"15.02.2022","status":"Active","additionalAttributes":{},"lines":[{"lineType":"PRIMARY","customerReference":"Customer reference 1000492002Private+Microsoft, Line1, Primary","additionalAttributes":{"linePeering":"PRIVATE"},"interconnect":{"id":"1000492002","type":"ACCESS_LINE","label":"1000492002","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"vlan":1300,"cloudServiceKey":"d2395da2-ce63-45cd-b0e6-c5b3037d094d"},{"lineType":"SECONDARY","customerReference":"Customer reference 1000492003Private+Microsoft, line2, Secondary","additionalAttributes":{"linePeering":"PRIVATE"},"interconnect":{"id":"1000492003","type":"ACCESS_LINE","label":"1000492003","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"vlan":1300,"cloudServiceKey":"d2395da2-ce63-45cd-b0e6-c5b3037d094d"},{"lineType":"PRIMARY","customerReference":"Customer reference 1000492002Private+Microsoft, Line3, Primary","additionalAttributes":{"linePeering":"MICROSOFT"},"interconnect":{"id":"1000492002","type":"ACCESS_LINE","label":"1000492002","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"vlan":1302,"cloudServiceKey":"d2395da2-ce63-45cd-b0e6-c5b3037d094d"},{"lineType":"SECONDARY","customerReference":"Customer reference 1000492003Private+Microsoft, Line 4, Secondary","additionalAttributes":{"linePeering":"MICROSOFT"},"interconnect":{"id":"1000492003","type":"ACCESS_LINE","label":"1000492003","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"vlan":1302,"cloudServiceKey":"d2395da2-ce63-45cd-b0e6-c5b3037d094d"}]}'
+          links: {}
+    delete:
+      tags:
+      - Connections Management
+      summary: Disconnect connection
+      operationId: deleteConnection
+      parameters:
+      - name: connectionId
+        in: path
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: null
+      responses:
+        '202':
+          description: Accepted
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatus'
+              example: '{"connectionId":44578,"connectionStatus":"In Disconnection"}'
+          links: {}
+  /connections/{connectionId}/modify:
+    summary: /connections/{connectionId}/modify
+    parameters: []
+    post:
+      tags:
+      - Connections Management
+      summary: Modify connection
+      operationId: modifyConnection
+      parameters:
+      - name: connectionId
+        in: path
+        description: Connection ID
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: null
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyConnectionDto'
+            example: '{"connectionId":44578,"modificationAttributes":{"bandwidth":"100MBS"}}'
+      responses:
+        '202':
+          description: Accepted
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatus'
+              example: '{"connectionId":44578,"connectionStatus":"In Modification"}'
+          links: {}
+  /connections:
+    summary: /connections
+    parameters: []
+    get:
+      tags:
+      - Connections Management
+      summary: Get list of all connections
+      operationId: getConnections
+      parameters:
+      - name: serviceType
+        in: query
+        description: Filter connections by service type
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+          - CLOUD_CONNECT
+          - CARRIER_ETHERNET
+          example: null
+      - name: page
+        in: query
+        description: Page number (1, 2, 3, ..., n). The response is split into distinct pages. If page number is higher that count of pages, empty list will be returned
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          default: 1
+          example: null
+      - name: size
+        in: query
+        description: 'The number of records per page. Maximum value: 100. If you set the size larger than the maximum, it will be ignored and will return the maximum value'
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          default: 100
+          example: null
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  oneOf:
+                  - $ref: '#/components/schemas/CloudConnectConnection'
+                  - $ref: '#/components/schemas/CarrierEthernetConnection'
+                  example: null
+                example: null
+              example: '[{"serviceType":"CLOUD_CONNECT","cloudServiceProvider":"AWS_AMAZON","cloudServiceProviderLabel":"AWS Amazon","cloudServiceRegion":"us-east-1","cloudServiceRegionLabel":"us-east-1","connectionId":44389,"price":"1050","currency":"EUR","currencyLabel":"EUR","bandwidth":"50MBS","bandwidthLabel":"50 Mbps","contractTerm":"1MONTH","contractTermLabel":"1 Month","protectionScheme":"CC_UNPROTECTED","protectionSchemeLabel":"CC Unprotected","companyName":"MyCompany","customerComment":"Customer comment","customerPurchaseId":"PR: MC001","contactEmailAddress":"customer@mail.com","activationDate":"15.02.2022","status":"Active","additionalAttributes":{},"lines":[{"customerReference":"My Line","lineType":"PRIMARY","interconnect":{"id":"1000492002","type":"ACCESS_LINE","label":"1000492002","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"cloudServiceKey":"123456789123","additionalAttributes":{}}]},{"serviceType":"CLOUD_CONNECT","cloudServiceProvider":"AZURE_ER_C3","cloudServiceProviderLabel":"Azure Express Route","cloudServiceRegion":"WESTEUROPE","cloudServiceRegionLabel":"westeurope","orderId":44654,"price":"1050","currency":"EUR","currencyLabel":"EUR","bandwidth":"50MBS","bandwidthLabel":"50 Mbps","contractTerm":"1MONTH","contractTermLabel":"1 Month","protectionScheme":"CC_PROTECTED","protectionSchemeLabel":"CC Protected","companyName":"MM22AzureDirectProtectedPRIVMICROSOFT","customerComment":"Customer comment","customerPurchaseId":"PR: MM22","contactEmailAddress":"customer@mail.com","activationDate":"15.02.2022","status":"Active","additionalAttributes":{},"lines":[{"lineType":"PRIMARY","customerReference":"Customer reference 1000492002Private+Microsoft, Line1, Primary","additionalAttributes":{"linePeering":"PRIVATE"},"interconnect":{"id":"1000492002","type":"ACCESS_LINE","label":"1000492002","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"vlan":1300,"cloudServiceKey":"d2395da2-ce63-45cd-b0e6-c5b3037d094d"},{"lineType":"SECONDARY","customerReference":"Customer reference 1000492003Private+Microsoft, line2, Secondary","additionalAttributes":{"linePeering":"PRIVATE"},"interconnect":{"id":"1000492003","type":"ACCESS_LINE","label":"1000492003","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"vlan":1300,"cloudServiceKey":"d2395da2-ce63-45cd-b0e6-c5b3037d094d"},{"lineType":"PRIMARY","customerReference":"Customer reference 1000492002Private+Microsoft, Line3, Primary","additionalAttributes":{"linePeering":"MICROSOFT"},"interconnect":{"id":"1000492002","type":"ACCESS_LINE","label":"1000492002","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"vlan":1302,"cloudServiceKey":"d2395da2-ce63-45cd-b0e6-c5b3037d094d"},{"lineType":"SECONDARY","customerReference":"Customer reference 1000492003Private+Microsoft, Line 4, Secondary","additionalAttributes":{"linePeering":"MICROSOFT"},"interconnect":{"id":"1000492003","type":"ACCESS_LINE","label":"1000492003","city":"Brussels","countryIso3":"BEL","houser":"Brussels 22","datacenter":"BRU22","capacity":"100GBS","capacityLabel":"100 Gb/s","usage":null,"portMode":null,"status":"Active","portTag":null,"additionalData":null},"vlan":1302,"cloudServiceKey":"d2395da2-ce63-45cd-b0e6-c5b3037d094d"}]}]'
+          links: {}
+    post:
+      tags:
+      - Connections Management
+      summary: Create connection
+      description: Submits new connection order
+      operationId: createConnection
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              oneOf:
+              - $ref: '#/components/schemas/CloudConnectOrder'
+              example: null
+            example: '{"serviceType":"CLOUD_CONNECT","cloudServiceProvider":"AWS_AMAZON","cloudServiceRegion":"us-east-1","currency":"EUR","bandwidth":"100MBS","contractTerm":"1MONTH","protectionScheme":"CC_UNPROTECTED","companyName":"MyCompany","customerComment":"","customerPurchaseId":"","contactEmailAddress":"","autoVlanAssignment":"true","additionalAttributes":{},"lines":[{"customerReference":"My Line","lineType":"PRIMARY","interconnect":"1000007894","cloudServiceKey":"123456789123","additionalAttributes":{}}]}'
+      responses:
+        '202':
+          description: Accepted
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConnectionStatus'
+              example: '{"connectionId":44389,"connectionStatus":"In progress"}'
+          links: {}
+        '400':
+          description: Bad Request
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              example: '{"timestamp":"2021-12-03T10:15:30+01:00","status":"400","code":"BAD_CONNECTION_CREATE_REQUEST","message":"Invalid request data","errors":["Invalid bandwidth id ''55''","Protection scheme ''CC_PROTECTED'' is not applicable for current service"]}'
+          links: {}
+components:
+  schemas:
+    ModifyConnectionDto:
+      required:
+      - connectionId
+      - modificationAttributes
+      type: object
+      properties:
+        connectionId:
+          type: string
+          description: Connection ID which customer want to modify
+          example: null
+        modificationAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: 'Type of reference data and new value, ex: bandwidth, 100 Mbps'
+            example: null
+          description: 'Type of reference data and new value, ex: bandwidth, 100 Mbps'
+          example: null
+      example: null
+    CarrierEthernetLine:
+      type: object
+      properties:
+        interconnectA:
+          $ref: '#/components/schemas/InterconnectDto'
+        interconnectB:
+          $ref: '#/components/schemas/InterconnectDto'
+        customerReference:
+          type: string
+          description: Optional custom name of the line
+          example: null
+        lineType:
+          type: string
+          enum:
+          - PRIMARY
+          - SECONDARY
+          example: null
+        serviceId:
+          type: string
+          example: null
+        vlanB:
+          type: integer
+          description: VLAN of interconnect B
+          format: int32
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+          example: null
+        vlanA:
+          type: integer
+          description: VLAN of interconnect A
+          format: int32
+          example: null
+      description: Connection lines details
+      example: null
+    ConnectionStatus:
+      type: object
+      properties:
+        connectionStatus:
+          type: string
+          example: null
+        connectionId:
+          type: string
+          example: null
+      example: null
+    CloudConnectOrderLine:
+      required:
+      - cloudServiceKey
+      - interconnect
+      - lineType
+      type: object
+      properties:
+        vlan:
+          type: integer
+          description: Optional field for manual VLAN assignment. Ignored in case 'autoVlanAssignment' is set to 'true'
+          format: int32
+          example: null
+        customerReference:
+          type: string
+          description: Optional custom name of the line
+          example: null
+        lineType:
+          type: string
+          enum:
+          - PRIMARY
+          - SECONDARY
+          example: null
+        cloudServiceKey:
+          type: string
+          description: Service key assigned by Cloud Service Provider
+          example: null
+        interconnect:
+          type: string
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+          example: null
+      description: Connection lines details
+      example: null
+    InterconnectDto:
+      type: object
+      properties:
+        capacityLabel:
+          type: string
+          description: Capacity display label
+          example: null
+        portMode:
+          type: string
+          description: Interconnect port mode
+          example: null
+        city:
+          type: string
+          description: Interconnect city
+          example: null
+        usage:
+          type: number
+          description: Average usage rate percentage for interconnect
+          example: null
+        datacenter:
+          type: string
+          description: Interconnect datacenter
+          example: null
+        label:
+          type: string
+          description: Interconnect name
+          example: null
+        type:
+          type: string
+          description: Interconnect type
+          enum:
+          - ACCESS_LINE
+          - MARKETPLACE
+          example: null
+        capacity:
+          type: string
+          description: Capacity (Bandwidth reference data ID)
+          example: null
+        houser:
+          type: string
+          description: Interconnect houser
+          example: null
+        portTag:
+          type: string
+          description: Interconnect port tag
+          example: null
+        additionalData:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional data
+            example: null
+          description: Additional data
+          example: null
+        id:
+          type: string
+          description: Interconnect service ID
+          example: null
+        countryIso3:
+          type: string
+          description: Interconnect Country ISO3 code
+          example: null
+        status:
+          type: string
+          description: Sirius status
+          example: null
+      description: Interconnect B details
+      example: null
+    CloudConnectOrder:
+      required:
+      - bandwidth
+      - cloudServiceProvider
+      - cloudServiceRegion
+      - companyName
+      - contractTerm
+      - currency
+      - lines
+      - protectionScheme
+      type: object
+      properties:
+        autoVlanAssignment:
+          type: boolean
+          description: 'Optional flag, set it to ''false'' to use provided VLANs instead of auto-assigned ones (Default value: true)'
+          default: true
+          example: null
+        contactEmailAddress:
+          type: string
+          description: Requester email address
+          example: null
+        serviceType:
+          type: string
+          enum:
+          - CLOUD_CONNECT
+          default: CLOUD_CONNECT
+          example: null
+        customerComment:
+          maxLength: 310
+          minLength: 0
+          type: string
+          description: This field should not contain more than 310 symbols. Any comments are for internal use only and will not be considered as part of the automated delivery process
+          example: null
+        bandwidth:
+          type: string
+          description: Connection bandwidth (Reference data identifier)
+          example: null
+        companyName:
+          pattern: ^[a-zA-Z0-9]{1,50}$
+          type: string
+          description: Company name. Field should only contain letters and numbers
+          example: null
+        cloudServiceProvider:
+          type: string
+          description: Cloud Service Provider (Reference data identifier)
+          example: null
+        contractTerm:
+          type: string
+          description: Minimal order term (Reference data identifier)
+          example: null
+        currency:
+          type: string
+          description: Order currency (Reference data identifier)
+          example: null
+        customerPurchaseReference:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Optional purchase reference. Field should contain no more than 50 symbols
+          example: null
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          example: null
+        protectionScheme:
+          type: string
+          description: Connection protection scheme (Reference data identifier)
+          example: null
+        lines:
+          type: array
+          description: Connection lines details
+          items:
+            $ref: '#/components/schemas/CloudConnectOrderLine'
+          example: null
+        cloudServiceRegion:
+          type: string
+          description: Cloud Service Region (Reference data identifier)
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+          example: null
+      example: null
+    CloudConnectConnection:
+      type: object
+      properties:
+        contactEmailAddress:
+          type: string
+          description: Requester email address
+          example: null
+        serviceType:
+          type: string
+          enum:
+          - CLOUD_CONNECT
+          default: CLOUD_CONNECT
+          example: null
+        contractLabel:
+          type: string
+          description: Minimal order term label
+          example: null
+        customerComment:
+          type: string
+          description: Optional customer comment
+          example: null
+        bandwidth:
+          type: string
+          description: Connection bandwidth (Reference data identifier)
+          example: null
+        companyName:
+          type: string
+          description: Company name
+          example: null
+        cloudServiceProviderLabel:
+          type: string
+          description: Cloud Service Provider label
+          example: null
+        bandwidthLabel:
+          type: string
+          description: Connection bandwidth label
+          example: null
+        currencyLabel:
+          type: string
+          description: Currency label
+          example: null
+        protectionSchemeLabel:
+          type: string
+          description: Connection protection scheme label
+          example: null
+        price:
+          type: string
+          description: Price
+          example: null
+        cloudServiceProvider:
+          type: string
+          description: Cloud Service Provider (Reference data identifier)
+          example: null
+        cloudServiceRegionLabel:
+          type: string
+          description: Cloud Service Region label
+          example: null
+        contractTerm:
+          type: string
+          description: Minimal order term (Reference data identifier)
+          example: null
+        connectionId:
+          type: integer
+          description: ID
+          format: int64
+          readOnly: true
+          example: null
+        currency:
+          type: string
+          description: Currency (Reference data identifier)
+          example: null
+        customerPurchaseReference:
+          type: string
+          description: Optional purchase reference
+          example: null
+        protectionScheme:
+          type: string
+          description: Connection protection scheme (Reference data identifier)
+          example: null
+        activationDate:
+          type: string
+          description: Connection activation date
+          example: null
+        lines:
+          type: array
+          description: Connection lines
+          items:
+            $ref: '#/components/schemas/CloudConnectLine'
+          example: null
+        cloudServiceRegion:
+          type: string
+          description: Cloud Service Region (Reference data identifier)
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+          example: null
+        status:
+          type: string
+          description: Connection status
+          example: null
+      example: null
+    CarrierEthernetConnection:
+      type: object
+      properties:
+        contactEmailAddress:
+          type: string
+          description: Requester email address
+          example: null
+        serviceType:
+          type: string
+          enum:
+          - CARRIER_ETHERNET
+          default: CARRIER_ETHERNET
+          example: null
+        contractLabel:
+          type: string
+          description: Minimal order term label
+          example: null
+        customerComment:
+          type: string
+          description: Optional customer comment
+          example: null
+        bandwidth:
+          type: string
+          description: Connection bandwidth (Reference data identifier)
+          example: null
+        companyName:
+          type: string
+          description: Company name
+          example: null
+        bandwidthLabel:
+          type: string
+          description: Connection bandwidth label
+          example: null
+        currencyLabel:
+          type: string
+          description: Currency label
+          example: null
+        protectionSchemeLabel:
+          type: string
+          description: Connection protection scheme label
+          example: null
+        price:
+          type: string
+          description: Price
+          example: null
+        contractTerm:
+          type: string
+          description: Minimal order term (Reference data identifier)
+          example: null
+        connectionId:
+          type: integer
+          description: ID
+          format: int64
+          readOnly: true
+          example: null
+        currency:
+          type: string
+          description: Currency (Reference data identifier)
+          example: null
+        customerPurchaseReference:
+          type: string
+          description: Optional purchase reference
+          example: null
+        protectionScheme:
+          type: string
+          description: Connection protection scheme (Reference data identifier)
+          example: null
+        activationDate:
+          type: string
+          description: Connection activation date
+          example: null
+        lines:
+          type: array
+          description: Connection lines details
+          items:
+            $ref: '#/components/schemas/CarrierEthernetLine'
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+          example: null
+        status:
+          type: string
+          description: Connection status
+          example: null
+      example: null
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code enum defined by the Portal
+          example: null
+        message:
+          type: string
+          description: General summary of the error
+          example: null
+        errors:
+          type: array
+          description: Detailed description of each occurred error
+          items:
+            type: string
+            description: Detailed description of each occurred error
+            example: null
+          example: null
+        status:
+          type: integer
+          description: HTTP status code
+          format: int32
+          example: null
+        timestamp:
+          type: string
+          description: Timestamp of the error
+          format: date-time
+          example: null
+      example: null
+    CloudConnectLine:
+      type: object
+      properties:
+        vlan:
+          type: integer
+          description: VLAN
+          format: int32
+          example: null
+        customerReference:
+          type: string
+          description: Optional custom name of the line
+          example: null
+        lineType:
+          type: string
+          enum:
+          - PRIMARY
+          - SECONDARY
+          example: null
+        cloudServiceKey:
+          type: string
+          description: Service key assigned by Cloud Service Provider
+          example: null
+        serviceId:
+          type: string
+          example: null
+        interconnect:
+          $ref: '#/components/schemas/InterconnectDto'
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+          example: null
+      description: Connection lines
+      example: null

@@ -1,0 +1,204 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Reference Data API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Reference Data
+  description: ''
+paths:
+  /refdata:
+    summary: /refdata
+    parameters: []
+    get:
+      tags:
+      - Reference Data
+      summary: Reference Data
+      description: Get list of cloud service providers
+      operationId: getRefData
+      parameters:
+      - name: type
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - SERVICE
+            - PROVIDER
+            - REGION
+            - PROTECTION_SCHEME
+            - BANDWIDTH
+            - TERM
+            - CURRENCY
+            example: null
+          example: null
+      - name: service
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            example: null
+          example: null
+      - name: provider
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            example: null
+          example: null
+      - name: region
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            example: null
+          example: null
+      - name: protectionScheme
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            example: null
+          example: null
+      - name: term
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            example: null
+          example: null
+      - name: bandwidth
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            example: null
+          example: null
+      - name: currency
+        in: query
+        required: false
+        allowEmptyValue: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+            example: null
+          example: null
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RefData'
+                example: null
+              example: '[{"identifier":"CLOUD_CONNECT","type":"SERVICE","label":"Cloud Connect","dependencies":[],"conditions":[],"additionalAttributes":{}},{"identifier":"AWS_AMAZON","type":"PROVIDER","label":"AWS Amazon","dependencies":["SERVICE"],"conditions":[{"SERVICE":["CLOUD_CONNECT"]}],"additionalAttributes":{}},{"identifier":"GOOGLE_CLOUD","type":"PROVIDER","label":"Google Cloud","dependencies":["SERVICE"],"conditions":[{"SERVICE":["CLOUD_CONNECT"]}],"additionalAttributes":{}},{"identifier":"us-west-1","type":"REGION","label":"us-west-1","dependencies":["PROVIDER"],"conditions":[{"PROVIDER":["AWS_AMAZON"]}],"additionalAttributes":{}},{"identifier":"us-east-1","type":"REGION","label":"us-east-1","dependencies":["PROVIDER"],"conditions":[{"PROVIDER":["AWS_AMAZON"]}],"additionalAttributes":{}},{"identifier":"us-central1","type":"REGION","label":"us-central1 (Iowa)","dependencies":["PROVIDER"],"conditions":[{"PROVIDER":["GOOGLE_CLOUD"]}],"additionalAttributes":{}},{"identifier":"CC_UNPROTECTED","type":"PROTECTION_SCHEME","label":"Unprotected","dependencies":["SERVICE"],"conditions":[{"SERVICE":["CLOUD_CONNECT"]}],"additionalAttributes":{}},{"identifier":"CC_PROTECTED","type":"PROTECTION_SCHEME","label":"Protected","dependencies":["SERVICE"],"conditions":[{"SERVICE":["CLOUD_CONNECT"]}],"additionalAttributes":{}},{"identifier":"CC_DVR_CSP","type":"PROTECTION_SCHEME","label":"Diverse Routing CSP side","dependencies":["SERVICE"],"conditions":[{"SERVICE":["CLOUD_CONNECT"]}],"additionalAttributes":{}},{"identifier":"1MONTH","type":"TERM","label":"1 Month","dependencies":["PROVIDER"],"conditions":[{"PROVIDER":["AWS_AMAZON","GOOGLE_CLOUD","AZURE_ER_C3"]}],"additionalAttributes":{"daysInTerm":"30"}},{"identifier":"10MONTHS","type":"TERM","label":"10 Months","dependencies":["PROVIDER"],"conditions":[{"PROVIDER":["GOOGLE_CLOUD"]}],"additionalAttributes":{"daysInTerm":"300"}},{"identifier":"24MONTHS","type":"TERM","label":"2 Years","dependencies":["SERVICE","PROVIDER","REGION","PROTECTION_SCHEME"],"conditions":[{"PROVIDER":["AWS"],"REGION":["us-west-1"],"PROTECTION_SCHEME":["PROTECTED"]},{"PROVIDER":["AWS"],"PROTECTION_SCHEME":["UNPROTECTED"]},{"PROVIDER":["GOOGLE"]}],"additionalAttributes":{"daysInTerm":"720"}},{"identifier":"100MBS","type":"BANDWIDTH","label":"100 Mbps","dependencies":["PROVIDER"],"conditions":[{"PROVIDER":["AWS_AMAZON","GOOGLE_CLOUD","AZURE_ER_C3"]}],"additionalAttributes":{"kbps":"100000"}},{"identifier":"1GBS","type":"BANDWIDTH","label":"1 Gbps","dependencies":["PROVIDER"],"conditions":[{"PROVIDER":["AWS_AMAZON","GOOGLE_CLOUD","AZURE_ER_C3"]}],"additionalAttributes":{"kbps":"1000000"}},{"identifier":"EUR","type":"CURRENCY","label":"EUR","dependencies":[],"conditions":[],"additionalAttributes":{"exchangeRate":"1"}},{"identifier":"USD","type":"CURRENCY","label":"USD","dependencies":[],"conditions":[],"additionalAttributes":{"exchangeRate":"1.08"}},{"identifier":"GBP","type":"CURRENCY","label":"GBP","dependencies":[],"conditions":[],"additionalAttributes":{"exchangeRate":"0.876"}}]'
+          links: {}
+components:
+  schemas:
+    RefData:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Reference data identifier
+          example: null
+        label:
+          type: string
+          description: Reference data display label
+          example: null
+        conditions:
+          type: array
+          description: Reference data is applicable only if one of the conditions is fully satisfied. For the details see Reference Data section.
+          items:
+            type: object
+            additionalProperties:
+              type: array
+              description: Reference data is applicable only if one of the conditions is fully satisfied. For the details see Reference Data section.
+              items:
+                type: string
+                description: Reference data is applicable only if one of the conditions is fully satisfied. For the details see Reference Data section.
+                example: null
+              example: null
+            description: Reference data is applicable only if one of the conditions is fully satisfied. For the details see Reference Data section.
+            example: null
+          example: null
+        type:
+          type: string
+          description: Reference data type
+          enum:
+          - SERVICE
+          - PROVIDER
+          - REGION
+          - PROTECTION_SCHEME
+          - BANDWIDTH
+          - TERM
+          - CURRENCY
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional data, for more details see Reference Data section
+            example: null
+          description: Additional data, for more details see Reference Data section
+          example: null
+        dependencies:
+          type: array
+          description: List of other reference data types, that affect range of applicable reference data values
+          items:
+            type: string
+            description: List of other reference data types, that affect range of applicable reference data values
+            enum:
+            - SERVICE
+            - PROVIDER
+            - REGION
+            - PROTECTION_SCHEME
+            - BANDWIDTH
+            - TERM
+            - CURRENCY
+            example: null
+          example: null
+      example: null

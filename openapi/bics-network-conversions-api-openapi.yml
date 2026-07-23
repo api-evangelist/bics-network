@@ -1,0 +1,53 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Conversions API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Conversions
+paths:
+  /conversions:
+    parameters: []
+    post:
+      description: Process SMS conversion info from customer. One of the fields is required, address or customerReference.
+      operationId: Process SMS Conversion info
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversionRequest'
+            example: '{"conversionRequest":{"address":"32410300011"}}'
+        required: true
+      responses:
+        '200':
+          description: SMS conversion submitted
+          content: {}
+        '400':
+          description: The request is not well formed.
+          content: {}
+        '403':
+          description: 'Forbidden: this service cannot be used according to your API Key'
+          content: {}
+      tags:
+      - Conversions
+components:
+  schemas:
+    ConversionRequest:
+      type: object
+      properties:
+        address:
+          type: string
+          description: The b-number which has been converted to a customer.
+          example: null
+        customerReference:
+          type: string
+          description: Customer reference.
+          example: null
+      description: 'Either address or customerReference is required.
+
+        '
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("conversionRequest")'
+      example: null

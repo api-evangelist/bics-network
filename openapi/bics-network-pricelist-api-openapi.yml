@@ -1,0 +1,265 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management pricelist API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: pricelist
+  description: Query your pricelist.
+paths:
+  /pricelist/product/{product}:
+    parameters: []
+    get:
+      tags:
+      - pricelist
+      summary: Query your current pricelist.
+      description: Query your current pricelist by product in order to know the pricing applicable to our numbers in each country.
+      operationId: get Pricelist By Product
+      parameters:
+      - name: product
+        in: path
+        description: Retrieve your current pricelist by product.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Retrieve your current pricelist by product.
+          readOnly: false
+          example: IBN
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/fees'
+                example: null
+              example: "[\n  {\n    'product': 'IBN',\n    'country': 'BEL',\n    'accessArea': 'Mobile',\n    'profile': 'profile A',\n    'locations': ['Antwerp', 'Brussels', 'Leuven', 'Liege'],\n    'locationsAreaCodes': [\n      {\n        'location': 'Antwerp',\n        'areaCode': '3'\n      },\n      {\n        'location': 'Brussels',\n        'areaCode': '2'\n      },\n      {\n        'location': 'Leuven',\n        'areaCode': '16'\n      },\n      {\n        'location': 'Liege',\n        'areaCode': '4'\n      }\n    ],\n    'nonUsageFees': {\n        'setUpFee': 10.00,\n        'MonthlyFee': 5.00,\n        'currency': 'EUR'\n    },\n    'usageFees': [\n      {\n        'accessNetwork': null,\n        'accessType': 'fixPay',\n        'calendar': 'SINT',\n        'tde': 'STD',\n        'callSetUpFee': 0.0005,\n        'perMinuteFee': 0.0015,\n        'currency': 'EUR'\n      },\n      {\n        'accessNetwork': 'SMART',\n        'accessType': 'Mob',\n        'calendar': 'SINT',\n        'tde': 'STD',\n        'callSetUpFee': 0.0005,\n        'perMinuteFee': 0.0020,\n        'currency': 'EUR'\n      }\n    ]\n  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /pricelist/product/{product}/country/{country}:
+    parameters: []
+    get:
+      tags:
+      - pricelist
+      summary: Query your current pricelist for a specific country.
+      description: Query your current pricelist by product and country in order to know the pricing applicable to our numbers in a given country.
+      operationId: get Pricelist By Product And Country
+      parameters:
+      - name: product
+        in: path
+        description: Retrieve your current pricelist by product.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Retrieve your current pricelist by product.
+          readOnly: false
+          example: IBN
+      - name: country
+        in: path
+        description: Filter pricelist by country in ISO 3166-1 alpha-3 format.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter pricelist by country in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: BEL
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/fees'
+                example: null
+              example: "[\n  {\n    'product': 'IBN',\n    'country': 'BEL',\n    'accessArea': 'Mobile',\n    'profile': 'profile A',\n    'locations': ['Antwerp', 'Brussels', 'Leuven', 'Liege'],\n    'locationsAreaCodes': [\n      {\n        'location': 'Antwerp',\n        'areaCode': '3'\n      },\n      {\n        'location': 'Brussels',\n        'areaCode': '2'\n      },\n      {\n        'location': 'Leuven',\n        'areaCode': '16'\n      },\n      {\n        'location': 'Liege',\n        'areaCode': '4'\n      }\n    ],\n    'nonUsageFees': {\n        'setUpFee': 10.00,\n        'MonthlyFee': 5.00,\n        'currency': 'EUR'\n    },\n    'usageFees': [\n      {\n        'accessNetwork': null,\n        'accessType': 'fixPay',\n        'calendar': 'SINT',\n        'tde': 'STD',\n        'callSetUpFee': 0.0010,\n        'perMinuteFee': 0.0015,\n        'currency': 'EUR'\n      },\n      {\n        'accessNetwork': 'SMART',\n        'accessType': 'Mob',\n        'calendar': 'SINT',\n        'tde': 'STD',\n        'callSetUpFee': 0.0020,\n        'perMinuteFee': 0.0020,\n        'currency': 'EUR'\n      }\n    ]\n  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+components:
+  schemas:
+    locationAreaCode:
+      type: object
+      properties:
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '2'
+        location:
+          type: string
+          description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
+          example: Antwerp
+      example: null
+    nonUsageFees:
+      type: object
+      properties:
+        MonthlyFee:
+          type: string
+          description: Monthly recurring fee.
+          example: '0.2'
+        setUpFee:
+          type: string
+          description: Setup Fee
+          example: '0.4'
+        currency:
+          $ref: '#/components/schemas/currency'
+      description: Non usage fees define the setup and monthly recurring fees.
+      example: null
+    accessType:
+      type: string
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+      enum:
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
+      example: null
+    currency:
+      type: string
+      enum:
+      - EUR
+      - USD
+      - ZAR
+      example: null
+    usageFees:
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/accessType'
+        calendar:
+          type: string
+          description: Pricing Calendar Code.
+          example: SINT
+        tde:
+          type: string
+          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>`STD` - Standard</li> <li>`P` - Peak</li> <li>`OP` - Off Peak</li> <li>`OOP` - Off Off Peak</li> <li>`WED` - Weekend</li> </ul>
+          example: OP
+          enum:
+          - STD
+          - P
+          - OP
+          - OOP
+          - WED
+        callSetUpFee:
+          type: string
+          example: '0.001'
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network. If not specified the same routing will be applied to all access Networks.
+          example: SMART
+        currency:
+          $ref: '#/components/schemas/currency'
+        perMinuteFee:
+          type: string
+          example: '0.0015'
+      description: Usage fees define the call setup and per minute fees.
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    fees:
+      required:
+      - accessArea
+      - country
+      - product
+      - profile
+      type: object
+      properties:
+        usageFees:
+          type: array
+          items:
+            $ref: '#/components/schemas/usageFees'
+          example: null
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: BEL
+        locationsAreaCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/locationAreaCode'
+          example: null
+        product:
+          type: string
+          description: Valid product codes are 'IBN' and 'ITFS'. IBN referring to Cloud Numbers and ITFS referring to International Freephone.
+          example: IBN
+        accessArea:
+          type: string
+          description: Tariff and/or service differentiator within a country. It intervenes in the billing.
+          example: Mobile
+        profile:
+          type: string
+          description: Tariff differentiator within a country. It intervenes in the billing.
+          example: profile A
+        locations:
+          type: array
+          items:
+            type: string
+            description: List of locations. A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
+            example: Brussels
+          example: null
+        nonUsageFees:
+          $ref: '#/components/schemas/nonUsageFees'
+      example: null

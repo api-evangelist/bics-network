@@ -1,0 +1,415 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management stock API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: stock
+  description: Query the available stock.
+paths:
+  /stock/product/{product}/country/{country}/quantity/{quantity}:
+    parameters: []
+    get:
+      tags:
+      - stock
+      summary: Query our available stock for a given product in a country
+      description: "This method allows you to check if a given quantity of numbers are available in our stock for\n a given product in a country. In case we don’t have enough numbers in our stock, the method also\n gives you the quantity of numbers still available so that you know how many numbers you can order."
+      operationId: Check Available Stock
+      parameters:
+      - name: product
+        in: path
+        description: Filter stock by product
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter stock by product
+          readOnly: false
+          example: IBN
+      - name: country
+        in: path
+        description: Filter stock by country in ISO 3166-1 alpha-3 format.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter stock by country in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: BEL
+      - name: quantity
+        in: path
+        description: Quantity of numbers
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          description: Quantity of numbers
+          readOnly: false
+          example: '80'
+      - name: location
+        in: query
+        description: Check stock by location. (Not applicable for product GMN).
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Check stock by location. (Not applicable for product GMN).
+          readOnly: false
+          example: Brussels
+      - name: areaCode
+        in: query
+        description: Check stock by areaCode.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Check stock by areaCode.
+          readOnly: false
+          example: '2'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/stock'
+              example: "{\n  'product': 'IBN',\n  'country': 'BEL',\n  'location': null,\n  'areaCode': '2',\n  'checkStock': true,\n  'quantity': 10\n}\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /numbers/{number}/services:
+    parameters: []
+    get:
+      tags:
+      - stock
+      summary: Retrieve the available and active services of a given number from the inventory.
+      description: The <i>/numbers/{number}/services</i> method allows you to retrieve the available and active services of a given number from your inventory. Services that are not available on the given number are not returned.
+      operationId: get number services
+      parameters:
+      - name: number
+        in: path
+        description: A given number from your inventory
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: A given number from your inventory
+          readOnly: false
+          example: '443706070212'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/numberService'
+                example: null
+              example: null
+        '404':
+          description: Number not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+            number not found:
+              example: "[\n  {\n    'code': 'E060'\n    'description': 'The number specified in request does not exist'\n    'timestamp': '2020'\n  }\n]\n"
+  /stock/product/{product}/country/{country}/location/{location}/quantity/{quantity}:
+    parameters: []
+    get:
+      tags:
+      - stock
+      summary: Query our available stock for a Cloud Number in a given location.
+      description: 'This method allows you to check if a given quantity of Cloud Numbers are available in our stock for a given location.
+
+        In case we don''t have enough numbers in our stock, the method also gives you the quantity of numbers available in our stock so that you know how many numbers you can order.'
+      operationId: Check Available Stock By Location
+      parameters:
+      - name: product
+        in: path
+        description: Filter stock by product
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter stock by product
+          readOnly: false
+          example: IBN
+      - name: country
+        in: path
+        description: Filter stock by country in ISO 3166-1 alpha-3 format.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter stock by country in ISO 3166-1 alpha-3 format.
+          readOnly: false
+          example: BEL
+      - name: location
+        in: path
+        description: Filter stock by location in country. A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter stock by location in country. A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number.
+          readOnly: false
+          example: Brussels
+      - name: quantity
+        in: path
+        description: Quantity of numbers you would like to order
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: integer
+          description: Quantity of numbers you would like to order
+          readOnly: false
+          example: '25'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/stock'
+              example: "{\n  'product': 'IBN',\n  'country': 'BEL',\n  'location': 'Brussels',\n  'areaCode': null,\n  'checkStock': true,\n  'quantity': 25\n}\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+  /availablenumbers:
+    parameters: []
+    get:
+      tags:
+      - stock
+      summary: Retrieve available numbers for specific product, country and location.
+      description: The _/availablenumbers_ method allows you to preview a list of numbers that we have in our stock. You can then pick and order one or multiple numbers out of the list by calling the order method. The numbers cannot be reserved hence there is no guarantee that the numbers will still be available when you place the order.
+      operationId: get available numbers
+      parameters:
+      - name: product
+        in: query
+        description: Filter our stock by product. Valid product codes are _IBN_, _ITFS_ and _GMN_. _IBN_ referring to Cloud Number, _ITFS_ referring to International Freephone Number and _GMN_ referring to Global Mobile Number.
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter our stock by product. Valid product codes are _IBN_, _ITFS_ and _GMN_. _IBN_ referring to Cloud Number, _ITFS_ referring to International Freephone Number and _GMN_ referring to Global Mobile Number.
+          readOnly: false
+          example: IBN
+      - name: country
+        in: query
+        description: Filter our stock by country in ISO 3166-1 alpha-3 format
+        required: true
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter our stock by country in ISO 3166-1 alpha-3 format
+          readOnly: false
+          example: JPN
+      - name: location
+        in: query
+        description: Filter our stock by location. You can retrieve the list of locations by calling the method _/reference/locations_. (Not applicable for product GMN).
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter our stock by location. You can retrieve the list of locations by calling the method _/reference/locations_. (Not applicable for product GMN).
+          readOnly: false
+          example: Tokyo
+      - name: areaCode
+        in: query
+        description: Filter our stock by area code. You can retrieve the list of area codes by calling the method _/reference/locations_.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: Filter our stock by area code. You can retrieve the list of area codes by calling the method _/reference/locations_.
+          readOnly: false
+          example: '3'
+      - name: quantity
+        in: query
+        description: A value between 1 and 25. If the amount of numbers available is smaller than the requested quantity, only the available numbers are returned.
+        required: false
+        allowEmptyValue: false
+        schema:
+          type: string
+          description: A value between 1 and 25. If the amount of numbers available is smaller than the requested quantity, only the available numbers are returned.
+          readOnly: false
+          example: '25'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/availableNumber'
+                example: null
+              example: "[\n  {\n    'number': '81370607021',\n    'product': 'IBN',\n    'country': 'JPN',\n    'location': 'Tokyo',\n    'areaCode': '3'\n  },\n  {\n    'number': '81370607022',\n    'product': 'IBN',\n    'country': 'JPN',\n    'location': 'Tokyo',\n    'areaCode': '3'\n  },\n  {\n    'number': '81370607301',\n    'product': 'IBN',\n    'country': 'JPN',\n    'location': 'Tokyo',\n    'areaCode': '3'\n  },\n  {\n    'number': '81370607302',\n    'product': 'IBN',\n    'country': 'JPN',\n    'location': 'Tokyo',\n    'areaCode': '3'\n  },\n  {\n    'number': '81370607303',\n    'product': 'IBN',\n    'country': 'JPN',\n    'location': 'Tokyo',\n    'areaCode': '3'\n  }\n]\n"
+        '400':
+          description: Bad request, An issue occurred while processing the input parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '401':
+          description: the API Key was not mentioned or is invalid (see authentication)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+        '403':
+          description: this service cannot be used according to your API Key
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+              example: null
+components:
+  schemas:
+    location:
+      type: string
+      description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
+      example: Tokyo
+    country:
+      type: string
+      description: Country code in ISO 3166-1 alpha-3 format.
+      example: JPN
+    product:
+      type: string
+      description: Valid product codes are 'IBN', 'ITFS' and 'GMN'. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Number.
+      example: IBN
+    stock:
+      required:
+      - checkStock
+      - country
+      - product
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: BEL
+        product:
+          type: string
+          description: Valid product codes are IBN and ITFS. IBN referring to Cloud Numbers and ITFS referring to International Freephone.
+          example: IBN
+        areaCode:
+          type: string
+          description: AreaCode will only be displayed if areaCode was specified in the request parameters.
+          example: '2'
+        quantity:
+          type: integer
+          description: The quantity of available numbers in stock which meet your request. 0 if there is currently no available stock.
+          example: 5
+        location:
+          type: string
+          description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
+          example: Brussels
+        checkStock:
+          type: boolean
+          description: Flag indicating if there are enough numbers in stock to meet your request.
+          example: true
+      example: null
+    numberService:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code of the service <ul> <li><b>IC</b>&#58; Inbound Call</li> <li><b>NOC</b>&#58; National Outbound Call</li> <li><b>IOC</b>&#58; International Outbound Call</li> <li><b>ES</b>&#58; Emergency Services</li> <li><b>DS</b>&#58; Directory Services</li> <li><b>IM</b>&#58; Inbound Messaging</li> <li><b>NOM</b>&#58; National Outbound Messaging</li> <li><b>IOM</b>&#58; International Outbound Messaging</li> </ul>
+          enum:
+          - IC
+          - NOC
+          - IOC
+          - ES
+          - DS
+          - IM
+          - NOM
+          - IOM
+          example: null
+        description:
+          type: string
+          description: Description of the service
+          example: null
+        active:
+          type: boolean
+          description: <b>true</b>&#58; the service is active on your number <br/><b>false</b>&#58; the service is available but not active on your number
+          example: null
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    availableNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          description: Available numbers in stock.
+          example: '81345785554'
+        country:
+          $ref: '#/components/schemas/country'
+        product:
+          $ref: '#/components/schemas/product'
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '3'
+        location:
+          $ref: '#/components/schemas/location'
+      example: null

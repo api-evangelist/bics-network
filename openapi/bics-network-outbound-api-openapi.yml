@@ -1,0 +1,483 @@
+openapi: 3.0.1
+info:
+  title: connect Address Management Outbound API
+  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  version: v1
+servers:
+- url: https://api.bics.com/connect/v1
+tags:
+- name: Outbound
+paths:
+  /outbound/{senderAddress}/requests:
+    parameters: []
+    post:
+      description: Sends a text message to one or more destination numbers.
+      operationId: Send Message
+      parameters:
+      - name: senderAddress
+        in: path
+        description: 'The address to use as the sender of the message. This can be
+
+          either a number up to 15 characters, or an alphanumeric text up to 11
+
+          characters from the GSM 7bit alphabet. However, most destination networks
+
+          will only allow valid phone numbers or short codes. Keep in mind that
+
+          any replies will end up being delivered to this address. If the address
+
+          is a phone number, you can optionally prefix it with tel: for clarity
+
+          (e.g. tel:+1234567). senderAddress path variable must be a valid URL chars
+
+          sequence. If it contains non-latin letters or special/punctuation characters,
+
+          they are required to be URL-encoded (e.g. /outbound/ALPHA NUMERIC/requests
+
+          -> /outbound/ALPHA%20NUMERIC/requests).
+
+          '
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: null
+        example: '321234567'
+      requestBody:
+        description: Request Parameters
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutboundRequest'
+            example: '{"outboundSMSMessageRequest":{"address":["tel:+13500000991","tel:+13500000992"],"senderAddress":"tel:321234567","outboundSMSTextMessage":{"message":"Hello World"},"senderName":"web app name"}}'
+        required: true
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutboundRequest'
+              examples:
+                async:
+                  value: "{\n  \"outboundSMSMessageRequest\": {\n    \"resourceURL\": \"https://opensms.api.bics.com/sms/v3/outbound/321234567/requests/4c279a5f-1502-4679-8077-a63fa399369e\",\n    \"address\": [\"tel:+13500000991\", \"tel:+13500000992\"],\n    \"senderAddress\": \"tel:321234567\",\n    \"outboundSMSTextMessage\": {\"message\": \"Hello World\"},\n    \"senderName\": \"web app name\",\n    \"callbackData\":\"xxxx-xxxxxxx-xxxxxxx-xxx\",\n    \"notifyURL\":\"https://some-address.url/some-endpoint\",\n    \"asynchronous\" : true\n  }\n}\n"
+                sync:
+                  value: "{\n  \"outboundSMSMessageRequest\": {\n    \"resourceURL\": \"https://opensms.api.bics.com/sms/v3/outbound/321234567/requests/4c279a5f-1502-4679-8077-a63fa399369e\",\n    \"address\": [\"tel:+13500000991\", \"tel:+13500000992\"],\n    \"senderAddress\": \"tel:321234567\",\n    \"outboundSMSTextMessage\": {\"message\": \"Hello World\"},\n    \"senderName\": \"web app name\",\n    \"asynchronous\" : false\n  }\n}\n"
+              example: null
+        '400':
+          description: 'Bad request: request validation failed, or initial response from SMS HUB fails with delivery impossible. (For asynchronous requests - if initial request validation failed, or message contains correlationId for which previous response from SMS HUB failed with delivery impossible)'
+          content: {}
+        '401':
+          description: 'Unauthorized: the API Key was not mentioned or is invalid (see authentication)'
+          content: {}
+        '403':
+          description: 'Forbidden: this service cannot be used according to your API Key'
+          content: {}
+        '429':
+          description: 'Too Many Requests: more requests were made in the last hour than is permitted with your API key'
+          content: {}
+      x-request-id-header: true
+      tags:
+      - Outbound
+  /outbound/subscriptions:
+    parameters: []
+    get:
+      description: Your subscription for delivery infos
+      operationId: Get Delivery Info Subscription
+      parameters: []
+      responses:
+        '200':
+          description: subscription
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+              example: "{\n  \"callback\": {\n   \"finalDelivery\": true,\n    \"url\": \"string\",\n    \"securityToken\": \"string\"\n  }\n}\n"
+        '401':
+          description: Not authorized
+          content: {}
+        '404':
+          description: No subscription found
+          content: {}
+      x-request-id-header: true
+      tags:
+      - Outbound
+    post:
+      description: 'Subscribe for delivery info notifications. This is an alternative way to the Get Delivery Infos method to
+
+        retrieve delivery infos.
+
+
+        A delivery infos will be sent to the specified URL whenever the message''s state changes.
+
+        You will typically receive 2 notifications with the states DeliveredToNetwork and DeliveredToTerminal
+
+        respectively for each sent message.
+
+        For large messages that are split into parts, you will receive a notification for each part with the state
+
+        PartiallyDelivered except for the last part which will have the state DeliveredToTerminal.
+
+        Each notification will also contain the total number of parts and the number of parts that arrived at the recipient.
+
+
+        Additionally "finalDelivery" : This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
+
+
+        ### Be aware that
+
+
+        * There is no retry mechanism on the delivery notifications. If we fail to send the notification to your URL
+
+        (e.g. 404 not found, timeout, network issues) we will not send it again.
+
+
+        * The notifications might arrive in random order. E.g. for a message split in 3 parts, you might
+
+        receive the notification of the 3rd part with the state DeliveredToTerminal before the notification of the 2nd
+
+        part with the state PartiallyDelivered. This requires you to build some
+
+        logic on your end to not simply overwrite the state DeliveredToTerminal with PartiallyDelivered
+
+        and wrongfully conclude that the message is still in the state PartiallyDelivered.
+
+        '
+      operationId: Create Delivery Info Subscription
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeliveryCallback'
+            example: "{\n  \"callback\": {\n    \"finalDelivery\": true,\n    \"url\": \"https: //your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n"
+        required: true
+      responses:
+        '201':
+          description: subscription created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryCallback'
+              example: "{\n  \"callback\": {\n    \"finalDelivery\": true,\n    \"url\": \"https://your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n"
+        '400':
+          description: The request is not well formed.
+          content: {}
+        '406':
+          description: The request is not accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotAcceptableCallback'
+              example: null
+      x-request-id-header: true
+      tags:
+      - Outbound
+    delete:
+      description: Delete your subscription for delivery infos
+      operationId: Delete Delivery Info Subscription
+      parameters: []
+      responses:
+        '401':
+          description: Not authorized
+          content: {}
+        '204':
+          description: Subscription removed
+          content: {}
+        '404':
+          description: Delivery subscription not found
+          content: {}
+      x-request-id-header: true
+      tags:
+      - Outbound
+  /outbound/{senderAddress}/requests/{requestId}/deliveryInfos:
+    parameters: []
+    get:
+      description: 'Retrieves the delivery information per recipient for a previously transmitted message. For each message sent, you can poll this URL until the message has one of the 2 final states:
+
+
+        * DeliveredToTerminal : the message arrived on the recipient''s device
+
+
+        * DeliveryImpossible : the message could not be delivered (e.g. the recipient''s number is not an active number)
+
+
+        Polling for the status can be resource intensive, alternatively you can also create a delivery subscription which will post the same delivery info to a URL you specify.
+
+        '
+      operationId: Get Delivery Infos
+      parameters:
+      - name: senderAddress
+        in: path
+        description: The sender of the message used in the original SendMessage request
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: null
+        example: '321234567'
+      - name: requestId
+        in: path
+        description: The requestId of the submitted message which can be found in the reponse or the location header of the original SendMessage request
+        required: true
+        allowEmptyValue: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: null
+        example: 4c279a5f-1502-4679-8077-a63fa399369e
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryInfoList'
+              example: '{"deliveryInfoList":{"resourceURL":"https://opensms.api.bics.com/sms/v3/outbound/%2B321234567/requests/4c279a5f-1502-4679-8077-a63fa399369e/deliveryInfos","smsParts":3,"deliveryInfo":[{"address":"tel:+331234568","deliveryStatus":"PartiallyDelivered","deliveryStatusCode":13,"smsPartsDeliveredToTerminal":2,"callbackData":"xxxx-xxxx-xxxx-xxxx-xxxx-xxxx"},{"address":"tel:+331234567","deliveryStatus":"DeliveredToNetwork","deliveryStatusCode":6,"smsPartsDeliveredToTerminal":0,"callbackData":"xxxx-xxxx-xxxx-xxxx-xxxx-xxxx"}]}}'
+        '401':
+          description: 'Unauthorized: the API Key was not mentioned or is invalid (see authentication)'
+          content: {}
+        '403':
+          description: 'Forbidden: this service cannot be used according to your API Key'
+          content: {}
+        '404':
+          description: no such message was found
+          content: {}
+        '429':
+          description: 'Too Many Requests: more requests were made in the last hour than is permitted with your API key'
+          content: {}
+      x-request-id-header: true
+      tags:
+      - Outbound
+components:
+  schemas:
+    OutboundRequest:
+      required:
+      - address
+      - outboundSMSTextMessage
+      - senderAddress
+      type: object
+      properties:
+        senderAddress:
+          type: string
+          description: For the sender address, we allow both numeric and alphanumeric senders. Keep in mind that not all destination networks accept alphanumeric senders, and some will even refuse to terminate messages if you try to use it.
+          example: null
+        senderName:
+          type: string
+          example: null
+        finalDelivery:
+          type: boolean
+          example: null
+        address:
+          type: array
+          description: Recipient addresses
+          nullable: false
+          items:
+            type: string
+            description: Required. Recipient address
+            example: null
+          example: null
+        resourceURL:
+          type: string
+          description: A resource URL for this specific request.
+          example: null
+        deliveryInfoList:
+          $ref: '#/components/schemas/DeliveryInfoList'
+        outboundSMSTextMessage:
+          $ref: '#/components/schemas/SmsTextMessage'
+        asynchronous:
+          type: boolean
+          description: Optional, default value is false. Reduces HTTP response time by acknowledging the message directly as it enters our system, doesn't influence on actual sending time of message to destination, HTTP response is sent before message validation by the routing engine. Delivery results are available on subscription, by calling 'getDeliveryResults' endpoint or by using notifyURL field.
+          default: false
+          example: null
+        clientCorrelator:
+          type: string
+          description: 'Suppose a network issue occurs just as you''re sending a message, and you did not receive your http response. In this case you will not know whether the sms was effectively sent or not. You could send the message again, but then you risk the recipient receiving the message twice. The solution for this is the clientCorrelator. Add this optional parameter with a unique value for each message you transmit. If you transmit the message again with the same correlator, bics will not send the message again. Instead, if the message was sent before, you will simply receive the response as you would''ve received it in the original sending. Correlators stay valid for 24 hours.
+
+            '
+          example: null
+        callbackData:
+          type: string
+          description: Optional. Will be passed back in this notification, so you can use it to identify the message the receipt relates to or any other useful data, such as a function name.
+          example: null
+        notifyURL:
+          type: string
+          description: Optional. The URL-escaped URL to which a notification of delivery sent. notifyURL has presedence over delivery notification subscription that may already exist for the senderAddress.
+          example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("outboundSMSMessageRequest")'
+      example: null
+    DeliveryState:
+      type: string
+      description: '<ul>
+
+        <li>MessageAccepted  The message is accepted, for asynchronous flow.</li>
+
+        <li>DeliveredToNetwork  The message was delivered to the network and is underway to the recipient.</li>
+
+        <li>PartiallyDelivered  Only applicable if the message is too large to be sent in one part and was split into multiple parts. This state is returned when some but not all of the parts were delivered to the recipient.</li>
+
+        <li>DeliveredToTerminal  The message was delivered to the recipient.</li>
+
+        <li>DeliveryUncertain  The message is currently travelling in a network outside of our control so the status cannot be determined.</li>
+
+        <li>DeliveryImpossible  The transmission to this recipient has failed permanently and will not be retried.</li>
+
+        <li>InvalidSrcAddress  Source address of the message is invalid. Delivery impossible</li>
+
+        <li>InvalidDestAddress  Destination address of the message is invalid. Delivery impossible</li>
+
+        </ul>
+
+        Status codes for the delivery state:
+
+        <ul>
+
+        <li>MessageAccepted -> Code 12</li>
+
+        <li>DeliveredToNetwork -> Code 6, Code 1</li>
+
+        <li>PartiallyDelivered -> Code 13</li>
+
+        <li>DeliveredToTerminal -> Code 2</li>
+
+        <li>DeliveryUncertain -> Code 7</li>
+
+        <li>DeliveryImpossible -> Code 3, Code 4, Code 5, Code 8</li>
+
+        <li>InvalidSrcAddress -> Code 10</li>
+
+        <li>InvalidDestAddress -> Code 11</li>
+
+        </ul>
+
+        '
+      enum:
+      - MessageAccepted
+      - DeliveredToNetwork
+      - PartiallyDelivered
+      - DeliveredToTerminal
+      - DeliveryUncertain
+      - DeliveryImpossible
+      - InvalidSrcAddress
+      - InvalidDestAddress
+      example: null
+    DeliveryInfoList:
+      type: object
+      properties:
+        securityToken:
+          type: string
+          description: Present if this delivery info is sent as part of a delivery info subscription callback. It will contain the same value as the securityToken used to create the delivery subscription.
+          example: null
+        deliveryInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryInfo'
+          example: null
+        resourceURL:
+          type: string
+          description: The DeliveryInfoList can also be accessed on this resource URL.
+          example: null
+        smsParts:
+          type: integer
+          description: The number of SMS'es sent to deliver this message. An SMS has a maximum length, if your message exceeds this length, it will be split into multiple SMS'es and merged again on the recipient's device.
+          example: null
+      description: 'When a message was sent, the response contains a list of deliveryInfos. Use the ResourceURL of the DeliveryInfoList section of the response to check back later for updates on this list.
+
+        (keep in mind that this URL will not contain your ApiKey, so if you come back for the delivery receipts you will still need to authenticate. Delivery receipts are kept for 7 days.
+
+        '
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("deliveryInfoList")'
+      example: null
+    NotAcceptableCallback:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - NOT_HTTPS
+          example: null
+        description:
+          type: string
+          example: null
+      example: null
+    SmsTextMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: null
+      description: 'The text message to send. It will be encoded using the GSM 7-bit encoding standard.
+
+        Note: The tab character (\t) will be replaced by four space characters during encoding.
+
+        The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
+
+        '
+      example: null
+    Callback:
+      required:
+      - securityToken
+      - url
+      type: object
+      properties:
+        securityToken:
+          type: string
+          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
+          nullable: false
+          example: null
+        url:
+          type: string
+          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
+          nullable: false
+          example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
+      example: null
+    DeliveryInfo:
+      type: object
+      properties:
+        smsPartsUncertain:
+          type: integer
+          description: The number of parts that is uncertain of delivery for messages split into multiple parts.
+          x-include-if-not-null: true
+          example: null
+        address:
+          type: string
+          description: The recipient address.
+          example: null
+        smsPartsUndeliverable:
+          type: integer
+          description: The number of parts undeliverable to terminal for messages split into multiple parts.
+          x-include-if-not-null: true
+          example: null
+        callbackData:
+          type: string
+          description: Data from original sendMessage request
+          example: null
+        deliveryStatus:
+          $ref: '#/components/schemas/DeliveryState'
+        smsPartsDeliveredToTerminal:
+          type: integer
+          description: The number of parts delivered to terminal for messages split into multiple parts.
+          example: null
+        deliveryStatusCode:
+          type: integer
+          example: null
+      example: null
+    DeliveryCallback:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          finalDelivery:
+            type: boolean
+            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
+      example: null
