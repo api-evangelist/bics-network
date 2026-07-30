@@ -12,7 +12,19 @@ description: >-
   lookup, SIM-swap detection and device-location signals for anti-fraud and KYC -
   as partner and carrier contract products across the Proximus Global network
   rather than as self-serve endpoints.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: open
+  trial: false
+  try_now: false
+  public: true
+  label: Open access
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bics-network.png
 tags:
 - Number Verification
 - Telecom
@@ -30,161 +42,6 @@ created: '2026-07-11'
 modified: '2026-07-11'
 specificationVersion: '0.19'
 apis:
-- aid: bics-network:bics-sms-api
-  name: BICS SMS API
-  tags:
-  - SMS
-  - OTP
-  - Number Verification
-  - A2P
-  - Messaging
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.bics.com/portal/apis
-  baseURL: https://api.bics.com/sms/v3
-  properties:
-  - url: https://developer.bics.com/portal/apis
-    type: Documentation
-  - url: openapi/bics-sms-openapi.json
-    type: OpenAPI
-  description: >-
-    RESTful A2P messaging API for sending text messages to mobile phones
-    worldwide, including one-time passcodes (OTP) for phone number verification
-    and two-factor authentication. Supports single and bulk outbound requests,
-    delivery-info retrieval, inbound message subscriptions, and conversion
-    reporting. Confirmed endpoints from the OpenAPI 3.0.1 definition.
-- aid: bics-network:bics-mynumbers-api
-  name: BICS MyNumbers API
-  tags:
-  - Numbering
-  - Telecom
-  - Provisioning
-  - Cloud Numbers
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.bics.com/portal/apis
-  baseURL: https://api.bics.com/mynumbers-number/v1
-  properties:
-  - url: https://developer.bics.com/portal/apis
-    type: Documentation
-  - url: openapi/bics-mynumbers-openapi.json
-    type: OpenAPI
-  description: >-
-    Order and manage ready-to-use BICS Cloud Numbers (IBN), International
-    Freephone Numbers (ITFS) and Global Mobile Numbers (GMN). Check stock,
-    price lists, and reference data (locations, POPs, languages), place single
-    or bulk orders, configure routes, and manage number-to-address references.
-    A sandbox base URL is published at sandbox.api.bics.com. Confirmed endpoints
-    from the OpenAPI 3.0.1 definition.
-- aid: bics-network:bics-mynumbers-number-porting-api
-  name: BICS MyNumbers Number Porting API
-  tags:
-  - Number Portability
-  - Numbering
-  - Telecom
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.bics.com/portal/apis
-  baseURL: https://api.bics.com/mynumbers-porting/v1
-  properties:
-  - url: https://developer.bics.com/portal/apis
-    type: Documentation
-  - url: openapi/bics-mynumbers-porting-openapi.json
-    type: OpenAPI
-  description: >-
-    Submit and track number portability (porting) requests - create porting
-    requests, attach Letter of Authorization documents, update addresses, and
-    check porting specifications and statuses. Confirmed endpoints from the
-    OpenAPI 3.0.1 definition.
-- aid: bics-network:bics-mynumbers-cdr-api
-  name: BICS MyNumbers CDR API
-  tags:
-  - CDR
-  - Call Detail Records
-  - Reporting
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.bics.com/portal/apis
-  baseURL: https://api.bics.com/mynumbers-cdr/v1
-  properties:
-  - url: https://developer.bics.com/portal/apis
-    type: Documentation
-  - url: openapi/bics-mynumbers-cdr-openapi.json
-    type: OpenAPI
-  description: >-
-    Request, poll, and download Call Detail Records (CDRs) for inbound and
-    outbound calls on your BICS numbers, with available-date discovery and
-    multiple download formats. Confirmed endpoints from the OpenAPI 3.0.1
-    definition.
-- aid: bics-network:bics-mynumbers-address-management-api
-  name: BICS MyNumbers Address Management API
-  tags:
-  - Address Management
-  - Compliance
-  - Numbering
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.bics.com/portal/apis
-  baseURL: https://api.bics.com/mynumbers-address-management/v1
-  properties:
-  - url: https://developer.bics.com/portal/apis
-    type: Documentation
-  - url: openapi/bics-mynumbers-address-management-openapi.json
-    type: OpenAPI
-  description: >-
-    Create, edit, retrieve and delete the addresses and supporting documents
-    required by local regulation for number provisioning. Confirmed endpoints
-    from the OpenAPI 3.0.1 definition.
-- aid: bics-network:bics-mynumbers-disconnection-api
-  name: BICS MyNumbers Disconnection API
-  tags:
-  - Disconnection
-  - Numbering
-  - Lifecycle
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.bics.com/portal/apis
-  baseURL: https://api.bics.com/mynumbers-disconnection/v1
-  properties:
-  - url: https://developer.bics.com/portal/apis
-    type: Documentation
-  - url: openapi/bics-mynumbers-disconnection-openapi.json
-    type: OpenAPI
-  description: >-
-    Request disconnection of your numbers by building disconnection orders,
-    adding or removing order items, and submitting them for processing.
-    Confirmed endpoints from the OpenAPI 3.0.1 definition.
-- aid: bics-network:bics-mynumbers-emergency-services-api
-  name: BICS MyNumbers Emergency Services API
-  tags:
-  - Emergency Services
-  - Numbering
-  - Compliance
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.bics.com/portal/apis
-  baseURL: https://api.bics.com/mynumbers-emergency-services/v1
-  properties:
-  - url: https://developer.bics.com/portal/apis
-    type: Documentation
-  - url: openapi/bics-mynumbers-emergency-services-openapi.json
-    type: OpenAPI
-  description: >-
-    Enable emergency services on SIP-T numbers - check per-country requirements
-    and create, update, and submit emergency-service orders and order items.
-    Confirmed endpoints from the OpenAPI 3.0.1 definition.
-- aid: bics-network:bics-connect-api
-  name: BICS Connect API
-  tags:
-  - Connectivity
-  - Cloud
-  - Carrier
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.bics.com/portal/apis
-  baseURL: https://api.bics.com/connect/v1
-  properties:
-  - url: https://developer.bics.com/portal/apis
-    type: Documentation
-  - url: openapi/bics-connect-openapi.json
-    type: OpenAPI
-  description: >-
-    Carrier-grade Cloud Connect service combining BICS layer-2 transport with
-    dedicated connectivity to cloud providers - create, list, modify, and delete
-    connections and interconnects and browse reference data. Confirmed endpoints
-    from the OpenAPI 3.0.1 definition.
 - aid: bics-network:bics-number-verification-api
   name: BICS Number Verification API
   tags:
@@ -199,13 +56,11 @@ apis:
   - url: https://www.bics.com/developers-hub/
     type: Documentation
   description: >-
-    Phone number verification and mobile authentication for anti-fraud, KYC and
-    onboarding - validating that a mobile number is real, active, and controlled
-    by the user, including OTP-based flows. Marketed by BICS and delivered across
-    the Proximus Global network as a partner and carrier contract product;
-    access is via contact-sales onboarding rather than the self-serve developer
-    portal, so any request surface here is endpointsModeled, not a published
-    OpenAPI definition.
+    Phone number verification and mobile authentication for anti-fraud, KYC and onboarding - validating
+    that a mobile number is real, active, and controlled by the user, including OTP-based flows. Marketed
+    by BICS and delivered across the Proximus Global network as a partner and carrier contract product;
+    access is via contact-sales onboarding rather than the self-serve developer portal, so any request
+    surface here is endpointsModeled, not a published OpenAPI definition.
 - aid: bics-network:bics-fraud-prevention-reachability-api
   name: BICS Fraud Prevention and Reachability API
   tags:
@@ -221,13 +76,279 @@ apis:
   - url: https://www.bics.com/developers-hub/
     type: Documentation
   description: >-
-    Network-signal services for fraud prevention and mobile identity - HLR and
-    reachability lookup (operator, ported status, active/blocked SIM state),
-    SIM-swap detection, and device-location signals used to score risk on logins
-    and transactions. These carrier-network capabilities are offered by BICS as
-    contract products across the Proximus Global network and align with GSMA Open
-    Gateway / CAMARA network APIs; they are contact-sales rather than self-serve,
-    so the surface here is endpointsModeled, not a published OpenAPI definition.
+    Network-signal services for fraud prevention and mobile identity - HLR and reachability lookup (operator,
+    ported status, active/blocked SIM state), SIM-swap detection, and device-location signals used to
+    score risk on logins and transactions. These carrier-network capabilities are offered by BICS as contract
+    products across the Proximus Global network and align with GSMA Open Gateway / CAMARA network APIs;
+    they are contact-sales rather than self-serve, so the surface here is endpointsModeled, not a published
+    OpenAPI definition.
+- aid: bics-network:bics-network-address-management-api
+  name: BICS Address Management API
+  description: Manage your addresses
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Address Management
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-address-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-cdr-api
+  name: BICS CDR API
+  description: >-
+    The following methods allows you to request your Call Detail Records (CDRs), request the status of
+    your requests and download your CDRs. The CDRs are available for both Inbound and Outbound calls terminated/originated
+    to/from BICS numbers as from the 1st of January  2020.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - CDR
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-cdr-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-connections-management-api
+  name: BICS Connections Management API
+  description: The Connections Management API from BICS — 3 operation(s) for connections management.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Connections Management
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-connections-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-conversions-api
+  name: BICS Conversions API
+  description: The Conversions API from BICS — 1 operation(s) for conversions.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Conversions
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-conversions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-conversionsinfos-api
+  name: BICS Conversionsinfos API
+  description: The Conversionsinfos API from BICS — 1 operation(s) for conversionsinfos.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Conversionsinfos
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-conversionsinfos-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-disconnection-services-api
+  name: BICS Disconnection Services API
+  description: Manage your disconnection order
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Disconnection Services
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-disconnection-services-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-document-management-api
+  name: BICS Document Management API
+  description: The Document Management API from BICS — 1 operation(s) for document management.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Document Management
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-document-management-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-emergency-services-api
+  name: BICS Emergency Services API
+  description: Manage your emergency services request
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Emergency Services
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-emergency-services-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-inbound-api
+  name: BICS Inbound API
+  description: The Inbound API from BICS — 2 operation(s) for inbound.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Inbound
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-inbound-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-interconnects-list-api
+  name: BICS Interconnects List API
+  description: The Interconnects List API from BICS — 1 operation(s) for interconnects list.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Interconnects List
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-interconnects-list-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-inventory-api
+  name: BICS inventory API
+  description: Query the numbers you have bought over time.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-number-api
+  name: BICS number API
+  description: The number API from BICS — 1 operation(s) for number.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - number
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-number-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-order-api
+  name: BICS order API
+  description: Purchase a number from the stock.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - order
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-order-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-outbound-api
+  name: BICS Outbound API
+  description: The Outbound API from BICS — 3 operation(s) for outbound.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Outbound
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-outbound-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-porting-api
+  name: BICS porting API
+  description: The porting API from BICS — 4 operation(s) for porting.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - porting
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-porting-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-porting-specification-api
+  name: BICS Porting Specification API
+  description: Recive porting specification
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Porting Specification
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-porting-specification-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-pricelist-api
+  name: BICS pricelist API
+  description: Query your pricelist.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - pricelist
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-pricelist-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-reference-api
+  name: BICS reference API
+  description: Query BICS reference data.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - reference
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-reference-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-reference-data-api
+  name: BICS Reference Data API
+  description: The Reference Data API from BICS — 1 operation(s) for reference data.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - Reference Data
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-reference-data-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-routing-api
+  name: BICS routing API
+  description: Modify routing details for customer numbers.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - routing
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-routing-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-specification-api
+  name: BICS specification API
+  description: The specification API from BICS — 1 operation(s) for specification.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - specification
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-specification-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
+- aid: bics-network:bics-network-stock-api
+  name: BICS stock API
+  description: Query the available stock.
+  humanURL: https://developer.bics.com/portal/apis
+  baseURL: https://api.bics.com/sms/v3
+  tags:
+  - stock
+  properties:
+  - type: OpenAPI
+    url: openapi/bics-network-stock-api-openapi.yml
+  - type: Documentation
+    url: https://developer.bics.com/portal/apis
 common:
 - type: AgenticAccess
   url: agentic-access/bics-network-agentic-access.yml
