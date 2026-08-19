@@ -1,0 +1,209 @@
+{
+  "item": [
+    {
+      "id": "f8cccc14-15e9-4c13-a2c7-eb5bbbba6575",
+      "name": "routing",
+      "description": {
+        "content": "Modify routing details for customer numbers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1f25a5e8-7ef3-40fc-97ec-3ed501bd8c6b",
+          "name": "Change your routing details.",
+          "request": {
+            "name": "Change your routing details.",
+            "description": {
+              "content": "The _/routes_ method allows you to change your routing details for one or multiple number(s). You can provide for each access type (fixed, mobile and payphone) if relevant the PoP and routing number to use. You can retrieve the current routing by calling the _/numbers/{number}_ method and your PoP names by calling the method _/reference/pops_.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "routes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"number\": \"<string>\",\n    \"country\": \"<string>\",\n    \"routing\": [\n      {\n        \"crnType\": \"<string>\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"<string>\",\n        \"accessNetwork\": \"<string>\",\n        \"crnValue\": \"<string>\"\n      },\n      {\n        \"crnType\": \"<string>\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"<string>\",\n        \"accessNetwork\": \"<string>\",\n        \"crnValue\": \"<string>\"\n      }\n    ],\n    \"profile\": \"<string>\"\n  },\n  {\n    \"number\": \"<string>\",\n    \"country\": \"<string>\",\n    \"routing\": [\n      {\n        \"crnType\": \"<string>\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"<string>\",\n        \"accessNetwork\": \"<string>\",\n        \"crnValue\": \"<string>\"\n      },\n      {\n        \"crnType\": \"<string>\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"<string>\",\n        \"accessNetwork\": \"<string>\",\n        \"crnValue\": \"<string>\"\n      }\n    ],\n    \"profile\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc712b7c-3359-43f8-93f2-db972079a553",
+              "name": "Routes updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"routing\": [\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      },\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      }\n    ],\n    \"profile\": \"Profile A\"\n  },\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"routing\": [\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      },\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      }\n    ],\n    \"profile\": \"Profile A\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'number': '443706070212',\\n    'product': 'IBN',\\n    'country': 'GBR',\\n    'location': 'National',\\n    'areaCode': '3',\\n    'accessArea': 'NA',\\n    'profile': 'Profile A',\\n    'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\\n    'routing': [\\n      {\\n        'accessType': 'fixMobPay',\\n        'accessNetwork': '',\\n        'crn': '445706070212A124',\\n        'pop': 'POP ASIA'\\n      }\\n    ]\\n  },\\n  {\\n    'number': '443706070215',\\n    'product': 'IBN',\\n    'country': 'GBR',\\n    'location': 'National',\\n    'areaCode': '3',\\n    'accessArea': 'NA',\\n    'profile': 'Profile A',\\n    'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\\n    'routing': [\\n      {\\n        'accessType': 'fixMobPay',\\n        'accessNetwork': '',\\n        'crn': '445706070215',\\n        'pop': 'POP ASIA'\\n      }\\n    ]\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d73a194c-8726-433c-9e8f-95508c9895ef",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"routing\": [\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      },\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      }\n    ],\n    \"profile\": \"Profile A\"\n  },\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"routing\": [\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      },\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      }\n    ],\n    \"profile\": \"Profile A\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1959-12-26T13:26:10.004Z\",\n  \"number\": \"Number to which error corresponds to.\",\n  \"country\": \"Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f1abdac-c621-4a14-a0cc-86d9cd65534a",
+              "name": "Conflict, A previous route update is still pending.  Please try again later.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"routing\": [\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      },\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      }\n    ],\n    \"profile\": \"Profile A\"\n  },\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"routing\": [\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      },\n      {\n        \"crnType\": \"prefix\",\n        \"accessType\": \"<string>\",\n        \"pop\": \"America\",\n        \"accessNetwork\": \"SMART\",\n        \"crnValue\": \"259AB\"\n      }\n    ],\n    \"profile\": \"Profile A\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1959-12-26T13:26:10.004Z\",\n  \"number\": \"Number to which error corresponds to.\",\n  \"country\": \"Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e2f12a2c-b687-4eb1-92ae-c7becdf6573c",
+    "name": "connect Address Management routing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

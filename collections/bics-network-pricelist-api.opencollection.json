@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management pricelist API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pricelist",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query your current pricelist.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/pricelist/product/:product",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "path",
+                "description": "Retrieve your current pricelist by product."
+              }
+            ]
+          },
+          "docs": "Query your current pricelist by product in order to know the pricing applicable to our numbers in each country."
+        },
+        {
+          "info": {
+            "name": "Query your current pricelist for a specific country.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/pricelist/product/:product/country/:country",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "path",
+                "description": "Retrieve your current pricelist by product."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Filter pricelist by country in ISO 3166-1 alpha-3 format."
+              }
+            ]
+          },
+          "docs": "Query your current pricelist by product and country in order to know the pricing applicable to our numbers in a given country."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

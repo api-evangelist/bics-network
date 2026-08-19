@@ -1,0 +1,836 @@
+{
+  "item": [
+    {
+      "id": "85c43de9-b257-4467-a0b5-a125e5c8f6f0",
+      "name": "order",
+      "description": {
+        "content": "Purchase a number from the stock.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e0a642c6-8938-4d03-902b-e7b03005efd8",
+          "name": "Order easily single or multiple number(s) that we have in our stock.",
+          "request": {
+            "name": "Order easily single or multiple number(s) that we have in our stock.",
+            "description": {
+              "content": "Order easily single or multiple number(s) that we have in our stock. The method _/order_ provisions the number on the fly. In other words, the number can be used immediately after the API call.\n\nYou just have to fill out in your request the product and the country. Location, area code, quantity of numbers and routing details can be provided to better fit your needs. The content type of the request must be _application/json_.\n\nYou can also provide as an input one or multiple specific number(s) that we have in stock. The list of available numbers can be retrieved by calling the method _/availablenumbers_.\n\nFor some countries, you also need to specify the reference of the address of the end subscriber. For more information about address requirements, please read the Specifications API section and section Address Management API.\n\nIn case there are not enough numbers in stock, you also have the opportunity to split order in two orders: A regular order composed of the numbers that are available in stock and a back order for the remaining numbers that our operational team will fulfill as soon as possible. You can mention the order options in your request to specify the type of orders that API can create for you.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56365591-dcee-46be-a82e-fceb1587ac04",
+              "name": "The provisioned number",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"BEL\",\n  \"orderRequestItems\": [\n    {\n      \"number\": \"81345785554\",\n      \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n      \"routing\": [\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"number\": \"81345785554\",\n      \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n      \"routing\": [\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"product\": \"IBN\",\n  \"areaCode\": \"2\",\n  \"quantity\": 1,\n  \"orderOptions\": {\n    \"backOrderAllowed\": true,\n    \"consecutiveNumbers\": true,\n    \"firstNumberEndsWith\": \"1234\",\n    \"regularOrderAllowed\": true\n  },\n  \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n  \"location\": \"brussels\",\n  \"myReference\": \"AB4569\",\n  \"routing\": [\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    },\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"country\": \"JPN\",\n    \"product\": \"IBN\",\n    \"orderId\": \"34521\",\n    \"profile\": \"Profile A\",\n    \"orderItems\": [\n      {\n        \"number\": \"81345785554\",\n        \"routing\": [\n          {\n            \"crnValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"crnType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"crnValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"crnType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"areaCode\": \"3\",\n        \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n        \"orderItemId\": \"63451\",\n        \"location\": \"Tokyo\",\n        \"endUserInfoValidation\": {\n          \"addressDocuments\": \"Under validation\",\n          \"address\": \"Validated\"\n        }\n      },\n      {\n        \"number\": \"81345785554\",\n        \"routing\": [\n          {\n            \"crnValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"crnType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"crnValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"crnType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"areaCode\": \"3\",\n        \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n        \"orderItemId\": \"63451\",\n        \"location\": \"Tokyo\",\n        \"endUserInfoValidation\": {\n          \"addressDocuments\": \"Validated\",\n          \"address\": \"Validated\"\n        }\n      }\n    ],\n    \"areaCode\": \"3\",\n    \"createdDate\": \"2019-12-17T01:00:00+01:00\",\n    \"accessArea\": \"NA\",\n    \"modifiedDate\": \"2019-12-18T03:20:00+01:00\",\n    \"comment\": \"Please provide the company registration\",\n    \"location\": \"Tokyo\",\n    \"myReference\": \"AB4569\",\n    \"status\": \"Cancelled by BICS\"\n  },\n  {\n    \"country\": \"JPN\",\n    \"product\": \"IBN\",\n    \"orderId\": \"34521\",\n    \"profile\": \"Profile A\",\n    \"orderItems\": [\n      {\n        \"number\": \"81345785554\",\n        \"routing\": [\n          {\n            \"crnValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"crnType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"crnValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"crnType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"areaCode\": \"3\",\n        \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n        \"orderItemId\": \"63451\",\n        \"location\": \"Tokyo\",\n        \"endUserInfoValidation\": {\n          \"addressDocuments\": \"No validation required\",\n          \"address\": \"Need more information\"\n        }\n      },\n      {\n        \"number\": \"81345785554\",\n        \"routing\": [\n          {\n            \"crnValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"crnType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"crnValue\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"crnType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"areaCode\": \"3\",\n        \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n        \"orderItemId\": \"63451\",\n        \"location\": \"Tokyo\",\n        \"endUserInfoValidation\": {\n          \"addressDocuments\": \"Validated\",\n          \"address\": \"Validated\"\n        }\n      }\n    ],\n    \"areaCode\": \"3\",\n    \"createdDate\": \"2019-12-17T01:00:00+01:00\",\n    \"accessArea\": \"NA\",\n    \"modifiedDate\": \"2019-12-18T03:20:00+01:00\",\n    \"comment\": \"Please provide the company registration\",\n    \"location\": \"Tokyo\",\n    \"myReference\": \"AB4569\",\n    \"status\": \"Being processed\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "655dc0a7-3705-434f-82b8-89fa9ec30f92",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"BEL\",\n  \"orderRequestItems\": [\n    {\n      \"number\": \"81345785554\",\n      \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n      \"routing\": [\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"number\": \"81345785554\",\n      \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n      \"routing\": [\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"product\": \"IBN\",\n  \"areaCode\": \"2\",\n  \"quantity\": 1,\n  \"orderOptions\": {\n    \"backOrderAllowed\": true,\n    \"consecutiveNumbers\": true,\n    \"firstNumberEndsWith\": \"1234\",\n    \"regularOrderAllowed\": true\n  },\n  \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n  \"location\": \"brussels\",\n  \"myReference\": \"AB4569\",\n  \"routing\": [\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    },\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2016-06-23T16:57:12.639Z\",\n  \"number\": \"Number to which error corresponds to.\",\n  \"country\": \"Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ae0b7fc-6d61-4d48-81c3-1130a9d4f59c",
+              "name": "No available numbers in stock anymore.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"BEL\",\n  \"orderRequestItems\": [\n    {\n      \"number\": \"81345785554\",\n      \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n      \"routing\": [\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"number\": \"81345785554\",\n      \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n      \"routing\": [\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"crnType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessType\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"pop\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"accessNetwork\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"crnValue\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"product\": \"IBN\",\n  \"areaCode\": \"2\",\n  \"quantity\": 1,\n  \"orderOptions\": {\n    \"backOrderAllowed\": true,\n    \"consecutiveNumbers\": true,\n    \"firstNumberEndsWith\": \"1234\",\n    \"regularOrderAllowed\": true\n  },\n  \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n  \"location\": \"brussels\",\n  \"myReference\": \"AB4569\",\n  \"routing\": [\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    },\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1958-04-03T09:02:22.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7162af20-0b1a-421d-b222-7aaabe9e5223",
+          "name": "Get order by order id",
+          "request": {
+            "name": "Get order by order id",
+            "description": {
+              "content": "The _/order/{orderId}_ method allows you to retrieve the details of a given order. As a response you will receive all information linked to the order that would help you manage it at your convenience.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) A given order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fe9c428-7e3f-4f73-a9a0-c9e0a8fe9248",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) A given order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"country\": \"JPN\",\n  \"product\": \"IBN\",\n  \"orderId\": \"34521\",\n  \"profile\": \"Profile A\",\n  \"orderItems\": [\n    {\n      \"number\": \"81345785554\",\n      \"routing\": [\n        {\n          \"crnValue\": \"259AB\",\n          \"crnType\": \"prefix\",\n          \"accessType\": \"fixMobPay\",\n          \"pop\": \"ASIA\",\n          \"accessNetwork\": \"BICS\",\n          \"crn\": \"259AB81345785554\"\n        },\n        {\n          \"crnValue\": \"259AB\",\n          \"crnType\": \"prefix\",\n          \"accessType\": \"fixMobPay\",\n          \"pop\": \"ASIA\",\n          \"accessNetwork\": \"BICS\",\n          \"crn\": \"259AB81345785554\"\n        }\n      ],\n      \"areaCode\": \"3\",\n      \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n      \"orderItemId\": \"63451\",\n      \"location\": \"Tokyo\",\n      \"endUserInfoValidation\": {\n        \"addressDocuments\": \"Under validation\",\n        \"address\": \"No validation required\"\n      }\n    },\n    {\n      \"number\": \"81345785554\",\n      \"routing\": [\n        {\n          \"crnValue\": \"259AB\",\n          \"crnType\": \"prefix\",\n          \"accessType\": \"fixMobPay\",\n          \"pop\": \"ASIA\",\n          \"accessNetwork\": \"BICS\",\n          \"crn\": \"259AB81345785554\"\n        },\n        {\n          \"crnValue\": \"259AB\",\n          \"crnType\": \"prefix\",\n          \"accessType\": \"fixMobPay\",\n          \"pop\": \"ASIA\",\n          \"accessNetwork\": \"BICS\",\n          \"crn\": \"259AB81345785554\"\n        }\n      ],\n      \"areaCode\": \"3\",\n      \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n      \"orderItemId\": \"63451\",\n      \"location\": \"Tokyo\",\n      \"endUserInfoValidation\": {\n        \"addressDocuments\": \"Under validation\",\n        \"address\": \"Validated\"\n      }\n    }\n  ],\n  \"areaCode\": \"3\",\n  \"createdDate\": \"2019-12-17T01:00:00+01:00\",\n  \"accessArea\": \"NA\",\n  \"modifiedDate\": \"2019-12-18T03:20:00+01:00\",\n  \"comment\": \"Please provide the company registration\",\n  \"location\": \"Tokyo\",\n  \"myReference\": \"AB4569\",\n  \"status\": \"Being processed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70d7f763-9d14-4282-8ca6-a39fd31a2e13",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) A given order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1958-04-03T09:02:22.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2b45777-c4e8-4125-a463-a63e53c0441b",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) A given order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1958-04-03T09:02:22.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ab0e48e-1223-4710-901e-4b73f1b273bc",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) A given order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1958-04-03T09:02:22.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0312079a-446f-42e7-8f70-f9cadb9457e4",
+              "name": "Order does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) A given order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1958-04-03T09:02:22.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae594734-e158-4d72-89a5-612a7b356541",
+          "name": "Order a single available number",
+          "request": {
+            "name": "Order a single available number",
+            "description": {
+              "content": "Order easily single number that we have in our stock. The method _/order_ provisions the number on the fly. In other words, the number can be used immediately after the API call.\n\nYou just have to fill out in your request the product and the country. Location, area code,  and routing details can be provided to better fit your needs.\n\nThe content type of the request must be application/json. For some countries, you also need to specify the reference of the address of the end subscriber. For more information about address requirements, please read the Specifications API section and section Address Management API.\n\nIn case there are not enough numbers in stock, you also have an opportunity to create an order that our operational team will fulfill as soon as possible. You can mention the order options in your request to specify the type of orders that API can create for you.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bc19183f-ef14-4f73-8cf1-ea614b49bb12",
+              "name": "The provisioned number",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"BEL\",\n  \"product\": \"IBN\",\n  \"areaCode\": \"2\",\n  \"orderOptions\": {\n    \"backOrderAllowed\": true,\n    \"consecutiveNumbers\": true,\n    \"firstNumberEndsWith\": \"1234\",\n    \"regularOrderAllowed\": true\n  },\n  \"accessArea\": \"NA\",\n  \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n  \"profile\": \"Profile A\",\n  \"location\": \"Brussels\",\n  \"myReference\": \"AB4569\",\n  \"routing\": [\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    },\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'number': '81345785554',\\n  'product': 'IBN',\\n  'country': 'JPN',\\n  'accessArea': 'NA',\\n  'location': 'Tokyo',\\n  'areaCode': '3',\\n  'orderId': '34521',\\n  'addressReference': '1247b1ca-ffec-4576-be45-c837cdbff546'\\n  'routing': [\\n    {\\n      'accessType': 'fixMobPay',\\n      'accessNetwork': null,\\n      'crnType': 'prefix',\\n      'crnValue': '234A',\\n      'crn': '234A81345785554',\\n      'pop': 'ASIA'\\n    }\\n  ]\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0551011-bad7-47c6-be8e-cc14d0753ce3",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"BEL\",\n  \"product\": \"IBN\",\n  \"areaCode\": \"2\",\n  \"orderOptions\": {\n    \"backOrderAllowed\": true,\n    \"consecutiveNumbers\": true,\n    \"firstNumberEndsWith\": \"1234\",\n    \"regularOrderAllowed\": true\n  },\n  \"accessArea\": \"NA\",\n  \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n  \"profile\": \"Profile A\",\n  \"location\": \"Brussels\",\n  \"myReference\": \"AB4569\",\n  \"routing\": [\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    },\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1958-04-03T09:02:22.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ed16c9c-142d-4fcd-9a0b-6a6d764f302b",
+              "name": "No available numbers in stock anymore.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"country\": \"BEL\",\n  \"product\": \"IBN\",\n  \"areaCode\": \"2\",\n  \"orderOptions\": {\n    \"backOrderAllowed\": true,\n    \"consecutiveNumbers\": true,\n    \"firstNumberEndsWith\": \"1234\",\n    \"regularOrderAllowed\": true\n  },\n  \"accessArea\": \"NA\",\n  \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\",\n  \"profile\": \"Profile A\",\n  \"location\": \"Brussels\",\n  \"myReference\": \"AB4569\",\n  \"routing\": [\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    },\n    {\n      \"crnType\": \"prefix\",\n      \"accessType\": \"<string>\",\n      \"pop\": \"America\",\n      \"accessNetwork\": \"SMART\",\n      \"crnValue\": \"259AB\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1958-04-03T09:02:22.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d7057f4-eec4-4e0c-b56c-fa50bb94a4d0",
+          "name": "Edit order by change address reference",
+          "request": {
+            "name": "Edit order by change address reference",
+            "description": {
+              "content": "The _/order/{orderReference}/orderItem/{orderItemReference}_ method allows you to change the address reference linked to an order item. It must be used in case the address that you initially provided is not valid and you want to provide another one to fulfil the order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                ":orderReference",
+                "orderItem",
+                ":orderItemReference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderReference",
+                  "description": "(Required) A given order reference"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderItemReference",
+                  "description": "(Required) A given order item reference"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addressReference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ccc3517e-8c71-4b4a-95ff-399cc5e77cd7",
+              "name": "Address Reference updated for given order item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderReference",
+                    "orderItem",
+                    ":orderItemReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderReference",
+                      "description": "(Required) A given order reference"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderItemReference",
+                      "description": "(Required) A given order item reference"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressReference\": \"365c51a4-07b8-4b04-bb6c-cbf1a1cc2205\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "33020e15-6ccb-4e77-a2ea-d83afd7fc9d4",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderReference",
+                    "orderItem",
+                    ":orderItemReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderReference",
+                      "description": "(Required) A given order reference"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderItemReference",
+                      "description": "(Required) A given order item reference"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addressReference\": \"365c51a4-07b8-4b04-bb6c-cbf1a1cc2205\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1958-04-03T09:02:22.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a05088c5-eb91-4427-bb40-c6717eb3eda4",
+    "name": "connect Address Management order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

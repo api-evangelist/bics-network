@@ -1,0 +1,1751 @@
+{
+  "item": [
+    {
+      "id": "f6f2d40d-7876-400e-bf17-f0d1a8c38954",
+      "name": "Address Management",
+      "description": {
+        "content": "Manage your addresses",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f4c47a73-bc75-4696-880e-b62477207754",
+          "name": "Retrieve the address by address reference",
+          "request": {
+            "name": "Retrieve the address by address reference",
+            "description": {
+              "content": "Retrieve a single address identified by its address reference. An address is composed of the address detail (Street Name, Street Number,...) and the reference.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "addresses",
+                ":reference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reference",
+                  "description": "(Required) reference of the address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "689c8623-df62-4ed6-9f99-4584f9dca97a",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'alias': 'BICS France Office',\\n  'street': 'Avenue Anatole',\\n  'streetNumber': '5',\\n  'box': 'A',\\n  'residence': 'Eiffel',\\n  'floor': '15',\\n  'postalCode': '75007',\\n  'city': 'Paris',\\n  'state': 'Paris',\\n  'country': 'FRA',\\n  'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\\n  'status': 'Submitted',\\n  'comment': '',\\n  'serviceUsage': 'Customer Support France',\\n  'addressDocuments': [\\n    {\\n      'documentReference': 'ac0334bc-da81-48a9-a64d-5f54474b2d35',\\n      'fileName': 'proofOfAddress.pdf',\\n      'size': 139769,\\n      'status': 'Uploaded',\\n      'created': '2018-09-07T10:10:59Z',\\n      'comment': '',\\n      'documentType': {\\n        'code': 'POD4',\\n        'description': 'Letter of Intent (LOI)'\\n      }\\n    }\\n  ],\\n  'userIdentity': {\\n       'endSubscriberType': 'Company',\\n       'emailAddress' : 'mail@bics.com',\\n       'companyName' : 'BICS',\\n       'firstName' : null,\\n       'lastName' : null,\\n       'vatNumber' : 'BE0999999993',\\n       'phoneNumber' : '3225551234'\\n  },\\n  'allowedLocations': ['Paris', 'National'],\\n  'allowedLocationsAreaCodes': [\\n    {\\n      'location': 'Paris',\\n      'areaCode': '187',\\n      'nonGeographic': false\\n    },\\n    {\\n      'location': 'National',\\n      'areaCode': '9',\\n      'nonGeographic': true\\n    }\\n  ]\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d905a2bd-b78e-4540-ad5f-43272bdbe1a4",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6d0c51c-6a6a-45cc-b3ec-bad94e4e65cf",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "843a3395-c3a9-4baf-83de-33448a5534e6",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de0ba4d5-2823-4bb6-8cad-9cfbabfdf68c",
+          "name": "Edit an address in your address book.",
+          "request": {
+            "name": "Edit an address in your address book.",
+            "description": {
+              "content": "Edit an address in your address book. You must specify in the request all the attributes of the address even those you do not want to change. The end subscriber type cannot change after the creation of an address. If an address is linked to any active numbers, or any order, it can not be updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "addresses",
+                ":reference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reference",
+                  "description": "(Required) reference of the address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alias\": \"<string>\",\n  \"city\": \"<string>\",\n  \"country\": \"<string>\",\n  \"postalCode\": \"<string>\",\n  \"street\": \"<string>\",\n  \"streetNumber\": \"<string>\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"<string>\",\n  \"language\": \"<string>\",\n  \"userIdentity\": {\n    \"emailAddress\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phoneNumber\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"<string>\"\n  },\n  \"state\": \"<string>\",\n  \"floor\": \"<string>\",\n  \"residence\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "863a8501-588c-4914-9e60-e928b086055b",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"BICS France office\",\n  \"city\": \"Paris\",\n  \"country\": \"FRA\",\n  \"postalCode\": \"75007\",\n  \"street\": \"Rue Anatole\",\n  \"streetNumber\": \"5\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"B\",\n  \"language\": \"en\",\n  \"userIdentity\": {\n    \"emailAddress\": \"email@bics.com\",\n    \"firstName\": \"Kernel\",\n    \"lastName\": \"Braun\",\n    \"phoneNumber\": \"325648855\",\n    \"companyName\": \"BICS\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"BE0999999999\"\n  },\n  \"state\": \"Paris\",\n  \"floor\": \"15\",\n  \"residence\": \"Eiffel\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'alias': 'BICS France Office',\\n  'street': 'Avenue Anatole',\\n  'streetNumber': '5',\\n  'box': 'A',\\n  'residence': 'Eiffel',\\n  'floor': '15',\\n  'postalCode': '75007',\\n  'city': 'Paris',\\n  'state': 'Paris',\\n  'country': 'FRA',\\n  'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\\n  'status': 'Submitted',\\n  'comment': null,\\n  'serviceUsage': 'Customer Support France,\\n  'addressDocuments':\\n  [\\n    {\\n      'documentReference': 'ac0334bc-da81-48a9-a64d-5f54474b2d35',\\n      'fileName': 'proofOfAddress.pdf',\\n      'size': 139769,\\n      'status': 'Uploaded',\\n      'created': '2018-09-07T10:10:59Z',\\n      'comment': '',\\n      'documentType'\\n      {\\n        'code': 'POD4',\\n        'description': 'Letter of Intent (LOI)'\\n      }\\n    }\\n  ],\\n  'userIdentity': {\\n       'endSubscriberType': 'Company',\\n       'emailAddress': 'mail@bics.com',\\n       'companyName': 'BICS France Office',\\n       'firstName': '',\\n       'lastName': '',\\n       'vatNumber': 'BE0999999993',\\n       'phoneNumber': '3225551234'\\n  },\\n  'allowedLocations': ['Paris', 'National'],\\n  'allowedLocationsAreaCodes': [\\n    {\\n      'location': 'Paris',\\n      'areaCode': '187',\\n      'nonGeographic': false\\n    },\\n    {\\n      'location': 'National',\\n      'areaCode': '9',\\n      'nonGeographic': true\\n    }\\n  ]\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1661de3e-4a62-48ac-820e-de6e7146cc18",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"BICS France office\",\n  \"city\": \"Paris\",\n  \"country\": \"FRA\",\n  \"postalCode\": \"75007\",\n  \"street\": \"Rue Anatole\",\n  \"streetNumber\": \"5\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"B\",\n  \"language\": \"en\",\n  \"userIdentity\": {\n    \"emailAddress\": \"email@bics.com\",\n    \"firstName\": \"Kernel\",\n    \"lastName\": \"Braun\",\n    \"phoneNumber\": \"325648855\",\n    \"companyName\": \"BICS\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"BE0999999999\"\n  },\n  \"state\": \"Paris\",\n  \"floor\": \"15\",\n  \"residence\": \"Eiffel\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b532e98-da9f-4a2c-841c-2747c28aadce",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"BICS France office\",\n  \"city\": \"Paris\",\n  \"country\": \"FRA\",\n  \"postalCode\": \"75007\",\n  \"street\": \"Rue Anatole\",\n  \"streetNumber\": \"5\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"B\",\n  \"language\": \"en\",\n  \"userIdentity\": {\n    \"emailAddress\": \"email@bics.com\",\n    \"firstName\": \"Kernel\",\n    \"lastName\": \"Braun\",\n    \"phoneNumber\": \"325648855\",\n    \"companyName\": \"BICS\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"BE0999999999\"\n  },\n  \"state\": \"Paris\",\n  \"floor\": \"15\",\n  \"residence\": \"Eiffel\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b9ee0b5-4779-4529-bc83-bd3db8ef7d53",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"BICS France office\",\n  \"city\": \"Paris\",\n  \"country\": \"FRA\",\n  \"postalCode\": \"75007\",\n  \"street\": \"Rue Anatole\",\n  \"streetNumber\": \"5\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"B\",\n  \"language\": \"en\",\n  \"userIdentity\": {\n    \"emailAddress\": \"email@bics.com\",\n    \"firstName\": \"Kernel\",\n    \"lastName\": \"Braun\",\n    \"phoneNumber\": \"325648855\",\n    \"companyName\": \"BICS\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"BE0999999999\"\n  },\n  \"state\": \"Paris\",\n  \"floor\": \"15\",\n  \"residence\": \"Eiffel\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cdac305b-a720-45c4-887c-bb1f65f0aec8",
+          "name": "Delete an address from your address book.",
+          "request": {
+            "name": "Delete an address from your address book.",
+            "description": {
+              "content": "Delete an address identified by its reference. This service deletes the address from your address book as well as all documents linked to this address. It is not possible to delete an address as long as you have active Cloud Numbers linked to this address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "addresses",
+                ":reference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reference",
+                  "description": "(Required) Reference of the address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e264bafd-77f3-4a2b-9eda-ac5222d9ae8a",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) Reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\\n  'status': 'Deleted'\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39e1500d-5dcf-4249-af7c-504c781f0608",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) Reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d122e66c-e949-4133-b9d1-8accab4a48d4",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) Reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d742f67b-cff1-4938-bf8d-85ed5e9bc115",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) Reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ca02fde-73bd-44cd-ba91-f34fdcd88d58",
+          "name": "Delete Document",
+          "request": {
+            "name": "Delete Document",
+            "description": {
+              "content": "<h2><b><span class=\"warning\">***<i>DEPRECATED</i></span></b></h2><br/> <span class=\"warning\">This method is deprecated. Please use new Delete By Reference method.</span><br/> Delete a proof document linked to one of your addresses. You can only delete existing documents when the status of the document is 'Submitted', 'Rejected' or 'Declined'.\n\nThe Address reference and document type code must be specified in the url.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "addresses",
+                ":reference",
+                "documentTypeCode",
+                ":code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reference",
+                  "description": "(Required) address reference"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "code",
+                  "description": "(Required) Code of type of uploaded document.\n\nSee API _/reference/documenttypes_ for all possible values."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bcf6552f-9678-4fab-98c3-00602fad3140",
+              "name": "Successful operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference",
+                    "documentTypeCode",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) address reference"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of type of uploaded document.\n\nSee API _/reference/documenttypes_ for all possible values."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cf151621-ded0-47f7-8b43-bde0d2ab8106",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference",
+                    "documentTypeCode",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) address reference"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of type of uploaded document.\n\nSee API _/reference/documenttypes_ for all possible values."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bc9a46f-8464-42d4-bc76-7a3d972a5e67",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference",
+                    "documentTypeCode",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) address reference"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of type of uploaded document.\n\nSee API _/reference/documenttypes_ for all possible values."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1a0889c-320b-4381-84fc-b35d626d0a5a",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference",
+                    "documentTypeCode",
+                    ":code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) address reference"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "code",
+                      "description": "(Required) Code of type of uploaded document.\n\nSee API _/reference/documenttypes_ for all possible values."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1b5d8bb-3de2-48b8-be80-873ed31149cf",
+          "name": "Add a proof document",
+          "request": {
+            "name": "Add a proof document",
+            "description": {
+              "content": "Add a proof document and link it to one of your addresses.  After the creation of an address, you can call this service for each document you want to link to this address.  Multiple documents can be added to the same address.  The allowed formats of a document are pdf, doc, docx, png, jpg and tiff.  The Address reference must be specified in the url, the content type of the request must be form-data and the document need to be added as an attachment in the request. In the response of this service for the uploaded document system will return unique documentReference which will be identifier for the document that need to be used in other calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "addresses",
+                ":reference",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reference",
+                  "description": "(Required) reference of the address"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "Multipart form data file"
+                },
+                {
+                  "key": "documentTypeCode",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Code of type of uploaded document. See API _/reference/documenttypes_ for all possible values."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eb5ce898-7c07-4c67-8bef-672c406e608b",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Multipart form data file",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Code of type of uploaded document. See API _/reference/documenttypes_ for all possible values.",
+                        "type": "text/plain"
+                      },
+                      "key": "documentTypeCode",
+                      "value": "POD4",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'status': 'Uploaded',\\n  'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\\n  'documentName': 'LOI.pdf',\\n  'comment': '',\\n  'documentReference': 'ac0334bc-da81-48a9-a64d-5f54474b2d35',\\n  'documentType':\\n  {\\n    'code': 'POD4',\\n    'description': 'Letter of Intent (LOI)'\\n  }\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c2232c7-fffb-46f1-90ba-1e049cb88ccf",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Multipart form data file",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Code of type of uploaded document. See API _/reference/documenttypes_ for all possible values.",
+                        "type": "text/plain"
+                      },
+                      "key": "documentTypeCode",
+                      "value": "POD4",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'code': 'E033',\\n  'description': 'There is no address with this reference in our system.  Please correct the reference.',\\n  'timestamp': '2019-07-11T15:16:49.53+02:00'\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27391cfe-0aaa-49b5-965e-557024acf574",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Multipart form data file",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Code of type of uploaded document. See API _/reference/documenttypes_ for all possible values.",
+                        "type": "text/plain"
+                      },
+                      "key": "documentTypeCode",
+                      "value": "POD4",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87a2d36d-f60b-44ad-bb73-ba467561e781",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses",
+                    ":reference",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference",
+                      "description": "(Required) reference of the address"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Multipart form data file",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Code of type of uploaded document. See API _/reference/documenttypes_ for all possible values.",
+                        "type": "text/plain"
+                      },
+                      "key": "documentTypeCode",
+                      "value": "POD4",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d064560-0b68-4d56-80ab-f92354d0572b",
+          "name": "Retrieve the list of your addresses.",
+          "request": {
+            "name": "Retrieve the list of your addresses.",
+            "description": {
+              "content": "Retrieve the list of your addresses. Each address is composed of the address detail (Street Name, Street Number, etc.) and the reference of the address.\n\nIf you want to get the list of your addresses for a specific country, you can use the input parameter country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "addresses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Country code in ISO 3166-1 alpha-3 format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea9aa8e3-c5c9-4585-8453-fffa8bff44b6",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "FRA"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n    {\\n        'alias': 'BICS France Office',\\n        'street': 'Avenue Anatole',\\n        'streetNumber': '5',\\n        'box': 'A',\\n        'residence': 'Eiffel',\\n        'floor': '15',\\n        'postalCode': '75007',\\n        'city': 'Paris',\\n        'state': 'Paris',\\n        'country': 'FRA',\\n        'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\\n        'status': 'Accepted',\\n        'comment': '',\\n        'serviceUsage': 'Customer Support France',\\n        'userIdentity': {\\n             'endSubscriberType': 'Company',\\n             'emailAddress' : 'info@bics.com',\\n             'companyName' : 'BICS',\\n             'firstName' : ' ',\\n             'lastName' : ' ',\\n             'vatNumber' : 'BE0999999993',\\n             'phoneNumber' : '3225551234'\\n        }\\n    },\\n    {\\n        'alias': 'ITAT Belgium Office',\\n        'street': 'Paradeplein',\\n        'streetNumber': '1',\\n        'box': '',\\n        'residence': '',\\n        'floor': '',\\n        'postalCode': '2030',\\n        'city': 'Antwerpen',\\n        'state': 'Antwerpen',\\n        'country': 'BEL',\\n        'reference': 'fa454bd-da81-48a9-a64d-5f543e8b2d320',\\n        'status': 'Submitted',\\n        'comment': '',\\n        'serviceUsage': 'Customer Support France',\\n        'userIdentity': {\\n              'endSubscriberType': 'Company',\\n              'emailAddress' : '',\\n              'companyName' : 'ITAT Belgium Office',\\n              'firstName' : ' ',\\n              'lastName' : ' ',\\n              'vatNumber' : 'BE0999999991',\\n              'phoneNumber' : '3225551234'\\n        }\\n    },\\n    {\\n        'alias': 'BICS US Office',\\n        'street': 'Mission Street 19th Floor',\\n        'streetNumber': '535',\\n        'box': '',\\n        'residence': '',\\n        'floor': '19',\\n        'postalCode': 'CA-94105',\\n        'city': 'San Francisco',\\n        'state': 'San Francisco',\\n        'country': 'USA',\\n        'reference': 'e5234bd-da81-48a9-a64d-5f543e8b2e865',\\n        'status': 'More information required',\\n        'comment': 'Please add a the proof of address.',\\n        'serviceUsage': 'Customer Support France',\\n        'userIdentity': {\\n             'endSubscriberType': 'Company',\\n             'emailAddress' : ' ',\\n             'companyName' : 'BICS US Office',\\n             'firstName' : ' ',\\n             'lastName' : ' ',\\n             'vatNumber' : 'BE0999999999',\\n             'phoneNumber' : '3225551234'\\n        }\\n    }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6658c860-b54c-4ca4-8202-92ef8f70f615",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "FRA"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60a6f4a6-ee45-4932-b4f5-5de4e0377783",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "FRA"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abe0eef2-34e5-41ad-94be-f027fa13ea60",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "FRA"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf1755e0-9180-4d89-b147-efec91db053c",
+          "name": "Add an address in your address book",
+          "request": {
+            "name": "Add an address in your address book",
+            "description": {
+              "content": "Create a new address in your address book with the aim of ordering Cloud Numbers in countries where address is required. BICS is obliged to collect the address of the end user for these countries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "addresses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alias\": \"<string>\",\n  \"city\": \"<string>\",\n  \"country\": \"<string>\",\n  \"postalCode\": \"<string>\",\n  \"street\": \"<string>\",\n  \"streetNumber\": \"<string>\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"<string>\",\n  \"language\": \"<string>\",\n  \"userIdentity\": {\n    \"emailAddress\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"phoneNumber\": \"<string>\",\n    \"companyName\": \"<string>\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"<string>\"\n  },\n  \"state\": \"<string>\",\n  \"floor\": \"<string>\",\n  \"residence\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "edc08d23-66e7-4090-aaa1-d08c1a9d49fd",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"BICS France office\",\n  \"city\": \"Paris\",\n  \"country\": \"FRA\",\n  \"postalCode\": \"75007\",\n  \"street\": \"Rue Anatole\",\n  \"streetNumber\": \"5\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"B\",\n  \"language\": \"en\",\n  \"userIdentity\": {\n    \"emailAddress\": \"email@bics.com\",\n    \"firstName\": \"Kernel\",\n    \"lastName\": \"Braun\",\n    \"phoneNumber\": \"325648855\",\n    \"companyName\": \"BICS\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"BE0999999999\"\n  },\n  \"state\": \"Paris\",\n  \"floor\": \"15\",\n  \"residence\": \"Eiffel\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n    'alias': 'BICS France Office',\\n    'street': 'Avenue Anatole',\\n    'streetNumber': '5',\\n    'box': 'A',\\n    'residence': 'Eiffel',\\n    'floor': '15',\\n    'postalCode': '75007',\\n    'city': 'Paris',\\n    'state': 'Paris',\\n    'country': 'FRA',\\n    'reference': 'fb0044bd-da81-48a9-a64d-5f543e8b2d35',\\n    'status': 'Submitted',\\n    'comment': '',\\n    'serviceUsage': 'Customer Support France',\\n    'addressDocuments': [],\\n    'userIdentity': {\\n         'endSubscriberType': 'Company',\\n         'emailAddress' : 'mail@bics.com',\\n         'companyName' : 'BICS',\\n         'firstName' : '',\\n         'lastName' : '',\\n         'vatNumber' : 'BE0999999993',\\n         'phoneNumber' : '3225551234'\\n    },\\n    'allowedLocations': [],\\n    'allowedLocationsAreaCodes': []\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9c26053-29e1-4cf0-a388-de6b92f83cbd",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"BICS France office\",\n  \"city\": \"Paris\",\n  \"country\": \"FRA\",\n  \"postalCode\": \"75007\",\n  \"street\": \"Rue Anatole\",\n  \"streetNumber\": \"5\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"B\",\n  \"language\": \"en\",\n  \"userIdentity\": {\n    \"emailAddress\": \"email@bics.com\",\n    \"firstName\": \"Kernel\",\n    \"lastName\": \"Braun\",\n    \"phoneNumber\": \"325648855\",\n    \"companyName\": \"BICS\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"BE0999999999\"\n  },\n  \"state\": \"Paris\",\n  \"floor\": \"15\",\n  \"residence\": \"Eiffel\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a4addaa-eb4e-40c8-95c6-ebda3f6240e0",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"BICS France office\",\n  \"city\": \"Paris\",\n  \"country\": \"FRA\",\n  \"postalCode\": \"75007\",\n  \"street\": \"Rue Anatole\",\n  \"streetNumber\": \"5\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"B\",\n  \"language\": \"en\",\n  \"userIdentity\": {\n    \"emailAddress\": \"email@bics.com\",\n    \"firstName\": \"Kernel\",\n    \"lastName\": \"Braun\",\n    \"phoneNumber\": \"325648855\",\n    \"companyName\": \"BICS\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"BE0999999999\"\n  },\n  \"state\": \"Paris\",\n  \"floor\": \"15\",\n  \"residence\": \"Eiffel\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d75379b-24f9-4f9d-9093-cb0565fa8119",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"alias\": \"BICS France office\",\n  \"city\": \"Paris\",\n  \"country\": \"FRA\",\n  \"postalCode\": \"75007\",\n  \"street\": \"Rue Anatole\",\n  \"streetNumber\": \"5\",\n  \"serviceUsage\": \"<string>\",\n  \"box\": \"B\",\n  \"language\": \"en\",\n  \"userIdentity\": {\n    \"emailAddress\": \"email@bics.com\",\n    \"firstName\": \"Kernel\",\n    \"lastName\": \"Braun\",\n    \"phoneNumber\": \"325648855\",\n    \"companyName\": \"BICS\",\n    \"endSubscriberType\": \"<string>\",\n    \"vatNumber\": \"BE0999999999\"\n  },\n  \"state\": \"Paris\",\n  \"floor\": \"15\",\n  \"residence\": \"Eiffel\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-09-24T12:58:32.996Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "016db03f-5b0d-4b69-8d56-a1ad7306698a",
+    "name": "connect Address Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

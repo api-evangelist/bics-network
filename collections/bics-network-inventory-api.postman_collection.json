@@ -1,0 +1,827 @@
+{
+  "item": [
+    {
+      "id": "5b4184bc-8b88-40c1-8881-5238ae2cb575",
+      "name": "inventory",
+      "description": {
+        "content": "Query the numbers you have bought over time.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "20eea966-12ed-4768-8e12-9aceefe5c2da",
+          "name": "Retrieve the list of numbers in your inventory.",
+          "request": {
+            "name": "Retrieve the list of numbers in your inventory.",
+            "description": {
+              "content": "The _/numbers_ method allows you to retrieve the list of numbers in your inventory. You can retrieve the full list of your numbers in one call or filter out your request by providing the product, country, location, area code, status and number. As a response you will receive information linked to the number(s) that would help you manage them at your convenience.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "numbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "product",
+                  "value": "<string>",
+                  "description": "Filter your inventory by product."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Filter your inventory by country in ISO 3166-1 alpha-3 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "Filter your inventory by location. (Not applicable for product GMN)."
+                },
+                {
+                  "disabled": false,
+                  "key": "areaCode",
+                  "value": "<string>",
+                  "description": "Filter your inventory by areaCode."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter your inventory by status. Valid status values are _Active_ and _Deactivated_. _Active_ referring to numbers provisioned and _Deactivated_ referring to numbers disconnected."
+                },
+                {
+                  "disabled": false,
+                  "key": "number",
+                  "value": "<string>",
+                  "description": "Filter your inventory by number. Exact match is applied."
+                },
+                {
+                  "disabled": false,
+                  "key": "activeServiceCode",
+                  "value": "<string>",
+                  "description": "Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "activeServiceCode",
+                  "value": "<string>",
+                  "description": "Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "availableServiceCode",
+                  "value": "<string>",
+                  "description": "Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>"
+                },
+                {
+                  "disabled": false,
+                  "key": "availableServiceCode",
+                  "value": "<string>",
+                  "description": "Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc12acca-6f4c-4659-8221-424c8d9d5d4f",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "GBR"
+                    },
+                    {
+                      "key": "location",
+                      "value": "National"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "3"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active"
+                    },
+                    {
+                      "key": "number",
+                      "value": "445706070212"
+                    },
+                    {
+                      "key": "activeServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "activeServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availableServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availableServiceCode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'number': '445706070212',\\n    'product': 'IBN',\\n    'country': 'GBR',\\n    'location': 'National',\\n    'areaCode': '3',\\n    'accessArea': 'NA',\\n    'profile': 'Profile A',\\n    'status': 'Active',\\n    'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\\n    'startDate': '2018-11-05',\\n    'endDate': null\\n  },\\n  {\\n    'number': '445706070215',\\n    'product': 'IBN',\\n    'country': 'GBR',\\n    'location': 'National',\\n    'areaCode': '3',\\n    'accessArea': 'NA',\\n    'profile': 'Profile A',\\n    'status': 'Active',\\n    'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\\n    'startDate': '2018-11-05',\\n    'endDate': null\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c5177db-f9c1-4379-9e10-7539b2d5632a",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "GBR"
+                    },
+                    {
+                      "key": "location",
+                      "value": "National"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "3"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active"
+                    },
+                    {
+                      "key": "number",
+                      "value": "445706070212"
+                    },
+                    {
+                      "key": "activeServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "activeServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availableServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availableServiceCode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1975-03-04T05:57:13.502Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc341f60-e57d-490d-983e-1fdf6b7a8fed",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "GBR"
+                    },
+                    {
+                      "key": "location",
+                      "value": "National"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "3"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active"
+                    },
+                    {
+                      "key": "number",
+                      "value": "445706070212"
+                    },
+                    {
+                      "key": "activeServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "activeServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availableServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availableServiceCode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1975-03-04T05:57:13.502Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3155769f-6188-4c20-8747-08a2a6c3e67b",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "GBR"
+                    },
+                    {
+                      "key": "location",
+                      "value": "National"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "3"
+                    },
+                    {
+                      "key": "status",
+                      "value": "Active"
+                    },
+                    {
+                      "key": "number",
+                      "value": "445706070212"
+                    },
+                    {
+                      "key": "activeServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "activeServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availableServiceCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "availableServiceCode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1975-03-04T05:57:13.502Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a812f8e-5c07-41f5-8f2a-6ce7b0bae25c",
+          "name": "Retrieve the details of a given number from your inventory.",
+          "request": {
+            "name": "Retrieve the details of a given number from your inventory.",
+            "description": {
+              "content": "The _/numbers/{number}_ method allows you to retrieve the details of a given number from your inventory. As a response you will receive all information linked to the numbers that would help you manage them at your convenience (origin, status, address reference, pricing and routing details).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "numbers",
+                ":number"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) A given number from your inventory."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49f44042-abc5-42d3-a0fc-d51361c0bb73",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) A given number from your inventory."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'number': '443706070212',\\n  'product': 'IBN',\\n  'country': 'GBR',\\n  'location': 'National',\\n  'areaCode': '3',\\n  'accessArea': 'NA',\\n  'profile': 'Profile A',\\n  'status': 'Active',\\n  'addressReference': '3f47bde5-d198-4a04-ba04-7274012ff34a',\\n  'startDate': '2018-11-05',\\n  'endDate': null,\\n  'endUserInfoValidation': {\\n    'address': 'Need more information',\\n    'addressDocuments': 'No validation required'\\n  },\\n  'routing': [\\n    {\\n      'accessType': 'fixMobPay',\\n      'accessNetwork': null,\\n      'crn': '234A443706070212',\\n      'pop': 'ASIA'\\n    }\\n  ],\\n  'nonUsageFees': {\\n    'setUpFee': 10.00,\\n    'MonthlyFee': 5.00,\\n    'currency': 'EUR'\\n  },\\n  'usageFees': [\\n    {\\n      'accessType': 'FixMobPay',\\n      'accessNetwork': null,\\n      'tde': 'STD',\\n      'callSetUpFee': 0.0010,\\n      'perMinuteFee': 0.0015,\\n      'currency': 'EUR'\\n    }\\n  ]\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ce1de5a-99e2-4111-8b7d-32866d255e82",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) A given number from your inventory."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1966-06-17T13:31:31.427Z\",\n  \"number\": \"Number to which error corresponds to.\",\n  \"country\": \"Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40ceee03-f43c-4c4c-ada0-db9868ad9413",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) A given number from your inventory."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1975-03-04T05:57:13.502Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43e0d0a0-eda4-47a0-93f9-0eaea974f8f7",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) A given number from your inventory."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1975-03-04T05:57:13.502Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4411b41d-ede9-42c7-bb73-34328adfbfd1",
+              "name": "Number not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    ":number"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) A given number from your inventory."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1966-06-17T13:31:31.427Z\",\n  \"number\": \"Number to which error corresponds to.\",\n  \"country\": \"Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b84fab4-247d-46e6-9bec-6e59356b48dd",
+          "name": "Add or update address reference linked to number(s)",
+          "request": {
+            "name": "Add or update address reference linked to number(s)",
+            "description": {
+              "content": "The method _/numbers/addressReferences_ allows you to add or change the address linked to one or multiple number(s). You can retrieve the current address linked to a number by calling the method _/numbers/{number}_. You can retrieve a list of your addresses by calling the method _/addresses_.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "numbers",
+                "addressReferences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"number\": \"<string>\",\n    \"country\": \"<string>\",\n    \"addressReference\": \"<string>\"\n  },\n  {\n    \"number\": \"<string>\",\n    \"country\": \"<string>\",\n    \"addressReference\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f304cc03-3e7a-44af-9080-b6253750525c",
+              "name": "Address references updated for given numbers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    "addressReferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\"\n  },\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9d5df335-c817-4ea4-9029-37408bdbb092",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    "addressReferences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\"\n  },\n  {\n    \"number\": \"81345785554\",\n    \"country\": \"BEL\",\n    \"addressReference\": \"37a50zzb-d568-4ddd-b11d-jejc7c2j3e30\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1966-06-17T13:31:31.427Z\",\n  \"number\": \"Number to which error corresponds to.\",\n  \"country\": \"Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5a8b3a5b-9e41-42d4-a4c8-aecb87d52001",
+    "name": "connect Address Management inventory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

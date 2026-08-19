@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management Interconnects List API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Interconnects List",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of current customer's interconnects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/interconnects",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get list of current customer's interconnects"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

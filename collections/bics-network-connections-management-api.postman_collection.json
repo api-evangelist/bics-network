@@ -1,0 +1,543 @@
+{
+  "item": [
+    {
+      "id": "806e100b-6039-4e90-bfdb-97487acd6272",
+      "name": "Connections Management",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "72f92b85-be67-46be-9187-6d4f4cfd608f",
+          "name": "Get connection details",
+          "request": {
+            "name": "Get connection details",
+            "description": {},
+            "url": {
+              "path": [
+                "connections",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "connectionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5514ce17-ec90-4f37-b3dc-d67c9a73c5f4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "connectionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"serviceType\\\":\\\"CLOUD_CONNECT\\\",\\\"cloudServiceProvider\\\":\\\"AZURE_ER_C3\\\",\\\"cloudServiceProviderLabel\\\":\\\"Azure Express Route\\\",\\\"cloudServiceRegion\\\":\\\"WESTEUROPE\\\",\\\"cloudServiceRegionLabel\\\":\\\"westeurope\\\",\\\"orderId\\\":44654,\\\"price\\\":\\\"1050\\\",\\\"currency\\\":\\\"EUR\\\",\\\"currencyLabel\\\":\\\"EUR\\\",\\\"bandwidth\\\":\\\"50MBS\\\",\\\"bandwidthLabel\\\":\\\"50 Mbps\\\",\\\"contractTerm\\\":\\\"1MONTH\\\",\\\"contractTermLabel\\\":\\\"1 Month\\\",\\\"protectionScheme\\\":\\\"CC_PROTECTED\\\",\\\"protectionSchemeLabel\\\":\\\"CC Protected\\\",\\\"companyName\\\":\\\"MM22AzureDirectProtectedPRIVMICROSOFT\\\",\\\"customerComment\\\":\\\"Customer comment\\\",\\\"customerPurchaseId\\\":\\\"PR: MM22\\\",\\\"contactEmailAddress\\\":\\\"customer@mail.com\\\",\\\"activationDate\\\":\\\"15.02.2022\\\",\\\"status\\\":\\\"Active\\\",\\\"additionalAttributes\\\":{},\\\"lines\\\":[{\\\"lineType\\\":\\\"PRIMARY\\\",\\\"customerReference\\\":\\\"Customer reference 1000492002Private+Microsoft, Line1, Primary\\\",\\\"additionalAttributes\\\":{\\\"linePeering\\\":\\\"PRIVATE\\\"},\\\"interconnect\\\":{\\\"id\\\":\\\"1000492002\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492002\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"vlan\\\":1300,\\\"cloudServiceKey\\\":\\\"d2395da2-ce63-45cd-b0e6-c5b3037d094d\\\"},{\\\"lineType\\\":\\\"SECONDARY\\\",\\\"customerReference\\\":\\\"Customer reference 1000492003Private+Microsoft, line2, Secondary\\\",\\\"additionalAttributes\\\":{\\\"linePeering\\\":\\\"PRIVATE\\\"},\\\"interconnect\\\":{\\\"id\\\":\\\"1000492003\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492003\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"vlan\\\":1300,\\\"cloudServiceKey\\\":\\\"d2395da2-ce63-45cd-b0e6-c5b3037d094d\\\"},{\\\"lineType\\\":\\\"PRIMARY\\\",\\\"customerReference\\\":\\\"Customer reference 1000492002Private+Microsoft, Line3, Primary\\\",\\\"additionalAttributes\\\":{\\\"linePeering\\\":\\\"MICROSOFT\\\"},\\\"interconnect\\\":{\\\"id\\\":\\\"1000492002\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492002\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"vlan\\\":1302,\\\"cloudServiceKey\\\":\\\"d2395da2-ce63-45cd-b0e6-c5b3037d094d\\\"},{\\\"lineType\\\":\\\"SECONDARY\\\",\\\"customerReference\\\":\\\"Customer reference 1000492003Private+Microsoft, Line 4, Secondary\\\",\\\"additionalAttributes\\\":{\\\"linePeering\\\":\\\"MICROSOFT\\\"},\\\"interconnect\\\":{\\\"id\\\":\\\"1000492003\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492003\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"vlan\\\":1302,\\\"cloudServiceKey\\\":\\\"d2395da2-ce63-45cd-b0e6-c5b3037d094d\\\"}]}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "168a309e-03ad-4729-a263-90a11f81441c",
+          "name": "Disconnect connection",
+          "request": {
+            "name": "Disconnect connection",
+            "description": {},
+            "url": {
+              "path": [
+                "connections",
+                ":connectionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connectionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c55a9cc-5fdb-4440-9fcb-a18e94869f7b",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connections",
+                    ":connectionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connectionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"connectionId\\\":44578,\\\"connectionStatus\\\":\\\"In Disconnection\\\"}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "59a03d81-13a9-4473-a091-673668a90519",
+          "name": "Modify connection",
+          "request": {
+            "name": "Modify connection",
+            "description": {},
+            "url": {
+              "path": [
+                "connections",
+                ":connectionId",
+                "modify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "connectionId",
+                  "description": "(Required) Connection ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"connectionId\": \"<string>\",\n  \"modificationAttributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f328db46-b5e7-4f0c-b556-523d25ebb589",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connections",
+                    ":connectionId",
+                    "modify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "connectionId",
+                      "description": "(Required) Connection ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"connectionId\":44578,\"modificationAttributes\":{\"bandwidth\":\"100MBS\"}}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"connectionId\\\":44578,\\\"connectionStatus\\\":\\\"In Modification\\\"}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "582818a3-71b3-49be-bf52-b576b5be914f",
+          "name": "Get list of all connections",
+          "request": {
+            "name": "Get list of all connections",
+            "description": {},
+            "url": {
+              "path": [
+                "connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "serviceType",
+                  "value": "<string>",
+                  "description": "Filter connections by service type"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1, 2, 3, ..., n). The response is split into distinct pages. If page number is higher that count of pages, empty list will be returned"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "100",
+                  "description": "The number of records per page. Maximum value: 100. If you set the size larger than the maximum, it will be ignored and will return the maximum value"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "587e4c00-2f84-4f11-8da3-a44958631429",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "serviceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[{\\\"serviceType\\\":\\\"CLOUD_CONNECT\\\",\\\"cloudServiceProvider\\\":\\\"AWS_AMAZON\\\",\\\"cloudServiceProviderLabel\\\":\\\"AWS Amazon\\\",\\\"cloudServiceRegion\\\":\\\"us-east-1\\\",\\\"cloudServiceRegionLabel\\\":\\\"us-east-1\\\",\\\"connectionId\\\":44389,\\\"price\\\":\\\"1050\\\",\\\"currency\\\":\\\"EUR\\\",\\\"currencyLabel\\\":\\\"EUR\\\",\\\"bandwidth\\\":\\\"50MBS\\\",\\\"bandwidthLabel\\\":\\\"50 Mbps\\\",\\\"contractTerm\\\":\\\"1MONTH\\\",\\\"contractTermLabel\\\":\\\"1 Month\\\",\\\"protectionScheme\\\":\\\"CC_UNPROTECTED\\\",\\\"protectionSchemeLabel\\\":\\\"CC Unprotected\\\",\\\"companyName\\\":\\\"MyCompany\\\",\\\"customerComment\\\":\\\"Customer comment\\\",\\\"customerPurchaseId\\\":\\\"PR: MC001\\\",\\\"contactEmailAddress\\\":\\\"customer@mail.com\\\",\\\"activationDate\\\":\\\"15.02.2022\\\",\\\"status\\\":\\\"Active\\\",\\\"additionalAttributes\\\":{},\\\"lines\\\":[{\\\"customerReference\\\":\\\"My Line\\\",\\\"lineType\\\":\\\"PRIMARY\\\",\\\"interconnect\\\":{\\\"id\\\":\\\"1000492002\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492002\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"cloudServiceKey\\\":\\\"123456789123\\\",\\\"additionalAttributes\\\":{}}]},{\\\"serviceType\\\":\\\"CLOUD_CONNECT\\\",\\\"cloudServiceProvider\\\":\\\"AZURE_ER_C3\\\",\\\"cloudServiceProviderLabel\\\":\\\"Azure Express Route\\\",\\\"cloudServiceRegion\\\":\\\"WESTEUROPE\\\",\\\"cloudServiceRegionLabel\\\":\\\"westeurope\\\",\\\"orderId\\\":44654,\\\"price\\\":\\\"1050\\\",\\\"currency\\\":\\\"EUR\\\",\\\"currencyLabel\\\":\\\"EUR\\\",\\\"bandwidth\\\":\\\"50MBS\\\",\\\"bandwidthLabel\\\":\\\"50 Mbps\\\",\\\"contractTerm\\\":\\\"1MONTH\\\",\\\"contractTermLabel\\\":\\\"1 Month\\\",\\\"protectionScheme\\\":\\\"CC_PROTECTED\\\",\\\"protectionSchemeLabel\\\":\\\"CC Protected\\\",\\\"companyName\\\":\\\"MM22AzureDirectProtectedPRIVMICROSOFT\\\",\\\"customerComment\\\":\\\"Customer comment\\\",\\\"customerPurchaseId\\\":\\\"PR: MM22\\\",\\\"contactEmailAddress\\\":\\\"customer@mail.com\\\",\\\"activationDate\\\":\\\"15.02.2022\\\",\\\"status\\\":\\\"Active\\\",\\\"additionalAttributes\\\":{},\\\"lines\\\":[{\\\"lineType\\\":\\\"PRIMARY\\\",\\\"customerReference\\\":\\\"Customer reference 1000492002Private+Microsoft, Line1, Primary\\\",\\\"additionalAttributes\\\":{\\\"linePeering\\\":\\\"PRIVATE\\\"},\\\"interconnect\\\":{\\\"id\\\":\\\"1000492002\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492002\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"vlan\\\":1300,\\\"cloudServiceKey\\\":\\\"d2395da2-ce63-45cd-b0e6-c5b3037d094d\\\"},{\\\"lineType\\\":\\\"SECONDARY\\\",\\\"customerReference\\\":\\\"Customer reference 1000492003Private+Microsoft, line2, Secondary\\\",\\\"additionalAttributes\\\":{\\\"linePeering\\\":\\\"PRIVATE\\\"},\\\"interconnect\\\":{\\\"id\\\":\\\"1000492003\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492003\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"vlan\\\":1300,\\\"cloudServiceKey\\\":\\\"d2395da2-ce63-45cd-b0e6-c5b3037d094d\\\"},{\\\"lineType\\\":\\\"PRIMARY\\\",\\\"customerReference\\\":\\\"Customer reference 1000492002Private+Microsoft, Line3, Primary\\\",\\\"additionalAttributes\\\":{\\\"linePeering\\\":\\\"MICROSOFT\\\"},\\\"interconnect\\\":{\\\"id\\\":\\\"1000492002\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492002\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"vlan\\\":1302,\\\"cloudServiceKey\\\":\\\"d2395da2-ce63-45cd-b0e6-c5b3037d094d\\\"},{\\\"lineType\\\":\\\"SECONDARY\\\",\\\"customerReference\\\":\\\"Customer reference 1000492003Private+Microsoft, Line 4, Secondary\\\",\\\"additionalAttributes\\\":{\\\"linePeering\\\":\\\"MICROSOFT\\\"},\\\"interconnect\\\":{\\\"id\\\":\\\"1000492003\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000492003\\\",\\\"city\\\":\\\"Brussels\\\",\\\"countryIso3\\\":\\\"BEL\\\",\\\"houser\\\":\\\"Brussels 22\\\",\\\"datacenter\\\":\\\"BRU22\\\",\\\"capacity\\\":\\\"100GBS\\\",\\\"capacityLabel\\\":\\\"100 Gb/s\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},\\\"vlan\\\":1302,\\\"cloudServiceKey\\\":\\\"d2395da2-ce63-45cd-b0e6-c5b3037d094d\\\"}]}]\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3604c018-c7c7-4b8c-a423-0d11e7e32e2b",
+          "name": "Create connection",
+          "request": {
+            "name": "Create connection",
+            "description": {
+              "content": "Submits new connection order",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "connections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bandwidth\": \"<string>\",\n  \"cloudServiceProvider\": \"<string>\",\n  \"cloudServiceRegion\": \"<string>\",\n  \"companyName\": \"<string>\",\n  \"contractTerm\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"lines\": [\n    {\n      \"cloudServiceKey\": \"<string>\",\n      \"interconnect\": \"<string>\",\n      \"lineType\": \"<string>\",\n      \"vlan\": \"<integer>\",\n      \"customerReference\": \"<string>\",\n      \"additionalAttributes\": {\n        \"key_0\": \"<string>\"\n      }\n    },\n    {\n      \"cloudServiceKey\": \"<string>\",\n      \"interconnect\": \"<string>\",\n      \"lineType\": \"<string>\",\n      \"vlan\": \"<integer>\",\n      \"customerReference\": \"<string>\",\n      \"additionalAttributes\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\",\n        \"key_3\": \"<string>\"\n      }\n    }\n  ],\n  \"protectionScheme\": \"<string>\",\n  \"autoVlanAssignment\": true,\n  \"contactEmailAddress\": \"<string>\",\n  \"serviceType\": \"CLOUD_CONNECT\",\n  \"customerComment\": \"<string>\",\n  \"customerPurchaseReference\": \"<string>\",\n  \"additionalAttributes\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f073f5c4-411b-4e61-92cf-e80065a930d6",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"serviceType\":\"CLOUD_CONNECT\",\"cloudServiceProvider\":\"AWS_AMAZON\",\"cloudServiceRegion\":\"us-east-1\",\"currency\":\"EUR\",\"bandwidth\":\"100MBS\",\"contractTerm\":\"1MONTH\",\"protectionScheme\":\"CC_UNPROTECTED\",\"companyName\":\"MyCompany\",\"customerComment\":\"\",\"customerPurchaseId\":\"\",\"contactEmailAddress\":\"\",\"autoVlanAssignment\":\"true\",\"additionalAttributes\":{},\"lines\":[{\"customerReference\":\"My Line\",\"lineType\":\"PRIMARY\",\"interconnect\":\"1000007894\",\"cloudServiceKey\":\"123456789123\",\"additionalAttributes\":{}}]}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"connectionId\\\":44389,\\\"connectionStatus\\\":\\\"In progress\\\"}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81195600-a45d-4769-8742-1dff82cbcaba",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"serviceType\":\"CLOUD_CONNECT\",\"cloudServiceProvider\":\"AWS_AMAZON\",\"cloudServiceRegion\":\"us-east-1\",\"currency\":\"EUR\",\"bandwidth\":\"100MBS\",\"contractTerm\":\"1MONTH\",\"protectionScheme\":\"CC_UNPROTECTED\",\"companyName\":\"MyCompany\",\"customerComment\":\"\",\"customerPurchaseId\":\"\",\"contactEmailAddress\":\"\",\"autoVlanAssignment\":\"true\",\"additionalAttributes\":{},\"lines\":[{\"customerReference\":\"My Line\",\"lineType\":\"PRIMARY\",\"interconnect\":\"1000007894\",\"cloudServiceKey\":\"123456789123\",\"additionalAttributes\":{}}]}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"timestamp\\\":\\\"2021-12-03T10:15:30+01:00\\\",\\\"status\\\":\\\"400\\\",\\\"code\\\":\\\"BAD_CONNECTION_CREATE_REQUEST\\\",\\\"message\\\":\\\"Invalid request data\\\",\\\"errors\\\":[\\\"Invalid bandwidth id '55'\\\",\\\"Protection scheme 'CC_PROTECTED' is not applicable for current service\\\"]}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e4b4d426-2a2e-4eaf-9181-ac2856b1ed5d",
+    "name": "connect Address Management Connections Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

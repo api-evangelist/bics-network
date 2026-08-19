@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management reference API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Languages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/reference/languages"
+          },
+          "docs": "This method allows you to get all available languages. You will need this information to identify what language you are adding to an existing or newly created address."
+        },
+        {
+          "info": {
+            "name": "Query the available locations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/reference/locations/country/:country",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Filter locations by country in ISO 3166-1 alpha-3 format."
+              }
+            ]
+          },
+          "docs": "List of all locations where you can order Cloud Numbers for a specific country. A location is represented by a name and an area code.\n\nLocation indicates in most cases a city the number belongs to. It is also used to specify if it is a national or a mobile number."
+        },
+        {
+          "info": {
+            "name": "Query the available locations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/reference/locations",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Filter by product. Valid product codes are IBN, ITFS and GMN. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Numbers."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Filter by country in ISO 3166-1 alpha-3 format."
+              }
+            ]
+          },
+          "docs": "List of all locations where you can order Cloud Numbers. A location is represented by a name and an area code. For Cloud Numbers, location indicates in most cases a city the number belongs to. It is also used to specify if it is a national or a mobile number.\n\nYou can also retrieve the list of area codes available for International Freephone Numbers or Global Mobile Numbers by specifying the product.\n\nAdditionally, you can filter out your request by providing the country."
+        },
+        {
+          "info": {
+            "name": "Get Pricing Calendar Reference.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/reference/calendar"
+          },
+          "docs": "Query Calendar from your Pricelist."
+        },
+        {
+          "info": {
+            "name": "Query your available POPs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/reference/pops"
+          },
+          "docs": "<h2><b><span class=\"warning\">***<i>DEPRECATED</i></span></b></h2><br/> <span class=\"warning\">This method is deprecated. Please use new /reference/pops/product/{product} method.</span><br/> List your available Points of Presence (POPs). In case you have several POPs, you need to specify which one to be used when you order a number."
+        },
+        {
+          "info": {
+            "name": "Query your available POPs by Product.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/reference/pops/product/:product",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "path",
+                "description": "Filter POPs by product. Valid product codes are IBN, GMN and ITFS."
+              }
+            ]
+          },
+          "docs": "List your available Points of Presence (POPs). In case you have several POPs, you need to specify which one to be used when you order a number."
+        },
+        {
+          "info": {
+            "name": "Get Pricing Calendar Reference.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/reference/calendar/product/:product",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "path",
+                "description": "Filter Calendars by Calendar Codes from Prices for specified product. Valid product codes are IBN, GMN, SCS, UIFN and ITFS."
+              }
+            ]
+          },
+          "docs": "Query Calendar from your Pricelist by Product."
+        },
+        {
+          "info": {
+            "name": "Get Document Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/reference/documenttypes"
+          },
+          "docs": "This method allows you to get all document types. You will need this information to identify which type of documents you are adding to an existing or newly created address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,170 @@
+{
+  "item": [
+    {
+      "id": "7eac7f3a-1956-400f-b31b-d8567214c2aa",
+      "name": "number",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71b37c82-3512-457c-8e95-fd077231e870",
+          "name": "Delete address reference linked to number(s)",
+          "request": {
+            "name": "Delete address reference linked to number(s)",
+            "description": {
+              "content": "The method _/numbers/addressReference_. You can retrieve the current address linked to a number by calling the method /numbers/{number}. You can update the address by calling the method _/numbers/addressReferences._ You can retrieve a list of your addresses by calling the method _/addresses._ If the address is mandatory by country specifications, you are not allowed to delete the address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "numbers",
+                "addressReference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0fc47f5-16d4-42a0-a295-723668419ddf",
+              "name": "Address references deleted for given numbers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    "addressReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1115d1e1-a9a4-4c1f-a02c-459a150e9df8",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    "addressReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2015-03-15T18:55:35.116Z\",\n  \"number\": \"Number to which error corresponds to.\",\n  \"country\": \"Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0055e6c-ff65-4a73-8846-ddaa14ebc88e",
+              "name": "A previous task is still pending.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    "addressReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2015-03-15T18:55:35.116Z\",\n  \"number\": \"Number to which error corresponds to.\",\n  \"country\": \"Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e3c92ead-37c8-4070-96bc-65f291bf9cdc",
+    "name": "connect Address Management number API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

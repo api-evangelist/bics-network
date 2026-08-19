@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management CDR API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "CDR",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Download CDR Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/cdrs/:id/download/:format",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "CDR request ID"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "path",
+                "description": "allowed values are <ul> <li>\"json\" - default value if not specified in the request</li> <li>\"csv\" - values are separated by semi-colon</li> </ul>"
+              }
+            ]
+          },
+          "docs": "This method allows you download CDR requests."
+        },
+        {
+          "info": {
+            "name": "Get status of CDR Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/cdrs/:id/status",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "CDR request ID"
+              }
+            ]
+          },
+          "docs": "This method allows you to request the status of your CDR request."
+        },
+        {
+          "info": {
+            "name": "Get available CDR dates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/cdrs/availableDates",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by from date. Not earlier than today – 1 year. The format of the date is YYYY-MM-DD."
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "Filter by to date. Not earlier than today – 1 year. The format of the date is YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "This method allows you to verify upfront if CDR data is available for a specific date range."
+        },
+        {
+          "info": {
+            "name": "Request CDRs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/cdrs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request CDRs"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

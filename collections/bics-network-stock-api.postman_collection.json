@@ -1,0 +1,1181 @@
+{
+  "item": [
+    {
+      "id": "2ccc7e78-e4e5-455e-b449-6ff20d66e1ff",
+      "name": "stock",
+      "description": {
+        "content": "Query the available stock.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "26cf88d8-26c3-4ad6-9190-978c42b44a82",
+          "name": "Query our available stock for a given product in a country",
+          "request": {
+            "name": "Query our available stock for a given product in a country",
+            "description": {
+              "content": "This method allows you to check if a given quantity of numbers are available in our stock for\n a given product in a country. In case we don’t have enough numbers in our stock, the method also\n gives you the quantity of numbers still available so that you know how many numbers you can order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stock",
+                "product",
+                ":product",
+                "country",
+                ":country",
+                "quantity",
+                ":quantity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "Check stock by location. (Not applicable for product GMN)."
+                },
+                {
+                  "disabled": false,
+                  "key": "areaCode",
+                  "value": "<string>",
+                  "description": "Check stock by areaCode."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product",
+                  "description": "(Required) Filter stock by product"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "quantity",
+                  "description": "(Required) Quantity of numbers"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84fb9254-d5c2-404a-975f-f90457da1fa8",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country",
+                    "quantity",
+                    ":quantity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "Brussels"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Filter stock by product"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "quantity",
+                      "description": "(Required) Quantity of numbers"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'product': 'IBN',\\n  'country': 'BEL',\\n  'location': null,\\n  'areaCode': '2',\\n  'checkStock': true,\\n  'quantity': 10\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "656dc9b1-ef14-4566-8941-f3632a1e577a",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country",
+                    "quantity",
+                    ":quantity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "Brussels"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Filter stock by product"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "quantity",
+                      "description": "(Required) Quantity of numbers"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70264b1f-206f-412d-b5a8-386814107839",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country",
+                    "quantity",
+                    ":quantity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "Brussels"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Filter stock by product"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "quantity",
+                      "description": "(Required) Quantity of numbers"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bce560f0-5f2a-434f-a150-21028fe7b73e",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country",
+                    "quantity",
+                    ":quantity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location",
+                      "value": "Brussels"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Filter stock by product"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "quantity",
+                      "description": "(Required) Quantity of numbers"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "905e2cc3-0b83-4acd-a8c2-399e87cedfa2",
+          "name": "Retrieve the available and active services of a given number from the inventory.",
+          "request": {
+            "name": "Retrieve the available and active services of a given number from the inventory.",
+            "description": {
+              "content": "The <i>/numbers/{number}/services</i> method allows you to retrieve the available and active services of a given number from your inventory. Services that are not available on the given number are not returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "numbers",
+                ":number",
+                "services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "number",
+                  "description": "(Required) A given number from your inventory"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d2e84131-6ede-4436-8734-890ed2a7ea74",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    ":number",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) A given number from your inventory"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"NOC\",\n    \"description\": \"string\",\n    \"active\": true\n  },\n  {\n    \"code\": \"ES\",\n    \"description\": \"string\",\n    \"active\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26dfe003-1bc1-4c89-b59f-8dcddabbeb55",
+              "name": "Number not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "numbers",
+                    ":number",
+                    "services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "number",
+                      "description": "(Required) A given number from your inventory"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dee7d87e-bcb8-42df-a00c-270f336fcf82",
+          "name": "Query our available stock for a Cloud Number in a given location.",
+          "request": {
+            "name": "Query our available stock for a Cloud Number in a given location.",
+            "description": {
+              "content": "This method allows you to check if a given quantity of Cloud Numbers are available in our stock for a given location.\nIn case we don't have enough numbers in our stock, the method also gives you the quantity of numbers available in our stock so that you know how many numbers you can order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stock",
+                "product",
+                ":product",
+                "country",
+                ":country",
+                "location",
+                ":location",
+                "quantity",
+                ":quantity"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product",
+                  "description": "(Required) Filter stock by product"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "location",
+                  "description": "(Required) Filter stock by location in country. A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "quantity",
+                  "description": "(Required) Quantity of numbers you would like to order"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6eed77f4-97ad-468b-8ebb-5fec0316c7c1",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country",
+                    "location",
+                    ":location",
+                    "quantity",
+                    ":quantity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Filter stock by product"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Filter stock by location in country. A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "quantity",
+                      "description": "(Required) Quantity of numbers you would like to order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'product': 'IBN',\\n  'country': 'BEL',\\n  'location': 'Brussels',\\n  'areaCode': null,\\n  'checkStock': true,\\n  'quantity': 25\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2c19076-c6a9-4fe8-9d1d-58994f79701e",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country",
+                    "location",
+                    ":location",
+                    "quantity",
+                    ":quantity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Filter stock by product"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Filter stock by location in country. A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "quantity",
+                      "description": "(Required) Quantity of numbers you would like to order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0cf4880-16bc-47ef-9038-c7e3e6b0ee5d",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country",
+                    "location",
+                    ":location",
+                    "quantity",
+                    ":quantity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Filter stock by product"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Filter stock by location in country. A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "quantity",
+                      "description": "(Required) Quantity of numbers you would like to order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dda89165-01c4-433b-aeb5-8c32c5962c1b",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stock",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country",
+                    "location",
+                    ":location",
+                    "quantity",
+                    ":quantity"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Filter stock by product"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter stock by country in ISO 3166-1 alpha-3 format."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "location",
+                      "description": "(Required) Filter stock by location in country. A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "quantity",
+                      "description": "(Required) Quantity of numbers you would like to order"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76e12124-638a-4de2-a972-e52611e80a1d",
+          "name": "Retrieve available numbers for specific product, country and location.",
+          "request": {
+            "name": "Retrieve available numbers for specific product, country and location.",
+            "description": {
+              "content": "The _/availablenumbers_ method allows you to preview a list of numbers that we have in our stock. You can then pick and order one or multiple numbers out of the list by calling the order method. The numbers cannot be reserved hence there is no guarantee that the numbers will still be available when you place the order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "availablenumbers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "product",
+                  "value": "<string>",
+                  "description": "(Required) Filter our stock by product. Valid product codes are _IBN_, _ITFS_ and _GMN_. _IBN_ referring to Cloud Number, _ITFS_ referring to International Freephone Number and _GMN_ referring to Global Mobile Number."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "(Required) Filter our stock by country in ISO 3166-1 alpha-3 format"
+                },
+                {
+                  "disabled": false,
+                  "key": "location",
+                  "value": "<string>",
+                  "description": "Filter our stock by location. You can retrieve the list of locations by calling the method _/reference/locations_. (Not applicable for product GMN)."
+                },
+                {
+                  "disabled": false,
+                  "key": "areaCode",
+                  "value": "<string>",
+                  "description": "Filter our stock by area code. You can retrieve the list of area codes by calling the method _/reference/locations_."
+                },
+                {
+                  "disabled": false,
+                  "key": "quantity",
+                  "value": "<string>",
+                  "description": "A value between 1 and 25. If the amount of numbers available is smaller than the requested quantity, only the available numbers are returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be0aacd6-ff63-48d4-847a-8456bef60166",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availablenumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "JPN"
+                    },
+                    {
+                      "key": "location",
+                      "value": "Tokyo"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "3"
+                    },
+                    {
+                      "key": "quantity",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'number': '81370607021',\\n    'product': 'IBN',\\n    'country': 'JPN',\\n    'location': 'Tokyo',\\n    'areaCode': '3'\\n  },\\n  {\\n    'number': '81370607022',\\n    'product': 'IBN',\\n    'country': 'JPN',\\n    'location': 'Tokyo',\\n    'areaCode': '3'\\n  },\\n  {\\n    'number': '81370607301',\\n    'product': 'IBN',\\n    'country': 'JPN',\\n    'location': 'Tokyo',\\n    'areaCode': '3'\\n  },\\n  {\\n    'number': '81370607302',\\n    'product': 'IBN',\\n    'country': 'JPN',\\n    'location': 'Tokyo',\\n    'areaCode': '3'\\n  },\\n  {\\n    'number': '81370607303',\\n    'product': 'IBN',\\n    'country': 'JPN',\\n    'location': 'Tokyo',\\n    'areaCode': '3'\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9f5a68a-be76-42ba-857a-9fdffcb1d3a4",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availablenumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "JPN"
+                    },
+                    {
+                      "key": "location",
+                      "value": "Tokyo"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "3"
+                    },
+                    {
+                      "key": "quantity",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f100fb4f-d320-4f0b-a4dc-4d32a94b929a",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availablenumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "JPN"
+                    },
+                    {
+                      "key": "location",
+                      "value": "Tokyo"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "3"
+                    },
+                    {
+                      "key": "quantity",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "485007ca-79bf-4878-b87a-1304478abd53",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "availablenumbers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "JPN"
+                    },
+                    {
+                      "key": "location",
+                      "value": "Tokyo"
+                    },
+                    {
+                      "key": "areaCode",
+                      "value": "3"
+                    },
+                    {
+                      "key": "quantity",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1992-08-04T20:18:48.202Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4679f886-8b98-49fa-8634-c2809285d0f4",
+    "name": "connect Address Management stock API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

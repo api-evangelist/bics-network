@@ -1,0 +1,563 @@
+{
+  "item": [
+    {
+      "id": "73fc382f-18a4-441f-a3ae-6428367da93f",
+      "name": "Inbound",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "85640329-3660-4a90-ac2d-71cda7f0b832",
+          "name": "Get Inbound Messages Subscription",
+          "request": {
+            "name": "Get Inbound Messages Subscription",
+            "description": {
+              "content": "Your subscription for Inbound Messages",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inbound",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cfe0290b-9f21-4100-b11a-ff9159c7cbe4",
+              "name": "subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"callback\\\": {\\n    \\\"url\\\": \\\"string\\\",\\n    \\\"securityToken\\\": \\\"string\\\",\\n    \\\"concat\\\": true\\n  }\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52453221-3df1-45da-83fe-237f885f10fc",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f6965f7b-22cb-411d-845b-49b604580808",
+              "name": "No subscription found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e2d9d7b2-4e08-4bcc-b524-44b0a50f91b6",
+          "name": "Create Inbound Messages Subscription",
+          "request": {
+            "name": "Create Inbound Messages Subscription",
+            "description": {
+              "content": "Subscribe for Inbound Messages. This is an alternative way to the Get Inbound Messages method to retrieve Inbound Messages.\n\nAn Inbound Message will be sent to the specified URL whenever the message arrives to OpenSMS API Server.\n\n### Be aware that\n\n* There is a retry mechanism if the URL is not reachable:\n\n  *   During the first 10 minutes, retry every 2 minutes\n\n  *   Then during 2 hours, retry every hour\n\n  *   Then until reaching the max retry time (3 days), retry every 6 hours\n\n  *   After that the message will be deleted\n\n* For the subscriptions with enabled concatenation:\n\n  * Although you may receive a long concatenated message, you will be charged for each individual part of the message. All messaging parts, regardless of how they are grouped, are subject to separate charges.\n\n\n### Example of the request sent to the client:\n```yaml\n\"Authorization\" : \"Bearer <securityToken>\"\n\"Content-type\" : \"application/json; charset=UTF-8\"\n```\n*   **\\<securityToken\\>** - security token given during the subscription creation\n\n```yaml\nbody:\n  {\n    \"InboundSmsMessage\": {\n      \"dateTime\": \"2021-11-24T09:13:40.639\",\n      \"destinationAddress\": \"1234567890\",\n      \"senderAddress\": \"1234567899\",\n      \"messageId\": \"e7e34bb7-91a9-443e-a7e1-5257f6cf8d42\",\n      \"message\": \"Test Inbound Message\"\n    }\n  }\n```\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inbound",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "89888685-2c8f-4b96-8769-4add0aed4610",
+              "name": "subscription created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback\": {\n    \"concat\": false,\n    \"url\": \"https://your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"callback\\\": {\\n    \\\"concat\\\": false,\\n    \\\"url\\\": \\\"https://your-callback-url.com\\\",\\n    \\\"securityToken\\\": \\\"string\\\"\\n  }\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afb5e888-0d85-4dcf-9623-44883820e5fe",
+              "name": "The request is not well formed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback\": {\n    \"concat\": false,\n    \"url\": \"https://your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8d4eacb-1ddf-496b-8439-7c28a9d38449",
+              "name": "The request is not accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback\": {\n    \"concat\": false,\n    \"url\": \"https://your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"NOT_HTTPS\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "284293c1-d5a4-4254-9bab-c2b896f823ff",
+          "name": "Delete Inbound Messages Subscription",
+          "request": {
+            "name": "Delete Inbound Messages Subscription",
+            "description": {
+              "content": "Delete your subscription for Inbound Messages",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inbound",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7efbc9fb-f738-4af1-b722-3d85d4d5290e",
+              "name": "Subscription removed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "28a4678a-bc6b-40e1-beed-eac8691e666f",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "89af2b71-5594-4b66-a7ae-9eb9f0d75521",
+              "name": "Delivery subscription not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc2f735a-9fa6-4194-8b9c-3bec2e3cd060",
+          "name": "Get Inbound Messages",
+          "request": {
+            "name": "Get Inbound Messages",
+            "description": {
+              "content": "Return the messages of your inbound number.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inbound",
+                "registrations",
+                ":inboundNumber",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "maxBatchSize",
+                  "value": "<integer>",
+                  "description": "The number of messages to retrieve. This must be a number between 0 and 200. The default is 20 if this parameter is not specified."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "inboundNumber",
+                  "description": "(Required) The inbound number's inbox to check."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a90b96f7-a0ba-43c7-b188-5a30ce794ee3",
+              "name": "A list of incoming messages for the given number",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inbound",
+                    "registrations",
+                    ":inboundNumber",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxBatchSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "inboundNumber",
+                      "description": "(Required) The inbound number's inbox to check."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalNumberOfPendingMessages\": 2283,\n  \"resourceURL\": \"string\",\n  \"numberOfMessagesInThisBatch\": 4079,\n  \"inboundSMSMessage\": [\n    {\n      \"dateTime\": \"2011-08-24T21:52:02.092Z\",\n      \"udhMessageId\": 8803,\n      \"senderAddress\": \"string\",\n      \"destinationAddress\": \"string\",\n      \"resourceURL\": \"string\",\n      \"concatTotal\": 2332,\n      \"messageId\": \"string\",\n      \"message\": \"string\",\n      \"concatPart\": 9919\n    },\n    {\n      \"dateTime\": \"1964-05-13T03:33:51.832Z\",\n      \"udhMessageId\": 6032,\n      \"senderAddress\": \"string\",\n      \"destinationAddress\": \"string\",\n      \"resourceURL\": \"string\",\n      \"concatTotal\": 3483,\n      \"messageId\": \"string\",\n      \"message\": \"string\",\n      \"concatPart\": 2170\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bf2aa30f-0e0e-4dd3-b394-7b1fc1326150",
+    "name": "connect Address Management Inbound API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

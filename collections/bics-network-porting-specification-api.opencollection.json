@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management Porting Specification API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Porting Specification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "This API method returns the list of number portability specification per Product, Country.\nA portability specification item is the list of portability specification attributes related to the pair Product and Country.\nIt is possible to filter out the list of portability specifications items by product and/or country.\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/portings/specifications",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Get specifications by product. Possible values\n    - 'IBN' for Cloud Number\n    - 'ITFS' for International Freephone Number\n    - 'GMN' for Global Mobile Number\n"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Get specifications by country in ISO 3166-1 alpha-3 format."
+              }
+            ]
+          },
+          "docs": "This API method returns the list of porting specifications. It is possible to filter out the list of porting specifications items by _Product_ and/or _Country_."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

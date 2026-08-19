@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management routing API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "routing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Change your routing details.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/routes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _/routes_ method allows you to change your routing details for one or multiple number(s). You can provide for each access type (fixed, mobile and payphone) if relevant the PoP and routing number to use. You can retrieve the current routing by calling the _/numbers/{number}_ method and your PoP names by calling the method _/reference/pops_."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

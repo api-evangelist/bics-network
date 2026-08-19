@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management stock API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "stock",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query our available stock for a given product in a country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/stock/product/:product/country/:country/quantity/:quantity",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "path",
+                "description": "Filter stock by product"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Filter stock by country in ISO 3166-1 alpha-3 format."
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "path",
+                "description": "Quantity of numbers"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Check stock by location. (Not applicable for product GMN)."
+              },
+              {
+                "name": "areaCode",
+                "value": "",
+                "type": "query",
+                "description": "Check stock by areaCode."
+              }
+            ]
+          },
+          "docs": "This method allows you to check if a given quantity of numbers are available in our stock for\n a given product in a country. In case we don’t have enough numbers in our stock, the method also\n gives you the quantity of numbers still available so that you know how many numbers you can order."
+        },
+        {
+          "info": {
+            "name": "Retrieve the available and active services of a given number from the inventory.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/numbers/:number/services",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "A given number from your inventory"
+              }
+            ]
+          },
+          "docs": "The <i>/numbers/{number}/services</i> method allows you to retrieve the available and active services of a given number from your inventory. Services that are not available on the given number are not returned."
+        },
+        {
+          "info": {
+            "name": "Query our available stock for a Cloud Number in a given location.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/stock/product/:product/country/:country/location/:location/quantity/:quantity",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "path",
+                "description": "Filter stock by product"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Filter stock by country in ISO 3166-1 alpha-3 format."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "path",
+                "description": "Filter stock by location in country. A Location indicates in most cases the city the number belongs to. It is also used to specify if it is a national or a mobile number."
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "path",
+                "description": "Quantity of numbers you would like to order"
+              }
+            ]
+          },
+          "docs": "This method allows you to check if a given quantity of Cloud Numbers are available in our stock for a given location.\nIn case we don't have enough numbers in our stock, the method also gives you the quantity of numbers available in our stock so that you know how many numbers you can order."
+        },
+        {
+          "info": {
+            "name": "Retrieve available numbers for specific product, country and location.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/availablenumbers",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Filter our stock by product. Valid product codes are _IBN_, _ITFS_ and _GMN_. _IBN_ referring to Cloud Number, _ITFS_ referring to International Freephone Number and _GMN_ referring to Global Mobile Number."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Filter our stock by country in ISO 3166-1 alpha-3 format"
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Filter our stock by location. You can retrieve the list of locations by calling the method _/reference/locations_. (Not applicable for product GMN)."
+              },
+              {
+                "name": "areaCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter our stock by area code. You can retrieve the list of area codes by calling the method _/reference/locations_."
+              },
+              {
+                "name": "quantity",
+                "value": "",
+                "type": "query",
+                "description": "A value between 1 and 25. If the amount of numbers available is smaller than the requested quantity, only the available numbers are returned."
+              }
+            ]
+          },
+          "docs": "The _/availablenumbers_ method allows you to preview a list of numbers that we have in our stock. You can then pick and order one or multiple numbers out of the list by calling the order method. The numbers cannot be reserved hence there is no guarantee that the numbers will still be available when you place the order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

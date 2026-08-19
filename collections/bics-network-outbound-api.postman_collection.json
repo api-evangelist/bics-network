@@ -1,0 +1,1058 @@
+{
+  "item": [
+    {
+      "id": "e9ea8f24-2cb7-41d8-ad57-dcc572a878ae",
+      "name": "Outbound",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "09cb992c-a027-4dfb-9922-9524b8b3ea88",
+          "name": "Send Message",
+          "request": {
+            "name": "Send Message",
+            "description": {
+              "content": "Sends a text message to one or more destination numbers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "outbound",
+                ":senderAddress",
+                "requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "senderAddress",
+                  "description": "(Required) The address to use as the sender of the message. This can be\neither a number up to 15 characters, or an alphanumeric text up to 11\ncharacters from the GSM 7bit alphabet. However, most destination networks\nwill only allow valid phone numbers or short codes. Keep in mind that\nany replies will end up being delivered to this address. If the address\nis a phone number, you can optionally prefix it with tel: for clarity\n(e.g. tel:+1234567). senderAddress path variable must be a valid URL chars\nsequence. If it contains non-latin letters or special/punctuation characters,\nthey are required to be URL-encoded (e.g. /outbound/ALPHA NUMERIC/requests\n-> /outbound/ALPHA%20NUMERIC/requests).\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"outboundSMSTextMessage\": {\n    \"message\": \"<string>\"\n  },\n  \"senderAddress\": \"<string>\",\n  \"senderName\": \"<string>\",\n  \"finalDelivery\": \"<boolean>\",\n  \"resourceURL\": \"<string>\",\n  \"deliveryInfoList\": {\n    \"securityToken\": \"<string>\",\n    \"deliveryInfo\": [\n      {\n        \"smsPartsUncertain\": \"<integer>\",\n        \"address\": \"<string>\",\n        \"smsPartsUndeliverable\": \"<integer>\",\n        \"callbackData\": \"<string>\",\n        \"deliveryStatus\": \"<string>\",\n        \"smsPartsDeliveredToTerminal\": \"<integer>\",\n        \"deliveryStatusCode\": \"<integer>\"\n      },\n      {\n        \"smsPartsUncertain\": \"<integer>\",\n        \"address\": \"<string>\",\n        \"smsPartsUndeliverable\": \"<integer>\",\n        \"callbackData\": \"<string>\",\n        \"deliveryStatus\": \"<string>\",\n        \"smsPartsDeliveredToTerminal\": \"<integer>\",\n        \"deliveryStatusCode\": \"<integer>\"\n      }\n    ],\n    \"resourceURL\": \"<string>\",\n    \"smsParts\": \"<integer>\"\n  },\n  \"asynchronous\": false,\n  \"clientCorrelator\": \"<string>\",\n  \"callbackData\": \"<string>\",\n  \"notifyURL\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c50c00c9-9411-4278-9c5b-8d44a680f271",
+              "name": "CREATED",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The address to use as the sender of the message. This can be\neither a number up to 15 characters, or an alphanumeric text up to 11\ncharacters from the GSM 7bit alphabet. However, most destination networks\nwill only allow valid phone numbers or short codes. Keep in mind that\nany replies will end up being delivered to this address. If the address\nis a phone number, you can optionally prefix it with tel: for clarity\n(e.g. tel:+1234567). senderAddress path variable must be a valid URL chars\nsequence. If it contains non-latin letters or special/punctuation characters,\nthey are required to be URL-encoded (e.g. /outbound/ALPHA NUMERIC/requests\n-> /outbound/ALPHA%20NUMERIC/requests).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"outboundSMSMessageRequest\":{\"address\":[\"tel:+13500000991\",\"tel:+13500000992\"],\"senderAddress\":\"tel:321234567\",\"outboundSMSTextMessage\":{\"message\":\"Hello World\"},\"senderName\":\"web app name\"}}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"outboundSMSMessageRequest\\\": {\\n    \\\"resourceURL\\\": \\\"https://opensms.api.bics.com/sms/v3/outbound/321234567/requests/4c279a5f-1502-4679-8077-a63fa399369e\\\",\\n    \\\"address\\\": [\\\"tel:+13500000991\\\", \\\"tel:+13500000992\\\"],\\n    \\\"senderAddress\\\": \\\"tel:321234567\\\",\\n    \\\"outboundSMSTextMessage\\\": {\\\"message\\\": \\\"Hello World\\\"},\\n    \\\"senderName\\\": \\\"web app name\\\",\\n    \\\"callbackData\\\":\\\"xxxx-xxxxxxx-xxxxxxx-xxx\\\",\\n    \\\"notifyURL\\\":\\\"https://some-address.url/some-endpoint\\\",\\n    \\\"asynchronous\\\" : true\\n  }\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2724418c-3cc2-4d3a-a5d6-2adbfb534044",
+              "name": "Bad request: request validation failed, or initial response from SMS HUB fails with delivery impossible. (For asynchronous requests - if initial request validation failed, or message contains correlationId for which previous response from SMS HUB failed with delivery impossible)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The address to use as the sender of the message. This can be\neither a number up to 15 characters, or an alphanumeric text up to 11\ncharacters from the GSM 7bit alphabet. However, most destination networks\nwill only allow valid phone numbers or short codes. Keep in mind that\nany replies will end up being delivered to this address. If the address\nis a phone number, you can optionally prefix it with tel: for clarity\n(e.g. tel:+1234567). senderAddress path variable must be a valid URL chars\nsequence. If it contains non-latin letters or special/punctuation characters,\nthey are required to be URL-encoded (e.g. /outbound/ALPHA NUMERIC/requests\n-> /outbound/ALPHA%20NUMERIC/requests).\n"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"outboundSMSMessageRequest\":{\"address\":[\"tel:+13500000991\",\"tel:+13500000992\"],\"senderAddress\":\"tel:321234567\",\"outboundSMSTextMessage\":{\"message\":\"Hello World\"},\"senderName\":\"web app name\"}}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b97e8534-39cd-46c2-ba10-bdb9be913521",
+              "name": "Unauthorized: the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The address to use as the sender of the message. This can be\neither a number up to 15 characters, or an alphanumeric text up to 11\ncharacters from the GSM 7bit alphabet. However, most destination networks\nwill only allow valid phone numbers or short codes. Keep in mind that\nany replies will end up being delivered to this address. If the address\nis a phone number, you can optionally prefix it with tel: for clarity\n(e.g. tel:+1234567). senderAddress path variable must be a valid URL chars\nsequence. If it contains non-latin letters or special/punctuation characters,\nthey are required to be URL-encoded (e.g. /outbound/ALPHA NUMERIC/requests\n-> /outbound/ALPHA%20NUMERIC/requests).\n"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"outboundSMSMessageRequest\":{\"address\":[\"tel:+13500000991\",\"tel:+13500000992\"],\"senderAddress\":\"tel:321234567\",\"outboundSMSTextMessage\":{\"message\":\"Hello World\"},\"senderName\":\"web app name\"}}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f8e1713a-b96a-47ca-a981-c0a495c4d3ee",
+              "name": "Forbidden: this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The address to use as the sender of the message. This can be\neither a number up to 15 characters, or an alphanumeric text up to 11\ncharacters from the GSM 7bit alphabet. However, most destination networks\nwill only allow valid phone numbers or short codes. Keep in mind that\nany replies will end up being delivered to this address. If the address\nis a phone number, you can optionally prefix it with tel: for clarity\n(e.g. tel:+1234567). senderAddress path variable must be a valid URL chars\nsequence. If it contains non-latin letters or special/punctuation characters,\nthey are required to be URL-encoded (e.g. /outbound/ALPHA NUMERIC/requests\n-> /outbound/ALPHA%20NUMERIC/requests).\n"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"outboundSMSMessageRequest\":{\"address\":[\"tel:+13500000991\",\"tel:+13500000992\"],\"senderAddress\":\"tel:321234567\",\"outboundSMSTextMessage\":{\"message\":\"Hello World\"},\"senderName\":\"web app name\"}}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f5891127-20b0-49dc-8f4b-8ba716d8633d",
+              "name": "Too Many Requests: more requests were made in the last hour than is permitted with your API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The address to use as the sender of the message. This can be\neither a number up to 15 characters, or an alphanumeric text up to 11\ncharacters from the GSM 7bit alphabet. However, most destination networks\nwill only allow valid phone numbers or short codes. Keep in mind that\nany replies will end up being delivered to this address. If the address\nis a phone number, you can optionally prefix it with tel: for clarity\n(e.g. tel:+1234567). senderAddress path variable must be a valid URL chars\nsequence. If it contains non-latin letters or special/punctuation characters,\nthey are required to be URL-encoded (e.g. /outbound/ALPHA NUMERIC/requests\n-> /outbound/ALPHA%20NUMERIC/requests).\n"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"outboundSMSMessageRequest\":{\"address\":[\"tel:+13500000991\",\"tel:+13500000992\"],\"senderAddress\":\"tel:321234567\",\"outboundSMSTextMessage\":{\"message\":\"Hello World\"},\"senderName\":\"web app name\"}}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7f433c6d-46e4-4f27-85aa-6c85a63d0642",
+          "name": "Get Delivery Info Subscription",
+          "request": {
+            "name": "Get Delivery Info Subscription",
+            "description": {
+              "content": "Your subscription for delivery infos",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "outbound",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7601895e-99e3-451c-bc4a-9e4a723cde69",
+              "name": "subscription",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"callback\\\": {\\n   \\\"finalDelivery\\\": true,\\n    \\\"url\\\": \\\"string\\\",\\n    \\\"securityToken\\\": \\\"string\\\"\\n  }\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef2b4d8a-10ea-425c-867e-573afe928303",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b956bdf-3fd5-4bab-9d81-4664839f4420",
+              "name": "No subscription found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b2219cd-4971-4776-b13b-79d059bd995e",
+          "name": "Create Delivery Info Subscription",
+          "request": {
+            "name": "Create Delivery Info Subscription",
+            "description": {
+              "content": "Subscribe for delivery info notifications. This is an alternative way to the Get Delivery Infos method to\nretrieve delivery infos.\n\nA delivery infos will be sent to the specified URL whenever the message's state changes.\nYou will typically receive 2 notifications with the states DeliveredToNetwork and DeliveredToTerminal\nrespectively for each sent message.\nFor large messages that are split into parts, you will receive a notification for each part with the state\nPartiallyDelivered except for the last part which will have the state DeliveredToTerminal.\nEach notification will also contain the total number of parts and the number of parts that arrived at the recipient.\n\nAdditionally \"finalDelivery\" : This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.\n\n### Be aware that\n\n* There is no retry mechanism on the delivery notifications. If we fail to send the notification to your URL\n(e.g. 404 not found, timeout, network issues) we will not send it again.\n\n* The notifications might arrive in random order. E.g. for a message split in 3 parts, you might\nreceive the notification of the 3rd part with the state DeliveredToTerminal before the notification of the 2nd\npart with the state PartiallyDelivered. This requires you to build some\nlogic on your end to not simply overwrite the state DeliveredToTerminal with PartiallyDelivered\nand wrongfully conclude that the message is still in the state PartiallyDelivered.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "outbound",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "77f44ff8-1ed0-4f62-b8b0-2c6d4c9e5967",
+              "name": "subscription created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback\": {\n    \"finalDelivery\": true,\n    \"url\": \"https: //your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"callback\\\": {\\n    \\\"finalDelivery\\\": true,\\n    \\\"url\\\": \\\"https://your-callback-url.com\\\",\\n    \\\"securityToken\\\": \\\"string\\\"\\n  }\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b2b5ffd-53ef-4dda-bbff-9712b71549fc",
+              "name": "The request is not well formed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback\": {\n    \"finalDelivery\": true,\n    \"url\": \"https: //your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6fba9ba6-bcab-4df8-a356-56c651b2e077",
+              "name": "The request is not accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback\": {\n    \"finalDelivery\": true,\n    \"url\": \"https: //your-callback-url.com\",\n    \"securityToken\": \"string\"\n  }\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"NOT_HTTPS\",\n  \"description\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a9d4b0b-1b5a-481d-9486-6355c4f7ffce",
+          "name": "Delete Delivery Info Subscription",
+          "request": {
+            "name": "Delete Delivery Info Subscription",
+            "description": {
+              "content": "Delete your subscription for delivery infos",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "outbound",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "863f4e50-e3c4-4030-984b-88f8e94c7fd6",
+              "name": "Subscription removed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fad71043-6947-4f5f-bf34-39a2f49b0e23",
+              "name": "Not authorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a818db70-f833-4b5c-80a4-d136faef7e74",
+              "name": "Delivery subscription not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58e10dbc-79e1-40f5-89cd-286307b1e20c",
+          "name": "Get Delivery Infos",
+          "request": {
+            "name": "Get Delivery Infos",
+            "description": {
+              "content": "Retrieves the delivery information per recipient for a previously transmitted message. For each message sent, you can poll this URL until the message has one of the 2 final states:\n\n* DeliveredToTerminal : the message arrived on the recipient's device\n\n* DeliveryImpossible : the message could not be delivered (e.g. the recipient's number is not an active number)\n\nPolling for the status can be resource intensive, alternatively you can also create a delivery subscription which will post the same delivery info to a URL you specify.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "outbound",
+                ":senderAddress",
+                "requests",
+                ":requestId",
+                "deliveryInfos"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "senderAddress",
+                  "description": "(Required) The sender of the message used in the original SendMessage request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "requestId",
+                  "description": "(Required) The requestId of the submitted message which can be found in the reponse or the location header of the original SendMessage request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "baa2b5ce-de26-4843-8d8b-d20c6ade07e3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests",
+                    ":requestId",
+                    "deliveryInfos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The sender of the message used in the original SendMessage request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The requestId of the submitted message which can be found in the reponse or the location header of the original SendMessage request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"deliveryInfoList\\\":{\\\"resourceURL\\\":\\\"https://opensms.api.bics.com/sms/v3/outbound/%2B321234567/requests/4c279a5f-1502-4679-8077-a63fa399369e/deliveryInfos\\\",\\\"smsParts\\\":3,\\\"deliveryInfo\\\":[{\\\"address\\\":\\\"tel:+331234568\\\",\\\"deliveryStatus\\\":\\\"PartiallyDelivered\\\",\\\"deliveryStatusCode\\\":13,\\\"smsPartsDeliveredToTerminal\\\":2,\\\"callbackData\\\":\\\"xxxx-xxxx-xxxx-xxxx-xxxx-xxxx\\\"},{\\\"address\\\":\\\"tel:+331234567\\\",\\\"deliveryStatus\\\":\\\"DeliveredToNetwork\\\",\\\"deliveryStatusCode\\\":6,\\\"smsPartsDeliveredToTerminal\\\":0,\\\"callbackData\\\":\\\"xxxx-xxxx-xxxx-xxxx-xxxx-xxxx\\\"}]}}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de6c0102-3d16-44d5-85a9-29cf6addac13",
+              "name": "Unauthorized: the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests",
+                    ":requestId",
+                    "deliveryInfos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The sender of the message used in the original SendMessage request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The requestId of the submitted message which can be found in the reponse or the location header of the original SendMessage request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ea1ed43e-2780-4a07-a7e1-69b8811d2820",
+              "name": "Forbidden: this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests",
+                    ":requestId",
+                    "deliveryInfos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The sender of the message used in the original SendMessage request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The requestId of the submitted message which can be found in the reponse or the location header of the original SendMessage request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70e7be84-70e1-468e-a8e1-f3ff3ee4dc1a",
+              "name": "no such message was found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests",
+                    ":requestId",
+                    "deliveryInfos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The sender of the message used in the original SendMessage request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The requestId of the submitted message which can be found in the reponse or the location header of the original SendMessage request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "415dcbad-7ca7-4d0c-98e2-48df287157cb",
+              "name": "Too Many Requests: more requests were made in the last hour than is permitted with your API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "outbound",
+                    ":senderAddress",
+                    "requests",
+                    ":requestId",
+                    "deliveryInfos"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "senderAddress",
+                      "description": "(Required) The sender of the message used in the original SendMessage request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "requestId",
+                      "description": "(Required) The requestId of the submitted message which can be found in the reponse or the location header of the original SendMessage request"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a5a6b1f8-c7c2-4329-a17a-6f7f4f38e59c",
+    "name": "connect Address Management Outbound API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

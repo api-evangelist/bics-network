@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management Inbound API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inbound",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Inbound Messages Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/inbound/subscriptions"
+          },
+          "docs": "Your subscription for Inbound Messages"
+        },
+        {
+          "info": {
+            "name": "Create Inbound Messages Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/inbound/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribe for Inbound Messages. This is an alternative way to the Get Inbound Messages method to retrieve Inbound Messages.\n\nAn Inbound Message will be sent to the specified URL whenever the message arrives to OpenSMS API Server.\n\n### Be aware that\n\n* There is a retry mechanism if the URL is not reachable:\n\n  *   During the first 10 minutes, retry every 2 minutes\n\n  *   Then during 2 hours, retry every hour\n\n  *   Then until reaching the max retry time (3 days), retry every 6 hours\n\n  *   After "
+        },
+        {
+          "info": {
+            "name": "Delete Inbound Messages Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/inbound/subscriptions"
+          },
+          "docs": "Delete your subscription for Inbound Messages"
+        },
+        {
+          "info": {
+            "name": "Get Inbound Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/inbound/registrations/:inboundNumber/messages",
+            "params": [
+              {
+                "name": "inboundNumber",
+                "value": "abc123",
+                "type": "path",
+                "description": "The inbound number's inbox to check."
+              },
+              {
+                "name": "maxBatchSize",
+                "value": "200",
+                "type": "query",
+                "description": "The number of messages to retrieve. This must be a number between 0 and 200. The default is 20 if this parameter is not specified."
+              }
+            ]
+          },
+          "docs": "Return the messages of your inbound number.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

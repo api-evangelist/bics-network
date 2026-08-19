@@ -1,0 +1,527 @@
+{
+  "item": [
+    {
+      "id": "98f5078e-9b3a-42de-9104-97d7e1cdf339",
+      "name": "pricelist",
+      "description": {
+        "content": "Query your pricelist.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eae236a5-f617-4af7-8353-fe647ad6f7cc",
+          "name": "Query your current pricelist.",
+          "request": {
+            "name": "Query your current pricelist.",
+            "description": {
+              "content": "Query your current pricelist by product in order to know the pricing applicable to our numbers in each country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pricelist",
+                "product",
+                ":product"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product",
+                  "description": "(Required) Retrieve your current pricelist by product."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc609ed2-9db6-43d0-8bd6-1737ea1ca86b",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricelist",
+                    "product",
+                    ":product"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Retrieve your current pricelist by product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'product': 'IBN',\\n    'country': 'BEL',\\n    'accessArea': 'Mobile',\\n    'profile': 'profile A',\\n    'locations': ['Antwerp', 'Brussels', 'Leuven', 'Liege'],\\n    'locationsAreaCodes': [\\n      {\\n        'location': 'Antwerp',\\n        'areaCode': '3'\\n      },\\n      {\\n        'location': 'Brussels',\\n        'areaCode': '2'\\n      },\\n      {\\n        'location': 'Leuven',\\n        'areaCode': '16'\\n      },\\n      {\\n        'location': 'Liege',\\n        'areaCode': '4'\\n      }\\n    ],\\n    'nonUsageFees': {\\n        'setUpFee': 10.00,\\n        'MonthlyFee': 5.00,\\n        'currency': 'EUR'\\n    },\\n    'usageFees': [\\n      {\\n        'accessNetwork': null,\\n        'accessType': 'fixPay',\\n        'calendar': 'SINT',\\n        'tde': 'STD',\\n        'callSetUpFee': 0.0005,\\n        'perMinuteFee': 0.0015,\\n        'currency': 'EUR'\\n      },\\n      {\\n        'accessNetwork': 'SMART',\\n        'accessType': 'Mob',\\n        'calendar': 'SINT',\\n        'tde': 'STD',\\n        'callSetUpFee': 0.0005,\\n        'perMinuteFee': 0.0020,\\n        'currency': 'EUR'\\n      }\\n    ]\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db3511df-2bcf-4ef3-8bbc-cb5497088e00",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricelist",
+                    "product",
+                    ":product"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Retrieve your current pricelist by product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2005-07-24T13:51:31.338Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6738dd1-ba2f-4907-b0a6-f20ba414eb8b",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricelist",
+                    "product",
+                    ":product"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Retrieve your current pricelist by product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2005-07-24T13:51:31.338Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fefa71eb-2f6f-4264-baf4-0b2c13f2f545",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricelist",
+                    "product",
+                    ":product"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Retrieve your current pricelist by product."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2005-07-24T13:51:31.338Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2813926-08ef-4f1c-b943-154d304a8ba5",
+          "name": "Query your current pricelist for a specific country.",
+          "request": {
+            "name": "Query your current pricelist for a specific country.",
+            "description": {
+              "content": "Query your current pricelist by product and country in order to know the pricing applicable to our numbers in a given country.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pricelist",
+                "product",
+                ":product",
+                "country",
+                ":country"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product",
+                  "description": "(Required) Retrieve your current pricelist by product."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "country",
+                  "description": "(Required) Filter pricelist by country in ISO 3166-1 alpha-3 format."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "475eabe8-0685-46d9-85b9-113f83d9bb5a",
+              "name": "successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricelist",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Retrieve your current pricelist by product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter pricelist by country in ISO 3166-1 alpha-3 format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'product': 'IBN',\\n    'country': 'BEL',\\n    'accessArea': 'Mobile',\\n    'profile': 'profile A',\\n    'locations': ['Antwerp', 'Brussels', 'Leuven', 'Liege'],\\n    'locationsAreaCodes': [\\n      {\\n        'location': 'Antwerp',\\n        'areaCode': '3'\\n      },\\n      {\\n        'location': 'Brussels',\\n        'areaCode': '2'\\n      },\\n      {\\n        'location': 'Leuven',\\n        'areaCode': '16'\\n      },\\n      {\\n        'location': 'Liege',\\n        'areaCode': '4'\\n      }\\n    ],\\n    'nonUsageFees': {\\n        'setUpFee': 10.00,\\n        'MonthlyFee': 5.00,\\n        'currency': 'EUR'\\n    },\\n    'usageFees': [\\n      {\\n        'accessNetwork': null,\\n        'accessType': 'fixPay',\\n        'calendar': 'SINT',\\n        'tde': 'STD',\\n        'callSetUpFee': 0.0010,\\n        'perMinuteFee': 0.0015,\\n        'currency': 'EUR'\\n      },\\n      {\\n        'accessNetwork': 'SMART',\\n        'accessType': 'Mob',\\n        'calendar': 'SINT',\\n        'tde': 'STD',\\n        'callSetUpFee': 0.0020,\\n        'perMinuteFee': 0.0020,\\n        'currency': 'EUR'\\n      }\\n    ]\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ffe8589-1e16-4eac-8393-d1b1c3d1865d",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricelist",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Retrieve your current pricelist by product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter pricelist by country in ISO 3166-1 alpha-3 format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2005-07-24T13:51:31.338Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29b749c4-ff6f-4391-bc72-44d3c557c8e0",
+              "name": "the API Key was not mentioned or is invalid (see authentication)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricelist",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Retrieve your current pricelist by product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter pricelist by country in ISO 3166-1 alpha-3 format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2005-07-24T13:51:31.338Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79023cd3-820a-4981-a720-02b12c712ef2",
+              "name": "this service cannot be used according to your API Key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pricelist",
+                    "product",
+                    ":product",
+                    "country",
+                    ":country"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product",
+                      "description": "(Required) Retrieve your current pricelist by product."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "country",
+                      "description": "(Required) Filter pricelist by country in ISO 3166-1 alpha-3 format."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"2005-07-24T13:51:31.338Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "3b149916-dd49-4c68-a2e9-3fbe4c3d5b85",
+    "name": "connect Address Management pricelist API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

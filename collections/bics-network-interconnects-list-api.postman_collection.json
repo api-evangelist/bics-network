@@ -1,0 +1,119 @@
+{
+  "item": [
+    {
+      "id": "f35a1137-fa9a-4e9b-942b-c22045b37e64",
+      "name": "Interconnects List",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3b820e18-ceba-446f-8e35-7940310f12df",
+          "name": "Get list of current customer's interconnects",
+          "request": {
+            "name": "Get list of current customer's interconnects",
+            "description": {},
+            "url": {
+              "path": [
+                "interconnects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b4e4d30-a6e2-4334-943d-cb99e9cdde33",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "interconnects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[{\\\"id\\\":\\\"1000007895\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000007895\\\",\\\"city\\\":\\\"LOS ANGELES\\\",\\\"countryIso3\\\":\\\"USA\\\",\\\"houser\\\":\\\"One Wilshire\\\",\\\"datacenter\\\":\\\"LA1\\\",\\\"capacity\\\":\\\"1GBS\\\",\\\"capacityLabel\\\":\\\"1 Gbps\\\",\\\"usage\\\":0.19,\\\"portMode\\\":\\\"dot1Q\\\",\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null},{\\\"id\\\":\\\"1000285300\\\",\\\"type\\\":\\\"ACCESS_LINE\\\",\\\"label\\\":\\\"1000285300\\\",\\\"city\\\":\\\"London\\\",\\\"countryIso3\\\":\\\"GBR\\\",\\\"houser\\\":\\\"Equinix\\\",\\\"datacenter\\\":null,\\\"capacity\\\":\\\"1GBS\\\",\\\"capacityLabel\\\":\\\"1 Gbps\\\",\\\"usage\\\":null,\\\"portMode\\\":null,\\\"status\\\":\\\"Active\\\",\\\"portTag\\\":null,\\\"additionalData\\\":null}]\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a156cbb0-3d4b-413e-a9c1-2ecbdc699359",
+    "name": "connect Address Management Interconnects List API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

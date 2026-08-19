@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management Outbound API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Outbound",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/outbound/:senderAddress/requests",
+            "params": [
+              {
+                "name": "senderAddress",
+                "value": "321234567",
+                "type": "path",
+                "description": "The address to use as the sender of the message. This can be\neither a number up to 15 characters, or an alphanumeric text up to 11\ncharacters from the GSM 7bit alphabet. However, most destination networks\nwill only allow valid phone numbers or short codes. Keep in mind that\nany replies will end up being delivered to this address. If the address\nis a phone number, you can optionally prefix it with tel: for clarity\n(e.g. tel:+1234567). senderAddress path variable must be a valid URL chars\nsequence. If it contains non-latin letters or special/punctuation characters,\nthey are required to be URL-encoded (e.g. /outbound/ALPHA NUMERIC/requests\n-> /outbound/ALPHA%20NUMERIC/requests).\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a text message to one or more destination numbers."
+        },
+        {
+          "info": {
+            "name": "Get Delivery Info Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/outbound/subscriptions"
+          },
+          "docs": "Your subscription for delivery infos"
+        },
+        {
+          "info": {
+            "name": "Create Delivery Info Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/outbound/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Subscribe for delivery info notifications. This is an alternative way to the Get Delivery Infos method to\nretrieve delivery infos.\n\nA delivery infos will be sent to the specified URL whenever the message's state changes.\nYou will typically receive 2 notifications with the states DeliveredToNetwork and DeliveredToTerminal\nrespectively for each sent message.\nFor large messages that are split into parts, you will receive a notification for each part with the state\nPartiallyDelivered except for the "
+        },
+        {
+          "info": {
+            "name": "Delete Delivery Info Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/outbound/subscriptions"
+          },
+          "docs": "Delete your subscription for delivery infos"
+        },
+        {
+          "info": {
+            "name": "Get Delivery Infos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/outbound/:senderAddress/requests/:requestId/deliveryInfos",
+            "params": [
+              {
+                "name": "senderAddress",
+                "value": "321234567",
+                "type": "path",
+                "description": "The sender of the message used in the original SendMessage request"
+              },
+              {
+                "name": "requestId",
+                "value": "4c279a5f-1502-4679-8077-a63fa399369e",
+                "type": "path",
+                "description": "The requestId of the submitted message which can be found in the reponse or the location header of the original SendMessage request"
+              }
+            ]
+          },
+          "docs": "Retrieves the delivery information per recipient for a previously transmitted message. For each message sent, you can poll this URL until the message has one of the 2 final states:\n\n* DeliveredToTerminal : the message arrived on the recipient's device\n\n* DeliveryImpossible : the message could not be delivered (e.g. the recipient's number is not an active number)\n\nPolling for the status can be resource intensive, alternatively you can also create a delivery subscription which will post the same d"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management Conversionsinfos API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversionsinfos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Process SMS Conversion infos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/conversionsinfos",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Process an array of conversion info ids from customer.\n\nHTTP request should contain authorization bearer token with assigned 'conversion' role\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

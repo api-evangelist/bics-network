@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management porting API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "porting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "This method allows you to get your documents allowed for porting request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/portings/:portingRequestId/documents",
+            "params": [
+              {
+                "name": "portingRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a porting request."
+              }
+            ]
+          },
+          "docs": "Get all the documents and their status linked to specified Porting Request."
+        },
+        {
+          "info": {
+            "name": "This method allows you to add documents to the porting request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/portings/:portingRequestId/documents",
+            "params": [
+              {
+                "name": "portingRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a porting request."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update documents in the porting request. This method is used to add documents to the porting request."
+        },
+        {
+          "info": {
+            "name": "This method allows you to get a list of your porting requests.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/portings",
+            "params": [
+              {
+                "name": "portingRequestId",
+                "value": "",
+                "type": "query",
+                "description": "Get a porting by id,  this id is returned when you call the method for creating a porting request."
+              },
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Get portings by product. Valid product codes are IBN, GMN and ITFS. IBN referring to Cloud Number, GMN referring to Global Mobile Number and ITFS referring to International Freephone Number."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Get portings by country in ISO 3166-1 alpha-3 format."
+              },
+              {
+                "name": "bicsReference",
+                "value": "",
+                "type": "query",
+                "description": "Get a porting by BICS reference."
+              },
+              {
+                "name": "customerReference",
+                "value": "",
+                "type": "query",
+                "description": "Get portings by your reference."
+              }
+            ]
+          },
+          "docs": "Get porting request details by porting request ID , product, country, bicsReference, customerReference."
+        },
+        {
+          "info": {
+            "name": "This method allows you to create porting request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/portings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Porting Request for your numbers via API. The method Create Porting Request will document porting request with all necessary details so our Porting team can process it. </br>You just need to fill out in the request :Product, Country, Estimated Volume, Numbers, End user and Porting Address reference, Document reference. </br>End user address reference and Porting Address reference are response of the API when new address was successfully created. (Create Address method) </br>Document refer"
+        },
+        {
+          "info": {
+            "name": "This method allows you to update End User Address and Porting Address in a porting request",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.bics.com/connect/v1/portings/:portingRequestId/addresses",
+            "params": [
+              {
+                "name": "portingRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a porting request."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update address references in a porting request. Address can be updated only for Porting Request in status \"New\" or \"On Hold, More Information Required\"."
+        },
+        {
+          "info": {
+            "name": "This method allows you to get your porting request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/portings/:portingRequestId",
+            "params": [
+              {
+                "name": "portingRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a porting request."
+              }
+            ]
+          },
+          "docs": "Get the details of a specific Porting Request."
+        },
+        {
+          "info": {
+            "name": "This method allows you to cancel porting request",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/portings/:portingRequestId",
+            "params": [
+              {
+                "name": "portingRequestId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a porting request."
+              },
+              {
+                "name": "confirmCancel",
+                "value": "",
+                "type": "query",
+                "description": "Use this option to cancel the porting request when it is already in status 'Submitted to operator'. You agree that by cancelling the port request at this stage of the process you may be charged for the port request unless some special conditions apply in the respective country."
+              }
+            ]
+          },
+          "docs": "This method allows you to cancel a porting request. With the method get list of porting requests, you can retrieve its current status. <h3>Reference table Status > Cancellation of porting request allowed</h3> <table> <thead> <tr> <th>Status</th><th>Cancellation allowed</th> </tr> </thead> <tbody> <tr><td>New</td><td>Yes</td></tr> <tr><td>Under verification</td><td>Yes</td></tr> <tr><td>On hold, more information required</td><td>Yes</td></tr> <tr><td>Submitted to operator</td><td>Yes if option 'c"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

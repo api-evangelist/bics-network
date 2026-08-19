@@ -1,0 +1,258 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management Emergency Services API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Emergency Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get list of extra requirement fields per country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/requirements/:country",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "path",
+                "description": "Country for country specific fields"
+              }
+            ]
+          },
+          "docs": "Every country has specific requirements for the activation of Emergency Services. This method will return a list of additional information. In the result, we specify some attributes, like type of attribute, min-length, max-length and if it is mandatory or optional."
+        },
+        {
+          "info": {
+            "name": "Get list of all emergency services orders by query parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-3 format"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of emergency service order"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query",
+                "description": "Sorting by parameter. Possible values: 'orderId', 'createdDate', 'modifiedDate'"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "Sort result ascending or descending"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Get a specific page for your list of orders"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Amount of results per page.  Maximum = 100"
+              }
+            ]
+          },
+          "docs": "This method allows you to get a paged list of all your Emergency Services orders"
+        },
+        {
+          "info": {
+            "name": "Create an empty Emergency Services Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an empty Emergency Services Order for a specific country.  The location to the order is specified in the response header - **location:** /emergencyservices/orders/**{orderId}**.  With the add Order Item, you can now add numbers to your Emergency Services order.\n"
+        },
+        {
+          "info": {
+            "name": "Get emergency service order details by order id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order Id"
+              }
+            ]
+          },
+          "docs": "Get the details of a complete Emergency Service Order."
+        },
+        {
+          "info": {
+            "name": "Update emergency service order by order id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order Id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Emergency Services Order."
+        },
+        {
+          "info": {
+            "name": "Cancel emergency service order by order id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for an emergency service order"
+              }
+            ]
+          },
+          "docs": "Cancellation of an Emergency Services Order is allowed when the status = \"Draft\"."
+        },
+        {
+          "info": {
+            "name": "Create emergency service order item for order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders/:orderId/orderitems",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order Id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add numbers to your Emergency Services Order. A number must be in the same country as the Order, must have a valid address linked to it, and Emergency Services is available. This can be checked by calling the '/numbers/{number}' and '/numbers/{number}/services' API."
+        },
+        {
+          "info": {
+            "name": "Request to update emergency service order item properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders/:orderId/orderitems/:orderItemId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Emergency service order id"
+              },
+              {
+                "name": "orderItemId",
+                "value": "",
+                "type": "path",
+                "description": "Emergency service order item id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request to update emergency service order item properties"
+        },
+        {
+          "info": {
+            "name": "Delete emergency service order item by order id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders/:orderId/orderitems/:orderItemId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order Id"
+              },
+              {
+                "name": "orderItemId",
+                "value": "",
+                "type": "path",
+                "description": "Order Item Id"
+              }
+            ]
+          },
+          "docs": "Remove a number from your order. This method is only allowed when the status is 'Draft' or 'On hold'."
+        },
+        {
+          "info": {
+            "name": "Request to submit emergency service order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/emergencyservices/orders/:orderId/submit",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order Id"
+              }
+            ]
+          },
+          "docs": "Submit your order so that we can start processing it and enable Emergency Services as soon as possible."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

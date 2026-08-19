@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management Connections Management API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Connections Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get connection details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/connections/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get connection details"
+        },
+        {
+          "info": {
+            "name": "Disconnect connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/connections/:connectionId",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Disconnect connection"
+        },
+        {
+          "info": {
+            "name": "Modify connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/connections/:connectionId/modify",
+            "params": [
+              {
+                "name": "connectionId",
+                "value": "",
+                "type": "path",
+                "description": "Connection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify connection"
+        },
+        {
+          "info": {
+            "name": "Get list of all connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/connections",
+            "params": [
+              {
+                "name": "serviceType",
+                "value": "",
+                "type": "query",
+                "description": "Filter connections by service type"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number (1, 2, 3, ..., n). The response is split into distinct pages. If page number is higher that count of pages, empty list will be returned"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The number of records per page. Maximum value: 100. If you set the size larger than the maximum, it will be ignored and will return the maximum value"
+              }
+            ]
+          },
+          "docs": "Get list of all connections"
+        },
+        {
+          "info": {
+            "name": "Create connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/connections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits new connection order"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

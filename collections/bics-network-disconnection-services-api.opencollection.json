@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management Disconnection Services API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Disconnection Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request to submit disconnection order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/disconnections/orders/:orderId/submit",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order Id"
+              }
+            ]
+          },
+          "docs": "Submit your order so that we can start processing it and disconnect numbers as soon as possible."
+        },
+        {
+          "info": {
+            "name": "Delete disconnection order item by order id and order item id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/disconnections/orders/:orderId/orderitems/:orderItemId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order Id"
+              },
+              {
+                "name": "orderItemId",
+                "value": "",
+                "type": "path",
+                "description": "Order Item Id"
+              }
+            ]
+          },
+          "docs": "Remove a number from your order. This method is only allowed when the status is 'Draft'."
+        },
+        {
+          "info": {
+            "name": "Create an empty Disconnection Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/disconnections/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an empty Disconnection Order. With the add Order Item, you can now add numbers to your Disconnection Order.  The location to the order is specified in the response header - **location:** /disconnection/orders/**{orderId}**.\n"
+        },
+        {
+          "info": {
+            "name": "Add disconnection order item by order id",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/disconnections/orders/:orderId/orderitems",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order Id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a number to your order. This method is allowed only when the status is \"Draft\"."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

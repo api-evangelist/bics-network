@@ -1,0 +1,643 @@
+{
+  "item": [
+    {
+      "id": "38dbfb85-7d98-4f6c-b2cc-fd85426b9a83",
+      "name": "CDR",
+      "description": {
+        "content": "The following methods allows you to request your Call Detail Records (CDRs), request the status of your requests and download your CDRs. The CDRs are available for both Inbound and Outbound calls terminated/originated to/from BICS numbers as from the 1st of January  2020.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "020397e7-4669-4d87-b4fc-03fa7ceb6a88",
+          "name": "Download CDR Request",
+          "request": {
+            "name": "Download CDR Request",
+            "description": {
+              "content": "This method allows you download CDR requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdrs",
+                ":id",
+                "download",
+                ":format"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) CDR request ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "format",
+                  "description": "(Required) allowed values are <ul> <li>\"json\" - default value if not specified in the request</li> <li>\"csv\" - values are separated by semi-colon</li> </ul>"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ab4f6e8-1097-401f-ae5c-741745044f77",
+              "name": "Download CDRS (application/octet-stream)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs",
+                    ":id",
+                    "download",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) CDR request ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) allowed values are <ul> <li>\"json\" - default value if not specified in the request</li> <li>\"csv\" - values are separated by semi-colon</li> </ul>"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n     'product': 'IBN',\\n     'customerPoP': 'POP EU',\\n     'direction': 'Inbound',\\n     'originCountry': 'BEL',\\n     'destinationCountry': 'FRA',\\n     'accessNumber': '3315467894',\\n     'customerRoutingNumber': '1233311551556',\\n     'aNumber': '3221236598',\\n     'bNumber': '3311551556',\\n     'accessType': 'FixMobPay',\\n     'callTimestamp': '2019-07-11 15:16:49',\\n     'durationMinutes': 24.267,\\n     'durationSeconds': 1456,\\n     'releaseCauseCode': 16,\\n     'releaseCauseDescription': 'normal call clearing',\\n     'ibisCode': '',\\n     'profile': 'Profile A',\\n     'sipCallId': '',\\n     'calendar': 'SINT',\\n     'tde': 'STD'\\n  },\\n  {\\n    …\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a5fc58a-892e-4105-8f08-0dc0dad98fec",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs",
+                    ":id",
+                    "download",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) CDR request ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) allowed values are <ul> <li>\"json\" - default value if not specified in the request</li> <li>\"csv\" - values are separated by semi-colon</li> </ul>"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-01-15T16:12:27.747Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "473eeee6-fe32-4874-8850-b22ba4b645dd",
+              "name": "Not found, verify url and/or id used in the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs",
+                    ":id",
+                    "download",
+                    ":format"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) CDR request ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "format",
+                      "description": "(Required) allowed values are <ul> <li>\"json\" - default value if not specified in the request</li> <li>\"csv\" - values are separated by semi-colon</li> </ul>"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"EXXX\",\n  \"description\": \"Description of the error that occurred.\",\n  \"timestamp\": \"1987-01-15T16:12:27.747Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a2d71ad3-e53d-48f8-a7d8-e363d3e63a73",
+          "name": "Get status of CDR Request",
+          "request": {
+            "name": "Get status of CDR Request",
+            "description": {
+              "content": "This method allows you to request the status of your CDR request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdrs",
+                ":id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) CDR request ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "876e4be9-9a11-4e9b-a18b-615c691c2866",
+              "name": "Successful operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs",
+                    ":id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) CDR request ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'status': 'Executing'\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1142aeb7-5563-44e6-ac6e-88f025103773",
+              "name": "Not found, verify url and/or id used in the request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs",
+                    ":id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) CDR request ID"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7cbadd0-690d-4bcf-993c-9d70ca79bcf4",
+          "name": "Get available CDR dates",
+          "request": {
+            "name": "Get available CDR dates",
+            "description": {
+              "content": "This method allows you to verify upfront if CDR data is available for a specific date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cdrs",
+                "availableDates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<string>",
+                  "description": "(Required) Filter by from date. Not earlier than today – 1 year. The format of the date is YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<string>",
+                  "description": "(Required) Filter by to date. Not earlier than today – 1 year. The format of the date is YYYY-MM-DD."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aabce374-dfbf-46f4-82a3-903fe7993872",
+              "name": "List of available CDR dates.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs",
+                    "availableDates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "2022-08-01"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2022-08-03"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'date': '2022-08-01',\\n    'status': 0\\n  },\\n  {\\n    'date': '2022-08-02',\\n    'status': 1\\n  },\\n  {\\n    'date': '2022-08-03',\\n    'status': 2\\n  },\\n  {\\n  ...\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dea3f1b7-a05d-46bb-9f27-72487039b4fc",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs",
+                    "availableDates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "2022-08-01"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2022-08-03"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'code' : 'E088',\\n  'description' : 'Date range not valid.'\\n  'timestamp' : '2022-08-15T15:02:35.737+02:00'\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4faf207e-acd8-4b3c-989f-9ecb55d1b6b8",
+          "name": "Request CDRs",
+          "request": {
+            "name": "Request CDRs",
+            "description": {},
+            "url": {
+              "path": [
+                "cdrs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fromDate\": \"<date>\",\n  \"product\": \"<string>\",\n  \"toDate\": \"<date>\",\n  \"aNumber\": \"<string>\",\n  \"releaseCauseCode\": \"<long>\",\n  \"aCountry\": \"<string>\",\n  \"include0Duration\": \"<boolean>\",\n  \"bCountry\": \"<string>\",\n  \"bNumber\": \"<string>\",\n  \"direction\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "87087311-5a9b-4c40-8fae-255b972ad3dd",
+              "name": "Successful operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromDate\": \"<date>\",\n  \"product\": \"<string>\",\n  \"toDate\": \"<date>\",\n  \"aNumber\": \"<string>\",\n  \"releaseCauseCode\": \"<long>\",\n  \"aCountry\": \"<string>\",\n  \"include0Duration\": \"<boolean>\",\n  \"bCountry\": \"<string>\",\n  \"bNumber\": \"<string>\",\n  \"direction\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'id': 105148,\\n  'status': 'Requested'\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8531a1a8-82ea-44d1-a28b-50deadac5539",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cdrs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fromDate\": \"<date>\",\n  \"product\": \"<string>\",\n  \"toDate\": \"<date>\",\n  \"aNumber\": \"<string>\",\n  \"releaseCauseCode\": \"<long>\",\n  \"aCountry\": \"<string>\",\n  \"include0Duration\": \"<boolean>\",\n  \"bCountry\": \"<string>\",\n  \"bNumber\": \"<string>\",\n  \"direction\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'code' : 'E020',\\n  'description' : 'Please fill out all the mandatory attributes.'\\n  'timestamp' : '2019-07-11T15:16:49.53+02:00'\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b1ef26bb-a629-4148-b7ee-84f24028c92b",
+    "name": "connect Address Management CDR API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

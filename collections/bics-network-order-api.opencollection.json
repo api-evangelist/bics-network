@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management order API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Order easily single or multiple number(s) that we have in our stock.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/order/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Order easily single or multiple number(s) that we have in our stock. The method _/order_ provisions the number on the fly. In other words, the number can be used immediately after the API call.\n\nYou just have to fill out in your request the product and the country. Location, area code, quantity of numbers and routing details can be provided to better fit your needs. The content type of the request must be _application/json_.\n\nYou can also provide as an input one or multiple specific number(s) th"
+        },
+        {
+          "info": {
+            "name": "Get order by order id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/order/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "A given order identifier"
+              }
+            ]
+          },
+          "docs": "The _/order/{orderId}_ method allows you to retrieve the details of a given order. As a response you will receive all information linked to the order that would help you manage it at your convenience."
+        },
+        {
+          "info": {
+            "name": "Order a single available number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/order",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Order easily single number that we have in our stock. The method _/order_ provisions the number on the fly. In other words, the number can be used immediately after the API call.\n\nYou just have to fill out in your request the product and the country. Location, area code,  and routing details can be provided to better fit your needs.\n\nThe content type of the request must be application/json. For some countries, you also need to specify the reference of the address of the end subscriber. For more "
+        },
+        {
+          "info": {
+            "name": "Edit order by change address reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.bics.com/connect/v1/order/:orderReference/orderItem/:orderItemReference",
+            "params": [
+              {
+                "name": "orderReference",
+                "value": "",
+                "type": "path",
+                "description": "A given order reference"
+              },
+              {
+                "name": "orderItemReference",
+                "value": "",
+                "type": "path",
+                "description": "A given order item reference"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _/order/{orderReference}/orderItem/{orderItemReference}_ method allows you to change the address reference linked to an order item. It must be used in case the address that you initially provided is not valid and you want to provide another one to fulfil the order."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

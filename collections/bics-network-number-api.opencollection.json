@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management number API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "number",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete address reference linked to number(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/numbers/addressReference"
+          },
+          "docs": "The method _/numbers/addressReference_. You can retrieve the current address linked to a number by calling the method /numbers/{number}. You can update the address by calling the method _/numbers/addressReferences._ You can retrieve a list of your addresses by calling the method _/addresses._ If the address is mandatory by country specifications, you are not allowed to delete the address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

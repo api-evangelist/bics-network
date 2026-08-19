@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management specification API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "specification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get specifications by product including not offered anymore",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/specifications",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Get specifications by product. Possible values\n<ul>\n  <li>\"IBN\" for Cloud Number</li>\n  <li>\"ITFS\" for International Freephone Number</li>\n  <li>\"GMN\" for Global Mobile Number</li>\n</ul>\n"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Get specifications by country in ISO 3166-1 alpha-3 format."
+              },
+              {
+                "name": "profile",
+                "value": "",
+                "type": "query",
+                "description": "Tariff differentiation within a country. It intervenes in the billing. Only valid in combination with country."
+              },
+              {
+                "name": "includeNotOfferedAnymore",
+                "value": "",
+                "type": "query",
+                "description": "Show specifications for active numbers for products and countries that are not offered anymore."
+              }
+            ]
+          },
+          "docs": "This method allows you to get specifications/restrictions for products offered within your pricelist and/or inventory."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

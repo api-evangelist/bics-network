@@ -1,0 +1,171 @@
+{
+  "item": [
+    {
+      "id": "0c163076-0e1f-4bd0-aefe-bf86797700bf",
+      "name": "Porting Specification",
+      "description": {
+        "content": "Recive porting specification",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5923eaf0-affc-4cf7-a073-5c8b5e75e7e7",
+          "name": "This API method returns the list of number portability specification per Product, Country.\nA portability specification item is the list of portability specification attributes related to the pair Product and Country.\nIt is possible to filter out the list of portability specifications items by product and/or country.\n",
+          "request": {
+            "name": "This API method returns the list of number portability specification per Product, Country.\nA portability specification item is the list of portability specification attributes related to the pair Product and Country.\nIt is possible to filter out the list of portability specifications items by product and/or country.\n",
+            "description": {
+              "content": "This API method returns the list of porting specifications. It is possible to filter out the list of porting specifications items by _Product_ and/or _Country_.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portings",
+                "specifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "product",
+                  "value": "<string>",
+                  "description": "Get specifications by product. Possible values\n    - 'IBN' for Cloud Number\n    - 'ITFS' for International Freephone Number\n    - 'GMN' for Global Mobile Number\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Get specifications by country in ISO 3166-1 alpha-3 format."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd46203f-080b-43e9-9789-1e8670076cda",
+              "name": "List of porting specifications.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    "specifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "GBR"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n {\\n    'id': '10123',\\n    'product': 'IBN',\\n    'country': 'AUS',\\n    'portabilityType': 'Number Portability',\\n    'portingSpecifications': 'LOA:Hand signature and Company stamp are mandatory, name written in capital letters.',\\n    'addressRequirement': {\\n        'type': 'Required in Region',\\n        'proofOfDocuments': true,\\n        'documentTypesForIndividual': [\\n        {\\n            'code': 'POD01',\\n            'description': 'Copy of Passport or End-User ID'\\n        },\\n        { …  }\\n        ],\\n        'documentTypesForCompany': [\\n        {\\n            'code': ' POD02',\\n            'description': 'Company Registration'\\n        },\\n        { …  }\\n       ]\\n    },\\n    'minLeadTime': 5,\\n    'maxLeadTime': 10,\\n    'lastModified': '2020-11-25T15:45:56+01:00'\\n },\\n {\\n    'id': '10124',\\n    'product': 'IBN',\\n    'country': 'AUT',\\n    …\\n }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "383170fc-689a-424c-9fee-028994f2009f",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    "specifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "GBR"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"2009-11-10T09:49:59.549Z\"\n  },\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"2023-04-22T21:33:03.347Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "21c2da01-06fd-4fba-a69a-670a28d277e0",
+    "name": "connect Address Management Porting Specification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

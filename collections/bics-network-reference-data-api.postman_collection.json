@@ -1,0 +1,248 @@
+{
+  "item": [
+    {
+      "id": "27882900-8111-4ac7-ab73-a9a64966d9e8",
+      "name": "Reference Data",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "37338e0d-21e1-44a8-bd10-c8e646b87c79",
+          "name": "Reference Data",
+          "request": {
+            "name": "Reference Data",
+            "description": {
+              "content": "Get list of cloud service providers",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "refdata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "service",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "service",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "region",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "protectionScheme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "protectionScheme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "bandwidth",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "bandwidth",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b0d19e87-cf7e-4524-a839-18ab970707d0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "refdata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "service",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "service",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "region",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protectionScheme",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protectionScheme",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bandwidth",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bandwidth",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "currency",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[{\\\"identifier\\\":\\\"CLOUD_CONNECT\\\",\\\"type\\\":\\\"SERVICE\\\",\\\"label\\\":\\\"Cloud Connect\\\",\\\"dependencies\\\":[],\\\"conditions\\\":[],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"AWS_AMAZON\\\",\\\"type\\\":\\\"PROVIDER\\\",\\\"label\\\":\\\"AWS Amazon\\\",\\\"dependencies\\\":[\\\"SERVICE\\\"],\\\"conditions\\\":[{\\\"SERVICE\\\":[\\\"CLOUD_CONNECT\\\"]}],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"GOOGLE_CLOUD\\\",\\\"type\\\":\\\"PROVIDER\\\",\\\"label\\\":\\\"Google Cloud\\\",\\\"dependencies\\\":[\\\"SERVICE\\\"],\\\"conditions\\\":[{\\\"SERVICE\\\":[\\\"CLOUD_CONNECT\\\"]}],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"us-west-1\\\",\\\"type\\\":\\\"REGION\\\",\\\"label\\\":\\\"us-west-1\\\",\\\"dependencies\\\":[\\\"PROVIDER\\\"],\\\"conditions\\\":[{\\\"PROVIDER\\\":[\\\"AWS_AMAZON\\\"]}],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"us-east-1\\\",\\\"type\\\":\\\"REGION\\\",\\\"label\\\":\\\"us-east-1\\\",\\\"dependencies\\\":[\\\"PROVIDER\\\"],\\\"conditions\\\":[{\\\"PROVIDER\\\":[\\\"AWS_AMAZON\\\"]}],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"us-central1\\\",\\\"type\\\":\\\"REGION\\\",\\\"label\\\":\\\"us-central1 (Iowa)\\\",\\\"dependencies\\\":[\\\"PROVIDER\\\"],\\\"conditions\\\":[{\\\"PROVIDER\\\":[\\\"GOOGLE_CLOUD\\\"]}],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"CC_UNPROTECTED\\\",\\\"type\\\":\\\"PROTECTION_SCHEME\\\",\\\"label\\\":\\\"Unprotected\\\",\\\"dependencies\\\":[\\\"SERVICE\\\"],\\\"conditions\\\":[{\\\"SERVICE\\\":[\\\"CLOUD_CONNECT\\\"]}],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"CC_PROTECTED\\\",\\\"type\\\":\\\"PROTECTION_SCHEME\\\",\\\"label\\\":\\\"Protected\\\",\\\"dependencies\\\":[\\\"SERVICE\\\"],\\\"conditions\\\":[{\\\"SERVICE\\\":[\\\"CLOUD_CONNECT\\\"]}],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"CC_DVR_CSP\\\",\\\"type\\\":\\\"PROTECTION_SCHEME\\\",\\\"label\\\":\\\"Diverse Routing CSP side\\\",\\\"dependencies\\\":[\\\"SERVICE\\\"],\\\"conditions\\\":[{\\\"SERVICE\\\":[\\\"CLOUD_CONNECT\\\"]}],\\\"additionalAttributes\\\":{}},{\\\"identifier\\\":\\\"1MONTH\\\",\\\"type\\\":\\\"TERM\\\",\\\"label\\\":\\\"1 Month\\\",\\\"dependencies\\\":[\\\"PROVIDER\\\"],\\\"conditions\\\":[{\\\"PROVIDER\\\":[\\\"AWS_AMAZON\\\",\\\"GOOGLE_CLOUD\\\",\\\"AZURE_ER_C3\\\"]}],\\\"additionalAttributes\\\":{\\\"daysInTerm\\\":\\\"30\\\"}},{\\\"identifier\\\":\\\"10MONTHS\\\",\\\"type\\\":\\\"TERM\\\",\\\"label\\\":\\\"10 Months\\\",\\\"dependencies\\\":[\\\"PROVIDER\\\"],\\\"conditions\\\":[{\\\"PROVIDER\\\":[\\\"GOOGLE_CLOUD\\\"]}],\\\"additionalAttributes\\\":{\\\"daysInTerm\\\":\\\"300\\\"}},{\\\"identifier\\\":\\\"24MONTHS\\\",\\\"type\\\":\\\"TERM\\\",\\\"label\\\":\\\"2 Years\\\",\\\"dependencies\\\":[\\\"SERVICE\\\",\\\"PROVIDER\\\",\\\"REGION\\\",\\\"PROTECTION_SCHEME\\\"],\\\"conditions\\\":[{\\\"PROVIDER\\\":[\\\"AWS\\\"],\\\"REGION\\\":[\\\"us-west-1\\\"],\\\"PROTECTION_SCHEME\\\":[\\\"PROTECTED\\\"]},{\\\"PROVIDER\\\":[\\\"AWS\\\"],\\\"PROTECTION_SCHEME\\\":[\\\"UNPROTECTED\\\"]},{\\\"PROVIDER\\\":[\\\"GOOGLE\\\"]}],\\\"additionalAttributes\\\":{\\\"daysInTerm\\\":\\\"720\\\"}},{\\\"identifier\\\":\\\"100MBS\\\",\\\"type\\\":\\\"BANDWIDTH\\\",\\\"label\\\":\\\"100 Mbps\\\",\\\"dependencies\\\":[\\\"PROVIDER\\\"],\\\"conditions\\\":[{\\\"PROVIDER\\\":[\\\"AWS_AMAZON\\\",\\\"GOOGLE_CLOUD\\\",\\\"AZURE_ER_C3\\\"]}],\\\"additionalAttributes\\\":{\\\"kbps\\\":\\\"100000\\\"}},{\\\"identifier\\\":\\\"1GBS\\\",\\\"type\\\":\\\"BANDWIDTH\\\",\\\"label\\\":\\\"1 Gbps\\\",\\\"dependencies\\\":[\\\"PROVIDER\\\"],\\\"conditions\\\":[{\\\"PROVIDER\\\":[\\\"AWS_AMAZON\\\",\\\"GOOGLE_CLOUD\\\",\\\"AZURE_ER_C3\\\"]}],\\\"additionalAttributes\\\":{\\\"kbps\\\":\\\"1000000\\\"}},{\\\"identifier\\\":\\\"EUR\\\",\\\"type\\\":\\\"CURRENCY\\\",\\\"label\\\":\\\"EUR\\\",\\\"dependencies\\\":[],\\\"conditions\\\":[],\\\"additionalAttributes\\\":{\\\"exchangeRate\\\":\\\"1\\\"}},{\\\"identifier\\\":\\\"USD\\\",\\\"type\\\":\\\"CURRENCY\\\",\\\"label\\\":\\\"USD\\\",\\\"dependencies\\\":[],\\\"conditions\\\":[],\\\"additionalAttributes\\\":{\\\"exchangeRate\\\":\\\"1.08\\\"}},{\\\"identifier\\\":\\\"GBP\\\",\\\"type\\\":\\\"CURRENCY\\\",\\\"label\\\":\\\"GBP\\\",\\\"dependencies\\\":[],\\\"conditions\\\":[],\\\"additionalAttributes\\\":{\\\"exchangeRate\\\":\\\"0.876\\\"}}]\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a692e46f-b9d6-4679-80b6-81eba2f862d3",
+    "name": "connect Address Management Reference Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}

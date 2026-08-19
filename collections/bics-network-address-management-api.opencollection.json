@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Address Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the address by address reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/addresses/:reference",
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "path",
+                "description": "reference of the address"
+              }
+            ]
+          },
+          "docs": "Retrieve a single address identified by its address reference. An address is composed of the address detail (Street Name, Street Number,...) and the reference."
+        },
+        {
+          "info": {
+            "name": "Edit an address in your address book.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.bics.com/connect/v1/addresses/:reference",
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "path",
+                "description": "reference of the address"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit an address in your address book. You must specify in the request all the attributes of the address even those you do not want to change. The end subscriber type cannot change after the creation of an address. If an address is linked to any active numbers, or any order, it can not be updated."
+        },
+        {
+          "info": {
+            "name": "Delete an address from your address book.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/addresses/:reference",
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "path",
+                "description": "Reference of the address"
+              }
+            ]
+          },
+          "docs": "Delete an address identified by its reference. This service deletes the address from your address book as well as all documents linked to this address. It is not possible to delete an address as long as you have active Cloud Numbers linked to this address."
+        },
+        {
+          "info": {
+            "name": "Delete Document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.bics.com/connect/v1/addresses/:reference/documentTypeCode/:code",
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "path",
+                "description": "address reference"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "path",
+                "description": "Code of type of uploaded document.\n\nSee API _/reference/documenttypes_ for all possible values."
+              }
+            ]
+          },
+          "docs": "<h2><b><span class=\"warning\">***<i>DEPRECATED</i></span></b></h2><br/> <span class=\"warning\">This method is deprecated. Please use new Delete By Reference method.</span><br/> Delete a proof document linked to one of your addresses. You can only delete existing documents when the status of the document is 'Submitted', 'Rejected' or 'Declined'.\n\nThe Address reference and document type code must be specified in the url."
+        },
+        {
+          "info": {
+            "name": "Add a proof document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/addresses/:reference/documents",
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "path",
+                "description": "reference of the address"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "documentTypeCode",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Add a proof document and link it to one of your addresses.  After the creation of an address, you can call this service for each document you want to link to this address.  Multiple documents can be added to the same address.  The allowed formats of a document are pdf, doc, docx, png, jpg and tiff.  The Address reference must be specified in the url, the content type of the request must be form-data and the document need to be added as an attachment in the request. In the response of this servic"
+        },
+        {
+          "info": {
+            "name": "Retrieve the list of your addresses.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/addresses",
+            "params": [
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code in ISO 3166-1 alpha-3 format."
+              }
+            ]
+          },
+          "docs": "Retrieve the list of your addresses. Each address is composed of the address detail (Street Name, Street Number, etc.) and the reference of the address.\n\nIf you want to get the list of your addresses for a specific country, you can use the input parameter country."
+        },
+        {
+          "info": {
+            "name": "Add an address in your address book",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/addresses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new address in your address book with the aim of ordering Cloud Numbers in countries where address is required. BICS is obliged to collect the address of the end user for these countries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

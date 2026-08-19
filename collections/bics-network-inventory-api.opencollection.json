@@ -1,0 +1,113 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "connect Address Management inventory API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve the list of numbers in your inventory.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/numbers",
+            "params": [
+              {
+                "name": "product",
+                "value": "",
+                "type": "query",
+                "description": "Filter your inventory by product."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Filter your inventory by country in ISO 3166-1 alpha-3 format."
+              },
+              {
+                "name": "location",
+                "value": "",
+                "type": "query",
+                "description": "Filter your inventory by location. (Not applicable for product GMN)."
+              },
+              {
+                "name": "areaCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter your inventory by areaCode."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter your inventory by status. Valid status values are _Active_ and _Deactivated_. _Active_ referring to numbers provisioned and _Deactivated_ referring to numbers disconnected."
+              },
+              {
+                "name": "number",
+                "value": "",
+                "type": "query",
+                "description": "Filter your inventory by number. Exact match is applied."
+              },
+              {
+                "name": "activeServiceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>"
+              },
+              {
+                "name": "availableServiceCode",
+                "value": "",
+                "type": "query",
+                "description": "Filter your inventory by services. You can filter on multiple values. Possible values. <ul> <li>IC - Inbound Call</li> <li>NOC - National Outbound Call</li> <li>IOC - International Outbound Call</li> <li>ES - Emergency Services</li> <li>DS - Directory Services</li> <li>IM - Inbound Messaging</li> <li>NOM - National Outbound Messaging</li> <li>IOM - International Outbound Messaging</li> </ul>"
+              }
+            ]
+          },
+          "docs": "The _/numbers_ method allows you to retrieve the list of numbers in your inventory. You can retrieve the full list of your numbers in one call or filter out your request by providing the product, country, location, area code, status and number. As a response you will receive information linked to the number(s) that would help you manage them at your convenience."
+        },
+        {
+          "info": {
+            "name": "Retrieve the details of a given number from your inventory.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.bics.com/connect/v1/numbers/:number",
+            "params": [
+              {
+                "name": "number",
+                "value": "",
+                "type": "path",
+                "description": "A given number from your inventory."
+              }
+            ]
+          },
+          "docs": "The _/numbers/{number}_ method allows you to retrieve the details of a given number from your inventory. As a response you will receive all information linked to the numbers that would help you manage them at your convenience (origin, status, address reference, pricing and routing details)."
+        },
+        {
+          "info": {
+            "name": "Add or update address reference linked to number(s)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.bics.com/connect/v1/numbers/addressReferences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The method _/numbers/addressReferences_ allows you to add or change the address linked to one or multiple number(s). You can retrieve the current address linked to a number by calling the method _/numbers/{number}_. You can retrieve a list of your addresses by calling the method _/addresses_."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

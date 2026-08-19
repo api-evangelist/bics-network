@@ -1,0 +1,1208 @@
+{
+  "item": [
+    {
+      "id": "ace3909d-7837-472c-9761-8703660e6ca6",
+      "name": "porting",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "17847434-8550-4371-844b-ea13dc76bdda",
+          "name": "This method allows you to get your documents allowed for porting request.",
+          "request": {
+            "name": "This method allows you to get your documents allowed for porting request.",
+            "description": {
+              "content": "Get all the documents and their status linked to specified Porting Request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portings",
+                ":portingRequestId",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "portingRequestId",
+                  "description": "(Required) Unique identifier for a porting request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21ee9266-919d-47d3-a4ea-1143ba86f5b7",
+              "name": "List of porting documents.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'documentReference': 'ac0334bc-da81-48a9-a64d-5f54474b2d35',\\n    'fileName': 'proofOfAddress.pdf',\\n    'size': 139769,\\n    'status': 'Uploaded',\\n    'created': '2018-09-07T10:10:59Z',\\n    'comment': '',\\n    'documentType': {\\n      'code': 'POD4',\\n      'description': 'Letter of Intent (LOI)'\\n    }\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a16f2de7-4b86-4b57-a4ec-418372df290c",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1960-09-25T20:26:53.141Z\"\n  },\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1955-11-04T09:37:08.364Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9113534-930a-4964-a1db-46e6d4c2a1a4",
+              "name": "Request is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1960-09-25T20:26:53.141Z\"\n  },\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1955-11-04T09:37:08.364Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d790994-4f0b-44b9-9fd0-43dfa9bb1712",
+          "name": "This method allows you to add documents to the porting request.",
+          "request": {
+            "name": "This method allows you to add documents to the porting request.",
+            "description": {
+              "content": "Update documents in the porting request. This method is used to add documents to the porting request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portings",
+                ":portingRequestId",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "portingRequestId",
+                  "description": "(Required) Unique identifier for a porting request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"documentReference\": \"<string>\"\n  },\n  {\n    \"documentReference\": \"<string>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bb34d72e-2df9-46e4-9dc8-4fb3b57729e7",
+              "name": "Successful operation. Documents were linked sucessfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"documentReference\": \"<string>\"\n  },\n  {\n    \"documentReference\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a61410c-1447-4c0e-af13-6f4335f98084",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"documentReference\": \"<string>\"\n  },\n  {\n    \"documentReference\": \"<string>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'code' : 'E033',\\n    'description' : 'There is no address with this reference in our system. Please correct the reference.'\\n    'timestamp' : '2022-01-11T15:16:49.53+02:00'\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d507a10-c3ca-4107-bb20-a094b3a5f44a",
+          "name": "This method allows you to get a list of your porting requests.",
+          "request": {
+            "name": "This method allows you to get a list of your porting requests.",
+            "description": {
+              "content": "Get porting request details by porting request ID , product, country, bicsReference, customerReference.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "portingRequestId",
+                  "value": "<string>",
+                  "description": "Get a porting by id,  this id is returned when you call the method for creating a porting request."
+                },
+                {
+                  "disabled": false,
+                  "key": "product",
+                  "value": "<string>",
+                  "description": "Get portings by product. Valid product codes are IBN, GMN and ITFS. IBN referring to Cloud Number, GMN referring to Global Mobile Number and ITFS referring to International Freephone Number."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Get portings by country in ISO 3166-1 alpha-3 format."
+                },
+                {
+                  "disabled": false,
+                  "key": "bicsReference",
+                  "value": "<string>",
+                  "description": "Get a porting by BICS reference."
+                },
+                {
+                  "disabled": false,
+                  "key": "customerReference",
+                  "value": "<string>",
+                  "description": "Get portings by your reference."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19535c27-0728-47b5-97fa-6e0e92105cd7",
+              "name": "List of porting requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "portingRequestId",
+                      "value": "123"
+                    },
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "GBR"
+                    },
+                    {
+                      "key": "bicsReference",
+                      "value": "SC1162160"
+                    },
+                    {
+                      "key": "customerReference",
+                      "value": "CustRef"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'portingRequestId': '10564',\\n    'bicsReference': 'SC541259',\\n    'customerReference': 'your reference',\\n    'product': 'IBN',\\n    'country': 'FRA',\\n    'estimatedVolume': '10.000 - 100.000',\\n    'numbers': [\\n      {\\n        'numberFrom': '33184212841',\\n        'numberTo': '33184212848',\\n        'numberStatus': 'Partially Accepted',\\n        'location': 'Paris',\\n        'areaCode': '184',\\n        'routing': [\\n          {\\n            'accessType': 'fixMobPay',\\n            'accessNetwork': null,\\n            'crnType': 'prefix',\\n            'crnValue': '33184A',\\n            'pop': 'POP FRANCE'\\n          }\\n        ]\\n      },\\n      {\\n        'numberFrom': '33184213489',\\n        'numberTo': null,\\n        'numberStatus': 'Under verification',\\n        'location': 'Paris',\\n        'areaCode': '184',\\n        'routing': [\\n          {\\n            'accessType': 'fixMobPay',\\n            'accessNetwork': 'SMART',\\n            'crnType': 'freetext',\\n            'crnValue': '334458124588',\\n            'pop': 'POP FRANCE'\\n          },\\n          {\\n            'accessType': 'fix',\\n            'accessNetwork': null,\\n            'crnType': 'freetext',\\n            'crnValue': '334458124588',\\n            'pop': 'POP FRANCE'\\n          }\\n        ]\\n      }\\n    ],\\n    'status': 'New',\\n    'addresses': {\\n      'endUserAddress': {\\n        'reference': '1247b1ca-ffec-4576-be45-c837cdbff546'\\n      },\\n      'portingAddress': {\\n        'reference': '365c51a4-07b8-4b04-bb6c-cbf1a1cc2205'\\n      }\\n    },\\n    'preferredDate': '2021-10-12',\\n    'comment': 'Please provide a valid LOA',\\n    'additionalInfo': 'This is some Additional Info for the Porting Case',\\n    'created': '2019-07-09T10:10:59Z',\\n    'lastModified': '2019-07-09T10:10:59Z'\\n  },\\n  {\\n    ...\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18ce1add-27f1-4574-94af-95d46824edef",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "portingRequestId",
+                      "value": "123"
+                    },
+                    {
+                      "key": "product",
+                      "value": "IBN"
+                    },
+                    {
+                      "key": "country",
+                      "value": "GBR"
+                    },
+                    {
+                      "key": "bicsReference",
+                      "value": "SC1162160"
+                    },
+                    {
+                      "key": "customerReference",
+                      "value": "CustRef"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1960-09-25T20:26:53.141Z\"\n  },\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1955-11-04T09:37:08.364Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60495838-8c0c-48da-b151-7f8ce047ed9e",
+          "name": "This method allows you to create porting request",
+          "request": {
+            "name": "This method allows you to create porting request",
+            "description": {
+              "content": "Create Porting Request for your numbers via API. The method Create Porting Request will document porting request with all necessary details so our Porting team can process it. </br>You just need to fill out in the request :Product, Country, Estimated Volume, Numbers, End user and Porting Address reference, Document reference. </br>End user address reference and Porting Address reference are response of the API when new address was successfully created. (Create Address method) </br>Document reference are the response from the API when the documents are linked to address. (Add document method) </br>Reference, Preferred date and Additional info are not mandatory fields still they can help customers for better communication with our porting team and add extra info.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reference\": \"<string>\",\n  \"country\": \"<string>\",\n  \"addresses\": {\n    \"portingAddress\": {\n      \"reference\": \"<string>\"\n    },\n    \"endUserAddress\": {\n      \"reference\": \"<string>\"\n    }\n  },\n  \"product\": \"<string>\",\n  \"documents\": [\n    {\n      \"documentReference\": \"<string>\"\n    },\n    {\n      \"documentReference\": \"<string>\"\n    }\n  ],\n  \"additionalInfo\": \"<string>\",\n  \"numbers\": [\n    {\n      \"routing\": [\n        {\n          \"crnType\": \"<string>\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"<string>\",\n          \"accessNetwork\": \"<string>\",\n          \"crnValue\": \"<string>\"\n        },\n        {\n          \"crnType\": \"<string>\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"<string>\",\n          \"accessNetwork\": \"<string>\",\n          \"crnValue\": \"<string>\"\n        }\n      ],\n      \"numberFrom\": \"<string>\",\n      \"numberTo\": \"<string>\"\n    },\n    {\n      \"routing\": [\n        {\n          \"crnType\": \"<string>\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"<string>\",\n          \"accessNetwork\": \"<string>\",\n          \"crnValue\": \"<string>\"\n        },\n        {\n          \"crnType\": \"<string>\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"<string>\",\n          \"accessNetwork\": \"<string>\",\n          \"crnValue\": \"<string>\"\n        }\n      ],\n      \"numberFrom\": \"<string>\",\n      \"numberTo\": \"<string>\"\n    }\n  ],\n  \"estimatedVolume\": \"<integer>\",\n  \"preferredDate\": \"<date>\",\n  \"email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d264cc05-4438-41b7-9e10-42f21ce50370",
+              "name": "Successful operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"<string>\",\n  \"country\": \"<string>\",\n  \"addresses\": {\n    \"portingAddress\": {\n      \"reference\": \"<string>\"\n    },\n    \"endUserAddress\": {\n      \"reference\": \"<string>\"\n    }\n  },\n  \"product\": \"<string>\",\n  \"documents\": [\n    {\n      \"documentReference\": \"<string>\"\n    },\n    {\n      \"documentReference\": \"<string>\"\n    }\n  ],\n  \"additionalInfo\": \"<string>\",\n  \"numbers\": [\n    {\n      \"routing\": [\n        {\n          \"crnType\": \"prefix\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"America\",\n          \"accessNetwork\": \"SMART\",\n          \"crnValue\": \"259AB\"\n        },\n        {\n          \"crnType\": \"prefix\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"America\",\n          \"accessNetwork\": \"SMART\",\n          \"crnValue\": \"259AB\"\n        }\n      ],\n      \"numberFrom\": \"<string>\",\n      \"numberTo\": \"<string>\"\n    },\n    {\n      \"routing\": [\n        {\n          \"crnType\": \"prefix\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"America\",\n          \"accessNetwork\": \"SMART\",\n          \"crnValue\": \"259AB\"\n        },\n        {\n          \"crnType\": \"prefix\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"America\",\n          \"accessNetwork\": \"SMART\",\n          \"crnValue\": \"259AB\"\n        }\n      ],\n      \"numberFrom\": \"<string>\",\n      \"numberTo\": \"<string>\"\n    }\n  ],\n  \"estimatedVolume\": \"<integer>\",\n  \"preferredDate\": \"<date>\",\n  \"email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'portingRequestId': 10564\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d35c5a91-b04b-4de8-ae41-bd46ce0a6304",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"<string>\",\n  \"country\": \"<string>\",\n  \"addresses\": {\n    \"portingAddress\": {\n      \"reference\": \"<string>\"\n    },\n    \"endUserAddress\": {\n      \"reference\": \"<string>\"\n    }\n  },\n  \"product\": \"<string>\",\n  \"documents\": [\n    {\n      \"documentReference\": \"<string>\"\n    },\n    {\n      \"documentReference\": \"<string>\"\n    }\n  ],\n  \"additionalInfo\": \"<string>\",\n  \"numbers\": [\n    {\n      \"routing\": [\n        {\n          \"crnType\": \"prefix\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"America\",\n          \"accessNetwork\": \"SMART\",\n          \"crnValue\": \"259AB\"\n        },\n        {\n          \"crnType\": \"prefix\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"America\",\n          \"accessNetwork\": \"SMART\",\n          \"crnValue\": \"259AB\"\n        }\n      ],\n      \"numberFrom\": \"<string>\",\n      \"numberTo\": \"<string>\"\n    },\n    {\n      \"routing\": [\n        {\n          \"crnType\": \"prefix\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"America\",\n          \"accessNetwork\": \"SMART\",\n          \"crnValue\": \"259AB\"\n        },\n        {\n          \"crnType\": \"prefix\",\n          \"accessType\": \"<string>\",\n          \"pop\": \"America\",\n          \"accessNetwork\": \"SMART\",\n          \"crnValue\": \"259AB\"\n        }\n      ],\n      \"numberFrom\": \"<string>\",\n      \"numberTo\": \"<string>\"\n    }\n  ],\n  \"estimatedVolume\": \"<integer>\",\n  \"preferredDate\": \"<date>\",\n  \"email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'code' : 'E020',\\n    'description' : 'Please fill out all the mandatory attributes.'\\n    'timestamp' : '2019-07-11T15:16:49.53+02:00'\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "654c17eb-5a0c-4481-bf8c-690dcd74af96",
+          "name": "This method allows you to update End User Address and Porting Address in a porting request",
+          "request": {
+            "name": "This method allows you to update End User Address and Porting Address in a porting request",
+            "description": {
+              "content": "Update address references in a porting request. Address can be updated only for Porting Request in status \"New\" or \"On Hold, More Information Required\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portings",
+                ":portingRequestId",
+                "addresses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "portingRequestId",
+                  "description": "(Required) Unique identifier for a porting request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"addresses\": {\n    \"portingAddress\": {\n      \"reference\": \"<string>\"\n    },\n    \"endUserAddress\": {\n      \"reference\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d713d54-62dc-4a39-b5fe-8446be01a9b2",
+              "name": "Successful operation. Addresses were updated sucessfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId",
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": {\n    \"portingAddress\": {\n      \"reference\": \"<string>\"\n    },\n    \"endUserAddress\": {\n      \"reference\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cfc13fda-2e58-4c45-8304-e56db9ff2029",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId",
+                    "addresses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"addresses\": {\n    \"portingAddress\": {\n      \"reference\": \"<string>\"\n    },\n    \"endUserAddress\": {\n      \"reference\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'code' : 'E033',\\n    'description' : 'There is no address with this reference in our system. Please correct the reference.'\\n    'timestamp' : '2022-01-11T15:16:49.53+02:00'\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ab6171b-75c7-48e5-914d-4e540f5eac70",
+          "name": "This method allows you to get your porting request.",
+          "request": {
+            "name": "This method allows you to get your porting request.",
+            "description": {
+              "content": "Get the details of a specific Porting Request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portings",
+                ":portingRequestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "portingRequestId",
+                  "description": "(Required) Unique identifier for a porting request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3c3cefc3-8d63-4b49-8f66-3ba4c1317be5",
+              "name": "Porting request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  'portingRequestId': '10564',\\n  'bicsReference': 'SC541259',\\n  'customerReference': 'your reference',\\n  'product': 'IBN',\\n  'country': 'FRA',\\n  'estimatedVolume': '10.000 - 100.000',\\n  'numbers': [\\n    {\\n      'numberFrom': '33184212841',\\n      'numberTo': '33184212848',\\n      'numberStatus': 'Partially Accepted',\\n      'location': 'Paris',\\n      'areaCode': '184',\\n      'routing': [\\n        {\\n          'accessType': 'fixMobPay',\\n          'accessNetwork': null,\\n          'crnType': 'prefix',\\n          'crnValue': '33184A',\\n          'pop': 'POP FRANCE'\\n        }\\n      ]\\n    },\\n    {\\n      'numberFrom': '33184213489',\\n      'numberTo': null,\\n      'numberStatus': 'Under verification',\\n      'location': 'Paris',\\n      'areaCode': '184',\\n      'routing': [\\n        {\\n          'accessType': 'fixMobPay',\\n          'accessNetwork': 'SMART',\\n          'crnType': 'freetext',\\n          'crnValue': '334458124588',\\n          'pop': 'POP FRANCE'\\n        },\\n        {\\n          'accessType': 'fix',\\n          'accessNetwork': null,\\n          'crnType': 'freetext',\\n          'crnValue': '334458124588',\\n          'pop': 'POP FRANCE'\\n        }\\n      ]\\n    }\\n  ],\\n  'status': 'New',\\n  'addresses': {\\n    'endUserAddress': {\\n      'reference': '1247b1ca-ffec-4576-be45-c837cdbff546',\\n      'status': 'Under validation'\\n    },\\n    'portingAddress': {\\n      'reference': '365c51a4-07b8-4b04-bb6c-cbf1a1cc2205',\\n      'status': 'Validated'\\n    }\\n  },\\n  'preferredDate': '2021-10-12',\\n  'comment': 'Please provide a valid LOA',\\n  'additionalInfo': 'This is some Additional Info for the Porting Case',\\n  'created': '2019-07-09T10:10:59Z',\\n  'lastModified': '2019-07-09T10:10:59Z'\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf628b18-f466-4298-afaa-90b4f935230f",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1960-09-25T20:26:53.141Z\"\n  },\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1955-11-04T09:37:08.364Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef5f9b77-6ebc-4a5f-8bb3-78ba3a24a258",
+              "name": "Request is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1960-09-25T20:26:53.141Z\"\n  },\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1955-11-04T09:37:08.364Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31c21eac-0f31-44b2-8fc1-3763a4544e5a",
+          "name": "This method allows you to cancel porting request",
+          "request": {
+            "name": "This method allows you to cancel porting request",
+            "description": {
+              "content": "This method allows you to cancel a porting request. With the method get list of porting requests, you can retrieve its current status. <h3>Reference table Status > Cancellation of porting request allowed</h3> <table> <thead> <tr> <th>Status</th><th>Cancellation allowed</th> </tr> </thead> <tbody> <tr><td>New</td><td>Yes</td></tr> <tr><td>Under verification</td><td>Yes</td></tr> <tr><td>On hold, more information required</td><td>Yes</td></tr> <tr><td>Submitted to operator</td><td>Yes if option 'confirmCancel' is specified in the request</td></tr> <tr><td>Accepted</td><td class=\"text-danger\">No</td></tr> <tr><td>Partially Accepted</td><td class=\"text-danger\">No</td></tr> <tr><td>Refused</td><td class=\"text-danger\">No</td></tr> <tr><td>Completed</td><td class=\"text-danger\">No</td></tr> </tbody> </table>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "portings",
+                ":portingRequestId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "confirmCancel",
+                  "value": "<string>",
+                  "description": "Use this option to cancel the porting request when it is already in status 'Submitted to operator'. You agree that by cancelling the port request at this stage of the process you may be charged for the port request unless some special conditions apply in the respective country."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "portingRequestId",
+                  "description": "(Required) Unique identifier for a porting request."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b62b39b4-463c-46da-a84b-6398dade9728",
+              "name": "Successful operation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirmCancel",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b053b809-bfa2-44fc-92e6-476554e1d3b7",
+              "name": "Bad request, An issue occurred while processing the input parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirmCancel",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"[\\n  {\\n    'code' : 'E091',\\n    'description' : 'Cancellation of porting request is not possible.'\\n    'timestamp' : '2019-07-11T15:16:49.53+02:00'\\n  }\\n]\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "314b47df-4a6d-42fe-82de-f670a4c651e4",
+              "name": "Request id is not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "portings",
+                    ":portingRequestId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "confirmCancel",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "portingRequestId",
+                      "description": "(Required) Unique identifier for a porting request."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1960-09-25T20:26:53.141Z\"\n  },\n  {\n    \"code\": \"EXXX\",\n    \"description\": \"Description of the error that occurred.\",\n    \"timestamp\": \"1955-11-04T09:37:08.364Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bics.com/connect/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e3a6779f-d9d1-4263-9ba9-2264ddd7bfcc",
+    "name": "connect Address Management porting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support.",
+      "type": "text/plain"
+    }
+  }
+}
