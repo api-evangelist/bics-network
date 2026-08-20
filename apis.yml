@@ -163,6 +163,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Document-Management
+  tags_raw:
   - Document Management
   properties:
   - type: OpenAPI
@@ -211,6 +213,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Inventory
+  tags_raw:
   - inventory
   properties:
   - type: OpenAPI
@@ -223,6 +227,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Number
+  tags_raw:
   - number
   properties:
   - type: OpenAPI
@@ -235,6 +241,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Order
+  tags_raw:
   - order
   properties:
   - type: OpenAPI
@@ -259,6 +267,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Porting
+  tags_raw:
   - porting
   properties:
   - type: OpenAPI
@@ -283,6 +293,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Price List
+  tags_raw:
   - pricelist
   properties:
   - type: OpenAPI
@@ -295,6 +307,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Reference
+  tags_raw:
   - reference
   properties:
   - type: OpenAPI
@@ -319,6 +333,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Routing
+  tags_raw:
   - routing
   properties:
   - type: OpenAPI
@@ -331,6 +347,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Specification
+  tags_raw:
   - specification
   properties:
   - type: OpenAPI
@@ -343,6 +361,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Stock
+  tags_raw:
   - stock
   properties:
   - type: OpenAPI
