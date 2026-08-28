@@ -12,6 +12,18 @@ description: >-
   lookup, SIM-swap detection and device-location signals for anti-fraud and KYC -
   as partner and carrier contract products across the Proximus Global network
   rather than as self-serve endpoints.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: open
