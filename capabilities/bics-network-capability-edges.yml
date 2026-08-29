@@ -1,0 +1,85 @@
+slug: bics-network
+provider: BICS
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: porting
+  spec_file: bics-network-porting-api-openapi.yml
+  capability_id: BC-2640.40
+  capability_id_l1: BC-2640
+  capability_name: Number Portability Management
+  confidence: 0.92
+  evidence: POST /portings "Create porting request"; DELETE /portings/{portingRequestId} "cancel porting
+    request"; schemas portingRequest, portingAddress, numberRangeOrigin
+  reason: The surface is explicitly number portability request lifecycle (create, document upload, address
+    update, cancel), matching Number Portability Management. Vendor description confirms 'global number
+    provisioning and portability (MyNumbers)'.
+- tag: Porting Specification
+  spec_file: bics-network-porting-specification-api-openapi.yml
+  capability_id: BC-2640.40
+  capability_id_l1: BC-2640
+  capability_name: Number Portability Management
+  confidence: 0.86
+  evidence: GET /portings/specifications 'This API method returns the list of number portability specification
+    per Product, Country'; schemas PortingSpecification, PortabilityType
+  reason: Explicitly exposes number-portability specifications and requirements per country/product, supporting
+    port-in/port-out processes. This is Number Portability Management; the only ambiguity is that it is
+    the reference-data slice of that capability.
+- tag: inventory
+  spec_file: bics-network-inventory-api-openapi.yml
+  capability_id: BC-2640.30
+  capability_id_l1: BC-2640
+  capability_name: Numbering Resource Management
+  confidence: 0.79
+  evidence: GET /numbers 'Retrieve the list of numbers in your inventory.'; GET /numbers/{number} 'Retrieve
+    the details of a given number from your inventory.'; schemas customerNumber, customerNumberWithDetails
+  reason: Despite the generic 'inventory' tag, the operations manage a register of telephone numbers held
+    by the customer, including linking address references to numbers — stewardship and assignment of numbering
+    resources, not physical stock. Maps to Numbering Resource Management.
+- tag: Emergency Services
+  spec_file: bics-network-emergency-services-api-openapi.yml
+  capability_id: BC-2700.40
+  capability_id_l1: BC-2700
+  capability_name: Emergency Services Management
+  confidence: 0.76
+  evidence: GET /emergencyservices/requirements/{country} 'Get list of extra requirement fields per country';
+    POST /emergencyservices/orders 'Create an empty Emergency Services Order'; schemas EmergencyServiceCountryConfig,
+    EmergencyServiceOrderDetails
+  reason: The surface orders and configures emergency-service capability for numbers, including country-specific
+    mandated requirement fields — i.e. enabling regulator-mandated emergency-call handling/location data
+    for provisioned numbers. Maps to Emergency Services Management under telecom regulatory compliance;
+    some risk it is read purely as order management.
+- tag: Connections Management
+  spec_file: bics-network-connections-management-api-openapi.yml
+  capability_id: BC-2620.30
+  capability_id_l1: BC-2620
+  capability_name: Service Provisioning
+  confidence: 0.72
+  evidence: POST /connections createConnection 'Create connection'; POST /connections/{connectionId}/modify
+    'Modify connection'; DELETE 'Disconnect connection'; schemas CloudConnectConnection, CarrierEthernetLine,
+    ConnectionStatus — 'the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network'
+  reason: Operations create, modify and disconnect layer-2 connectivity circuits (EVPL/Carrier Ethernet)
+    on the BICS network — i.e. instantiating a network-delivered service for a customer, which is telecom
+    service provisioning within service fulfilment. Sub-capability chosen over order capture because the
+    surface manipulates the connection resource itself, though an order-management reading is also possible.
+- tag: CDR
+  spec_file: bics-network-cdr-api-openapi.yml
+  capability_id: BC-2660.10
+  capability_id_l1: BC-2660
+  capability_name: Usage Mediation Management
+  confidence: 0.7
+  evidence: POST /cdrs 'Request CDRs'; GET /cdrs/{id}/download/{format} 'Download CDR Request'; GET /cdrs/availableDates
+    'Get available CDR dates'
+  reason: Provides request and retrieval of call detail records — the collection and delivery of network
+    usage records that feed charging, billing and reconciliation. Mapped to usage mediation; moderate
+    confidence as the surface could also serve inter-operator settlement verification.

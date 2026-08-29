@@ -382,6 +382,9 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 common:
+- type: CapabilityMap
+  url: capabilities/bics-network-capability-edges.yml
+  name: BICS Business Capability Map
 - type: AgenticAccess
   url: agentic-access/bics-network-agentic-access.yml
 - type: Authentication
