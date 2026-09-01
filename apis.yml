@@ -253,7 +253,7 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
-  - order
+  - Order
   tags_raw:
   - order
   properties:
@@ -279,7 +279,7 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
-  - porting
+  - Porting
   tags_raw:
   - porting
   properties:
@@ -305,7 +305,7 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
-  - pricelist
+  - Price List
   tags_raw:
   - pricelist
   properties:
@@ -345,7 +345,7 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
-  - routing
+  - Routing
   tags_raw:
   - routing
   properties:
@@ -359,7 +359,7 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
-  - specification
+  - Specification
   tags_raw:
   - specification
   properties:
@@ -373,7 +373,7 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
-  - stock
+  - Stock
   tags_raw:
   - stock
   properties:
