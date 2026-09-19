@@ -139,6 +139,8 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
+  - Conversion
+  tags_raw:
   - Conversions
   properties:
   - type: OpenAPI
@@ -373,7 +375,7 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
-  - Stock
+  - Stocks
   tags_raw:
   - stock
   properties:
