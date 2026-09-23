@@ -1,10 +1,10 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: connect Address Management Outbound API
-  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
-  version: v1
+  title: sms Outbound API
+  description: The SMS API is a restful HTTP API that allows you to send text messages to mobile phones.
+  version: v3
 servers:
-- url: https://api.bics.com/connect/v1
+- url: https://api.bics.com/sms/v3
 tags:
 - name: Outbound
 paths:
@@ -81,6 +81,8 @@ paths:
       x-request-id-header: true
       tags:
       - Outbound
+      summary: Send message
+      x-summary-source: derived
   /outbound/subscriptions:
     parameters: []
     get:
@@ -104,6 +106,8 @@ paths:
       x-request-id-header: true
       tags:
       - Outbound
+      summary: Get delivery info subscription
+      x-summary-source: derived
     post:
       description: 'Subscribe for delivery info notifications. This is an alternative way to the Get Delivery Infos method to
 
@@ -142,9 +146,7 @@ paths:
 
         logic on your end to not simply overwrite the state DeliveredToTerminal with PartiallyDelivered
 
-        and wrongfully conclude that the message is still in the state PartiallyDelivered.
-
-        '
+        and wrongfully conclude that the message is still in the state PartiallyDelivered.'
       operationId: Create Delivery Info Subscription
       parameters: []
       requestBody:
@@ -175,6 +177,8 @@ paths:
       x-request-id-header: true
       tags:
       - Outbound
+      summary: Create delivery info subscription
+      x-summary-source: derived
     delete:
       description: Delete your subscription for delivery infos
       operationId: Delete Delivery Info Subscription
@@ -192,6 +196,8 @@ paths:
       x-request-id-header: true
       tags:
       - Outbound
+      summary: Delete delivery info subscription
+      x-summary-source: derived
   /outbound/{senderAddress}/requests/{requestId}/deliveryInfos:
     parameters: []
     get:
@@ -204,9 +210,7 @@ paths:
         * DeliveryImpossible : the message could not be delivered (e.g. the recipient''s number is not an active number)
 
 
-        Polling for the status can be resource intensive, alternatively you can also create a delivery subscription which will post the same delivery info to a URL you specify.
-
-        '
+        Polling for the status can be resource intensive, alternatively you can also create a delivery subscription which will post the same delivery info to a URL you specify.'
       operationId: Get Delivery Infos
       parameters:
       - name: senderAddress
@@ -254,8 +258,38 @@ paths:
       x-request-id-header: true
       tags:
       - Outbound
+      summary: Get delivery infos
+      x-summary-source: derived
 components:
   schemas:
+    Callback:
+      required:
+      - securityToken
+      - url
+      type: object
+      properties:
+        securityToken:
+          type: string
+          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
+          example: null
+        url:
+          type: string
+          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
+          example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
+      example: null
+    NotAcceptableCallback:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - NOT_HTTPS
+          example: null
+        description:
+          type: string
+          example: null
+      example: null
     OutboundRequest:
       required:
       - address
@@ -276,7 +310,6 @@ components:
         address:
           type: array
           description: Recipient addresses
-          nullable: false
           items:
             type: string
             description: Required. Recipient address
@@ -366,44 +399,18 @@ components:
       - InvalidSrcAddress
       - InvalidDestAddress
       example: null
-    DeliveryInfoList:
+    DeliveryCallback:
       type: object
-      properties:
-        securityToken:
-          type: string
-          description: Present if this delivery info is sent as part of a delivery info subscription callback. It will contain the same value as the securityToken used to create the delivery subscription.
-          example: null
-        deliveryInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryInfo'
-          example: null
-        resourceURL:
-          type: string
-          description: The DeliveryInfoList can also be accessed on this resource URL.
-          example: null
-        smsParts:
-          type: integer
-          description: The number of SMS'es sent to deliver this message. An SMS has a maximum length, if your message exceeds this length, it will be split into multiple SMS'es and merged again on the recipient's device.
-          example: null
-      description: 'When a message was sent, the response contains a list of deliveryInfos. Use the ResourceURL of the DeliveryInfoList section of the response to check back later for updates on this list.
-
-        (keep in mind that this URL will not contain your ApiKey, so if you come back for the delivery receipts you will still need to authenticate. Delivery receipts are kept for 7 days.
-
-        '
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("deliveryInfoList")'
-      example: null
-    NotAcceptableCallback:
-      type: object
-      properties:
-        code:
-          type: string
-          enum:
-          - NOT_HTTPS
-          example: null
-        description:
-          type: string
-          example: null
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          finalDelivery:
+            type: boolean
+            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null
     SmsTextMessage:
       type: object
@@ -418,24 +425,6 @@ components:
         The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
 
         '
-      example: null
-    Callback:
-      required:
-      - securityToken
-      - url
-      type: object
-      properties:
-        securityToken:
-          type: string
-          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
-          nullable: false
-          example: null
-        url:
-          type: string
-          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
-          nullable: false
-          example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null
     DeliveryInfo:
       type: object
@@ -468,16 +457,30 @@ components:
           type: integer
           example: null
       example: null
-    DeliveryCallback:
+    DeliveryInfoList:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/Callback'
-      - type: object
-        properties:
-          finalDelivery:
-            type: boolean
-            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
-            example: null
-        example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
+      properties:
+        securityToken:
+          type: string
+          description: Present if this delivery info is sent as part of a delivery info subscription callback. It will contain the same value as the securityToken used to create the delivery subscription.
+          example: null
+        deliveryInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryInfo'
+          example: null
+        resourceURL:
+          type: string
+          description: The DeliveryInfoList can also be accessed on this resource URL.
+          example: null
+        smsParts:
+          type: integer
+          description: The number of SMS'es sent to deliver this message. An SMS has a maximum length, if your message exceeds this length, it will be split into multiple SMS'es and merged again on the recipient's device.
+          example: null
+      description: 'When a message was sent, the response contains a list of deliveryInfos. Use the ResourceURL of the DeliveryInfoList section of the response to check back later for updates on this list.
+
+        (keep in mind that this URL will not contain your ApiKey, so if you come back for the delivery receipts you will still need to authenticate. Delivery receipts are kept for 7 days.
+
+        '
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("deliveryInfoList")'
       example: null

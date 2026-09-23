@@ -1,10 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: connect Address Management Emergency Services API
-  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  title: mynumbers-emergency-services Emergency Services API
+  description: Emergency Services API endpoints for requesting Emergency Services on your SIP-T numbers.
   version: v1
 servers:
-- url: https://api.bics.com/connect/v1
+- url: https://api.bics.com/mynumbers-emergency-services/v1
+- url: https://sandbox.api.bics.com/mynumbers-emergency-services/v1
 tags:
 - name: Emergency Services
   description: Manage your emergency services request
@@ -180,9 +181,7 @@ paths:
       tags:
       - Emergency Services
       summary: Create an empty Emergency Services Order
-      description: 'Create an empty Emergency Services Order for a specific country.  The location to the order is specified in the response header - **location:** /emergencyservices/orders/**{orderId}**.  With the add Order Item, you can now add numbers to your Emergency Services order.
-
-        '
+      description: Create an empty Emergency Services Order for a specific country. The location to the order is specified in the response header - **location:** /emergencyservices/orders/**{orderId}**. With the add Order Item, you can now add numbers to your Emergency Services order.
       operationId: create Emergency Services Order
       parameters: []
       requestBody:
@@ -690,162 +689,6 @@ paths:
           description: Method not allowed
 components:
   schemas:
-    OrderItemCountryConfig:
-      type: object
-      properties:
-        tooltip:
-          type: string
-          description: Tooltip of country specific field
-          example: null
-        label:
-          type: string
-          description: Label for country specific field
-          example: null
-        value:
-          type: string
-          description: Value of country specific field
-          example: null
-        key:
-          type: string
-          description: Key of country specific field
-          example: null
-      example: null
-    EmergencyServiceCountryConfigInfo:
-      type: object
-      properties:
-        values:
-          type: array
-          description: Possible values for a country specific field of type 'select'
-          items:
-            type: string
-            example: null
-          example: null
-        tooltip:
-          type: string
-          description: Tooltip for the field.
-          example: null
-        attributes:
-          type: array
-          description: List of restrictions for country specific field
-          items:
-            $ref: '#/components/schemas/EmergencyServiceCountryConfigAttribute'
-          example: null
-        label:
-          type: string
-          description: Description of the field.
-          example: null
-        type:
-          type: string
-          description: 'Type of field. Possible types: ''number'', ''text'', ''select'', ''date''.'
-          example: null
-        key:
-          type: string
-          description: Unique key per country specific requirement.
-          example: null
-      example: null
-    EmergencyServiceOrderCreateRequest:
-      required:
-      - country
-      - email
-      type: object
-      properties:
-        reference:
-          type: string
-          description: Your reference
-          example: null
-        country:
-          type: string
-          description: Country code in ISO 3166-1 alpha-3 format
-          example: null
-        contactNumber:
-          type: string
-          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
-          example: null
-        additionalNotes:
-          type: string
-          description: Your additional information about this Emergency Services Order.
-          example: null
-        email:
-          type: string
-          description: Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
-          example: null
-      example: null
-    OrderItem:
-      required:
-      - accessNumber
-      - addressReference
-      type: object
-      properties:
-        additionalInformation:
-          type: array
-          description: Additional information
-          items:
-            $ref: '#/components/schemas/OrderItemCountryConfig'
-          example: null
-        addressReference:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Address reference
-          example: null
-        accessNumber:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Access number
-          example: null
-        orderItemId:
-          type: integer
-          description: Unique identifier per item in an Emergency Services Order
-          format: int64
-          example: null
-      example: null
-    EmergencyServiceOrder:
-      type: object
-      properties:
-        reference:
-          type: string
-          description: Your reference
-          example: null
-        country:
-          type: string
-          description: Country code in ISO 3166-1 alpha-3 format
-          example: null
-        quantity:
-          type: integer
-          description: Amount of numbers in this order.
-          format: int64
-          example: null
-        createdDate:
-          type: string
-          description: Timestamp on which the order was created / Submitted.
-          format: date-time
-          example: null
-        orderId:
-          type: integer
-          description: Our internal reference identifying your request
-          format: int64
-          example: null
-        lastModifiedDate:
-          type: string
-          description: Timestamp of last modification of the order.
-          format: date-time
-          example: null
-        contactNumber:
-          type: string
-          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
-          example: null
-        additionalNotes:
-          type: string
-          description: Your additional information about this Emergency Services Order.
-          example: null
-        email:
-          type: string
-          description: Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
-          example: null
-        status:
-          $ref: '#/components/schemas/EmergencyServicesOrderStatus'
-      example: null
     SubmitEmergencyServiceResponse:
       type: object
       properties:
@@ -861,41 +704,65 @@ components:
           example: null
       description: An object representing response for submit emergency order request
       example: null
-    EmergencyServiceOrderUpdateRequest:
+    EmergencyServicesOrderStatus:
+      type: string
+      description: '<b>draft</b>: Order is created<br/>
+
+        <b>submitted</b>: Your order is submitted to BICS<br/>
+
+        <b>on_hold</b>: Some information is missing<br/>
+
+        <b>being_processed</b>: Order is being processed. Emergency Services will be activated soon<br/>
+
+        <b>delivered</b>: Emergency Services is activated on the requested numbers<br/>
+
+        <b>customer_canceled</b>: Cancelled by Customer<br/>
+
+        <b>bics_canceled</b>: Cancelled by BICS<br/>
+
+        <b>customer_request_to_cancel</b>: Cancelled on request by customer<br/>
+
+        '
+      enum:
+      - draft
+      - submitted
+      - on_hold
+      - being_processed
+      - delivered
+      - customer_canceled
+      - bics_canceled
+      - customer_request_to_cancel
+      example: null
+    EmergencyServiceCountryConfig:
       type: object
       properties:
-        reference:
+        country:
           type: string
-          description: Your reference
+          description: Country code in ISO 3166-1 alpha-3 format
           example: null
-        contactNumber:
-          type: string
-          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
-          example: null
-        additionalNotes:
-          type: string
-          description: Your additional information about this Emergency Services Order.
-          example: null
-        email:
-          type: string
-          description: Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
+        additionalInformation:
+          type: array
+          description: Additional information
+          items:
+            $ref: '#/components/schemas/EmergencyServiceCountryConfigInfo'
           example: null
       example: null
-    OrderItemUpdateRequest:
+    OrderItemRequest:
       required:
-      - key
+      - accessNumber
       type: object
       properties:
-        value:
-          maxLength: 255
-          type: string
-          description: Value of country specific field
+        additionalInformation:
+          type: array
+          description: Additional information
+          items:
+            $ref: '#/components/schemas/OrderItemCountryConfig'
           example: null
-        key:
-          maxLength: 50
+        accessNumber:
+          maxLength: 100
           minLength: 1
           type: string
-          description: Key of country specific field
+          description: Number in E164 format in the same country as the order.
           example: null
       example: null
     EmergencyServiceOrderDetails:
@@ -964,9 +831,10 @@ components:
           example: null
       description: An object representing restriction for country specific field
       example: null
-    OrderItemRequest:
+    OrderItem:
       required:
       - accessNumber
+      - addressReference
       type: object
       properties:
         additionalInformation:
@@ -975,41 +843,80 @@ components:
           items:
             $ref: '#/components/schemas/OrderItemCountryConfig'
           example: null
+        addressReference:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Address reference
+          example: null
         accessNumber:
           maxLength: 100
           minLength: 1
           type: string
-          description: Number in E164 format in the same country as the order.
+          description: Access number
+          example: null
+        orderItemId:
+          type: integer
+          description: Unique identifier per item in an Emergency Services Order
+          format: int64
           example: null
       example: null
-    EmergencyServicesOrderStatus:
-      type: string
-      description: '<b>draft</b>: Order is created<br/>
-
-        <b>submitted</b>: Your order is submitted to BICS<br/>
-
-        <b>on_hold</b>: Some information is missing<br/>
-
-        <b>being_processed</b>: Order is being processed. Emergency Services will be activated soon<br/>
-
-        <b>delivered</b>: Emergency Services is activated on the requested numbers<br/>
-
-        <b>customer_canceled</b>: Cancelled by Customer<br/>
-
-        <b>bics_canceled</b>: Cancelled by BICS<br/>
-
-        <b>customer_request_to_cancel</b>: Cancelled on request by customer<br/>
-
-        '
-      enum:
-      - draft
-      - submitted
-      - on_hold
-      - being_processed
-      - delivered
-      - customer_canceled
-      - bics_canceled
-      - customer_request_to_cancel
+    EmergencyServiceOrderUpdateRequest:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Your reference
+          example: null
+        contactNumber:
+          type: string
+          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
+          example: null
+        additionalNotes:
+          type: string
+          description: Your additional information about this Emergency Services Order.
+          example: null
+        email:
+          type: string
+          description: Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
+          example: null
+      example: null
+    OrderItemUpdateRequest:
+      required:
+      - key
+      type: object
+      properties:
+        value:
+          maxLength: 255
+          type: string
+          description: Value of country specific field
+          example: null
+        key:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Key of country specific field
+          example: null
+      example: null
+    OrderItemCountryConfig:
+      type: object
+      properties:
+        tooltip:
+          type: string
+          description: Tooltip of country specific field
+          example: null
+        label:
+          type: string
+          description: Label for country specific field
+          example: null
+        value:
+          type: string
+          description: Value of country specific field
+          example: null
+        key:
+          type: string
+          description: Key of country specific field
+          example: null
       example: null
     error:
       type: object
@@ -1028,17 +935,109 @@ components:
           format: date-time
           example: null
       example: null
-    EmergencyServiceCountryConfig:
+    EmergencyServiceOrder:
       type: object
       properties:
+        reference:
+          type: string
+          description: Your reference
+          example: null
         country:
           type: string
           description: Country code in ISO 3166-1 alpha-3 format
           example: null
-        additionalInformation:
+        quantity:
+          type: integer
+          description: Amount of numbers in this order.
+          format: int64
+          example: null
+        createdDate:
+          type: string
+          description: Timestamp on which the order was created / Submitted.
+          format: date-time
+          example: null
+        orderId:
+          type: integer
+          description: Our internal reference identifying your request
+          format: int64
+          example: null
+        lastModifiedDate:
+          type: string
+          description: Timestamp of last modification of the order.
+          format: date-time
+          example: null
+        contactNumber:
+          type: string
+          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
+          example: null
+        additionalNotes:
+          type: string
+          description: Your additional information about this Emergency Services Order.
+          example: null
+        email:
+          type: string
+          description: Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
+          example: null
+        status:
+          $ref: '#/components/schemas/EmergencyServicesOrderStatus'
+      example: null
+    EmergencyServiceCountryConfigInfo:
+      type: object
+      properties:
+        values:
           type: array
-          description: Additional information
+          description: Possible values for a country specific field of type 'select'
           items:
-            $ref: '#/components/schemas/EmergencyServiceCountryConfigInfo'
+            type: string
+            example: null
+          example: null
+        tooltip:
+          type: string
+          description: Tooltip for the field.
+          example: null
+        attributes:
+          type: array
+          description: List of restrictions for country specific field
+          items:
+            $ref: '#/components/schemas/EmergencyServiceCountryConfigAttribute'
+          example: null
+        label:
+          type: string
+          description: Description of the field.
+          example: null
+        type:
+          type: string
+          description: 'Type of field. Possible types: ''number'', ''text'', ''select'', ''date''.'
+          example: null
+        key:
+          type: string
+          description: Unique key per country specific requirement.
+          example: null
+      example: null
+    EmergencyServiceOrderCreateRequest:
+      required:
+      - country
+      - email
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Your reference
+          example: null
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format
+          example: null
+        contactNumber:
+          type: string
+          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
+          example: null
+        additionalNotes:
+          type: string
+          description: Your additional information about this Emergency Services Order.
+          example: null
+        email:
+          type: string
+          description: Address(es) of Emergency Services order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
           example: null
       example: null

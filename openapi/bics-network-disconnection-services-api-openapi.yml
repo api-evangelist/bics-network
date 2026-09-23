@@ -1,10 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: connect Address Management Disconnection Services API
-  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  title: mynumbers-disconnection Disconnection Services API
+  description: Disconnection Services API for requesting disconnection of your numbers.
   version: v1
 servers:
-- url: https://api.bics.com/connect/v1
+- url: https://api.bics.com/mynumbers-disconnection/v1
+- url: https://sandbox.api.bics.com/mynumbers-disconnection/v1
 tags:
 - name: Disconnection Services
   description: Manage your disconnection order
@@ -135,9 +136,7 @@ paths:
       tags:
       - Disconnection Services
       summary: Create an empty Disconnection Order
-      description: 'Create an empty Disconnection Order. With the add Order Item, you can now add numbers to your Disconnection Order.  The location to the order is specified in the response header - **location:** /disconnection/orders/**{orderId}**.
-
-        '
+      description: Create an empty Disconnection Order. With the add Order Item, you can now add numbers to your Disconnection Order. The location to the order is specified in the response header - **location:** /disconnection/orders/**{orderId}**.
       operationId: create Disconnection Order
       parameters: []
       requestBody:
@@ -248,6 +247,46 @@ paths:
           description: Order does not exist
 components:
   schemas:
+    DisconnectionOrderCreateRequest:
+      required:
+      - email
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Your reference
+          example: null
+        contactNumber:
+          type: string
+          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
+          example: null
+        additionalNotes:
+          type: string
+          description: Your additional information about this Disconnection Order.
+          example: null
+        email:
+          type: string
+          description: Address(es) of Disconnection order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
+          example: null
+      example: null
+    DisconnectionOrderItemResponse:
+      type: object
+      properties:
+        accessNumber:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Number in E164 format.
+          example: null
+        preferredDisconnectionDate:
+          type: string
+          description: Disconnection desired date in "YYYY-MM-DD" format.
+          example: null
+        id:
+          type: integer
+          format: int64
+          example: null
+      example: null
     DisconnectionOrderItemRequest:
       type: object
       properties:
@@ -280,24 +319,6 @@ components:
           format: date-time
           example: null
       example: null
-    DisconnectionOrderItemResponse:
-      type: object
-      properties:
-        accessNumber:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Number in E164 format.
-          example: null
-        preferredDisconnectionDate:
-          type: string
-          description: Disconnection desired date in "YYYY-MM-DD" format.
-          example: null
-        id:
-          type: integer
-          format: int64
-          example: null
-      example: null
     SubmitDisconnectionOrderResponse:
       type: object
       properties:
@@ -311,26 +332,4 @@ components:
           description: Order status
           example: null
       description: An object representing response for submit disconnection order
-      example: null
-    DisconnectionOrderCreateRequest:
-      required:
-      - email
-      type: object
-      properties:
-        reference:
-          type: string
-          description: Your reference
-          example: null
-        contactNumber:
-          type: string
-          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
-          example: null
-        additionalNotes:
-          type: string
-          description: Your additional information about this Disconnection Order.
-          example: null
-        email:
-          type: string
-          description: Address(es) of Disconnection order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
-          example: null
       example: null

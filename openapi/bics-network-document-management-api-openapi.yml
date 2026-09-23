@@ -1,10 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: connect Address Management Document Management API
-  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  title: mynumbers-address-management Document Management API
+  description: This API makes it easy to manage your addresses by creating new addresses, add documents to your address, edit addresses and retrieve your addresses.
   version: v1
 servers:
-- url: https://api.bics.com/connect/v1
+- url: https://api.bics.com/mynumbers-address-management/v1
+- url: https://sandbox.api.bics.com/mynumbers-address-management/v1
 tags:
 - name: Document Management
   description: ''

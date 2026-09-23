@@ -1,10 +1,11 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: connect Address Management Porting Specification API
-  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  title: mynumbers-porting Porting Specification API
+  description: These API methods allow you to manage your porting requests.
   version: v1
 servers:
-- url: https://api.bics.com/connect/v1
+- url: https://api.bics.com/mynumbers-porting/v1
+- url: https://sandbox.api.bics.com/mynumbers-porting/v1
 tags:
 - name: Porting Specification
   description: Recive porting specification
@@ -15,13 +16,7 @@ paths:
     get:
       tags:
       - Porting Specification
-      summary: 'This API method returns the list of number portability specification per Product, Country.
-
-        A portability specification item is the list of portability specification attributes related to the pair Product and Country.
-
-        It is possible to filter out the list of portability specifications items by product and/or country.
-
-        '
+      summary: This API method returns the list of number portability specification per…
       description: This API method returns the list of porting specifications. It is possible to filter out the list of porting specifications items by _Product_ and/or _Country_.
       operationId: get porting specifications
       parameters:
@@ -77,34 +72,6 @@ paths:
           links: {}
 components:
   schemas:
-    AddressRequirement:
-      type: object
-      properties:
-        proofOfDocuments:
-          type: boolean
-          description: 'true: proof of documents is mandatory</br>
-
-            false: proof of documents is optional</br>
-
-            null: Not applicable for this address requirement type</br>
-
-            '
-          example: null
-        documentTypesForIndividual:
-          type: array
-          description: List of required documents for individual.
-          items:
-            $ref: '#/components/schemas/PortingSpecificationDocumentType'
-          example: null
-        documentTypesForCompany:
-          type: array
-          description: List of required documents for company.
-          items:
-            $ref: '#/components/schemas/PortingSpecificationDocumentType'
-          example: null
-        type:
-          $ref: '#/components/schemas/AddressRequirementType'
-      example: null
     PortabilityType:
       type: string
       description: 'Number portability: Change of Telecom Provider at National level.</br>
@@ -115,6 +82,26 @@ components:
       enum:
       - Number Portability
       - Change Of Agency
+      example: null
+    PortingSpecificationDocumentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Document type code.
+          example: null
+        description:
+          type: string
+          description: Document type description.
+          example: null
+      example: null
+    AddressRequirementType:
+      type: string
+      enum:
+      - Not Required
+      - Required Worldwide
+      - Required In Country
+      - Required In Region
       example: null
     PortingSpecification:
       type: object
@@ -157,18 +144,6 @@ components:
           format: int64
           example: null
       example: null
-    PortingSpecificationDocumentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Document type code.
-          example: null
-        description:
-          type: string
-          description: Document type description.
-          example: null
-      example: null
     error:
       type: object
       properties:
@@ -186,11 +161,31 @@ components:
           format: date-time
           example: null
       example: null
-    AddressRequirementType:
-      type: string
-      enum:
-      - Not Required
-      - Required Worldwide
-      - Required In Country
-      - Required In Region
+    AddressRequirement:
+      type: object
+      properties:
+        proofOfDocuments:
+          type: boolean
+          description: 'true: proof of documents is mandatory</br>
+
+            false: proof of documents is optional</br>
+
+            null: Not applicable for this address requirement type</br>
+
+            '
+          example: null
+        documentTypesForIndividual:
+          type: array
+          description: List of required documents for individual.
+          items:
+            $ref: '#/components/schemas/PortingSpecificationDocumentType'
+          example: null
+        documentTypesForCompany:
+          type: array
+          description: List of required documents for company.
+          items:
+            $ref: '#/components/schemas/PortingSpecificationDocumentType'
+          example: null
+        type:
+          $ref: '#/components/schemas/AddressRequirementType'
       example: null

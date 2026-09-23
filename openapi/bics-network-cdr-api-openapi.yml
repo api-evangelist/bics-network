@@ -1,13 +1,14 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: connect Address Management CDR API
-  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  title: mynumbers CDR API
+  description: The following methods allows you to request your Call Detail Records (CDRs), request the status of your requests and download your CDRs.
   version: v1
 servers:
-- url: https://api.bics.com/connect/v1
+- url: https://api.bics.com/mynumbers-cdr/v1
+- url: https://sandbox.api.bics.com/mynumbers-cdr/v1
 tags:
 - name: CDR
-  description: The following methods allows you to request your Call Detail Records (CDRs), request the status of your requests and download your CDRs. The CDRs are available for both Inbound and Outbound calls terminated/originated to/from BICS numbers as from the 1st of January  2020.
+  description: The following methods allows you to request your Call Detail Records (CDRs), request the status of your requests and download your CDRs. The CDRs are available for both Inbound and Outbound calls terminated/originated to/from BICS numbers as from the 1st of January 2020.
 paths:
   /cdrs/{id}/download/{format}:
     summary: /cdrs/{id}/download/{format}
@@ -236,6 +237,59 @@ components:
           description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
           example: null
       example: null
+    createCdrRequest:
+      required:
+      - fromDate
+      - product
+      - toDate
+      type: object
+      properties:
+        aNumber:
+          type: string
+          description: Origin number in E164 format.
+          example: null
+        fromDate:
+          type: string
+          description: Not earlier than today – 1 year.
+          format: date
+          example: null
+        releaseCauseCode:
+          type: integer
+          description: Release cause code. (see <a href="#appendixes">APPENDIX A – Release Cause codes</a>)
+          format: int64
+          example: null
+        product:
+          type: string
+          description: Valid product codes. Possible values <ul> <li>"IBN" for Cloud Numbers</li> <li>"ITFS" for International Freephone Numbers</li> <li>"GMN" for Global Mobile Numbers</li> <li>"UIFN" for Universal International Freephone Numbers</li> <li>"SCS" for Shared Cost Services</li> </ul>
+          example: null
+        aCountry:
+          type: string
+          description: Origin country in ISO 3166-1 alpha-3 format.
+          example: null
+        include0Duration:
+          type: boolean
+          description: Include CDRs where the call duration is 0. Possible values are <ul> <li>true</li> <li>false (default value if not specified in the request)</li> </ul>
+          example: null
+        bCountry:
+          type: string
+          description: Destination country in ISO 3166-1 alpha-3 format.
+          example: null
+        toDate:
+          type: string
+          description: 'Maximum 31 days after ''fromDate'' <br/> e.g.: 1 May till 31 May or 15 June till 15 July
+
+            '
+          format: date
+          example: null
+        bNumber:
+          type: string
+          description: Destination number in E164 format.
+          example: null
+        direction:
+          type: string
+          description: Valid options are <ul> <li>"IN" for inbound traffic (default value if not specified in the request)</li> <li>"OUT" for outbound. Not available for UIFN and SCS products</li> </ul>
+          example: null
+      example: null
     cdrRequestStatusResponse:
       type: object
       properties:
@@ -243,6 +297,37 @@ components:
           type: string
           description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
           example: null
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    availableDate:
+      type: object
+      properties:
+        date:
+          type: string
+          description: Available date in format YYYY-MM-DD
+          format: date
+          example: Wed Sep 14 00:00:00 GMT 2022
+        status:
+          type: integer
+          description: Available date status. Possible values are <ul> <li>`0` - All cdrs for this date are available</li> <li>`1` - Cdr data is partially available</li> <li>`2` - No cdr data available</li> </ul>
+          format: int32
+          example: 1
       example: null
     downloadCdrResponse:
       type: object
@@ -331,87 +416,6 @@ components:
           description: possible values are <ul> <li>IN for inbound traffic</li> <li>OUT for outbound traffic. Not available for UIFN and SCS products</li> </ul>
           example: null
       example: null
-    availableDate:
-      type: object
-      properties:
-        date:
-          type: string
-          description: Available date in format YYYY-MM-DD
-          format: date
-          example: Wed Sep 14 00:00:00 GMT 2022
-        status:
-          type: integer
-          description: Available date status. Possible values are <ul> <li>`0` - All cdrs for this date are available</li> <li>`1` - Cdr data is partially available</li> <li>`2` - No cdr data available</li> </ul>
-          format: int32
-          example: 1
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
-      example: null
-    createCdrRequest:
-      required:
-      - fromDate
-      - product
-      - toDate
-      type: object
-      properties:
-        aNumber:
-          type: string
-          description: Origin number in E164 format.
-          example: null
-        fromDate:
-          type: string
-          description: Not earlier than today – 1 year.
-          format: date
-          example: null
-        releaseCauseCode:
-          type: integer
-          description: Release cause code. (see <a href="#appendixes">APPENDIX A – Release Cause codes</a>)
-          format: int64
-          example: null
-        product:
-          type: string
-          description: Valid product codes. Possible values <ul> <li>"IBN" for Cloud Numbers</li> <li>"ITFS" for International Freephone Numbers</li> <li>"GMN" for Global Mobile Numbers</li> <li>"UIFN" for Universal International Freephone Numbers</li> <li>"SCS" for Shared Cost Services</li> </ul>
-          example: null
-        aCountry:
-          type: string
-          description: Origin country in ISO 3166-1 alpha-3 format.
-          example: null
-        include0Duration:
-          type: boolean
-          description: Include CDRs where the call duration is 0. Possible values are <ul> <li>true</li> <li>false (default value if not specified in the request)</li> </ul>
-          example: null
-        bCountry:
-          type: string
-          description: Destination country in ISO 3166-1 alpha-3 format.
-          example: null
-        toDate:
-          type: string
-          description: 'Maximum 31 days after ''fromDate'' <br/> e.g.: 1 May till 31 May or 15 June till 15 July
-
-            '
-          format: date
-          example: null
-        bNumber:
-          type: string
-          description: Destination number in E164 format.
-          example: null
-        direction:
-          type: string
-          description: Valid options are <ul> <li>"IN" for inbound traffic (default value if not specified in the request)</li> <li>"OUT" for outbound. Not available for UIFN and SCS products</li> </ul>
-          example: null
-      example: null
+x-appendixes:
+- content: <table> <thead> <tr> <th width="150px">Code</th> <th>Description</th> </tr> </thead> <tbody> <tr><td>0</td><td>No release cause</td></tr> <tr><td>1</td><td>Unallocated (unassigned) number</td></tr> <tr><td>2</td><td>No route to specified transit network</td></tr> <tr><td>3</td><td>No route to destination</td></tr> <tr><td>4</td><td>Send special information tone</td></tr> <tr><td>5</td><td>Misdialled trunk prefix</td></tr> <tr><td>6</td><td>Channel unacceptable</td></tr> <tr><td>7</td><td>Call awarded and being delivered in an established channel</td></tr> <tr><td>8</td><td>Preemption</td></tr> <tr><td>9</td><td>Preemption - circuit reserved for reuse</td></tr> <tr><td>14</td><td>Number ported</td></tr> <tr><td>16</td><td>Normal call clearing</td></tr> <tr><td>17</td><td>User busy</td></tr> <tr><td>18</td><td>No user responding</td></tr> <tr><td>19</td><td>No answer from user (user alerted)</td></tr> <tr><td>20</td><td>Subscriber absent</td></tr> <tr><td>21</td><td>Call rejected</td></tr> <tr><td>22</td><td>Number changed</td></tr> <tr><td>23</td><td>Redirection to new destination</td></tr> <tr><td>24</td><td>Unallocated number</td></tr> <tr><td>25</td><td>Exchange routing error</td></tr> <tr><td>26</td><td>Non-selected user clearing</td></tr> <tr><td>27</td><td>Destination out of order</td></tr> <tr><td>28</td><td>Invalid number format (address incomplete)</td></tr> <tr><td>29</td><td>Facility rejected</td></tr> <tr><td>30</td><td>Response to status enquiry</td></tr> <tr><td>31</td><td>Normal, unspecified </td></tr> <tr><td>34</td><td>No circuit/channel available</td></tr> <tr><td>38</td><td>Network out of order</td></tr> <tr><td>39</td><td>Permanent frame mode connection out of service</td></tr> <tr><td>40</td><td>Permanent frame mode connection operational</td></tr> <tr><td>41</td><td>Temporary failure</td></tr> <tr><td>42</td><td>Switching equipment congestion</td></tr> <tr><td>43</td><td>Access information discarded</td></tr> <tr><td>44</td><td>Requested circuit/channel not available</td></tr> <tr><td>45</td><td>Preemption</td></tr> <tr><td>46</td><td>Precedence call blocked</td></tr> <tr><td>47</td><td>Resource unavailable, unspecified</td></tr> <tr><td>49</td><td>Quality of service not available</td></tr> <tr><td>50</td><td>Requested facility not subscribed</td></tr> <tr><td>53</td><td>Outgoing calls barred within CUG</td></tr> <tr><td>55</td><td>Incoming calls beared within CUG</td></tr> <tr><td>57</td><td>Bearer capacity not authorised</td></tr> <tr><td>58</td><td>Bearer capacity not presently available</td></tr> <tr><td>59</td><td>Call restriction</td></tr> <tr><td>60</td><td>Terminal transfer rejected</td></tr> <tr><td>62</td><td>Inconsistency in designated outgoing access information and subscriber class</td></tr> <tr><td>63</td><td>Service or option not available, unspecified</td></tr> <tr><td>65</td><td>Bearer capability not implemented</td></tr> <tr><td>66</td><td>Channel type not implemented</td></tr> <tr><td>69</td><td>Requested facility not implemented</td></tr> <tr><td>70</td><td>Only restricted digital information bearer capability is available</td></tr> <tr><td>79</td><td>Service or option not implemented, unspecified</td></tr> <tr><td>81</td><td>Invalid call reference value</td></tr> <tr><td>82</td><td>Identified channel does not exist</td></tr> <tr><td>83</td><td>A suspended call exists, but this identity call does not</td></tr> <tr><td>84</td><td>Call identity in use</td></tr> <tr><td>85</td><td>No call suspended</td></tr> <tr><td>86</td><td>Call having the requested call identity card has been cleared</td></tr> <tr><td>87</td><td>Called user not member of CUG</td></tr> <tr><td>88</td><td>Incompatible destination</td></tr> <tr><td>90</td><td>Non-existent CUG</td></tr> <tr><td>91</td><td>Invalid transit network selection</td></tr> <tr><td>92</td><td>Incorrect facility parameter</td></tr> <tr><td>95</td><td>Invalid message, unspecified</td></tr> <tr><td>96</td><td>Mandatory information element is missing</td></tr> <tr><td>97</td><td>Message type non-existent or not implemented</td></tr> <tr><td>98</td><td>Message not compatible with call state or message type non-existent or not implemented</td></tr> <tr><td>99</td><td>Information element/parameter non-existent or not implemented</td></tr> <tr><td>100</td><td>Invalid information element contents</td></tr> <tr><td>101</td><td>Message not compatible with call state</td></tr> <tr><td>102</td><td>Recovery on timer expiry</td></tr> <tr><td>103</td><td>Parameter non-existent or not implemented, passed on</td></tr> <tr><td>110</td><td>Message with unrecognised parameter, discarded</td></tr> <tr><td>111</td><td>Protocol error, unspecified</td></tr> <tr><td>113</td><td>Bearer capability unavailable</td></tr> <tr><td>114</td><td>No end-to-end information available</td></tr> <tr><td>127</td><td>Interworking, unspecified</td></tr> <tr><td>255</td><td>geoprobe neither rel nor rlc</td></tr> </tbody> </table>
+  title: APPENDIX A – Release Cause codes

@@ -1,20 +1,21 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: connect Address Management inventory API
-  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  title: mynumbers-number Inventory API
+  description: BICS MyNumbers API makes it easy to order ready to use Cloud Numbers (IBN), International Freephone Numbers (ITFS) and Global Mobile Numbers (GMN).
   version: v1
 servers:
-- url: https://api.bics.com/connect/v1
+- url: https://api.bics.com/mynumbers-number/v1
+- url: https://sandbox.api.bics.com/mynumbers-number/v1
 tags:
-- name: inventory
+- name: Inventory
   description: Query the numbers you have bought over time.
 paths:
   /numbers:
     parameters: []
     get:
       tags:
-      - inventory
-      summary: Retrieve the list of numbers in your inventory.
+      - Inventory
+      summary: Retrieve the list of numbers in your inventory
       description: The _/numbers_ method allows you to retrieve the list of numbers in your inventory. You can retrieve the full list of your numbers in one call or filter out your request by providing the product, country, location, area code, status and number. As a response you will receive information linked to the number(s) that would help you manage them at your convenience.
       operationId: get Inventory
       parameters:
@@ -158,8 +159,8 @@ paths:
     parameters: []
     get:
       tags:
-      - inventory
-      summary: Retrieve the details of a given number from your inventory.
+      - Inventory
+      summary: Retrieve the details of a given number from your inventory
       description: The _/numbers/{number}_ method allows you to retrieve the details of a given number from your inventory. As a response you will receive all information linked to the numbers that would help you manage them at your convenience (origin, status, address reference, pricing and routing details).
       operationId: get Number Details
       parameters:
@@ -213,7 +214,7 @@ paths:
     parameters: []
     post:
       tags:
-      - inventory
+      - Inventory
       summary: Add or update address reference linked to number(s)
       description: The method _/numbers/addressReferences_ allows you to add or change the address linked to one or multiple number(s). You can retrieve the current address linked to a number by calling the method _/numbers/{number}_. You can retrieve a list of your addresses by calling the method _/addresses_.
       operationId: Update address reference
@@ -241,6 +242,70 @@ paths:
               example: null
 components:
   schemas:
+    accessType:
+      type: string
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+      enum:
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
+      example: null
+    numberSpecificError:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/error'
+      - type: object
+        properties:
+          number:
+            type: string
+            example: Number to which error corresponds to.
+          country:
+            type: string
+            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
+        example: null
+      example: null
+    customerNumberWithDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/customerNumber'
+      - type: object
+        properties:
+          usageFees:
+            type: array
+            items:
+              $ref: '#/components/schemas/usageFees'
+            example: null
+          routing:
+            type: array
+            items:
+              $ref: '#/components/schemas/responseRouting'
+            example: null
+          endUserInfoValidation:
+            $ref: '#/components/schemas/endUserInfoValidation'
+          nonUsageFees:
+            $ref: '#/components/schemas/nonUsageFees'
+        example: null
+      example: null
+    addressReferenceUpdateRequest:
+      type: object
+      properties:
+        number:
+          type: string
+          description: The provisioned number for which you want to add/update the address.
+          example: '81345785554'
+        country:
+          type: string
+          description: Origin Country code in ISO 3166-1 alpha-3 format of the Access Number. The attribute is mandatory for update address reference of UIFN or MSC numbers.
+          example: BEL
+        addressReference:
+          type: string
+          description: The reference of an address that you want to link to the number. The address linked to this reference must have the status ‘Accepted’.
+          example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
+      example: null
     customerNumber:
       type: object
       properties:
@@ -313,6 +378,45 @@ components:
           $ref: '#/components/schemas/currency'
       description: Non usage fees define the setup and monthly recurring fees.
       example: null
+    currency:
+      type: string
+      enum:
+      - EUR
+      - USD
+      - ZAR
+      example: null
+    endUserInfoValidation:
+      type: object
+      properties:
+        addressDocuments:
+          $ref: '#/components/schemas/validationStatus'
+        address:
+          $ref: '#/components/schemas/validationStatus'
+      description: 'Set of attributes indicates the validation status of the end user information. Attribute address gives the
+
+        status of the address of the end user and attribute addressDocuments gives the status of the documents provided
+
+        against the country specifications.
+
+        '
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
     responseRouting:
       type: object
       properties:
@@ -332,86 +436,6 @@ components:
           type: string
           description: Customer Routing Number.
           example: 259AB81345785554
-      example: null
-    accessType:
-      type: string
-      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
-      enum:
-      - fix
-      - mob
-      - pay
-      - fixMob
-      - fixPay
-      - mobPay
-      - fixMobPay
-      example: null
-    endUserInfoValidation:
-      type: object
-      properties:
-        addressDocuments:
-          $ref: '#/components/schemas/validationStatus'
-        address:
-          $ref: '#/components/schemas/validationStatus'
-      description: 'Set of attributes indicates the validation status of the end user information. Attribute address gives the
-
-        status of the address of the end user and attribute addressDocuments gives the status of the documents provided
-
-        against the country specifications.
-
-        '
-      example: null
-    validationStatus:
-      type: string
-      enum:
-      - Need more information
-      - Under validation
-      - Validated
-      - No validation required
-      example: null
-    currency:
-      type: string
-      enum:
-      - EUR
-      - USD
-      - ZAR
-      example: null
-    addressReferenceUpdateRequest:
-      type: object
-      properties:
-        number:
-          type: string
-          description: The provisioned number for which you want to add/update the address.
-          example: '81345785554'
-        country:
-          type: string
-          description: Origin Country code in ISO 3166-1 alpha-3 format of the Access Number. The attribute is mandatory for update address reference of UIFN or MSC numbers.
-          example: BEL
-        addressReference:
-          type: string
-          description: The reference of an address that you want to link to the number. The address linked to this reference must have the status ‘Accepted’.
-          example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
-      example: null
-    customerNumberWithDetails:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/customerNumber'
-      - type: object
-        properties:
-          usageFees:
-            type: array
-            items:
-              $ref: '#/components/schemas/usageFees'
-            example: null
-          routing:
-            type: array
-            items:
-              $ref: '#/components/schemas/responseRouting'
-            example: null
-          endUserInfoValidation:
-            $ref: '#/components/schemas/endUserInfoValidation'
-          nonUsageFees:
-            $ref: '#/components/schemas/nonUsageFees'
-        example: null
       example: null
     usageFees:
       type: object
@@ -446,34 +470,11 @@ components:
           example: '0.0015'
       description: Usage fees define the call setup and per minute fees.
       example: null
-    numberSpecificError:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/error'
-      - type: object
-        properties:
-          number:
-            type: string
-            example: Number to which error corresponds to.
-          country:
-            type: string
-            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
-        example: null
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
+    validationStatus:
+      type: string
+      enum:
+      - Need more information
+      - Under validation
+      - Validated
+      - No validation required
       example: null

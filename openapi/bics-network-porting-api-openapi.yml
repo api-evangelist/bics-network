@@ -1,12 +1,13 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: connect Address Management porting API
-  description: "The Cloud Connect Service is a comprehensive multi-cloud one-stop-shop solution that provides a unique combination of layer 2 transport, which is provided by BICS, and dedicated connectivity (hosted connection) directly to the Cloud Service Provider (CSP) infrastructure. This service bypasses the public internet, ensuring reliable, secure, and fast connectivity.\n\nWithin each Cloud Connect Service, the Ethernet Virtual Private Line (EVPL) is provisioned on BICS network defined by MEF 6.2. The EVPL is a secure, point-to-point Ethernet service that provides a high-performance, low-latency connection between your on-premises infrastructure and the CSP infrastructure. \n\nThank you for considering BICS Cloud Connect Service and using our API. If you have any questions or concerns, please contact BICS customer support."
+  title: mynumbers Porting API
+  description: These API methods allow you to manage your porting requests.
   version: v1
 servers:
-- url: https://api.bics.com/connect/v1
+- url: https://api.bics.com/mynumbers-porting/v1
+- url: https://sandbox.api.bics.com/mynumbers-porting/v1
 tags:
-- name: porting
+- name: Porting
   description: ''
 paths:
   /portings/{portingRequestId}/documents:
@@ -14,8 +15,8 @@ paths:
     parameters: []
     get:
       tags:
-      - porting
-      summary: This method allows you to get your documents allowed for porting request.
+      - Porting
+      summary: This method allows you to get your documents allowed for porting request
       description: Get all the documents and their status linked to specified Porting Request.
       operationId: get porting request documents
       parameters:
@@ -72,8 +73,8 @@ paths:
           links: {}
     post:
       tags:
-      - porting
-      summary: This method allows you to add documents to the porting request.
+      - Porting
+      summary: This method allows you to add documents to the porting request
       description: Update documents in the porting request. This method is used to add documents to the porting request.
       operationId: Update Porting Request Documents
       parameters:
@@ -119,8 +120,8 @@ paths:
     parameters: []
     get:
       tags:
-      - porting
-      summary: This method allows you to get a list of your porting requests.
+      - Porting
+      summary: This method allows you to get a list of your porting requests
       description: Get porting request details by porting request ID , product, country, bicsReference, customerReference.
       operationId: get porting requests
       parameters:
@@ -212,9 +213,17 @@ paths:
           links: {}
     post:
       tags:
-      - porting
+      - Porting
       summary: This method allows you to create porting request
-      description: Create Porting Request for your numbers via API. The method Create Porting Request will document porting request with all necessary details so our Porting team can process it. </br>You just need to fill out in the request :Product, Country, Estimated Volume, Numbers, End user and Porting Address reference, Document reference. </br>End user address reference and Porting Address reference are response of the API when new address was successfully created. (Create Address method) </br>Document reference are the response from the API when the documents are linked to address. (Add document method) </br>Reference, Preferred date and Additional info are not mandatory fields still they can help customers for better communication with our porting team and add extra info.
+      description: 'Create Porting Request for your numbers via API. The method Create Porting Request will document porting request with all necessary details so our Porting team can process it.
+
+        You just need to fill out in the request :Product, Country, Estimated Volume, Numbers, End user and Porting Address reference, Document reference.
+
+        End user address reference and Porting Address reference are response of the API when new address was successfully created. (Create Address method)
+
+        Document reference are the response from the API when the documents are linked to address. (Add document method)
+
+        Reference, Preferred date and Additional info are not mandatory fields still they can help customers for better communication with our porting team and add extra info.'
       operationId: Create porting request
       parameters: []
       requestBody:
@@ -251,8 +260,8 @@ paths:
     parameters: []
     patch:
       tags:
-      - porting
-      summary: This method allows you to update End User Address and Porting Address in a porting request
+      - Porting
+      summary: This method allows you to update End User Address and Porting Address in a…
       description: Update address references in a porting request. Address can be updated only for Porting Request in status "New" or "On Hold, More Information Required".
       operationId: Update porting request addresses
       parameters:
@@ -298,8 +307,8 @@ paths:
     parameters: []
     get:
       tags:
-      - porting
-      summary: This method allows you to get your porting request.
+      - Porting
+      summary: This method allows you to get your porting request
       description: Get the details of a specific Porting Request.
       operationId: get porting request by id
       parameters:
@@ -353,9 +362,38 @@ paths:
           links: {}
     delete:
       tags:
-      - porting
+      - Porting
       summary: This method allows you to cancel porting request
-      description: This method allows you to cancel a porting request. With the method get list of porting requests, you can retrieve its current status. <h3>Reference table Status > Cancellation of porting request allowed</h3> <table> <thead> <tr> <th>Status</th><th>Cancellation allowed</th> </tr> </thead> <tbody> <tr><td>New</td><td>Yes</td></tr> <tr><td>Under verification</td><td>Yes</td></tr> <tr><td>On hold, more information required</td><td>Yes</td></tr> <tr><td>Submitted to operator</td><td>Yes if option 'confirmCancel' is specified in the request</td></tr> <tr><td>Accepted</td><td class="text-danger">No</td></tr> <tr><td>Partially Accepted</td><td class="text-danger">No</td></tr> <tr><td>Refused</td><td class="text-danger">No</td></tr> <tr><td>Completed</td><td class="text-danger">No</td></tr> </tbody> </table>
+      description: 'This method allows you to cancel a porting request. With the method get list of porting requests, you can retrieve its current status.
+
+        Reference table Status > Cancellation of porting request allowed
+
+
+        StatusCancellation allowed
+
+
+        NewYes
+
+
+        Under verificationYes
+
+
+        On hold, more information requiredYes
+
+
+        Submitted to operatorYes if option ''confirmCancel'' is specified in the request
+
+
+        AcceptedNo
+
+
+        Partially AcceptedNo
+
+
+        RefusedNo
+
+
+        CompletedNo'
       operationId: cancel porting request
       parameters:
       - name: portingRequestId
@@ -415,70 +453,17 @@ paths:
           links: {}
 components:
   schemas:
-    detailedEndUserAddress:
-      type: object
-      properties:
-        reference:
-          type: string
-          description: Reference of the End User Address.
-          example: null
-        status:
-          type: string
-          description: End User Address status.
-          enum:
-          - Need more information
-          - Under validation
-          - Validated
-          - No validation required
-          example: null
-      example: null
-    crnType:
+    accessType:
       type: string
-      description: "The translation rule for the customer routing number that you want to apply to the number.\n<ul>\n  <li>`prefix` - To prefix the access number with the specified crnValue.</li>\n  <li>`suffix` - To suffix the access number with the specified crnValue.</li>\n  <li>`freetext` - To define your own customer routing number.</li>\n  <li>`copy` - To use the access number as your customer routing number.</li>\n  <li>`NA` - To bar incoming calls for this routing.</li>\n</ul>\n"
-      example: prefix
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
       enum:
-      - prefix
-      - suffix
-      - freetext
-      - copy
-      - NA
-    numberRange:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/numberRangeOrigin'
-      - type: object
-        properties:
-          areaCode:
-            type: string
-            description: Area code of the number according to the national numbering plan.
-            example: null
-          numberStatus:
-            type: string
-            description: number's or number's range status.
-            example: null
-          location:
-            type: string
-            description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
-            example: null
-        example: null
-      example: null
-    portingRequestDetails:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/portingRequestBase'
-      - type: object
-        properties:
-          addresses:
-            $ref: '#/components/schemas/detailedAddresses'
-        example: null
-      example: null
-    addresses:
-      type: object
-      properties:
-        portingAddress:
-          $ref: '#/components/schemas/portingAddress'
-        endUserAddress:
-          $ref: '#/components/schemas/endUserAddress'
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
       example: null
     detailedPortingAddress:
       type: object
@@ -497,18 +482,29 @@ components:
           - Declined
           example: null
       example: null
-    addressDocumentStatus:
-      type: string
-      description: "Validation status:\n    <ul>\n      <li>\"Uploaded\": The file is in process of being uploaded, checked by our virus scanners and attached to your address.</li>\n      <li>\"Rejected\": The file is rejected by our virus scanner. It may contain a virus or a malicious script.</li>\n      <li>\"Submitted\": We received your document.</li>\n      <li>\"Under Validation\": Your document is under validation.</li>\n      <li>\"Validated\": Your document has been validated.</li>\n      <li>\"Declined\": Your document has been declined, please upload a new document.</li>\n      <li>\"Expired\": Your document has been expired, please upload a new document.</li>\n    </ul>\n"
-      enum:
-      - Uploaded
-      - Rejected
-      - Submitted
-      - Under Validation
-      - Validated
-      - Expired
-      - Declined
+    documentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Document type code.
+          example: POD1
+        description:
+          type: string
+          description: Document type description.
+          example: Letter of Intent
+      description: Type of document.
       example: null
+    crnType:
+      type: string
+      description: "The translation rule for the customer routing number that you want to apply to the number.\n<ul>\n  <li>`prefix` - To prefix the access number with the specified crnValue.</li>\n  <li>`suffix` - To suffix the access number with the specified crnValue.</li>\n  <li>`freetext` - To define your own customer routing number.</li>\n  <li>`copy` - To use the access number as your customer routing number.</li>\n  <li>`NA` - To bar incoming calls for this routing.</li>\n</ul>\n"
+      example: prefix
+      enum:
+      - prefix
+      - suffix
+      - freetext
+      - copy
+      - NA
     detailedAddresses:
       type: object
       properties:
@@ -516,14 +512,6 @@ components:
           $ref: '#/components/schemas/detailedPortingAddress'
         endUserAddress:
           $ref: '#/components/schemas/detailedEndUserAddress'
-      example: null
-    endUserAddress:
-      type: object
-      properties:
-        reference:
-          type: string
-          description: Reference of the End User Address.
-          example: null
       example: null
     createPortingRequest:
       type: object
@@ -573,17 +561,13 @@ components:
           description: address(es) of porting responsible(s),  multiple addresses are separated by semi-colon ';'.   This value is included in all communications regarding this request.
           example: null
       example: null
-    accessType:
-      type: string
-      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
-      enum:
-      - fix
-      - mob
-      - pay
-      - fixMob
-      - fixPay
-      - mobPay
-      - fixMobPay
+    addresses:
+      type: object
+      properties:
+        portingAddress:
+          $ref: '#/components/schemas/portingAddress'
+        endUserAddress:
+          $ref: '#/components/schemas/endUserAddress'
       example: null
     document:
       type: object
@@ -593,72 +577,15 @@ components:
           description: Saved document reference.
           example: null
       example: null
-    error:
+    portingRequestDetails:
       type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
-      example: null
-    addPortingRequestDocumentsParams:
-      type: array
-      items:
-        $ref: '#/components/schemas/document'
-      example: null
-    documentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Document type code.
-          example: POD1
-        description:
-          type: string
-          description: Document type description.
-          example: Letter of Intent
-      description: Type of document.
-      example: null
-    numberRangeOrigin:
-      type: object
-      properties:
-        routing:
-          type: array
-          description: The routing configuration you want to apply for this number.
-          items:
-            $ref: '#/components/schemas/customerRouting'
-          example: null
-        numberFrom:
-          type: string
-          description: first number of the range
-          example: null
-        numberTo:
-          type: string
-          description: last number of the range or null when porting a single number
-          example: null
-      example: null
-    portingAddress:
-      type: object
-      properties:
-        reference:
-          type: string
-          description: Reference of the Porting Address.
-          example: null
-      example: null
-    updatePortingRequestAddressesParams:
-      type: object
-      properties:
-        addresses:
-          $ref: '#/components/schemas/addresses'
+      allOf:
+      - $ref: '#/components/schemas/portingRequestBase'
+      - type: object
+        properties:
+          addresses:
+            $ref: '#/components/schemas/detailedAddresses'
+        example: null
       example: null
     portingRequestBase:
       type: object
@@ -738,6 +665,74 @@ components:
           - Cancelled by you
           example: null
       example: null
+    customerRouting:
+      required:
+      - crnType
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/accessType'
+        pop:
+          type: string
+          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
+          example: America
+        accessNetwork:
+          type: string
+          description: The network of the calling party. Routing detail can differ per access network of the calling party.
+          example: SMART
+        crnValue:
+          type: string
+          description: 'The value to be used by the translation rule of the crnType. Only applicable to crnTypes prefix, suffix and freetext.
+
+            '
+          example: 259AB
+        crnType:
+          $ref: '#/components/schemas/crnType'
+      description: This parameter allows you to specify routing information for the numbers you port. You can differentiate calls based on access type/access network by defining a different customer routing number per access type/access network. For more info about the combination access type/access network, please consult the method Get Pricelist. If you want to define the same routing configuration for every combination access type/access network, you can omit the routing attributes Access Type and Access Network, and only specify crnType and crnValue.
+      example: null
+    addressDocumentStatus:
+      type: string
+      description: "Validation status:\n    <ul>\n      <li>\"Uploaded\": The file is in process of being uploaded, checked by our virus scanners and attached to your address.</li>\n      <li>\"Rejected\": The file is rejected by our virus scanner. It may contain a virus or a malicious script.</li>\n      <li>\"Submitted\": We received your document.</li>\n      <li>\"Under Validation\": Your document is under validation.</li>\n      <li>\"Validated\": Your document has been validated.</li>\n      <li>\"Declined\": Your document has been declined, please upload a new document.</li>\n      <li>\"Expired\": Your document has been expired, please upload a new document.</li>\n    </ul>\n"
+      enum:
+      - Uploaded
+      - Rejected
+      - Submitted
+      - Under Validation
+      - Validated
+      - Expired
+      - Declined
+      example: null
+    portingAddress:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Reference of the Porting Address.
+          example: null
+      example: null
+    updatePortingRequestAddressesParams:
+      type: object
+      properties:
+        addresses:
+          $ref: '#/components/schemas/addresses'
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
     portingRequest:
       type: object
       allOf:
@@ -747,6 +742,41 @@ components:
           addresses:
             $ref: '#/components/schemas/addresses'
         example: null
+      example: null
+    createPortingResponse:
+      type: object
+      properties:
+        portingRequestId:
+          type: integer
+          description: our internal reference identifying your request
+          format: int32
+          example: 10564
+      example: null
+    endUserAddress:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Reference of the End User Address.
+          example: null
+      example: null
+    numberRangeOrigin:
+      type: object
+      properties:
+        routing:
+          type: array
+          description: The routing configuration you want to apply for this number.
+          items:
+            $ref: '#/components/schemas/customerRouting'
+          example: null
+        numberFrom:
+          type: string
+          description: first number of the range
+          example: null
+        numberTo:
+          type: string
+          description: last number of the range or null when porting a single number
+          example: null
       example: null
     Document:
       type: object
@@ -778,37 +808,45 @@ components:
         status:
           $ref: '#/components/schemas/addressDocumentStatus'
       example: null
-    createPortingResponse:
+    numberRange:
       type: object
-      properties:
-        portingRequestId:
-          type: integer
-          description: our internal reference identifying your request
-          format: int32
-          example: 10564
+      allOf:
+      - $ref: '#/components/schemas/numberRangeOrigin'
+      - type: object
+        properties:
+          areaCode:
+            type: string
+            description: Area code of the number according to the national numbering plan.
+            example: null
+          numberStatus:
+            type: string
+            description: number's or number's range status.
+            example: null
+          location:
+            type: string
+            description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
+            example: null
+        example: null
       example: null
-    customerRouting:
-      required:
-      - crnType
+    detailedEndUserAddress:
       type: object
       properties:
-        accessType:
-          $ref: '#/components/schemas/accessType'
-        pop:
+        reference:
           type: string
-          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
-          example: America
-        accessNetwork:
+          description: Reference of the End User Address.
+          example: null
+        status:
           type: string
-          description: The network of the calling party. Routing detail can differ per access network of the calling party.
-          example: SMART
-        crnValue:
-          type: string
-          description: 'The value to be used by the translation rule of the crnType. Only applicable to crnTypes prefix, suffix and freetext.
-
-            '
-          example: 259AB
-        crnType:
-          $ref: '#/components/schemas/crnType'
-      description: This parameter allows you to specify routing information for the numbers you port. You can differentiate calls based on access type/access network by defining a different customer routing number per access type/access network. For more info about the combination access type/access network, please consult the method Get Pricelist. If you want to define the same routing configuration for every combination access type/access network, you can omit the routing attributes Access Type and Access Network, and only specify crnType and crnValue.
+          description: End User Address status.
+          enum:
+          - Need more information
+          - Under validation
+          - Validated
+          - No validation required
+          example: null
+      example: null
+    addPortingRequestDocumentsParams:
+      type: array
+      items:
+        $ref: '#/components/schemas/document'
       example: null
