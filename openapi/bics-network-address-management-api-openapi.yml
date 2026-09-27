@@ -18,7 +18,7 @@ paths:
       - Address Management
       summary: Retrieve the address by address reference
       description: Retrieve a single address identified by its address reference. An address is composed of the address detail (Street Name, Street Number,...) and the reference.
-      operationId: Get Address By Reference
+      operationId: GetAddressByReference
       parameters:
       - name: reference
         in: path
@@ -72,12 +72,14 @@ paths:
               examples: {}
               example: null
           links: {}
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Address By Reference
     put:
       tags:
       - Address Management
       summary: Edit an address in your address book
       description: Edit an address in your address book. You must specify in the request all the attributes of the address even those you do not want to change. The end subscriber type cannot change after the creation of an address. If an address is linked to any active numbers, or any order, it can not be updated.
-      operationId: Update Address
+      operationId: UpdateAddress
       parameters:
       - name: reference
         in: path
@@ -138,12 +140,14 @@ paths:
               examples: {}
               example: null
           links: {}
+      x-operation-id-source: normalized
+      x-operation-id-original: Update Address
     delete:
       tags:
       - Address Management
       summary: Delete an address from your address book
       description: Delete an address identified by its reference. This service deletes the address from your address book as well as all documents linked to this address. It is not possible to delete an address as long as you have active Cloud Numbers linked to this address.
-      operationId: Delete Address
+      operationId: DeleteAddress
       parameters:
       - name: reference
         in: path
@@ -197,6 +201,8 @@ paths:
               examples: {}
               example: null
           links: {}
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete Address
   /addresses/{reference}/documentTypeCode/{code}:
     summary: /addresses/{reference}/documentTypeCode/{code}
     parameters: []
@@ -213,7 +219,7 @@ paths:
 
 
         The Address reference and document type code must be specified in the url.'
-      operationId: Delete Document
+      operationId: DeleteDocument
       parameters:
       - name: reference
         in: path
@@ -282,6 +288,8 @@ paths:
               example: null
           links: {}
       deprecated: true
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete Document
   /addresses/{reference}/documents:
     summary: /addresses/{reference}/documents
     parameters: []
@@ -290,7 +298,7 @@ paths:
       - Address Management
       summary: Add a proof document
       description: Add a proof document and link it to one of your addresses. After the creation of an address, you can call this service for each document you want to link to this address. Multiple documents can be added to the same address. The allowed formats of a document are pdf, doc, docx, png, jpg and tiff. The Address reference must be specified in the url, the content type of the request must be form-data and the document need to be added as an attachment in the request. In the response of this service for the uploaded document system will return unique documentReference which will be identifier for the document that need to be used in other calls.
-      operationId: Add Document
+      operationId: AddDocument
       parameters:
       - name: reference
         in: path
@@ -363,6 +371,8 @@ paths:
               examples: {}
               example: null
           links: {}
+      x-operation-id-source: normalized
+      x-operation-id-original: Add Document
   /addresses:
     summary: /addresses
     parameters: []
@@ -374,7 +384,7 @@ paths:
 
 
         If you want to get the list of your addresses for a specific country, you can use the input parameter country.'
-      operationId: Get Addresses
+      operationId: GetAddresses
       parameters:
       - name: country
         in: query
@@ -431,12 +441,14 @@ paths:
               examples: {}
               example: null
           links: {}
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Addresses
     post:
       tags:
       - Address Management
       summary: Add an address in your address book
       description: Create a new address in your address book with the aim of ordering Cloud Numbers in countries where address is required. BICS is obliged to collect the address of the end user for these countries.
-      operationId: Create Address
+      operationId: CreateAddress
       parameters: []
       requestBody:
         content:
@@ -485,6 +497,8 @@ paths:
               examples: {}
               example: null
           links: {}
+      x-operation-id-source: normalized
+      x-operation-id-original: Create Address
 components:
   schemas:
     addressDocumentStatus:
@@ -498,6 +512,29 @@ components:
       - Validated
       - Expired
       - Declined
+      example: null
+    addressDeletionStatus:
+      type: string
+      description: Address deletion result status
+      enum:
+      - Deleted
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation.
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation.
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
       example: null
     address:
       required:
@@ -569,180 +606,6 @@ components:
           type: string
           description: "Validation status of the address.\n          <ul>\n            <li>`Submitted` - Your address has been submitted and is in the process of been validated.</li>\n          </ul>\n"
           example: Submitted
-      example: null
-    addressDeletionResponse:
-      type: object
-      properties:
-        reference:
-          type: string
-          example: d9224465-cce9-4df1-b2b8-4f39cce00959
-        status:
-          $ref: '#/components/schemas/addressDeletionStatus'
-      example: null
-    addressRequest:
-      required:
-      - alias
-      - city
-      - country
-      - postalCode
-      - street
-      - streetNumber
-      type: object
-      properties:
-        country:
-          type: string
-          description: Country code in ISO 3166-1 alpha-3 format.
-          example: FRA
-        serviceUsage:
-          type: string
-          description: Free text to describe usage of numbers.
-          example: null
-        city:
-          type: string
-          description: City.
-          example: Paris
-        streetNumber:
-          type: string
-          description: House number.
-          example: '5'
-        postalCode:
-          type: string
-          description: Postal Code.
-          example: '75007'
-        box:
-          type: string
-          description: Postal box.
-          example: B
-        language:
-          type: string
-          description: Language code, case insensitive.
-          example: en
-        userIdentity:
-          $ref: '#/components/schemas/userIdentityDetail'
-        street:
-          type: string
-          description: Street name.
-          example: Rue Anatole
-        alias:
-          type: string
-          description: Alias of the Address. It helps you to identify the address of the end user.
-          example: BICS France office
-        state:
-          type: string
-          description: State.
-          example: Paris
-        floor:
-          type: string
-          description: Floor number.
-          example: '15'
-        residence:
-          type: string
-          description: Residence name.
-          example: Eiffel
-      example: null
-    addressDocumentMetadata:
-      type: object
-      properties:
-        fileName:
-          type: string
-          example: fileName
-        size:
-          type: integer
-          format: int64
-          example: null
-        documentType:
-          $ref: '#/components/schemas/documentType'
-        created:
-          type: string
-          description: Timestamp of error in UTC format.
-          format: date-time
-          example: null
-        comment:
-          type: string
-          description: Reason why your document was Rejected or Declined
-          example: Not readable. Please provide new document
-        documentReference:
-          type: string
-          description: Saved document reference
-          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
-        status:
-          $ref: '#/components/schemas/addressDocumentStatus'
-      example: null
-    locationAreaCode:
-      type: object
-      properties:
-        areaCode:
-          type: string
-          description: Area code of the number according to the national numbering plan.
-          example: '2'
-        location:
-          type: string
-          description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
-          example: Brussels
-        nonGeographic:
-          type: boolean
-          description: Indicates if the location is non geographic (e.g. National).
-          example: true
-      example: null
-    documentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: document type code
-          example: POD1
-        description:
-          type: string
-          description: document type description
-          example: Letter of Intent
-      description: Type of document
-      example: null
-    addressDocumentResponse:
-      type: object
-      properties:
-        reference:
-          type: string
-          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end-user is required.
-          example: 3ff35db2-1301-43b1-89f8-4df00faa8a50
-        documentType:
-          $ref: '#/components/schemas/documentType'
-        comment:
-          type: string
-          description: Reason why your document was Rejected or Declined
-          example: Not readable. Please provide new document
-        documentReference:
-          type: string
-          description: Saved document reference
-          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
-        documentName:
-          type: string
-          description: Name of the document
-          example: someName.ext
-        status:
-          $ref: '#/components/schemas/addressDocumentStatus'
-      example: null
-    addressDeletionStatus:
-      type: string
-      description: Address deletion result status
-      enum:
-      - Deleted
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation.
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation.
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: Timestamp of error in UTC format.
-          format: date-time
-          example: null
       example: null
     addressDetails:
       required:
@@ -834,6 +697,116 @@ components:
           description: "Validation status of the address.\n         <ul>\n            <li>`Submitted` - Your address has been submitted.</li>\n            <li><strike>`Accepted` - Your address has been accepted and can be used to order Cloud Numbers in the country concerned.</strike></li>\n            <li><strike>`More information  required` - Some information are missing. You must provide necessary information in order to have your ' addressAccepted'</strike></li>\n            <li><strike>`Rejected` - You address has been rejected. It cannot be used anymore.</strike></li>\n          </ul>\n"
           example: Submitted
       example: null
+    addressDeletionResponse:
+      type: object
+      properties:
+        reference:
+          type: string
+          example: d9224465-cce9-4df1-b2b8-4f39cce00959
+        status:
+          $ref: '#/components/schemas/addressDeletionStatus'
+      example: null
+    locationAreaCode:
+      type: object
+      properties:
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '2'
+        location:
+          type: string
+          description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
+          example: Brussels
+        nonGeographic:
+          type: boolean
+          description: Indicates if the location is non geographic (e.g. National).
+          example: true
+      example: null
+    addressRequest:
+      required:
+      - alias
+      - city
+      - country
+      - postalCode
+      - street
+      - streetNumber
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: FRA
+        serviceUsage:
+          type: string
+          description: Free text to describe usage of numbers.
+          example: null
+        city:
+          type: string
+          description: City.
+          example: Paris
+        streetNumber:
+          type: string
+          description: House number.
+          example: '5'
+        postalCode:
+          type: string
+          description: Postal Code.
+          example: '75007'
+        box:
+          type: string
+          description: Postal box.
+          example: B
+        language:
+          type: string
+          description: Language code, case insensitive.
+          example: en
+        userIdentity:
+          $ref: '#/components/schemas/userIdentityDetail'
+        street:
+          type: string
+          description: Street name.
+          example: Rue Anatole
+        alias:
+          type: string
+          description: Alias of the Address. It helps you to identify the address of the end user.
+          example: BICS France office
+        state:
+          type: string
+          description: State.
+          example: Paris
+        floor:
+          type: string
+          description: Floor number.
+          example: '15'
+        residence:
+          type: string
+          description: Residence name.
+          example: Eiffel
+      example: null
+    addressDocumentResponse:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end-user is required.
+          example: 3ff35db2-1301-43b1-89f8-4df00faa8a50
+        documentType:
+          $ref: '#/components/schemas/documentType'
+        comment:
+          type: string
+          description: Reason why your document was Rejected or Declined
+          example: Not readable. Please provide new document
+        documentReference:
+          type: string
+          description: Saved document reference
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+        documentName:
+          type: string
+          description: Name of the document
+          example: someName.ext
+        status:
+          $ref: '#/components/schemas/addressDocumentStatus'
+      example: null
     userIdentityDetail:
       required:
       - emailAddress
@@ -868,4 +841,45 @@ components:
           description: Unique identification number used for tax (e.g. VAT, GST, TIN)
           example: BE0999999999
       description: User identity of the end subscriber
+      example: null
+    addressDocumentMetadata:
+      type: object
+      properties:
+        fileName:
+          type: string
+          example: fileName
+        size:
+          type: integer
+          format: int64
+          example: null
+        documentType:
+          $ref: '#/components/schemas/documentType'
+        created:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
+        comment:
+          type: string
+          description: Reason why your document was Rejected or Declined
+          example: Not readable. Please provide new document
+        documentReference:
+          type: string
+          description: Saved document reference
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+        status:
+          $ref: '#/components/schemas/addressDocumentStatus'
+      example: null
+    documentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: document type code
+          example: POD1
+        description:
+          type: string
+          description: document type description
+          example: Letter of Intent
+      description: Type of document
       example: null

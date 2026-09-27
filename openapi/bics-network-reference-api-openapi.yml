@@ -17,7 +17,7 @@ paths:
       - Reference
       summary: Get languages
       description: This method allows you to get all available languages. You will need this information to identify what language you are adding to an existing or newly created address.
-      operationId: Get Languages
+      operationId: GetLanguages
       parameters: []
       responses:
         '200':
@@ -52,6 +52,8 @@ paths:
                 $ref: '#/components/schemas/error'
               example: null
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Languages
   /reference/locations/country/{country}:
     parameters: []
     get:
@@ -62,7 +64,7 @@ paths:
 
 
         Location indicates in most cases a city the number belongs to. It is also used to specify if it is a national or a mobile number.'
-      operationId: get Locations By Country
+      operationId: getLocationsByCountry
       parameters:
       - name: country
         in: path
@@ -106,6 +108,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get Locations By Country
   /reference/locations:
     parameters: []
     get:
@@ -119,7 +123,7 @@ paths:
 
 
         Additionally, you can filter out your request by providing the country.'
-      operationId: get Locations
+      operationId: getLocations
       parameters:
       - name: product
         in: query
@@ -173,6 +177,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get Locations
   /reference/calendar:
     parameters: []
     get:
@@ -180,7 +186,7 @@ paths:
       - Reference
       summary: Get Pricing Calendar Reference
       description: Query Calendar from your Pricelist.
-      operationId: get Calendars
+      operationId: getCalendars
       parameters: []
       responses:
         '200':
@@ -214,6 +220,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get Calendars
   /reference/pops:
     parameters: []
     get:
@@ -226,7 +234,7 @@ paths:
         This method is deprecated. Please use new /reference/pops/product/{product} method.
 
         List your available Points of Presence (POPs). In case you have several POPs, you need to specify which one to be used when you order a number.'
-      operationId: get POPs
+      operationId: getPOPs
       parameters: []
       responses:
         '200':
@@ -262,6 +270,8 @@ paths:
                 $ref: '#/components/schemas/error'
               example: null
       deprecated: true
+      x-operation-id-source: normalized
+      x-operation-id-original: get POPs
   /reference/pops/product/{product}:
     parameters: []
     get:
@@ -269,7 +279,7 @@ paths:
       - Reference
       summary: Query your available POPs by Product
       description: List your available Points of Presence (POPs). In case you have several POPs, you need to specify which one to be used when you order a number.
-      operationId: get POPs by Product
+      operationId: getPOPsByProduct
       parameters:
       - name: product
         in: path
@@ -314,6 +324,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get POPs by Product
   /reference/calendar/product/{product}:
     parameters: []
     get:
@@ -321,7 +333,7 @@ paths:
       - Reference
       summary: Get Pricing Calendar Reference
       description: Query Calendar from your Pricelist by Product.
-      operationId: get Calendars by Product
+      operationId: getCalendarsByProduct
       parameters:
       - name: product
         in: path
@@ -372,6 +384,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get Calendars by Product
   /reference/documenttypes:
     parameters: []
     get:
@@ -379,7 +393,7 @@ paths:
       - Reference
       summary: Get document types
       description: This method allows you to get all document types. You will need this information to identify which type of documents you are adding to an existing or newly created address.
-      operationId: Get Document Types
+      operationId: GetDocumentTypes
       parameters: []
       responses:
         '200':
@@ -411,8 +425,39 @@ paths:
                 $ref: '#/components/schemas/error'
               example: null
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Document Types
 components:
   schemas:
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    language:
+      type: object
+      properties:
+        code:
+          type: string
+          description: language code
+          example: en
+        description:
+          type: string
+          description: full language name
+          example: English
+      example: null
     locations:
       type: object
       properties:
@@ -433,18 +478,6 @@ components:
           description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
           example: Brussels
       example: null
-    documentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: document type code
-          example: POD1
-        description:
-          type: string
-          description: document type description
-          example: Letter of Intent
-      example: null
     documentTypesComposed:
       type: object
       properties:
@@ -460,18 +493,6 @@ components:
           items:
             $ref: '#/components/schemas/documentType'
           example: null
-      example: null
-    language:
-      type: object
-      properties:
-        code:
-          type: string
-          description: language code
-          example: en
-        description:
-          type: string
-          description: full language name
-          example: English
       example: null
     calendar:
       type: object
@@ -497,20 +518,15 @@ components:
           description: time in format hh:mm
           example: 00:00
       example: null
-    error:
+    documentType:
       type: object
       properties:
         code:
           type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
+          description: document type code
+          example: POD1
         description:
           type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
+          description: document type description
+          example: Letter of Intent
       example: null

@@ -17,7 +17,7 @@ paths:
       - Specification
       summary: Get specifications by product including not offered anymore
       description: This method allows you to get specifications/restrictions for products offered within your pricelist and/or inventory.
-      operationId: get specifications
+      operationId: getSpecifications
       parameters:
       - name: product
         in: query
@@ -77,35 +77,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get specifications
 components:
   schemas:
-    profileSpecification:
-      type: object
-      properties:
-        serviceRestrictions:
-          type: string
-          description: text describing service restrictions
-          example: null
-        backorderDurationMax:
-          type: string
-          description: Maximum time to delivery (in days) for a backorder
-          example: null
-        profile:
-          type: string
-          description: List of tariff differentiators
-          example: null
-        backorderDurationMin:
-          type: string
-          description: Minimum time to delivery (in days) for a backorder
-          example: null
-        status:
-          type: string
-          description: "<ul>\n  <li>\"Offered\" : product and country within your current pricelist</li>\n  <li>\"Not offered anymore\" : product and country not in your pricelist, but there are active numbers in your inventory</li>\n</ul>\n"
-          enum:
-          - Offered
-          - Not offered anymore
-          example: null
-      example: null
     specification:
       type: object
       properties:
@@ -138,17 +113,49 @@ components:
           format: date-time
           example: null
       example: null
-    documentType:
+    error:
       type: object
       properties:
         code:
           type: string
-          description: document type code
-          example: POD1
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
         description:
           type: string
-          description: document type description
-          example: Letter of Intent
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    profileSpecification:
+      type: object
+      properties:
+        serviceRestrictions:
+          type: string
+          description: text describing service restrictions
+          example: null
+        backorderDurationMax:
+          type: string
+          description: Maximum time to delivery (in days) for a backorder
+          example: null
+        profile:
+          type: string
+          description: List of tariff differentiators
+          example: null
+        backorderDurationMin:
+          type: string
+          description: Minimum time to delivery (in days) for a backorder
+          example: null
+        status:
+          type: string
+          description: "<ul>\n  <li>\"Offered\" : product and country within your current pricelist</li>\n  <li>\"Not offered anymore\" : product and country not in your pricelist, but there are active numbers in your inventory</li>\n</ul>\n"
+          enum:
+          - Offered
+          - Not offered anymore
+          example: null
       example: null
     addressRequirement:
       type: object
@@ -205,22 +212,17 @@ components:
           description: "<ul>\n  <li>true: VAT number is mandatory for this order according the specs</li>\n  <li>false: VAT number is not mandatory for this order according the specs</li>\n  <li>null: Not applicable for this address requirement type</li>\n</ul>\n"
           example: null
       example: null
-    error:
+    documentType:
       type: object
       properties:
         code:
           type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
+          description: document type code
+          example: POD1
         description:
           type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
+          description: document type description
+          example: Letter of Intent
       example: null
     documentTypeDescription:
       type: object

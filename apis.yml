@@ -39,6 +39,18 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bics-network.png
 tags:
 - Number Verification
+- Telecommunications
+- Mobile Identity
+- Fraud Prevention
+- Device Location
+- OTP
+- SMS
+- Numbering
+- Number Portability
+- Carrier
+- CPaaS
+tags_raw:
+- Number Verification
 - Telecom
 - Mobile Identity
 - Anti-Fraud
@@ -55,8 +67,15 @@ modified: '2026-07-11'
 specificationVersion: '0.23'
 apis:
 - aid: bics-network:bics-number-verification-api
+  endpointsModeled: true
   name: BICS Number Verification API
   tags:
+  - Number Verification
+  - Mobile Identity
+  - Fraud Prevention
+  - OTP
+  - KYC
+  tags_raw:
   - Number Verification
   - Mobile Identity
   - Anti-Fraud
@@ -74,8 +93,15 @@ apis:
     access is via contact-sales onboarding rather than the self-serve developer portal, so any request
     surface here is endpointsModeled, not a published OpenAPI definition.
 - aid: bics-network:bics-fraud-prevention-reachability-api
+  endpointsModeled: true
   name: BICS Fraud Prevention and Reachability API
   tags:
+  - Fraud Prevention
+  - HLR Lookup
+  - Reachability
+  - Device Location
+  - Mobile Identity
+  tags_raw:
   - Anti-Fraud
   - Fraud Prevention
   - HLR Lookup
@@ -177,9 +203,10 @@ apis:
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
   tags:
-  - Document-Management
+  - Document Management
   tags_raw:
   - Document Management
+  - Document-Management
   properties:
   - type: OpenAPI
     url: openapi/bics-network-document-management-api-openapi.yml
@@ -222,7 +249,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-inventory-api
-  name: BICS inventory API
+  name: BICS Inventory API
   description: Query the numbers you have bought over time.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
@@ -236,7 +263,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-number-api
-  name: BICS number API
+  name: BICS Number API
   description: The number API from BICS — 1 operation(s) for number.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
@@ -250,7 +277,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-order-api
-  name: BICS order API
+  name: BICS Order API
   description: Purchase a number from the stock.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
@@ -276,7 +303,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-porting-api
-  name: BICS porting API
+  name: BICS Porting API
   description: The porting API from BICS — 4 operation(s) for porting.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
@@ -302,7 +329,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-pricelist-api
-  name: BICS pricelist API
+  name: BICS Pricelist API
   description: Query your pricelist.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
@@ -316,7 +343,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-reference-api
-  name: BICS reference API
+  name: BICS Reference API
   description: Query BICS reference data.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
@@ -342,7 +369,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-routing-api
-  name: BICS routing API
+  name: BICS Routing API
   description: Modify routing details for customer numbers.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
@@ -356,7 +383,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-specification-api
-  name: BICS specification API
+  name: BICS Specification API
   description: The specification API from BICS — 1 operation(s) for specification.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3
@@ -370,7 +397,7 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 - aid: bics-network:bics-network-stock-api
-  name: BICS stock API
+  name: BICS Stock API
   description: Query the available stock.
   humanURL: https://developer.bics.com/portal/apis
   baseURL: https://api.bics.com/sms/v3

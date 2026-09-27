@@ -12,7 +12,7 @@ paths:
     parameters: []
     post:
       description: Process SMS conversion info from customer. One of the fields is required, address or customerReference.
-      operationId: Process SMS Conversion info
+      operationId: ProcessSMSConversionInfo
       parameters: []
       requestBody:
         content:
@@ -35,6 +35,8 @@ paths:
       - Conversions
       summary: Process SMS conversion info
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Process SMS Conversion info
 components:
   schemas:
     ConversionRequest:

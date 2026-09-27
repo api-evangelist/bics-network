@@ -17,7 +17,7 @@ paths:
       - Number
       summary: Delete address reference linked to number(s)
       description: The method _/numbers/addressReference_. You can retrieve the current address linked to a number by calling the method /numbers/{number}. You can update the address by calling the method _/numbers/addressReferences._ You can retrieve a list of your addresses by calling the method _/addresses._ If the address is mandatory by country specifications, you are not allowed to delete the address.
-      operationId: Delete address reference
+      operationId: DeleteAddressReference
       parameters: []
       responses:
         '200':
@@ -36,8 +36,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/numberSpecificError'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete address reference
 components:
   schemas:
+    numberSpecificError:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/error'
+      - type: object
+        properties:
+          number:
+            type: string
+            example: Number to which error corresponds to.
+          country:
+            type: string
+            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
+        example: null
+      example: null
     error:
       type: object
       properties:
@@ -54,18 +70,4 @@ components:
           description: timestamp of error in UTC format
           format: date-time
           example: null
-      example: null
-    numberSpecificError:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/error'
-      - type: object
-        properties:
-          number:
-            type: string
-            example: Number to which error corresponds to.
-          country:
-            type: string
-            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
-        example: null
       example: null

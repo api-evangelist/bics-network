@@ -12,7 +12,7 @@ paths:
     parameters: []
     get:
       description: Your subscription for Inbound Messages
-      operationId: Get Inbound Messages Subscription
+      operationId: GetInboundMessagesSubscription
       parameters: []
       responses:
         '200':
@@ -33,6 +33,8 @@ paths:
       - Inbound
       summary: Get inbound messages subscription
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Inbound Messages Subscription
     post:
       description: 'Subscribe for Inbound Messages. This is an alternative way to the Get Inbound Messages method to retrieve Inbound Messages.
 
@@ -100,7 +102,7 @@ paths:
         }
 
         ```'
-      operationId: Create Inbound Messages Subscription
+      operationId: CreateInboundMessagesSubscription
       parameters: []
       requestBody:
         content:
@@ -132,9 +134,11 @@ paths:
       - Inbound
       summary: Create inbound messages subscription
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Create Inbound Messages Subscription
     delete:
       description: Delete your subscription for Inbound Messages
-      operationId: Delete Inbound Messages Subscription
+      operationId: DeleteInboundMessagesSubscription
       parameters: []
       responses:
         '401':
@@ -151,11 +155,13 @@ paths:
       - Inbound
       summary: Delete inbound messages subscription
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete Inbound Messages Subscription
   /inbound/registrations/{inboundNumber}/messages:
     parameters: []
     get:
       description: Return the messages of your inbound number.
-      operationId: Get Inbound Messages
+      operationId: GetInboundMessages
       parameters:
       - name: inboundNumber
         in: path
@@ -192,8 +198,22 @@ paths:
       - Inbound
       summary: Get inbound messages
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Inbound Messages
 components:
   schemas:
+    NotAcceptableCallback:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - NOT_HTTPS
+          example: null
+        description:
+          type: string
+          example: null
+      example: null
     Callback:
       required:
       - securityToken
@@ -231,17 +251,27 @@ components:
           example: null
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("inboundSMSMessageList")'
       example: null
-    NotAcceptableCallback:
+    InboundCallback:
       type: object
-      properties:
-        code:
-          type: string
-          enum:
-          - NOT_HTTPS
-          example: null
-        description:
-          type: string
-          example: null
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          concat:
+            type: boolean
+            description: 'Determines how multipart messages are handled:
+
+
+              - **true**: The API waits for all parts of a multipart message, concatenates them into a single message, and then sends the complete message to the customer.
+
+              - **false**: The API sends message parts individually, including metadata such as `udhMessageId`, `concatPart`, and `concatTotal`, allowing the client to perform concatenation.
+
+              - **absent**: Maintains the legacy behavior, where each message part is sent as a separate message without concatenation.
+
+              '
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null
     InboundSmsMessage:
       type: object
@@ -283,26 +313,4 @@ components:
           type: integer
           description: The part number of the concatenated message.
           example: null
-      example: null
-    InboundCallback:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Callback'
-      - type: object
-        properties:
-          concat:
-            type: boolean
-            description: 'Determines how multipart messages are handled:
-
-
-              - **true**: The API waits for all parts of a multipart message, concatenates them into a single message, and then sends the complete message to the customer.
-
-              - **false**: The API sends message parts individually, including metadata such as `udhMessageId`, `concatPart`, and `concatTotal`, allowing the client to perform concatenation.
-
-              - **absent**: Maintains the legacy behavior, where each message part is sent as a separate message without concatenation.
-
-              '
-            example: null
-        example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null

@@ -21,7 +21,7 @@ paths:
 
 
         The Address reference and document reference must be specified in the url.'
-      operationId: Delete Document By Reference
+      operationId: DeleteDocumentByReference
       parameters:
       - name: reference
         in: path
@@ -93,6 +93,8 @@ paths:
               examples: {}
               example: null
           links: {}
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete Document By Reference
 components:
   schemas:
     error:

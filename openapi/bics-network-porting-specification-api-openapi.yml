@@ -18,7 +18,7 @@ paths:
       - Porting Specification
       summary: This API method returns the list of number portability specification per…
       description: This API method returns the list of porting specifications. It is possible to filter out the list of porting specifications items by _Product_ and/or _Country_.
-      operationId: get porting specifications
+      operationId: getPortingSpecifications
       parameters:
       - name: product
         in: query
@@ -70,18 +70,26 @@ paths:
               examples: {}
               example: null
           links: {}
+      x-operation-id-source: normalized
+      x-operation-id-original: get porting specifications
 components:
   schemas:
-    PortabilityType:
-      type: string
-      description: 'Number portability: Change of Telecom Provider at National level.</br>
-
-        Change of Agency: It is a re-allocation of number by the existing Telecom Provider to another customer
-
-        '
-      enum:
-      - Number Portability
-      - Change Of Agency
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
       example: null
     PortingSpecificationDocumentType:
       type: object
@@ -95,13 +103,44 @@ components:
           description: Document type description.
           example: null
       example: null
-    AddressRequirementType:
+    AddressRequirement:
+      type: object
+      properties:
+        proofOfDocuments:
+          type: boolean
+          description: 'true: proof of documents is mandatory</br>
+
+            false: proof of documents is optional</br>
+
+            null: Not applicable for this address requirement type</br>
+
+            '
+          example: null
+        documentTypesForIndividual:
+          type: array
+          description: List of required documents for individual.
+          items:
+            $ref: '#/components/schemas/PortingSpecificationDocumentType'
+          example: null
+        documentTypesForCompany:
+          type: array
+          description: List of required documents for company.
+          items:
+            $ref: '#/components/schemas/PortingSpecificationDocumentType'
+          example: null
+        type:
+          $ref: '#/components/schemas/AddressRequirementType'
+      example: null
+    PortabilityType:
       type: string
+      description: 'Number portability: Change of Telecom Provider at National level.</br>
+
+        Change of Agency: It is a re-allocation of number by the existing Telecom Provider to another customer
+
+        '
       enum:
-      - Not Required
-      - Required Worldwide
-      - Required In Country
-      - Required In Region
+      - Number Portability
+      - Change Of Agency
       example: null
     PortingSpecification:
       type: object
@@ -144,48 +183,11 @@ components:
           format: int64
           example: null
       example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
-      example: null
-    AddressRequirement:
-      type: object
-      properties:
-        proofOfDocuments:
-          type: boolean
-          description: 'true: proof of documents is mandatory</br>
-
-            false: proof of documents is optional</br>
-
-            null: Not applicable for this address requirement type</br>
-
-            '
-          example: null
-        documentTypesForIndividual:
-          type: array
-          description: List of required documents for individual.
-          items:
-            $ref: '#/components/schemas/PortingSpecificationDocumentType'
-          example: null
-        documentTypesForCompany:
-          type: array
-          description: List of required documents for company.
-          items:
-            $ref: '#/components/schemas/PortingSpecificationDocumentType'
-          example: null
-        type:
-          $ref: '#/components/schemas/AddressRequirementType'
+    AddressRequirementType:
+      type: string
+      enum:
+      - Not Required
+      - Required Worldwide
+      - Required In Country
+      - Required In Region
       example: null

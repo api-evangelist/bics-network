@@ -15,7 +15,7 @@ paths:
 
 
         HTTP request should contain authorization bearer token with assigned ''conversion'' role'
-      operationId: Process SMS Conversion infos
+      operationId: ProcessSMSConversionInfos
       parameters: []
       requestBody:
         description: List of customer references.
@@ -44,6 +44,8 @@ paths:
       - Conversionsinfos
       summary: Process SMS conversion infos
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Process SMS Conversion infos
 components:
   schemas:
     MessageIdsDTO:

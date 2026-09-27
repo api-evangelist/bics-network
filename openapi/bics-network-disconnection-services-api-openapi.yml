@@ -17,7 +17,7 @@ paths:
       - Disconnection Services
       summary: Request to submit disconnection order
       description: Submit your order so that we can start processing it and disconnect numbers as soon as possible.
-      operationId: submit Disconnection Order
+      operationId: submitDisconnectionOrder
       parameters:
       - name: orderId
         in: path
@@ -68,6 +68,8 @@ paths:
           description: Order does not exist
         '405':
           description: Method not allowed
+      x-operation-id-source: normalized
+      x-operation-id-original: submit Disconnection Order
   /disconnections/orders/{orderId}/orderitems/{orderItemId}:
     parameters: []
     delete:
@@ -75,7 +77,7 @@ paths:
       - Disconnection Services
       summary: Delete disconnection order item by order id and order item id
       description: Remove a number from your order. This method is only allowed when the status is 'Draft'.
-      operationId: delete Disconnection Order Item
+      operationId: deleteDisconnectionOrderItem
       parameters:
       - name: orderId
         in: path
@@ -130,6 +132,8 @@ paths:
               example: null
         '404':
           description: Order or order item does not exist
+      x-operation-id-source: normalized
+      x-operation-id-original: delete Disconnection Order Item
   /disconnections/orders:
     parameters: []
     post:
@@ -137,7 +141,7 @@ paths:
       - Disconnection Services
       summary: Create an empty Disconnection Order
       description: Create an empty Disconnection Order. With the add Order Item, you can now add numbers to your Disconnection Order. The location to the order is specified in the response header - **location:** /disconnection/orders/**{orderId}**.
-      operationId: create Disconnection Order
+      operationId: createDisconnectionOrder
       parameters: []
       requestBody:
         content:
@@ -179,6 +183,8 @@ paths:
               example: null
         '405':
           description: Method not allowed
+      x-operation-id-source: normalized
+      x-operation-id-original: create Disconnection Order
   /disconnections/orders/{orderId}/orderitems:
     parameters: []
     post:
@@ -186,7 +192,7 @@ paths:
       - Disconnection Services
       summary: Add disconnection order item by order id
       description: Add a number to your order. This method is allowed only when the status is "Draft".
-      operationId: add Disconnection Order Item
+      operationId: addDisconnectionOrderItem
       parameters:
       - name: orderId
         in: path
@@ -245,63 +251,10 @@ paths:
               example: null
         '404':
           description: Order does not exist
+      x-operation-id-source: normalized
+      x-operation-id-original: add Disconnection Order Item
 components:
   schemas:
-    DisconnectionOrderCreateRequest:
-      required:
-      - email
-      type: object
-      properties:
-        reference:
-          type: string
-          description: Your reference
-          example: null
-        contactNumber:
-          type: string
-          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
-          example: null
-        additionalNotes:
-          type: string
-          description: Your additional information about this Disconnection Order.
-          example: null
-        email:
-          type: string
-          description: Address(es) of Disconnection order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
-          example: null
-      example: null
-    DisconnectionOrderItemResponse:
-      type: object
-      properties:
-        accessNumber:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Number in E164 format.
-          example: null
-        preferredDisconnectionDate:
-          type: string
-          description: Disconnection desired date in "YYYY-MM-DD" format.
-          example: null
-        id:
-          type: integer
-          format: int64
-          example: null
-      example: null
-    DisconnectionOrderItemRequest:
-      type: object
-      properties:
-        accessNumber:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Number in E164 format.
-          example: null
-        preferredDisconnectionDate:
-          minLength: 1
-          type: string
-          description: Disconnection desired date in "YYYY-MM-DD" format.
-          example: null
-      example: null
     error:
       type: object
       properties:
@@ -332,4 +285,59 @@ components:
           description: Order status
           example: null
       description: An object representing response for submit disconnection order
+      example: null
+    DisconnectionOrderItemResponse:
+      type: object
+      properties:
+        accessNumber:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Number in E164 format.
+          example: null
+        preferredDisconnectionDate:
+          type: string
+          description: Disconnection desired date in "YYYY-MM-DD" format.
+          example: null
+        id:
+          type: integer
+          format: int64
+          example: null
+      example: null
+    DisconnectionOrderCreateRequest:
+      required:
+      - email
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Your reference
+          example: null
+        contactNumber:
+          type: string
+          description: Your telephone number, multiple numbers are separated by semi-colon ';'.
+          example: null
+        additionalNotes:
+          type: string
+          description: Your additional information about this Disconnection Order.
+          example: null
+        email:
+          type: string
+          description: Address(es) of Disconnection order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
+          example: null
+      example: null
+    DisconnectionOrderItemRequest:
+      type: object
+      properties:
+        accessNumber:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Number in E164 format.
+          example: null
+        preferredDisconnectionDate:
+          minLength: 1
+          type: string
+          description: Disconnection desired date in "YYYY-MM-DD" format.
+          example: null
       example: null

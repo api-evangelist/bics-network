@@ -12,7 +12,7 @@ paths:
     parameters: []
     post:
       description: Sends a text message to one or more destination numbers.
-      operationId: Send Message
+      operationId: SendMessage
       parameters:
       - name: senderAddress
         in: path
@@ -83,11 +83,13 @@ paths:
       - Outbound
       summary: Send message
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Send Message
   /outbound/subscriptions:
     parameters: []
     get:
       description: Your subscription for delivery infos
-      operationId: Get Delivery Info Subscription
+      operationId: GetDeliveryInfoSubscription
       parameters: []
       responses:
         '200':
@@ -108,6 +110,8 @@ paths:
       - Outbound
       summary: Get delivery info subscription
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Delivery Info Subscription
     post:
       description: 'Subscribe for delivery info notifications. This is an alternative way to the Get Delivery Infos method to
 
@@ -147,7 +151,7 @@ paths:
         logic on your end to not simply overwrite the state DeliveredToTerminal with PartiallyDelivered
 
         and wrongfully conclude that the message is still in the state PartiallyDelivered.'
-      operationId: Create Delivery Info Subscription
+      operationId: CreateDeliveryInfoSubscription
       parameters: []
       requestBody:
         content:
@@ -179,9 +183,11 @@ paths:
       - Outbound
       summary: Create delivery info subscription
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Create Delivery Info Subscription
     delete:
       description: Delete your subscription for delivery infos
-      operationId: Delete Delivery Info Subscription
+      operationId: DeleteDeliveryInfoSubscription
       parameters: []
       responses:
         '401':
@@ -198,6 +204,8 @@ paths:
       - Outbound
       summary: Delete delivery info subscription
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Delete Delivery Info Subscription
   /outbound/{senderAddress}/requests/{requestId}/deliveryInfos:
     parameters: []
     get:
@@ -211,7 +219,7 @@ paths:
 
 
         Polling for the status can be resource intensive, alternatively you can also create a delivery subscription which will post the same delivery info to a URL you specify.'
-      operationId: Get Delivery Infos
+      operationId: GetDeliveryInfos
       parameters:
       - name: senderAddress
         in: path
@@ -260,24 +268,10 @@ paths:
       - Outbound
       summary: Get delivery infos
       x-summary-source: derived
+      x-operation-id-source: normalized
+      x-operation-id-original: Get Delivery Infos
 components:
   schemas:
-    Callback:
-      required:
-      - securityToken
-      - url
-      type: object
-      properties:
-        securityToken:
-          type: string
-          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
-          example: null
-        url:
-          type: string
-          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
-          example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
-      example: null
     NotAcceptableCallback:
       type: object
       properties:
@@ -290,59 +284,63 @@ components:
           type: string
           example: null
       example: null
-    OutboundRequest:
-      required:
-      - address
-      - outboundSMSTextMessage
-      - senderAddress
+    SmsTextMessage:
       type: object
       properties:
-        senderAddress:
-          type: string
-          description: For the sender address, we allow both numeric and alphanumeric senders. Keep in mind that not all destination networks accept alphanumeric senders, and some will even refuse to terminate messages if you try to use it.
-          example: null
-        senderName:
+        message:
           type: string
           example: null
-        finalDelivery:
-          type: boolean
+      description: 'The text message to send. It will be encoded using the GSM 7-bit encoding standard.
+
+        Note: The tab character (\t) will be replaced by four space characters during encoding.
+
+        The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
+
+        '
+      example: null
+    DeliveryInfo:
+      type: object
+      properties:
+        smsPartsUncertain:
+          type: integer
+          description: The number of parts that is uncertain of delivery for messages split into multiple parts.
+          x-include-if-not-null: true
           example: null
         address:
-          type: array
-          description: Recipient addresses
-          items:
-            type: string
-            description: Required. Recipient address
-            example: null
-          example: null
-        resourceURL:
           type: string
-          description: A resource URL for this specific request.
+          description: The recipient address.
           example: null
-        deliveryInfoList:
-          $ref: '#/components/schemas/DeliveryInfoList'
-        outboundSMSTextMessage:
-          $ref: '#/components/schemas/SmsTextMessage'
-        asynchronous:
-          type: boolean
-          description: Optional, default value is false. Reduces HTTP response time by acknowledging the message directly as it enters our system, doesn't influence on actual sending time of message to destination, HTTP response is sent before message validation by the routing engine. Delivery results are available on subscription, by calling 'getDeliveryResults' endpoint or by using notifyURL field.
-          default: false
-          example: null
-        clientCorrelator:
-          type: string
-          description: 'Suppose a network issue occurs just as you''re sending a message, and you did not receive your http response. In this case you will not know whether the sms was effectively sent or not. You could send the message again, but then you risk the recipient receiving the message twice. The solution for this is the clientCorrelator. Add this optional parameter with a unique value for each message you transmit. If you transmit the message again with the same correlator, bics will not send the message again. Instead, if the message was sent before, you will simply receive the response as you would''ve received it in the original sending. Correlators stay valid for 24 hours.
-
-            '
+        smsPartsUndeliverable:
+          type: integer
+          description: The number of parts undeliverable to terminal for messages split into multiple parts.
+          x-include-if-not-null: true
           example: null
         callbackData:
           type: string
-          description: Optional. Will be passed back in this notification, so you can use it to identify the message the receipt relates to or any other useful data, such as a function name.
+          description: Data from original sendMessage request
           example: null
-        notifyURL:
-          type: string
-          description: Optional. The URL-escaped URL to which a notification of delivery sent. notifyURL has presedence over delivery notification subscription that may already exist for the senderAddress.
+        deliveryStatus:
+          $ref: '#/components/schemas/DeliveryState'
+        smsPartsDeliveredToTerminal:
+          type: integer
+          description: The number of parts delivered to terminal for messages split into multiple parts.
           example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("outboundSMSMessageRequest")'
+        deliveryStatusCode:
+          type: integer
+          example: null
+      example: null
+    DeliveryCallback:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          finalDelivery:
+            type: boolean
+            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null
     DeliveryState:
       type: string
@@ -399,63 +397,75 @@ components:
       - InvalidSrcAddress
       - InvalidDestAddress
       example: null
-    DeliveryCallback:
+    Callback:
+      required:
+      - securityToken
+      - url
       type: object
-      allOf:
-      - $ref: '#/components/schemas/Callback'
-      - type: object
-        properties:
-          finalDelivery:
-            type: boolean
-            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
-            example: null
-        example: null
+      properties:
+        securityToken:
+          type: string
+          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
+          example: null
+        url:
+          type: string
+          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
+          example: null
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null
-    SmsTextMessage:
+    OutboundRequest:
+      required:
+      - address
+      - outboundSMSTextMessage
+      - senderAddress
       type: object
       properties:
-        message:
+        senderAddress:
+          type: string
+          description: For the sender address, we allow both numeric and alphanumeric senders. Keep in mind that not all destination networks accept alphanumeric senders, and some will even refuse to terminate messages if you try to use it.
+          example: null
+        senderName:
           type: string
           example: null
-      description: 'The text message to send. It will be encoded using the GSM 7-bit encoding standard.
-
-        Note: The tab character (\t) will be replaced by four space characters during encoding.
-
-        The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
-
-        '
-      example: null
-    DeliveryInfo:
-      type: object
-      properties:
-        smsPartsUncertain:
-          type: integer
-          description: The number of parts that is uncertain of delivery for messages split into multiple parts.
-          x-include-if-not-null: true
+        finalDelivery:
+          type: boolean
           example: null
         address:
-          type: string
-          description: The recipient address.
+          type: array
+          description: Recipient addresses
+          items:
+            type: string
+            description: Required. Recipient address
+            example: null
           example: null
-        smsPartsUndeliverable:
-          type: integer
-          description: The number of parts undeliverable to terminal for messages split into multiple parts.
-          x-include-if-not-null: true
+        resourceURL:
+          type: string
+          description: A resource URL for this specific request.
+          example: null
+        deliveryInfoList:
+          $ref: '#/components/schemas/DeliveryInfoList'
+        outboundSMSTextMessage:
+          $ref: '#/components/schemas/SmsTextMessage'
+        asynchronous:
+          type: boolean
+          description: Optional, default value is false. Reduces HTTP response time by acknowledging the message directly as it enters our system, doesn't influence on actual sending time of message to destination, HTTP response is sent before message validation by the routing engine. Delivery results are available on subscription, by calling 'getDeliveryResults' endpoint or by using notifyURL field.
+          default: false
+          example: null
+        clientCorrelator:
+          type: string
+          description: 'Suppose a network issue occurs just as you''re sending a message, and you did not receive your http response. In this case you will not know whether the sms was effectively sent or not. You could send the message again, but then you risk the recipient receiving the message twice. The solution for this is the clientCorrelator. Add this optional parameter with a unique value for each message you transmit. If you transmit the message again with the same correlator, bics will not send the message again. Instead, if the message was sent before, you will simply receive the response as you would''ve received it in the original sending. Correlators stay valid for 24 hours.
+
+            '
           example: null
         callbackData:
           type: string
-          description: Data from original sendMessage request
+          description: Optional. Will be passed back in this notification, so you can use it to identify the message the receipt relates to or any other useful data, such as a function name.
           example: null
-        deliveryStatus:
-          $ref: '#/components/schemas/DeliveryState'
-        smsPartsDeliveredToTerminal:
-          type: integer
-          description: The number of parts delivered to terminal for messages split into multiple parts.
+        notifyURL:
+          type: string
+          description: Optional. The URL-escaped URL to which a notification of delivery sent. notifyURL has presedence over delivery notification subscription that may already exist for the senderAddress.
           example: null
-        deliveryStatusCode:
-          type: integer
-          example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("outboundSMSMessageRequest")'
       example: null
     DeliveryInfoList:
       type: object

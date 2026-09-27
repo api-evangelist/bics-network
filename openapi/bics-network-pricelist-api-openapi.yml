@@ -17,7 +17,7 @@ paths:
       - pricelist
       summary: Query your current pricelist
       description: Query your current pricelist by product in order to know the pricing applicable to our numbers in each country.
-      operationId: get Pricelist By Product
+      operationId: getPricelistByProduct
       parameters:
       - name: product
         in: path
@@ -61,6 +61,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get Pricelist By Product
   /pricelist/product/{product}/country/{country}:
     parameters: []
     get:
@@ -68,7 +70,7 @@ paths:
       - pricelist
       summary: Query your current pricelist for a specific country
       description: Query your current pricelist by product and country in order to know the pricing applicable to our numbers in a given country.
-      operationId: get Pricelist By Product And Country
+      operationId: getPricelistByProductAndCountry
       parameters:
       - name: product
         in: path
@@ -122,54 +124,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get Pricelist By Product And Country
 components:
   schemas:
-    accessType:
-      type: string
-      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
-      enum:
-      - fix
-      - mob
-      - pay
-      - fixMob
-      - fixPay
-      - mobPay
-      - fixMobPay
-      example: null
-    locationAreaCode:
-      type: object
-      properties:
-        areaCode:
-          type: string
-          description: Area code of the number according to the national numbering plan.
-          example: '2'
-        location:
-          type: string
-          description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
-          example: Antwerp
-      example: null
-    currency:
-      type: string
-      enum:
-      - EUR
-      - USD
-      - ZAR
-      example: null
-    nonUsageFees:
-      type: object
-      properties:
-        MonthlyFee:
-          type: string
-          description: Monthly recurring fee.
-          example: '0.2'
-        setUpFee:
-          type: string
-          description: Setup Fee
-          example: '0.4'
-        currency:
-          $ref: '#/components/schemas/currency'
-      description: Non usage fees define the setup and monthly recurring fees.
-      example: null
     error:
       type: object
       properties:
@@ -187,38 +145,51 @@ components:
           format: date-time
           example: null
       example: null
-    usageFees:
+    currency:
+      type: string
+      enum:
+      - EUR
+      - USD
+      - ZAR
+      example: null
+    locationAreaCode:
       type: object
       properties:
-        accessType:
-          $ref: '#/components/schemas/accessType'
-        calendar:
+        areaCode:
           type: string
-          description: Pricing Calendar Code.
-          example: SINT
-        tde:
+          description: Area code of the number according to the national numbering plan.
+          example: '2'
+        location:
           type: string
-          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>`STD` - Standard</li> <li>`P` - Peak</li> <li>`OP` - Off Peak</li> <li>`OOP` - Off Off Peak</li> <li>`WED` - Weekend</li> </ul>
-          example: OP
-          enum:
-          - STD
-          - P
-          - OP
-          - OOP
-          - WED
-        callSetUpFee:
+          description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
+          example: Antwerp
+      example: null
+    accessType:
+      type: string
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+      enum:
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
+      example: null
+    nonUsageFees:
+      type: object
+      properties:
+        MonthlyFee:
           type: string
-          example: '0.001'
-        accessNetwork:
+          description: Monthly recurring fee.
+          example: '0.2'
+        setUpFee:
           type: string
-          description: Parameter describing the network of the calling party. Different routes can be used per access network. If not specified the same routing will be applied to all access Networks.
-          example: SMART
+          description: Setup Fee
+          example: '0.4'
         currency:
           $ref: '#/components/schemas/currency'
-        perMinuteFee:
-          type: string
-          example: '0.0015'
-      description: Usage fees define the call setup and per minute fees.
+      description: Non usage fees define the setup and monthly recurring fees.
       example: null
     fees:
       required:
@@ -263,4 +234,37 @@ components:
           example: null
         nonUsageFees:
           $ref: '#/components/schemas/nonUsageFees'
+      example: null
+    usageFees:
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/accessType'
+        calendar:
+          type: string
+          description: Pricing Calendar Code.
+          example: SINT
+        tde:
+          type: string
+          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>`STD` - Standard</li> <li>`P` - Peak</li> <li>`OP` - Off Peak</li> <li>`OOP` - Off Off Peak</li> <li>`WED` - Weekend</li> </ul>
+          example: OP
+          enum:
+          - STD
+          - P
+          - OP
+          - OOP
+          - WED
+        callSetUpFee:
+          type: string
+          example: '0.001'
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network. If not specified the same routing will be applied to all access Networks.
+          example: SMART
+        currency:
+          $ref: '#/components/schemas/currency'
+        perMinuteFee:
+          type: string
+          example: '0.0015'
+      description: Usage fees define the call setup and per minute fees.
       example: null

@@ -21,7 +21,7 @@ paths:
         a given product in a country. In case we don’t have enough numbers in our stock, the method also
 
         gives you the quantity of numbers still available so that you know how many numbers you can order.'
-      operationId: Check Available Stock
+      operationId: CheckAvailableStock
       parameters:
       - name: product
         in: path
@@ -102,6 +102,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: Check Available Stock
   /numbers/{number}/services:
     parameters: []
     get:
@@ -109,7 +111,7 @@ paths:
       - Stock
       summary: Retrieve the available and active services of a given number from the inventory
       description: The /numbers/{number}/services method allows you to retrieve the available and active services of a given number from your inventory. Services that are not available on the given number are not returned.
-      operationId: get number services
+      operationId: getNumberServices
       parameters:
       - name: number
         in: path
@@ -141,6 +143,8 @@ paths:
               example: null
             number not found:
               example: "[\n  {\n    'code': 'E060'\n    'description': 'The number specified in request does not exist'\n    'timestamp': '2020'\n  }\n]\n"
+      x-operation-id-source: normalized
+      x-operation-id-original: get number services
   /stock/product/{product}/country/{country}/location/{location}/quantity/{quantity}:
     parameters: []
     get:
@@ -150,7 +154,7 @@ paths:
       description: 'This method allows you to check if a given quantity of Cloud Numbers are available in our stock for a given location.
 
         In case we don''t have enough numbers in our stock, the method also gives you the quantity of numbers available in our stock so that you know how many numbers you can order.'
-      operationId: Check Available Stock By Location
+      operationId: CheckAvailableStockByLocation
       parameters:
       - name: product
         in: path
@@ -221,6 +225,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: Check Available Stock By Location
   /availablenumbers:
     parameters: []
     get:
@@ -228,7 +234,7 @@ paths:
       - Stock
       summary: Retrieve available numbers for specific product, country and location
       description: The _/availablenumbers_ method allows you to preview a list of numbers that we have in our stock. You can then pick and order one or multiple numbers out of the list by calling the order method. The numbers cannot be reserved hence there is no guarantee that the numbers will still be available when you place the order.
-      operationId: get available numbers
+      operationId: getAvailableNumbers
       parameters:
       - name: product
         in: query
@@ -312,34 +318,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/error'
               example: null
+      x-operation-id-source: normalized
+      x-operation-id-original: get available numbers
 components:
   schemas:
-    availableNumber:
-      type: object
-      properties:
-        number:
-          type: string
-          description: Available numbers in stock.
-          example: '81345785554'
-        country:
-          $ref: '#/components/schemas/country'
-        product:
-          $ref: '#/components/schemas/product'
-        areaCode:
-          type: string
-          description: Area code of the number according to the national numbering plan.
-          example: '3'
-        location:
-          $ref: '#/components/schemas/location'
-      example: null
     product:
       type: string
       description: Valid product codes are 'IBN', 'ITFS' and 'GMN'. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Number.
       example: IBN
-    country:
-      type: string
-      description: Country code in ISO 3166-1 alpha-3 format.
-      example: JPN
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
     numberService:
       type: object
       properties:
@@ -365,6 +368,28 @@ components:
           description: <b>true</b>&#58; the service is active on your number <br/><b>false</b>&#58; the service is available but not active on your number
           example: null
       example: null
+    availableNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          description: Available numbers in stock.
+          example: '81345785554'
+        country:
+          $ref: '#/components/schemas/country'
+        product:
+          $ref: '#/components/schemas/product'
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '3'
+        location:
+          $ref: '#/components/schemas/location'
+      example: null
+    country:
+      type: string
+      description: Country code in ISO 3166-1 alpha-3 format.
+      example: JPN
     stock:
       required:
       - checkStock
@@ -396,23 +421,6 @@ components:
           type: boolean
           description: Flag indicating if there are enough numbers in stock to meet your request.
           example: true
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
       example: null
     location:
       type: string
