@@ -232,6 +232,72 @@ paths:
       x-operation-id-original: Request CDRs
 components:
   schemas:
+    createCdrResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: unique identifier of your request.
+          format: int64
+          example: null
+        status:
+          type: string
+          description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
+          example: null
+      example: null
+    createCdrRequest:
+      required:
+      - fromDate
+      - product
+      - toDate
+      type: object
+      properties:
+        aNumber:
+          type: string
+          description: Origin number in E164 format.
+          example: null
+        fromDate:
+          type: string
+          description: Not earlier than today – 1 year.
+          format: date
+          example: null
+        releaseCauseCode:
+          type: integer
+          description: Release cause code. (see <a href="#appendixes">APPENDIX A – Release Cause codes</a>)
+          format: int64
+          example: null
+        product:
+          type: string
+          description: Valid product codes. Possible values <ul> <li>"IBN" for Cloud Numbers</li> <li>"ITFS" for International Freephone Numbers</li> <li>"GMN" for Global Mobile Numbers</li> <li>"UIFN" for Universal International Freephone Numbers</li> <li>"SCS" for Shared Cost Services</li> </ul>
+          example: null
+        aCountry:
+          type: string
+          description: Origin country in ISO 3166-1 alpha-3 format.
+          example: null
+        include0Duration:
+          type: boolean
+          description: Include CDRs where the call duration is 0. Possible values are <ul> <li>true</li> <li>false (default value if not specified in the request)</li> </ul>
+          example: null
+        bCountry:
+          type: string
+          description: Destination country in ISO 3166-1 alpha-3 format.
+          example: null
+        toDate:
+          type: string
+          description: 'Maximum 31 days after ''fromDate'' <br/> e.g.: 1 May till 31 May or 15 June till 15 July
+
+            '
+          format: date
+          example: null
+        bNumber:
+          type: string
+          description: Destination number in E164 format.
+          example: null
+        direction:
+          type: string
+          description: Valid options are <ul> <li>"IN" for inbound traffic (default value if not specified in the request)</li> <li>"OUT" for outbound. Not available for UIFN and SCS products</li> </ul>
+          example: null
+      example: null
     availableDate:
       type: object
       properties:
@@ -245,23 +311,6 @@ components:
           description: Available date status. Possible values are <ul> <li>`0` - All cdrs for this date are available</li> <li>`1` - Cdr data is partially available</li> <li>`2` - No cdr data available</li> </ul>
           format: int32
           example: 1
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
       example: null
     downloadCdrResponse:
       type: object
@@ -350,59 +399,6 @@ components:
           description: possible values are <ul> <li>IN for inbound traffic</li> <li>OUT for outbound traffic. Not available for UIFN and SCS products</li> </ul>
           example: null
       example: null
-    createCdrRequest:
-      required:
-      - fromDate
-      - product
-      - toDate
-      type: object
-      properties:
-        aNumber:
-          type: string
-          description: Origin number in E164 format.
-          example: null
-        fromDate:
-          type: string
-          description: Not earlier than today – 1 year.
-          format: date
-          example: null
-        releaseCauseCode:
-          type: integer
-          description: Release cause code. (see <a href="#appendixes">APPENDIX A – Release Cause codes</a>)
-          format: int64
-          example: null
-        product:
-          type: string
-          description: Valid product codes. Possible values <ul> <li>"IBN" for Cloud Numbers</li> <li>"ITFS" for International Freephone Numbers</li> <li>"GMN" for Global Mobile Numbers</li> <li>"UIFN" for Universal International Freephone Numbers</li> <li>"SCS" for Shared Cost Services</li> </ul>
-          example: null
-        aCountry:
-          type: string
-          description: Origin country in ISO 3166-1 alpha-3 format.
-          example: null
-        include0Duration:
-          type: boolean
-          description: Include CDRs where the call duration is 0. Possible values are <ul> <li>true</li> <li>false (default value if not specified in the request)</li> </ul>
-          example: null
-        bCountry:
-          type: string
-          description: Destination country in ISO 3166-1 alpha-3 format.
-          example: null
-        toDate:
-          type: string
-          description: 'Maximum 31 days after ''fromDate'' <br/> e.g.: 1 May till 31 May or 15 June till 15 July
-
-            '
-          format: date
-          example: null
-        bNumber:
-          type: string
-          description: Destination number in E164 format.
-          example: null
-        direction:
-          type: string
-          description: Valid options are <ul> <li>"IN" for inbound traffic (default value if not specified in the request)</li> <li>"OUT" for outbound. Not available for UIFN and SCS products</li> </ul>
-          example: null
-      example: null
     cdrRequestStatusResponse:
       type: object
       properties:
@@ -411,17 +407,21 @@ components:
           description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
           example: null
       example: null
-    createCdrResponse:
+    error:
       type: object
       properties:
-        id:
-          type: integer
-          description: unique identifier of your request.
-          format: int64
-          example: null
-        status:
+        code:
           type: string
-          description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
           example: null
       example: null
 x-appendixes:

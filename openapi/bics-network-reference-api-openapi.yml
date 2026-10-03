@@ -429,34 +429,33 @@ paths:
       x-operation-id-original: Get Document Types
 components:
   schemas:
-    error:
+    documentType:
       type: object
       properties:
         code:
           type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
+          description: document type code
+          example: POD1
         description:
           type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
+          description: document type description
+          example: Letter of Intent
       example: null
-    language:
+    documentTypesComposed:
       type: object
       properties:
-        code:
-          type: string
-          description: language code
-          example: en
-        description:
-          type: string
-          description: full language name
-          example: English
+        documentTypesForIndividual:
+          type: array
+          description: List of available document types for individual
+          items:
+            $ref: '#/components/schemas/documentType'
+          example: null
+        documentTypesForCompany:
+          type: array
+          description: List of available document types for Company
+          items:
+            $ref: '#/components/schemas/documentType'
+          example: null
       example: null
     locations:
       type: object
@@ -477,22 +476,6 @@ components:
           type: string
           description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
           example: Brussels
-      example: null
-    documentTypesComposed:
-      type: object
-      properties:
-        documentTypesForIndividual:
-          type: array
-          description: List of available document types for individual
-          items:
-            $ref: '#/components/schemas/documentType'
-          example: null
-        documentTypesForCompany:
-          type: array
-          description: List of available document types for Company
-          items:
-            $ref: '#/components/schemas/documentType'
-          example: null
       example: null
     calendar:
       type: object
@@ -518,15 +501,32 @@ components:
           description: time in format hh:mm
           example: 00:00
       example: null
-    documentType:
+    language:
       type: object
       properties:
         code:
           type: string
-          description: document type code
-          example: POD1
+          description: language code
+          example: en
         description:
           type: string
-          description: document type description
-          example: Letter of Intent
+          description: full language name
+          example: English
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
       example: null

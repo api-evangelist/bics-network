@@ -255,21 +255,19 @@ paths:
       x-operation-id-original: add Disconnection Order Item
 components:
   schemas:
-    error:
+    DisconnectionOrderItemRequest:
       type: object
       properties:
-        code:
+        accessNumber:
+          maxLength: 100
+          minLength: 1
           type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
+          description: Number in E164 format.
+          example: null
+        preferredDisconnectionDate:
+          minLength: 1
           type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
+          description: Disconnection desired date in "YYYY-MM-DD" format.
           example: null
       example: null
     SubmitDisconnectionOrderResponse:
@@ -285,24 +283,6 @@ components:
           description: Order status
           example: null
       description: An object representing response for submit disconnection order
-      example: null
-    DisconnectionOrderItemResponse:
-      type: object
-      properties:
-        accessNumber:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Number in E164 format.
-          example: null
-        preferredDisconnectionDate:
-          type: string
-          description: Disconnection desired date in "YYYY-MM-DD" format.
-          example: null
-        id:
-          type: integer
-          format: int64
-          example: null
       example: null
     DisconnectionOrderCreateRequest:
       required:
@@ -326,7 +306,24 @@ components:
           description: Address(es) of Disconnection order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
           example: null
       example: null
-    DisconnectionOrderItemRequest:
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    DisconnectionOrderItemResponse:
       type: object
       properties:
         accessNumber:
@@ -336,8 +333,11 @@ components:
           description: Number in E164 format.
           example: null
         preferredDisconnectionDate:
-          minLength: 1
           type: string
           description: Disconnection desired date in "YYYY-MM-DD" format.
+          example: null
+        id:
+          type: integer
+          format: int64
           example: null
       example: null

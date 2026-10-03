@@ -74,34 +74,13 @@ paths:
       x-operation-id-original: get porting specifications
 components:
   schemas:
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
-      example: null
-    PortingSpecificationDocumentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Document type code.
-          example: null
-        description:
-          type: string
-          description: Document type description.
-          example: null
+    AddressRequirementType:
+      type: string
+      enum:
+      - Not Required
+      - Required Worldwide
+      - Required In Country
+      - Required In Region
       example: null
     AddressRequirement:
       type: object
@@ -131,16 +110,17 @@ components:
         type:
           $ref: '#/components/schemas/AddressRequirementType'
       example: null
-    PortabilityType:
-      type: string
-      description: 'Number portability: Change of Telecom Provider at National level.</br>
-
-        Change of Agency: It is a re-allocation of number by the existing Telecom Provider to another customer
-
-        '
-      enum:
-      - Number Portability
-      - Change Of Agency
+    PortingSpecificationDocumentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Document type code.
+          example: null
+        description:
+          type: string
+          description: Document type description.
+          example: null
       example: null
     PortingSpecification:
       type: object
@@ -183,11 +163,31 @@ components:
           format: int64
           example: null
       example: null
-    AddressRequirementType:
+    PortabilityType:
       type: string
+      description: 'Number portability: Change of Telecom Provider at National level.</br>
+
+        Change of Agency: It is a re-allocation of number by the existing Telecom Provider to another customer
+
+        '
       enum:
-      - Not Required
-      - Required Worldwide
-      - Required In Country
-      - Required In Region
+      - Number Portability
+      - Change Of Agency
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
       example: null

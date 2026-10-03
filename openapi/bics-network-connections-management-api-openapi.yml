@@ -202,6 +202,46 @@ paths:
           links: {}
 components:
   schemas:
+    CarrierEthernetLine:
+      type: object
+      properties:
+        interconnectA:
+          $ref: '#/components/schemas/InterconnectDto'
+        interconnectB:
+          $ref: '#/components/schemas/InterconnectDto'
+        customerReference:
+          type: string
+          description: Optional custom name of the line
+          example: null
+        lineType:
+          type: string
+          enum:
+          - PRIMARY
+          - SECONDARY
+          example: null
+        serviceId:
+          type: string
+          example: null
+        vlanB:
+          type: integer
+          description: VLAN of interconnect B
+          format: int32
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+          example: null
+        vlanA:
+          type: integer
+          description: VLAN of interconnect A
+          format: int32
+          example: null
+      description: Connection lines details
+      example: null
     ModifyConnectionDto:
       required:
       - connectionId
@@ -221,112 +261,105 @@ components:
           description: 'Type of reference data and new value, ex: bandwidth, 100 Mbps'
           example: null
       example: null
-    InterconnectDto:
+    ConnectionStatus:
       type: object
       properties:
-        capacityLabel:
+        connectionStatus:
           type: string
-          description: Capacity display label
           example: null
-        portMode:
+        connectionId:
           type: string
-          description: Interconnect port mode
           example: null
-        city:
-          type: string
-          description: Interconnect city
-          example: null
-        usage:
-          type: number
-          description: Average usage rate percentage for interconnect
-          example: null
-        datacenter:
-          type: string
-          description: Interconnect datacenter
-          example: null
-        label:
-          type: string
-          description: Interconnect name
-          example: null
-        type:
-          type: string
-          description: Interconnect type
-          enum:
-          - ACCESS_LINE
-          - MARKETPLACE
-          example: null
-        capacity:
-          type: string
-          description: Capacity (Bandwidth reference data ID)
-          example: null
-        houser:
-          type: string
-          description: Interconnect houser
-          example: null
-        portTag:
-          type: string
-          description: Interconnect port tag
-          example: null
-        additionalData:
-          type: object
-          additionalProperties:
-            type: string
-            description: Additional data
-            example: null
-          description: Additional data
-          example: null
-        id:
-          type: string
-          description: Interconnect service ID
-          example: null
-        countryIso3:
-          type: string
-          description: Interconnect Country ISO3 code
-          example: null
-        status:
-          type: string
-          description: Sirius status
-          example: null
-      description: Interconnect B details
       example: null
-    CloudConnectOrderLine:
-      required:
-      - cloudServiceKey
-      - interconnect
-      - lineType
+    CarrierEthernetConnection:
       type: object
       properties:
-        vlan:
-          type: integer
-          description: Optional field for manual VLAN assignment. Ignored in case 'autoVlanAssignment' is set to 'true'
-          format: int32
-          example: null
-        customerReference:
+        contactEmailAddress:
           type: string
-          description: Optional custom name of the line
+          description: Requester email address
           example: null
-        lineType:
+        serviceType:
           type: string
           enum:
-          - PRIMARY
-          - SECONDARY
+          - CARRIER_ETHERNET
+          default: CARRIER_ETHERNET
           example: null
-        cloudServiceKey:
+        contractLabel:
           type: string
-          description: Service key assigned by Cloud Service Provider
+          description: Minimal order term label
           example: null
-        interconnect:
+        customerComment:
           type: string
+          description: Optional customer comment
+          example: null
+        bandwidth:
+          type: string
+          description: Connection bandwidth (Reference data identifier)
+          example: null
+        companyName:
+          type: string
+          description: Company name
+          example: null
+        bandwidthLabel:
+          type: string
+          description: Connection bandwidth label
+          example: null
+        currencyLabel:
+          type: string
+          description: Currency label
+          example: null
+        protectionSchemeLabel:
+          type: string
+          description: Connection protection scheme label
+          example: null
+        price:
+          type: string
+          description: Price
+          example: null
+        contractTerm:
+          type: string
+          description: Minimal order term (Reference data identifier)
+          example: null
+        connectionId:
+          type: integer
+          description: ID
+          format: int64
+          readOnly: true
+          example: null
+        currency:
+          type: string
+          description: Currency (Reference data identifier)
+          example: null
+        customerPurchaseReference:
+          type: string
+          description: Optional purchase reference
+          example: null
+        protectionScheme:
+          type: string
+          description: Connection protection scheme (Reference data identifier)
+          example: null
+        activationDate:
+          type: string
+          description: Connection activation date
+          example: null
+        lines:
+          type: array
+          description: Connection lines details
+          items:
+            $ref: '#/components/schemas/CarrierEthernetLine'
           example: null
         additionalAttributes:
           type: object
           additionalProperties:
             type: string
-            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
             example: null
-          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+          description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
           example: null
-      description: Connection lines details
+        status:
+          type: string
+          description: Connection status
+          example: null
       example: null
     CloudConnectConnection:
       type: object
@@ -434,125 +467,73 @@ components:
           description: Connection status
           example: null
       example: null
-    CarrierEthernetConnection:
+    InterconnectDto:
       type: object
       properties:
-        contactEmailAddress:
+        capacityLabel:
           type: string
-          description: Requester email address
+          description: Capacity display label
           example: null
-        serviceType:
+        portMode:
           type: string
+          description: Interconnect port mode
+          example: null
+        city:
+          type: string
+          description: Interconnect city
+          example: null
+        usage:
+          type: number
+          description: Average usage rate percentage for interconnect
+          example: null
+        datacenter:
+          type: string
+          description: Interconnect datacenter
+          example: null
+        label:
+          type: string
+          description: Interconnect name
+          example: null
+        type:
+          type: string
+          description: Interconnect type
           enum:
-          - CARRIER_ETHERNET
-          default: CARRIER_ETHERNET
+          - ACCESS_LINE
+          - MARKETPLACE
           example: null
-        contractLabel:
+        capacity:
           type: string
-          description: Minimal order term label
+          description: Capacity (Bandwidth reference data ID)
           example: null
-        customerComment:
+        houser:
           type: string
-          description: Optional customer comment
+          description: Interconnect houser
           example: null
-        bandwidth:
+        portTag:
           type: string
-          description: Connection bandwidth (Reference data identifier)
+          description: Interconnect port tag
           example: null
-        companyName:
-          type: string
-          description: Company name
-          example: null
-        bandwidthLabel:
-          type: string
-          description: Connection bandwidth label
-          example: null
-        currencyLabel:
-          type: string
-          description: Currency label
-          example: null
-        protectionSchemeLabel:
-          type: string
-          description: Connection protection scheme label
-          example: null
-        price:
-          type: string
-          description: Price
-          example: null
-        contractTerm:
-          type: string
-          description: Minimal order term (Reference data identifier)
-          example: null
-        connectionId:
-          type: integer
-          description: ID
-          format: int64
-          readOnly: true
-          example: null
-        currency:
-          type: string
-          description: Currency (Reference data identifier)
-          example: null
-        customerPurchaseReference:
-          type: string
-          description: Optional purchase reference
-          example: null
-        protectionScheme:
-          type: string
-          description: Connection protection scheme (Reference data identifier)
-          example: null
-        activationDate:
-          type: string
-          description: Connection activation date
-          example: null
-        lines:
-          type: array
-          description: Connection lines details
-          items:
-            $ref: '#/components/schemas/CarrierEthernetLine'
-          example: null
-        additionalAttributes:
+        additionalData:
           type: object
           additionalProperties:
             type: string
-            description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+            description: Additional data
             example: null
-          description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+          description: Additional data
+          example: null
+        id:
+          type: string
+          description: Interconnect service ID
+          example: null
+        countryIso3:
+          type: string
+          description: Interconnect Country ISO3 code
           example: null
         status:
           type: string
-          description: Connection status
+          description: Sirius status
           example: null
-      example: null
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code enum defined by the Portal
-          example: null
-        message:
-          type: string
-          description: General summary of the error
-          example: null
-        errors:
-          type: array
-          description: Detailed description of each occurred error
-          items:
-            type: string
-            description: Detailed description of each occurred error
-            example: null
-          example: null
-        status:
-          type: integer
-          description: HTTP status code
-          format: int32
-          example: null
-        timestamp:
-          type: string
-          description: Timestamp of the error
-          format: date-time
-          example: null
+      description: Interconnect B details
       example: null
     CloudConnectLine:
       type: object
@@ -591,55 +572,35 @@ components:
           example: null
       description: Connection lines
       example: null
-    ConnectionStatus:
+    ApiError:
       type: object
       properties:
-        connectionStatus:
+        code:
           type: string
+          description: Error code enum defined by the Portal
           example: null
-        connectionId:
+        message:
           type: string
+          description: General summary of the error
           example: null
-      example: null
-    CarrierEthernetLine:
-      type: object
-      properties:
-        interconnectA:
-          $ref: '#/components/schemas/InterconnectDto'
-        interconnectB:
-          $ref: '#/components/schemas/InterconnectDto'
-        customerReference:
-          type: string
-          description: Optional custom name of the line
-          example: null
-        lineType:
-          type: string
-          enum:
-          - PRIMARY
-          - SECONDARY
-          example: null
-        serviceId:
-          type: string
-          example: null
-        vlanB:
-          type: integer
-          description: VLAN of interconnect B
-          format: int32
-          example: null
-        additionalAttributes:
-          type: object
-          additionalProperties:
+        errors:
+          type: array
+          description: Detailed description of each occurred error
+          items:
             type: string
-            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            description: Detailed description of each occurred error
             example: null
-          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
           example: null
-        vlanA:
+        status:
           type: integer
-          description: VLAN of interconnect A
+          description: HTTP status code
           format: int32
           example: null
-      description: Connection lines details
+        timestamp:
+          type: string
+          description: Timestamp of the error
+          format: date-time
+          example: null
       example: null
     CloudConnectOrder:
       required:
@@ -728,4 +689,43 @@ components:
             example: null
           description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
           example: null
+      example: null
+    CloudConnectOrderLine:
+      required:
+      - cloudServiceKey
+      - interconnect
+      - lineType
+      type: object
+      properties:
+        vlan:
+          type: integer
+          description: Optional field for manual VLAN assignment. Ignored in case 'autoVlanAssignment' is set to 'true'
+          format: int32
+          example: null
+        customerReference:
+          type: string
+          description: Optional custom name of the line
+          example: null
+        lineType:
+          type: string
+          enum:
+          - PRIMARY
+          - SECONDARY
+          example: null
+        cloudServiceKey:
+          type: string
+          description: Service key assigned by Cloud Service Provider
+          example: null
+        interconnect:
+          type: string
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+          example: null
+      description: Connection lines details
       example: null

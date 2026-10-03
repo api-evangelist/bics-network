@@ -501,41 +501,6 @@ paths:
       x-operation-id-original: Create Address
 components:
   schemas:
-    addressDocumentStatus:
-      type: string
-      description: "Validation status:\n    <ul>\n      <li>\"Uploaded\": The file is in process of being uploaded, checked by our virus scanners and attached to your address.</li>\n      <li>\"Verified\":  <b class=\"warning\">obsolete/deprecated</b>, replaced by \"Submitted\".</li>\n      <li>\"Rejected\": The file is rejected by our virus scanner. It may contain a virus or a malicious script.</li>\n      <li>\"Submitted\": We received your document.</li>\n      <li>\"Under Validation\": Your document is under validation.</li>\n      <li>\"Validated\": Your document has been validated.</li>\n      <li>\"Declined\": Your document has been declined, please upload a new document.</li>\n    </ul>\n"
-      enum:
-      - Uploaded
-      - Rejected
-      - Submitted
-      - Under Validation
-      - Validated
-      - Expired
-      - Declined
-      example: null
-    addressDeletionStatus:
-      type: string
-      description: Address deletion result status
-      enum:
-      - Deleted
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation.
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation.
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: Timestamp of error in UTC format.
-          format: date-time
-          example: null
-      example: null
     address:
       required:
       - reference
@@ -606,6 +571,30 @@ components:
           type: string
           description: "Validation status of the address.\n          <ul>\n            <li>`Submitted` - Your address has been submitted and is in the process of been validated.</li>\n          </ul>\n"
           example: Submitted
+      example: null
+    addressDocumentResponse:
+      type: object
+      properties:
+        reference:
+          type: string
+          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end-user is required.
+          example: 3ff35db2-1301-43b1-89f8-4df00faa8a50
+        documentType:
+          $ref: '#/components/schemas/documentType'
+        comment:
+          type: string
+          description: Reason why your document was Rejected or Declined
+          example: Not readable. Please provide new document
+        documentReference:
+          type: string
+          description: Saved document reference
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+        documentName:
+          type: string
+          description: Name of the document
+          example: someName.ext
+        status:
+          $ref: '#/components/schemas/addressDocumentStatus'
       example: null
     addressDetails:
       required:
@@ -697,31 +686,6 @@ components:
           description: "Validation status of the address.\n         <ul>\n            <li>`Submitted` - Your address has been submitted.</li>\n            <li><strike>`Accepted` - Your address has been accepted and can be used to order Cloud Numbers in the country concerned.</strike></li>\n            <li><strike>`More information  required` - Some information are missing. You must provide necessary information in order to have your ' addressAccepted'</strike></li>\n            <li><strike>`Rejected` - You address has been rejected. It cannot be used anymore.</strike></li>\n          </ul>\n"
           example: Submitted
       example: null
-    addressDeletionResponse:
-      type: object
-      properties:
-        reference:
-          type: string
-          example: d9224465-cce9-4df1-b2b8-4f39cce00959
-        status:
-          $ref: '#/components/schemas/addressDeletionStatus'
-      example: null
-    locationAreaCode:
-      type: object
-      properties:
-        areaCode:
-          type: string
-          description: Area code of the number according to the national numbering plan.
-          example: '2'
-        location:
-          type: string
-          description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
-          example: Brussels
-        nonGeographic:
-          type: boolean
-          description: Indicates if the location is non geographic (e.g. National).
-          example: true
-      example: null
     addressRequest:
       required:
       - alias
@@ -783,15 +747,54 @@ components:
           description: Residence name.
           example: Eiffel
       example: null
-    addressDocumentResponse:
+    addressDeletionStatus:
+      type: string
+      description: Address deletion result status
+      enum:
+      - Deleted
+      example: null
+    addressDocumentStatus:
+      type: string
+      description: "Validation status:\n    <ul>\n      <li>\"Uploaded\": The file is in process of being uploaded, checked by our virus scanners and attached to your address.</li>\n      <li>\"Verified\":  <b class=\"warning\">obsolete/deprecated</b>, replaced by \"Submitted\".</li>\n      <li>\"Rejected\": The file is rejected by our virus scanner. It may contain a virus or a malicious script.</li>\n      <li>\"Submitted\": We received your document.</li>\n      <li>\"Under Validation\": Your document is under validation.</li>\n      <li>\"Validated\": Your document has been validated.</li>\n      <li>\"Declined\": Your document has been declined, please upload a new document.</li>\n    </ul>\n"
+      enum:
+      - Uploaded
+      - Rejected
+      - Submitted
+      - Under Validation
+      - Validated
+      - Expired
+      - Declined
+      example: null
+    documentType:
       type: object
       properties:
-        reference:
+        code:
           type: string
-          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end-user is required.
-          example: 3ff35db2-1301-43b1-89f8-4df00faa8a50
+          description: document type code
+          example: POD1
+        description:
+          type: string
+          description: document type description
+          example: Letter of Intent
+      description: Type of document
+      example: null
+    addressDocumentMetadata:
+      type: object
+      properties:
+        fileName:
+          type: string
+          example: fileName
+        size:
+          type: integer
+          format: int64
+          example: null
         documentType:
           $ref: '#/components/schemas/documentType'
+        created:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
         comment:
           type: string
           description: Reason why your document was Rejected or Declined
@@ -800,12 +803,50 @@ components:
           type: string
           description: Saved document reference
           example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
-        documentName:
-          type: string
-          description: Name of the document
-          example: someName.ext
         status:
           $ref: '#/components/schemas/addressDocumentStatus'
+      example: null
+    locationAreaCode:
+      type: object
+      properties:
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '2'
+        location:
+          type: string
+          description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
+          example: Brussels
+        nonGeographic:
+          type: boolean
+          description: Indicates if the location is non geographic (e.g. National).
+          example: true
+      example: null
+    addressDeletionResponse:
+      type: object
+      properties:
+        reference:
+          type: string
+          example: d9224465-cce9-4df1-b2b8-4f39cce00959
+        status:
+          $ref: '#/components/schemas/addressDeletionStatus'
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation.
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation.
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
       example: null
     userIdentityDetail:
       required:
@@ -841,45 +882,4 @@ components:
           description: Unique identification number used for tax (e.g. VAT, GST, TIN)
           example: BE0999999999
       description: User identity of the end subscriber
-      example: null
-    addressDocumentMetadata:
-      type: object
-      properties:
-        fileName:
-          type: string
-          example: fileName
-        size:
-          type: integer
-          format: int64
-          example: null
-        documentType:
-          $ref: '#/components/schemas/documentType'
-        created:
-          type: string
-          description: Timestamp of error in UTC format.
-          format: date-time
-          example: null
-        comment:
-          type: string
-          description: Reason why your document was Rejected or Declined
-          example: Not readable. Please provide new document
-        documentReference:
-          type: string
-          description: Saved document reference
-          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
-        status:
-          $ref: '#/components/schemas/addressDocumentStatus'
-      example: null
-    documentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: document type code
-          example: POD1
-        description:
-          type: string
-          description: document type description
-          example: Letter of Intent
-      description: Type of document
       example: null

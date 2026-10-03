@@ -272,76 +272,6 @@ paths:
       x-operation-id-original: Get Delivery Infos
 components:
   schemas:
-    NotAcceptableCallback:
-      type: object
-      properties:
-        code:
-          type: string
-          enum:
-          - NOT_HTTPS
-          example: null
-        description:
-          type: string
-          example: null
-      example: null
-    SmsTextMessage:
-      type: object
-      properties:
-        message:
-          type: string
-          example: null
-      description: 'The text message to send. It will be encoded using the GSM 7-bit encoding standard.
-
-        Note: The tab character (\t) will be replaced by four space characters during encoding.
-
-        The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
-
-        '
-      example: null
-    DeliveryInfo:
-      type: object
-      properties:
-        smsPartsUncertain:
-          type: integer
-          description: The number of parts that is uncertain of delivery for messages split into multiple parts.
-          x-include-if-not-null: true
-          example: null
-        address:
-          type: string
-          description: The recipient address.
-          example: null
-        smsPartsUndeliverable:
-          type: integer
-          description: The number of parts undeliverable to terminal for messages split into multiple parts.
-          x-include-if-not-null: true
-          example: null
-        callbackData:
-          type: string
-          description: Data from original sendMessage request
-          example: null
-        deliveryStatus:
-          $ref: '#/components/schemas/DeliveryState'
-        smsPartsDeliveredToTerminal:
-          type: integer
-          description: The number of parts delivered to terminal for messages split into multiple parts.
-          example: null
-        deliveryStatusCode:
-          type: integer
-          example: null
-      example: null
-    DeliveryCallback:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Callback'
-      - type: object
-        properties:
-          finalDelivery:
-            type: boolean
-            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
-            example: null
-        example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
-      example: null
     DeliveryState:
       type: string
       description: '<ul>
@@ -413,6 +343,90 @@ components:
           example: null
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null
+    DeliveryInfo:
+      type: object
+      properties:
+        smsPartsUncertain:
+          type: integer
+          description: The number of parts that is uncertain of delivery for messages split into multiple parts.
+          x-include-if-not-null: true
+          example: null
+        address:
+          type: string
+          description: The recipient address.
+          example: null
+        smsPartsUndeliverable:
+          type: integer
+          description: The number of parts undeliverable to terminal for messages split into multiple parts.
+          x-include-if-not-null: true
+          example: null
+        callbackData:
+          type: string
+          description: Data from original sendMessage request
+          example: null
+        deliveryStatus:
+          $ref: '#/components/schemas/DeliveryState'
+        smsPartsDeliveredToTerminal:
+          type: integer
+          description: The number of parts delivered to terminal for messages split into multiple parts.
+          example: null
+        deliveryStatusCode:
+          type: integer
+          example: null
+      example: null
+    NotAcceptableCallback:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - NOT_HTTPS
+          example: null
+        description:
+          type: string
+          example: null
+      example: null
+    DeliveryInfoList:
+      type: object
+      properties:
+        securityToken:
+          type: string
+          description: Present if this delivery info is sent as part of a delivery info subscription callback. It will contain the same value as the securityToken used to create the delivery subscription.
+          example: null
+        deliveryInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryInfo'
+          example: null
+        resourceURL:
+          type: string
+          description: The DeliveryInfoList can also be accessed on this resource URL.
+          example: null
+        smsParts:
+          type: integer
+          description: The number of SMS'es sent to deliver this message. An SMS has a maximum length, if your message exceeds this length, it will be split into multiple SMS'es and merged again on the recipient's device.
+          example: null
+      description: 'When a message was sent, the response contains a list of deliveryInfos. Use the ResourceURL of the DeliveryInfoList section of the response to check back later for updates on this list.
+
+        (keep in mind that this URL will not contain your ApiKey, so if you come back for the delivery receipts you will still need to authenticate. Delivery receipts are kept for 7 days.
+
+        '
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("deliveryInfoList")'
+      example: null
+    SmsTextMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: null
+      description: 'The text message to send. It will be encoded using the GSM 7-bit encoding standard.
+
+        Note: The tab character (\t) will be replaced by four space characters during encoding.
+
+        The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
+
+        '
+      example: null
     OutboundRequest:
       required:
       - address
@@ -467,30 +481,16 @@ components:
           example: null
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("outboundSMSMessageRequest")'
       example: null
-    DeliveryInfoList:
+    DeliveryCallback:
       type: object
-      properties:
-        securityToken:
-          type: string
-          description: Present if this delivery info is sent as part of a delivery info subscription callback. It will contain the same value as the securityToken used to create the delivery subscription.
-          example: null
-        deliveryInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryInfo'
-          example: null
-        resourceURL:
-          type: string
-          description: The DeliveryInfoList can also be accessed on this resource URL.
-          example: null
-        smsParts:
-          type: integer
-          description: The number of SMS'es sent to deliver this message. An SMS has a maximum length, if your message exceeds this length, it will be split into multiple SMS'es and merged again on the recipient's device.
-          example: null
-      description: 'When a message was sent, the response contains a list of deliveryInfos. Use the ResourceURL of the DeliveryInfoList section of the response to check back later for updates on this list.
-
-        (keep in mind that this URL will not contain your ApiKey, so if you come back for the delivery receipts you will still need to authenticate. Delivery receipts are kept for 7 days.
-
-        '
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("deliveryInfoList")'
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          finalDelivery:
+            type: boolean
+            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null

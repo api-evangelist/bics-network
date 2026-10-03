@@ -202,34 +202,6 @@ paths:
       x-operation-id-original: Get Inbound Messages
 components:
   schemas:
-    NotAcceptableCallback:
-      type: object
-      properties:
-        code:
-          type: string
-          enum:
-          - NOT_HTTPS
-          example: null
-        description:
-          type: string
-          example: null
-      example: null
-    Callback:
-      required:
-      - securityToken
-      - url
-      type: object
-      properties:
-        securityToken:
-          type: string
-          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
-          example: null
-        url:
-          type: string
-          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
-          example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
-      example: null
     InboundSMSMessageList:
       type: object
       properties:
@@ -250,6 +222,34 @@ components:
             $ref: '#/components/schemas/InboundSmsMessage'
           example: null
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("inboundSMSMessageList")'
+      example: null
+    Callback:
+      required:
+      - securityToken
+      - url
+      type: object
+      properties:
+        securityToken:
+          type: string
+          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
+          example: null
+        url:
+          type: string
+          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
+          example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
+      example: null
+    NotAcceptableCallback:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - NOT_HTTPS
+          example: null
+        description:
+          type: string
+          example: null
       example: null
     InboundCallback:
       type: object

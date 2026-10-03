@@ -322,74 +322,6 @@ paths:
       x-operation-id-original: get available numbers
 components:
   schemas:
-    product:
-      type: string
-      description: Valid product codes are 'IBN', 'ITFS' and 'GMN'. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Number.
-      example: IBN
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
-      example: null
-    numberService:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Code of the service <ul> <li><b>IC</b>&#58; Inbound Call</li> <li><b>NOC</b>&#58; National Outbound Call</li> <li><b>IOC</b>&#58; International Outbound Call</li> <li><b>ES</b>&#58; Emergency Services</li> <li><b>DS</b>&#58; Directory Services</li> <li><b>IM</b>&#58; Inbound Messaging</li> <li><b>NOM</b>&#58; National Outbound Messaging</li> <li><b>IOM</b>&#58; International Outbound Messaging</li> </ul>
-          enum:
-          - IC
-          - NOC
-          - IOC
-          - ES
-          - DS
-          - IM
-          - NOM
-          - IOM
-          example: null
-        description:
-          type: string
-          description: Description of the service
-          example: null
-        active:
-          type: boolean
-          description: <b>true</b>&#58; the service is active on your number <br/><b>false</b>&#58; the service is available but not active on your number
-          example: null
-      example: null
-    availableNumber:
-      type: object
-      properties:
-        number:
-          type: string
-          description: Available numbers in stock.
-          example: '81345785554'
-        country:
-          $ref: '#/components/schemas/country'
-        product:
-          $ref: '#/components/schemas/product'
-        areaCode:
-          type: string
-          description: Area code of the number according to the national numbering plan.
-          example: '3'
-        location:
-          $ref: '#/components/schemas/location'
-      example: null
-    country:
-      type: string
-      description: Country code in ISO 3166-1 alpha-3 format.
-      example: JPN
     stock:
       required:
       - checkStock
@@ -421,6 +353,74 @@ components:
           type: boolean
           description: Flag indicating if there are enough numbers in stock to meet your request.
           example: true
+      example: null
+    availableNumber:
+      type: object
+      properties:
+        number:
+          type: string
+          description: Available numbers in stock.
+          example: '81345785554'
+        country:
+          $ref: '#/components/schemas/country'
+        product:
+          $ref: '#/components/schemas/product'
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '3'
+        location:
+          $ref: '#/components/schemas/location'
+      example: null
+    product:
+      type: string
+      description: Valid product codes are 'IBN', 'ITFS' and 'GMN'. IBN referring to Cloud Number, ITFS referring to International Freephone Number and GMN referring to Global Mobile Number.
+      example: IBN
+    numberService:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Code of the service <ul> <li><b>IC</b>&#58; Inbound Call</li> <li><b>NOC</b>&#58; National Outbound Call</li> <li><b>IOC</b>&#58; International Outbound Call</li> <li><b>ES</b>&#58; Emergency Services</li> <li><b>DS</b>&#58; Directory Services</li> <li><b>IM</b>&#58; Inbound Messaging</li> <li><b>NOM</b>&#58; National Outbound Messaging</li> <li><b>IOM</b>&#58; International Outbound Messaging</li> </ul>
+          enum:
+          - IC
+          - NOC
+          - IOC
+          - ES
+          - DS
+          - IM
+          - NOM
+          - IOM
+          example: null
+        description:
+          type: string
+          description: Description of the service
+          example: null
+        active:
+          type: boolean
+          description: <b>true</b>&#58; the service is active on your number <br/><b>false</b>&#58; the service is available but not active on your number
+          example: null
+      example: null
+    country:
+      type: string
+      description: Country code in ISO 3166-1 alpha-3 format.
+      example: JPN
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
       example: null
     location:
       type: string
