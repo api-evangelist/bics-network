@@ -232,18 +232,19 @@ paths:
       x-operation-id-original: Request CDRs
 components:
   schemas:
-    createCdrResponse:
+    availableDate:
       type: object
       properties:
-        id:
-          type: integer
-          description: unique identifier of your request.
-          format: int64
-          example: null
-        status:
+        date:
           type: string
-          description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
-          example: null
+          description: Available date in format YYYY-MM-DD
+          format: date
+          example: Wed Sep 14 00:00:00 GMT 2022
+        status:
+          type: integer
+          description: Available date status. Possible values are <ul> <li>`0` - All cdrs for this date are available</li> <li>`1` - Cdr data is partially available</li> <li>`2` - No cdr data available</li> </ul>
+          format: int32
+          example: 1
       example: null
     createCdrRequest:
       required:
@@ -298,19 +299,35 @@ components:
           description: Valid options are <ul> <li>"IN" for inbound traffic (default value if not specified in the request)</li> <li>"OUT" for outbound. Not available for UIFN and SCS products</li> </ul>
           example: null
       example: null
-    availableDate:
+    error:
       type: object
       properties:
-        date:
+        code:
           type: string
-          description: Available date in format YYYY-MM-DD
-          format: date
-          example: Wed Sep 14 00:00:00 GMT 2022
-        status:
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
+    createCdrResponse:
+      type: object
+      properties:
+        id:
           type: integer
-          description: Available date status. Possible values are <ul> <li>`0` - All cdrs for this date are available</li> <li>`1` - Cdr data is partially available</li> <li>`2` - No cdr data available</li> </ul>
-          format: int32
-          example: 1
+          description: unique identifier of your request.
+          format: int64
+          example: null
+        status:
+          type: string
+          description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
+          example: null
       example: null
     downloadCdrResponse:
       type: object
@@ -405,23 +422,6 @@ components:
         status:
           type: string
           description: Status of your request. Possible values are <ul> <li>"Requested" - your request is accepted and wait processing</li> <li>"Executing" - your request is being executed</li> <li>"Done" - your request is complete, use method CDR download to get the result</li> <li>"Error" - there was an error processing your request</li> <li>"Expired" - your request is expired, the file is not available anymore</li> <li>"No results" - your request is complete, no CDRs found</li> </ul>
-          example: null
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
           example: null
       example: null
 x-appendixes:

@@ -74,42 +74,6 @@ paths:
       x-operation-id-original: get porting specifications
 components:
   schemas:
-    AddressRequirementType:
-      type: string
-      enum:
-      - Not Required
-      - Required Worldwide
-      - Required In Country
-      - Required In Region
-      example: null
-    AddressRequirement:
-      type: object
-      properties:
-        proofOfDocuments:
-          type: boolean
-          description: 'true: proof of documents is mandatory</br>
-
-            false: proof of documents is optional</br>
-
-            null: Not applicable for this address requirement type</br>
-
-            '
-          example: null
-        documentTypesForIndividual:
-          type: array
-          description: List of required documents for individual.
-          items:
-            $ref: '#/components/schemas/PortingSpecificationDocumentType'
-          example: null
-        documentTypesForCompany:
-          type: array
-          description: List of required documents for company.
-          items:
-            $ref: '#/components/schemas/PortingSpecificationDocumentType'
-          example: null
-        type:
-          $ref: '#/components/schemas/AddressRequirementType'
-      example: null
     PortingSpecificationDocumentType:
       type: object
       properties:
@@ -163,17 +127,6 @@ components:
           format: int64
           example: null
       example: null
-    PortabilityType:
-      type: string
-      description: 'Number portability: Change of Telecom Provider at National level.</br>
-
-        Change of Agency: It is a re-allocation of number by the existing Telecom Provider to another customer
-
-        '
-      enum:
-      - Number Portability
-      - Change Of Agency
-      example: null
     error:
       type: object
       properties:
@@ -190,4 +143,51 @@ components:
           description: timestamp of error in UTC format
           format: date-time
           example: null
+      example: null
+    AddressRequirement:
+      type: object
+      properties:
+        proofOfDocuments:
+          type: boolean
+          description: 'true: proof of documents is mandatory</br>
+
+            false: proof of documents is optional</br>
+
+            null: Not applicable for this address requirement type</br>
+
+            '
+          example: null
+        documentTypesForIndividual:
+          type: array
+          description: List of required documents for individual.
+          items:
+            $ref: '#/components/schemas/PortingSpecificationDocumentType'
+          example: null
+        documentTypesForCompany:
+          type: array
+          description: List of required documents for company.
+          items:
+            $ref: '#/components/schemas/PortingSpecificationDocumentType'
+          example: null
+        type:
+          $ref: '#/components/schemas/AddressRequirementType'
+      example: null
+    PortabilityType:
+      type: string
+      description: 'Number portability: Change of Telecom Provider at National level.</br>
+
+        Change of Agency: It is a re-allocation of number by the existing Telecom Provider to another customer
+
+        '
+      enum:
+      - Number Portability
+      - Change Of Agency
+      example: null
+    AddressRequirementType:
+      type: string
+      enum:
+      - Not Required
+      - Required Worldwide
+      - Required In Country
+      - Required In Region
       example: null

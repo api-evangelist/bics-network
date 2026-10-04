@@ -40,6 +40,20 @@ paths:
       x-operation-id-original: Delete address reference
 components:
   schemas:
+    numberSpecificError:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/error'
+      - type: object
+        properties:
+          number:
+            type: string
+            example: Number to which error corresponds to.
+          country:
+            type: string
+            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
+        example: null
+      example: null
     error:
       type: object
       properties:
@@ -56,18 +70,4 @@ components:
           description: timestamp of error in UTC format
           format: date-time
           example: null
-      example: null
-    numberSpecificError:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/error'
-      - type: object
-        properties:
-          number:
-            type: string
-            example: Number to which error corresponds to.
-          country:
-            type: string
-            example: Number and Origin Country code in ISO 3166-1 alpha-3 to which error corresponds to.
-        example: null
       example: null

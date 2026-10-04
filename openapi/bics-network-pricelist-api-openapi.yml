@@ -128,21 +128,6 @@ paths:
       x-operation-id-original: get Pricelist By Product And Country
 components:
   schemas:
-    nonUsageFees:
-      type: object
-      properties:
-        MonthlyFee:
-          type: string
-          description: Monthly recurring fee.
-          example: '0.2'
-        setUpFee:
-          type: string
-          description: Setup Fee
-          example: '0.4'
-        currency:
-          $ref: '#/components/schemas/currency'
-      description: Non usage fees define the setup and monthly recurring fees.
-      example: null
     fees:
       required:
       - accessArea
@@ -187,12 +172,22 @@ components:
         nonUsageFees:
           $ref: '#/components/schemas/nonUsageFees'
       example: null
-    currency:
-      type: string
-      enum:
-      - EUR
-      - USD
-      - ZAR
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
       example: null
     usageFees:
       type: object
@@ -227,17 +222,27 @@ components:
           example: '0.0015'
       description: Usage fees define the call setup and per minute fees.
       example: null
-    accessType:
+    currency:
       type: string
-      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
       enum:
-      - fix
-      - mob
-      - pay
-      - fixMob
-      - fixPay
-      - mobPay
-      - fixMobPay
+      - EUR
+      - USD
+      - ZAR
+      example: null
+    nonUsageFees:
+      type: object
+      properties:
+        MonthlyFee:
+          type: string
+          description: Monthly recurring fee.
+          example: '0.2'
+        setUpFee:
+          type: string
+          description: Setup Fee
+          example: '0.4'
+        currency:
+          $ref: '#/components/schemas/currency'
+      description: Non usage fees define the setup and monthly recurring fees.
       example: null
     locationAreaCode:
       type: object
@@ -251,20 +256,15 @@ components:
           description: A Location indicates in most cases the city the number belongs to. It is sometimes used to specify if it is a national or a mobile number.
           example: Antwerp
       example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
+    accessType:
+      type: string
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+      enum:
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
       example: null

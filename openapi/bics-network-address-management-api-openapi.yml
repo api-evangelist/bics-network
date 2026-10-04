@@ -501,6 +501,25 @@ paths:
       x-operation-id-original: Create Address
 components:
   schemas:
+    documentType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: document type code
+          example: POD1
+        description:
+          type: string
+          description: document type description
+          example: Letter of Intent
+      description: Type of document
+      example: null
+    addressDeletionStatus:
+      type: string
+      description: Address deletion result status
+      enum:
+      - Deleted
+      example: null
     address:
       required:
       - reference
@@ -572,15 +591,23 @@ components:
           description: "Validation status of the address.\n          <ul>\n            <li>`Submitted` - Your address has been submitted and is in the process of been validated.</li>\n          </ul>\n"
           example: Submitted
       example: null
-    addressDocumentResponse:
+    addressDocumentMetadata:
       type: object
       properties:
-        reference:
+        fileName:
           type: string
-          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end-user is required.
-          example: 3ff35db2-1301-43b1-89f8-4df00faa8a50
+          example: fileName
+        size:
+          type: integer
+          format: int64
+          example: null
         documentType:
           $ref: '#/components/schemas/documentType'
+        created:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
         comment:
           type: string
           description: Reason why your document was Rejected or Declined
@@ -589,12 +616,130 @@ components:
           type: string
           description: Saved document reference
           example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
-        documentName:
-          type: string
-          description: Name of the document
-          example: someName.ext
         status:
           $ref: '#/components/schemas/addressDocumentStatus'
+      example: null
+    addressRequest:
+      required:
+      - alias
+      - city
+      - country
+      - postalCode
+      - street
+      - streetNumber
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: FRA
+        serviceUsage:
+          type: string
+          description: Free text to describe usage of numbers.
+          example: null
+        city:
+          type: string
+          description: City.
+          example: Paris
+        streetNumber:
+          type: string
+          description: House number.
+          example: '5'
+        postalCode:
+          type: string
+          description: Postal Code.
+          example: '75007'
+        box:
+          type: string
+          description: Postal box.
+          example: B
+        language:
+          type: string
+          description: Language code, case insensitive.
+          example: en
+        userIdentity:
+          $ref: '#/components/schemas/userIdentityDetail'
+        street:
+          type: string
+          description: Street name.
+          example: Rue Anatole
+        alias:
+          type: string
+          description: Alias of the Address. It helps you to identify the address of the end user.
+          example: BICS France office
+        state:
+          type: string
+          description: State.
+          example: Paris
+        floor:
+          type: string
+          description: Floor number.
+          example: '15'
+        residence:
+          type: string
+          description: Residence name.
+          example: Eiffel
+      example: null
+    userIdentityDetail:
+      required:
+      - emailAddress
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First Name of the end subscriber
+          example: Kernel
+        lastName:
+          type: string
+          description: Last Name of the end subscriber
+          example: Braun
+        emailAddress:
+          type: string
+          description: Email address of owner of address
+          example: email@bics.com
+        phoneNumber:
+          type: string
+          description: Phonenumber of owner of address
+          example: '325648855'
+        companyName:
+          type: string
+          description: Name of the company which is the owner of address
+          example: BICS
+        endSubscriberType:
+          type: string
+          description: "Possible values are :\n  <ul>\n    <li>\"Company\": end subscriber is a company</li>\n    <li>\"Individual\": end subscriber is a private person</li>\n  </ul>\n"
+          example: null
+        vatNumber:
+          type: string
+          description: Unique identification number used for tax (e.g. VAT, GST, TIN)
+          example: BE0999999999
+      description: User identity of the end subscriber
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation.
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation.
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: Timestamp of error in UTC format.
+          format: date-time
+          example: null
+      example: null
+    addressDeletionResponse:
+      type: object
+      properties:
+        reference:
+          type: string
+          example: d9224465-cce9-4df1-b2b8-4f39cce00959
+        status:
+          $ref: '#/components/schemas/addressDeletionStatus'
       example: null
     addressDetails:
       required:
@@ -686,72 +831,29 @@ components:
           description: "Validation status of the address.\n         <ul>\n            <li>`Submitted` - Your address has been submitted.</li>\n            <li><strike>`Accepted` - Your address has been accepted and can be used to order Cloud Numbers in the country concerned.</strike></li>\n            <li><strike>`More information  required` - Some information are missing. You must provide necessary information in order to have your ' addressAccepted'</strike></li>\n            <li><strike>`Rejected` - You address has been rejected. It cannot be used anymore.</strike></li>\n          </ul>\n"
           example: Submitted
       example: null
-    addressRequest:
-      required:
-      - alias
-      - city
-      - country
-      - postalCode
-      - street
-      - streetNumber
+    addressDocumentResponse:
       type: object
       properties:
-        country:
+        reference:
           type: string
-          description: Country code in ISO 3166-1 alpha-3 format.
-          example: FRA
-        serviceUsage:
+          description: Reference of the Address. This attribute is used to order Cloud numbers in a country where the address of the end-user is required.
+          example: 3ff35db2-1301-43b1-89f8-4df00faa8a50
+        documentType:
+          $ref: '#/components/schemas/documentType'
+        comment:
           type: string
-          description: Free text to describe usage of numbers.
-          example: null
-        city:
+          description: Reason why your document was Rejected or Declined
+          example: Not readable. Please provide new document
+        documentReference:
           type: string
-          description: City.
-          example: Paris
-        streetNumber:
+          description: Saved document reference
+          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
+        documentName:
           type: string
-          description: House number.
-          example: '5'
-        postalCode:
-          type: string
-          description: Postal Code.
-          example: '75007'
-        box:
-          type: string
-          description: Postal box.
-          example: B
-        language:
-          type: string
-          description: Language code, case insensitive.
-          example: en
-        userIdentity:
-          $ref: '#/components/schemas/userIdentityDetail'
-        street:
-          type: string
-          description: Street name.
-          example: Rue Anatole
-        alias:
-          type: string
-          description: Alias of the Address. It helps you to identify the address of the end user.
-          example: BICS France office
-        state:
-          type: string
-          description: State.
-          example: Paris
-        floor:
-          type: string
-          description: Floor number.
-          example: '15'
-        residence:
-          type: string
-          description: Residence name.
-          example: Eiffel
-      example: null
-    addressDeletionStatus:
-      type: string
-      description: Address deletion result status
-      enum:
-      - Deleted
+          description: Name of the document
+          example: someName.ext
+        status:
+          $ref: '#/components/schemas/addressDocumentStatus'
       example: null
     addressDocumentStatus:
       type: string
@@ -764,47 +866,6 @@ components:
       - Validated
       - Expired
       - Declined
-      example: null
-    documentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: document type code
-          example: POD1
-        description:
-          type: string
-          description: document type description
-          example: Letter of Intent
-      description: Type of document
-      example: null
-    addressDocumentMetadata:
-      type: object
-      properties:
-        fileName:
-          type: string
-          example: fileName
-        size:
-          type: integer
-          format: int64
-          example: null
-        documentType:
-          $ref: '#/components/schemas/documentType'
-        created:
-          type: string
-          description: Timestamp of error in UTC format.
-          format: date-time
-          example: null
-        comment:
-          type: string
-          description: Reason why your document was Rejected or Declined
-          example: Not readable. Please provide new document
-        documentReference:
-          type: string
-          description: Saved document reference
-          example: fb0044bd-da81-48a9-a64d-5f543e8b2d35
-        status:
-          $ref: '#/components/schemas/addressDocumentStatus'
       example: null
     locationAreaCode:
       type: object
@@ -821,65 +882,4 @@ components:
           type: boolean
           description: Indicates if the location is non geographic (e.g. National).
           example: true
-      example: null
-    addressDeletionResponse:
-      type: object
-      properties:
-        reference:
-          type: string
-          example: d9224465-cce9-4df1-b2b8-4f39cce00959
-        status:
-          $ref: '#/components/schemas/addressDeletionStatus'
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation.
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation.
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: Timestamp of error in UTC format.
-          format: date-time
-          example: null
-      example: null
-    userIdentityDetail:
-      required:
-      - emailAddress
-      type: object
-      properties:
-        firstName:
-          type: string
-          description: First Name of the end subscriber
-          example: Kernel
-        lastName:
-          type: string
-          description: Last Name of the end subscriber
-          example: Braun
-        emailAddress:
-          type: string
-          description: Email address of owner of address
-          example: email@bics.com
-        phoneNumber:
-          type: string
-          description: Phonenumber of owner of address
-          example: '325648855'
-        companyName:
-          type: string
-          description: Name of the company which is the owner of address
-          example: BICS
-        endSubscriberType:
-          type: string
-          description: "Possible values are :\n  <ul>\n    <li>\"Company\": end subscriber is a company</li>\n    <li>\"Individual\": end subscriber is a private person</li>\n  </ul>\n"
-          example: null
-        vatNumber:
-          type: string
-          description: Unique identification number used for tax (e.g. VAT, GST, TIN)
-          example: BE0999999999
-      description: User identity of the end subscriber
       example: null

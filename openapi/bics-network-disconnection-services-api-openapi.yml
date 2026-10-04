@@ -255,21 +255,6 @@ paths:
       x-operation-id-original: add Disconnection Order Item
 components:
   schemas:
-    DisconnectionOrderItemRequest:
-      type: object
-      properties:
-        accessNumber:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Number in E164 format.
-          example: null
-        preferredDisconnectionDate:
-          minLength: 1
-          type: string
-          description: Disconnection desired date in "YYYY-MM-DD" format.
-          example: null
-      example: null
     SubmitDisconnectionOrderResponse:
       type: object
       properties:
@@ -304,6 +289,21 @@ components:
         email:
           type: string
           description: Address(es) of Disconnection order responsible(s), multiple addresses are separated by semi-colon ';'. This value is included in all communications regarding this request.
+          example: null
+      example: null
+    DisconnectionOrderItemRequest:
+      type: object
+      properties:
+        accessNumber:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Number in E164 format.
+          example: null
+        preferredDisconnectionDate:
+          minLength: 1
+          type: string
+          description: Disconnection desired date in "YYYY-MM-DD" format.
           example: null
       example: null
     error:

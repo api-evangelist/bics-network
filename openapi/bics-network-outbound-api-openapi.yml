@@ -272,120 +272,6 @@ paths:
       x-operation-id-original: Get Delivery Infos
 components:
   schemas:
-    DeliveryState:
-      type: string
-      description: '<ul>
-
-        <li>MessageAccepted  The message is accepted, for asynchronous flow.</li>
-
-        <li>DeliveredToNetwork  The message was delivered to the network and is underway to the recipient.</li>
-
-        <li>PartiallyDelivered  Only applicable if the message is too large to be sent in one part and was split into multiple parts. This state is returned when some but not all of the parts were delivered to the recipient.</li>
-
-        <li>DeliveredToTerminal  The message was delivered to the recipient.</li>
-
-        <li>DeliveryUncertain  The message is currently travelling in a network outside of our control so the status cannot be determined.</li>
-
-        <li>DeliveryImpossible  The transmission to this recipient has failed permanently and will not be retried.</li>
-
-        <li>InvalidSrcAddress  Source address of the message is invalid. Delivery impossible</li>
-
-        <li>InvalidDestAddress  Destination address of the message is invalid. Delivery impossible</li>
-
-        </ul>
-
-        Status codes for the delivery state:
-
-        <ul>
-
-        <li>MessageAccepted -> Code 12</li>
-
-        <li>DeliveredToNetwork -> Code 6, Code 1</li>
-
-        <li>PartiallyDelivered -> Code 13</li>
-
-        <li>DeliveredToTerminal -> Code 2</li>
-
-        <li>DeliveryUncertain -> Code 7</li>
-
-        <li>DeliveryImpossible -> Code 3, Code 4, Code 5, Code 8</li>
-
-        <li>InvalidSrcAddress -> Code 10</li>
-
-        <li>InvalidDestAddress -> Code 11</li>
-
-        </ul>
-
-        '
-      enum:
-      - MessageAccepted
-      - DeliveredToNetwork
-      - PartiallyDelivered
-      - DeliveredToTerminal
-      - DeliveryUncertain
-      - DeliveryImpossible
-      - InvalidSrcAddress
-      - InvalidDestAddress
-      example: null
-    Callback:
-      required:
-      - securityToken
-      - url
-      type: object
-      properties:
-        securityToken:
-          type: string
-          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
-          example: null
-        url:
-          type: string
-          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
-          example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
-      example: null
-    DeliveryInfo:
-      type: object
-      properties:
-        smsPartsUncertain:
-          type: integer
-          description: The number of parts that is uncertain of delivery for messages split into multiple parts.
-          x-include-if-not-null: true
-          example: null
-        address:
-          type: string
-          description: The recipient address.
-          example: null
-        smsPartsUndeliverable:
-          type: integer
-          description: The number of parts undeliverable to terminal for messages split into multiple parts.
-          x-include-if-not-null: true
-          example: null
-        callbackData:
-          type: string
-          description: Data from original sendMessage request
-          example: null
-        deliveryStatus:
-          $ref: '#/components/schemas/DeliveryState'
-        smsPartsDeliveredToTerminal:
-          type: integer
-          description: The number of parts delivered to terminal for messages split into multiple parts.
-          example: null
-        deliveryStatusCode:
-          type: integer
-          example: null
-      example: null
-    NotAcceptableCallback:
-      type: object
-      properties:
-        code:
-          type: string
-          enum:
-          - NOT_HTTPS
-          example: null
-        description:
-          type: string
-          example: null
-      example: null
     DeliveryInfoList:
       type: object
       properties:
@@ -413,19 +299,18 @@ components:
         '
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("deliveryInfoList")'
       example: null
-    SmsTextMessage:
+    DeliveryCallback:
       type: object
-      properties:
-        message:
-          type: string
-          example: null
-      description: 'The text message to send. It will be encoded using the GSM 7-bit encoding standard.
-
-        Note: The tab character (\t) will be replaced by four space characters during encoding.
-
-        The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
-
-        '
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          finalDelivery:
+            type: boolean
+            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null
     OutboundRequest:
       required:
@@ -481,16 +366,131 @@ components:
           example: null
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("outboundSMSMessageRequest")'
       example: null
-    DeliveryCallback:
+    SmsTextMessage:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/Callback'
-      - type: object
-        properties:
-          finalDelivery:
-            type: boolean
-            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
-            example: null
-        example: null
+      properties:
+        message:
+          type: string
+          example: null
+      description: 'The text message to send. It will be encoded using the GSM 7-bit encoding standard.
+
+        Note: The tab character (\t) will be replaced by four space characters during encoding.
+
+        The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
+
+        '
+      example: null
+    DeliveryState:
+      type: string
+      description: '<ul>
+
+        <li>MessageAccepted  The message is accepted, for asynchronous flow.</li>
+
+        <li>DeliveredToNetwork  The message was delivered to the network and is underway to the recipient.</li>
+
+        <li>PartiallyDelivered  Only applicable if the message is too large to be sent in one part and was split into multiple parts. This state is returned when some but not all of the parts were delivered to the recipient.</li>
+
+        <li>DeliveredToTerminal  The message was delivered to the recipient.</li>
+
+        <li>DeliveryUncertain  The message is currently travelling in a network outside of our control so the status cannot be determined.</li>
+
+        <li>DeliveryImpossible  The transmission to this recipient has failed permanently and will not be retried.</li>
+
+        <li>InvalidSrcAddress  Source address of the message is invalid. Delivery impossible</li>
+
+        <li>InvalidDestAddress  Destination address of the message is invalid. Delivery impossible</li>
+
+        </ul>
+
+        Status codes for the delivery state:
+
+        <ul>
+
+        <li>MessageAccepted -> Code 12</li>
+
+        <li>DeliveredToNetwork -> Code 6, Code 1</li>
+
+        <li>PartiallyDelivered -> Code 13</li>
+
+        <li>DeliveredToTerminal -> Code 2</li>
+
+        <li>DeliveryUncertain -> Code 7</li>
+
+        <li>DeliveryImpossible -> Code 3, Code 4, Code 5, Code 8</li>
+
+        <li>InvalidSrcAddress -> Code 10</li>
+
+        <li>InvalidDestAddress -> Code 11</li>
+
+        </ul>
+
+        '
+      enum:
+      - MessageAccepted
+      - DeliveredToNetwork
+      - PartiallyDelivered
+      - DeliveredToTerminal
+      - DeliveryUncertain
+      - DeliveryImpossible
+      - InvalidSrcAddress
+      - InvalidDestAddress
+      example: null
+    NotAcceptableCallback:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - NOT_HTTPS
+          example: null
+        description:
+          type: string
+          example: null
+      example: null
+    DeliveryInfo:
+      type: object
+      properties:
+        smsPartsUncertain:
+          type: integer
+          description: The number of parts that is uncertain of delivery for messages split into multiple parts.
+          x-include-if-not-null: true
+          example: null
+        address:
+          type: string
+          description: The recipient address.
+          example: null
+        smsPartsUndeliverable:
+          type: integer
+          description: The number of parts undeliverable to terminal for messages split into multiple parts.
+          x-include-if-not-null: true
+          example: null
+        callbackData:
+          type: string
+          description: Data from original sendMessage request
+          example: null
+        deliveryStatus:
+          $ref: '#/components/schemas/DeliveryState'
+        smsPartsDeliveredToTerminal:
+          type: integer
+          description: The number of parts delivered to terminal for messages split into multiple parts.
+          example: null
+        deliveryStatusCode:
+          type: integer
+          example: null
+      example: null
+    Callback:
+      required:
+      - securityToken
+      - url
+      type: object
+      properties:
+        securityToken:
+          type: string
+          description: This token will be sent in the delivery info or used as an authorization header in the inbound message as a means to secure the callback.
+          example: null
+        url:
+          type: string
+          description: The URL to which the delivery info or an inbound message will be sent. The method will be POST and the content type application/json.
+          example: null
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null

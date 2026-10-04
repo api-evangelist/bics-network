@@ -81,31 +81,41 @@ paths:
       x-operation-id-original: get specifications
 components:
   schemas:
-    profileSpecification:
+    documentTypeDescription:
       type: object
       properties:
-        serviceRestrictions:
+        description:
           type: string
-          description: text describing service restrictions
-          example: null
-        backorderDurationMax:
+          description: document type description.
+          example: Company registration
+      example: null
+    documentType:
+      type: object
+      properties:
+        code:
           type: string
-          description: Maximum time to delivery (in days) for a backorder
-          example: null
-        profile:
+          description: document type code
+          example: POD1
+        description:
           type: string
-          description: List of tariff differentiators
-          example: null
-        backorderDurationMin:
+          description: document type description
+          example: Letter of Intent
+      example: null
+    error:
+      type: object
+      properties:
+        code:
           type: string
-          description: Minimum time to delivery (in days) for a backorder
-          example: null
-        status:
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
           type: string
-          description: "<ul>\n  <li>\"Offered\" : product and country within your current pricelist</li>\n  <li>\"Not offered anymore\" : product and country not in your pricelist, but there are active numbers in your inventory</li>\n</ul>\n"
-          enum:
-          - Offered
-          - Not offered anymore
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
           example: null
       example: null
     specification:
@@ -138,6 +148,33 @@ components:
           type: string
           description: timestamp of the last modification
           format: date-time
+          example: null
+      example: null
+    profileSpecification:
+      type: object
+      properties:
+        serviceRestrictions:
+          type: string
+          description: text describing service restrictions
+          example: null
+        backorderDurationMax:
+          type: string
+          description: Maximum time to delivery (in days) for a backorder
+          example: null
+        profile:
+          type: string
+          description: List of tariff differentiators
+          example: null
+        backorderDurationMin:
+          type: string
+          description: Minimum time to delivery (in days) for a backorder
+          example: null
+        status:
+          type: string
+          description: "<ul>\n  <li>\"Offered\" : product and country within your current pricelist</li>\n  <li>\"Not offered anymore\" : product and country not in your pricelist, but there are active numbers in your inventory</li>\n</ul>\n"
+          enum:
+          - Offered
+          - Not offered anymore
           example: null
       example: null
     addressRequirement:
@@ -193,42 +230,5 @@ components:
         vatNumber:
           type: boolean
           description: "<ul>\n  <li>true: VAT number is mandatory for this order according the specs</li>\n  <li>false: VAT number is not mandatory for this order according the specs</li>\n  <li>null: Not applicable for this address requirement type</li>\n</ul>\n"
-          example: null
-      example: null
-    documentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: document type code
-          example: POD1
-        description:
-          type: string
-          description: document type description
-          example: Letter of Intent
-      example: null
-    documentTypeDescription:
-      type: object
-      properties:
-        description:
-          type: string
-          description: document type description.
-          example: Company registration
-      example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
           example: null
       example: null
