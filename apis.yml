@@ -63,7 +63,7 @@ tags_raw:
 - Carrier
 - CPaaS
 created: '2026-07-11'
-modified: '2026-07-11'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: bics-network:bics-number-verification-api
@@ -411,6 +411,10 @@ apis:
   - type: Documentation
     url: https://developer.bics.com/portal/apis
 common:
+- url: https://www.bics.com/blogs/
+  type: Blog
+- url: https://www.bics.com/feed/
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/bics-network-capability-edges.yml
   name: BICS Business Capability Map
