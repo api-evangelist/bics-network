@@ -248,28 +248,95 @@ paths:
       x-operation-id-original: Update address reference
 components:
   schemas:
-    endUserInfoValidation:
+    customerNumberWithDetails:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/customerNumber'
+      - type: object
+        properties:
+          usageFees:
+            type: array
+            items:
+              $ref: '#/components/schemas/usageFees'
+            example: null
+          routing:
+            type: array
+            items:
+              $ref: '#/components/schemas/responseRouting'
+            example: null
+          endUserInfoValidation:
+            $ref: '#/components/schemas/endUserInfoValidation'
+          nonUsageFees:
+            $ref: '#/components/schemas/nonUsageFees'
+        example: null
+      example: null
+    usageFees:
       type: object
       properties:
-        addressDocuments:
-          $ref: '#/components/schemas/validationStatus'
-        address:
-          $ref: '#/components/schemas/validationStatus'
-      description: 'Set of attributes indicates the validation status of the end user information. Attribute address gives the
-
-        status of the address of the end user and attribute addressDocuments gives the status of the documents provided
-
-        against the country specifications.
-
-        '
+        accessType:
+          $ref: '#/components/schemas/accessType'
+        calendar:
+          type: string
+          description: Pricing Calendar Code.
+          example: SINT
+        tde:
+          type: string
+          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>`STD` - Standard</li> <li>`P` - Peak</li> <li>`OP` - Off Peak</li> <li>`OOP` - Off Off Peak</li> <li>`WED` - Weekend</li> </ul>
+          example: OP
+          enum:
+          - STD
+          - P
+          - OP
+          - OOP
+          - WED
+        callSetUpFee:
+          type: string
+          example: '0.001'
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network. If not specified the same routing will be applied to all access Networks.
+          example: SMART
+        currency:
+          $ref: '#/components/schemas/currency'
+        perMinuteFee:
+          type: string
+          example: '0.0015'
+      description: Usage fees define the call setup and per minute fees.
       example: null
-    validationStatus:
-      type: string
-      enum:
-      - Need more information
-      - Under validation
-      - Validated
-      - No validation required
+    nonUsageFees:
+      type: object
+      properties:
+        MonthlyFee:
+          type: string
+          description: Monthly recurring fee.
+          example: '0.2'
+        setUpFee:
+          type: string
+          description: Setup Fee
+          example: '0.4'
+        currency:
+          $ref: '#/components/schemas/currency'
+      description: Non usage fees define the setup and monthly recurring fees.
+      example: null
+    responseRouting:
+      type: object
+      properties:
+        accessType:
+          type: string
+          description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
+          example: fixMobPay
+        pop:
+          type: string
+          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
+          example: ASIA
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network.
+          example: BICS
+        crn:
+          type: string
+          description: Customer Routing Number.
+          example: 259AB81345785554
       example: null
     numberSpecificError:
       type: object
@@ -302,12 +369,32 @@ components:
           format: date-time
           example: null
       example: null
-    currency:
+    endUserInfoValidation:
+      type: object
+      properties:
+        addressDocuments:
+          $ref: '#/components/schemas/validationStatus'
+        address:
+          $ref: '#/components/schemas/validationStatus'
+      description: 'Set of attributes indicates the validation status of the end user information. Attribute address gives the
+
+        status of the address of the end user and attribute addressDocuments gives the status of the documents provided
+
+        against the country specifications.
+
+        '
+      example: null
+    accessType:
       type: string
+      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
       enum:
-      - EUR
-      - USD
-      - ZAR
+      - fix
+      - mob
+      - pay
+      - fixMob
+      - fixPay
+      - mobPay
+      - fixMobPay
       example: null
     customerNumber:
       type: object
@@ -366,38 +453,13 @@ components:
           - Active
           - Deactivated
       example: null
-    usageFees:
-      type: object
-      properties:
-        accessType:
-          $ref: '#/components/schemas/accessType'
-        calendar:
-          type: string
-          description: Pricing Calendar Code.
-          example: SINT
-        tde:
-          type: string
-          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>`STD` - Standard</li> <li>`P` - Peak</li> <li>`OP` - Off Peak</li> <li>`OOP` - Off Off Peak</li> <li>`WED` - Weekend</li> </ul>
-          example: OP
-          enum:
-          - STD
-          - P
-          - OP
-          - OOP
-          - WED
-        callSetUpFee:
-          type: string
-          example: '0.001'
-        accessNetwork:
-          type: string
-          description: Parameter describing the network of the calling party. Different routes can be used per access network. If not specified the same routing will be applied to all access Networks.
-          example: SMART
-        currency:
-          $ref: '#/components/schemas/currency'
-        perMinuteFee:
-          type: string
-          example: '0.0015'
-      description: Usage fees define the call setup and per minute fees.
+    validationStatus:
+      type: string
+      enum:
+      - Need more information
+      - Under validation
+      - Validated
+      - No validation required
       example: null
     addressReferenceUpdateRequest:
       type: object
@@ -415,72 +477,10 @@ components:
           description: The reference of an address that you want to link to the number. The address linked to this reference must have the status ‘Accepted’.
           example: 37a50zzb-d568-4ddd-b11d-jejc7c2j3e30
       example: null
-    responseRouting:
-      type: object
-      properties:
-        accessType:
-          type: string
-          description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
-          example: fixMobPay
-        pop:
-          type: string
-          description: Point of Presence (PoP) refers to your access point to which the traffic is routed.
-          example: ASIA
-        accessNetwork:
-          type: string
-          description: Parameter describing the network of the calling party. Different routes can be used per access network.
-          example: BICS
-        crn:
-          type: string
-          description: Customer Routing Number.
-          example: 259AB81345785554
-      example: null
-    nonUsageFees:
-      type: object
-      properties:
-        MonthlyFee:
-          type: string
-          description: Monthly recurring fee.
-          example: '0.2'
-        setUpFee:
-          type: string
-          description: Setup Fee
-          example: '0.4'
-        currency:
-          $ref: '#/components/schemas/currency'
-      description: Non usage fees define the setup and monthly recurring fees.
-      example: null
-    customerNumberWithDetails:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/customerNumber'
-      - type: object
-        properties:
-          usageFees:
-            type: array
-            items:
-              $ref: '#/components/schemas/usageFees'
-            example: null
-          routing:
-            type: array
-            items:
-              $ref: '#/components/schemas/responseRouting'
-            example: null
-          endUserInfoValidation:
-            $ref: '#/components/schemas/endUserInfoValidation'
-          nonUsageFees:
-            $ref: '#/components/schemas/nonUsageFees'
-        example: null
-      example: null
-    accessType:
+    currency:
       type: string
-      description: "Access type of the calling party. You can apply a different routing per access type. The possible values are\n<ul>\n  <li> fix: Fix line</li>\n  <li> mob: Mobile line</li>\n  <li> pay: Payphone line</li>\n  <li> fixMob: Fix and Mobile lines</li>\n  <li> fixPay: Fix and Payphone lines</li>\n  <li> mobPay: Mobile and Payphone lines</li>\n  <li> fixMobPay: Fix, Mobile and Payphone lines</li>\n</ul>\n"
       enum:
-      - fix
-      - mob
-      - pay
-      - fixMob
-      - fixPay
-      - mobPay
-      - fixMobPay
+      - EUR
+      - USD
+      - ZAR
       example: null

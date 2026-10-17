@@ -202,28 +202,6 @@ paths:
       x-operation-id-original: Get Inbound Messages
 components:
   schemas:
-    InboundCallback:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Callback'
-      - type: object
-        properties:
-          concat:
-            type: boolean
-            description: 'Determines how multipart messages are handled:
-
-
-              - **true**: The API waits for all parts of a multipart message, concatenates them into a single message, and then sends the complete message to the customer.
-
-              - **false**: The API sends message parts individually, including metadata such as `udhMessageId`, `concatPart`, and `concatTotal`, allowing the client to perform concatenation.
-
-              - **absent**: Maintains the legacy behavior, where each message part is sent as a separate message without concatenation.
-
-              '
-            example: null
-        example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
-      example: null
     InboundSmsMessage:
       type: object
       properties:
@@ -264,6 +242,28 @@ components:
           type: integer
           description: The part number of the concatenated message.
           example: null
+      example: null
+    InboundCallback:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          concat:
+            type: boolean
+            description: 'Determines how multipart messages are handled:
+
+
+              - **true**: The API waits for all parts of a multipart message, concatenates them into a single message, and then sends the complete message to the customer.
+
+              - **false**: The API sends message parts individually, including metadata such as `udhMessageId`, `concatPart`, and `concatTotal`, allowing the client to perform concatenation.
+
+              - **absent**: Maintains the legacy behavior, where each message part is sent as a separate message without concatenation.
+
+              '
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
       example: null
     NotAcceptableCallback:
       type: object

@@ -429,38 +429,6 @@ paths:
       x-operation-id-original: Get Document Types
 components:
   schemas:
-    documentType:
-      type: object
-      properties:
-        code:
-          type: string
-          description: document type code
-          example: POD1
-        description:
-          type: string
-          description: document type description
-          example: Letter of Intent
-      example: null
-    locations:
-      type: object
-      properties:
-        country:
-          type: string
-          description: Country code in ISO 3166-1 alpha-3 format.
-          example: BEL
-        areaCode:
-          type: string
-          description: Area code of the number according to the national numbering plan.
-          example: '2'
-        product:
-          type: string
-          description: Product code.
-          example: IBN
-        location:
-          type: string
-          description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
-          example: Brussels
-      example: null
     error:
       type: object
       properties:
@@ -478,33 +446,17 @@ components:
           format: date-time
           example: null
       example: null
-    language:
+    documentType:
       type: object
       properties:
         code:
           type: string
-          description: language code
-          example: en
+          description: document type code
+          example: POD1
         description:
           type: string
-          description: full language name
-          example: English
-      example: null
-    documentTypesComposed:
-      type: object
-      properties:
-        documentTypesForIndividual:
-          type: array
-          description: List of available document types for individual
-          items:
-            $ref: '#/components/schemas/documentType'
-          example: null
-        documentTypesForCompany:
-          type: array
-          description: List of available document types for Company
-          items:
-            $ref: '#/components/schemas/documentType'
-          example: null
+          description: document type description
+          example: Letter of Intent
       example: null
     calendar:
       type: object
@@ -529,4 +481,52 @@ components:
           type: string
           description: time in format hh:mm
           example: 00:00
+      example: null
+    language:
+      type: object
+      properties:
+        code:
+          type: string
+          description: language code
+          example: en
+        description:
+          type: string
+          description: full language name
+          example: English
+      example: null
+    locations:
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country code in ISO 3166-1 alpha-3 format.
+          example: BEL
+        areaCode:
+          type: string
+          description: Area code of the number according to the national numbering plan.
+          example: '2'
+        product:
+          type: string
+          description: Product code.
+          example: IBN
+        location:
+          type: string
+          description: Location indicates in most cases the city that is attached to the number according to the national numbering plan. Sometimes, it is used to indicate whether it is a national or a mobile number.
+          example: Brussels
+      example: null
+    documentTypesComposed:
+      type: object
+      properties:
+        documentTypesForIndividual:
+          type: array
+          description: List of available document types for individual
+          items:
+            $ref: '#/components/schemas/documentType'
+          example: null
+        documentTypesForCompany:
+          type: array
+          description: List of available document types for Company
+          items:
+            $ref: '#/components/schemas/documentType'
+          example: null
       example: null

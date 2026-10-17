@@ -118,65 +118,6 @@ components:
           format: date-time
           example: null
       example: null
-    specification:
-      type: object
-      properties:
-        country:
-          type: string
-          description: Country in ISO 3166-1 alpha-3 format.
-          example: null
-        product:
-          type: string
-          description: "Get specifications by product. Possible values\n<ul>\n  <li>\"IBN\" for Cloud Number</li>\n  <li>\"ITFS\" for International Freephone Number</li>\n  <li>\"GMN\" for Global Mobile Number</li>\n</ul>\n"
-          example: null
-        addressRequirement:
-          $ref: '#/components/schemas/addressRequirement'
-        nationalRegulatoryAuthority:
-          type: string
-          description: National Regulatory Authority
-          example: null
-        legalRestrictions:
-          type: string
-          description: legal restrictions.
-          example: null
-        profiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/profileSpecification'
-          example: null
-        lastModified:
-          type: string
-          description: timestamp of the last modification
-          format: date-time
-          example: null
-      example: null
-    profileSpecification:
-      type: object
-      properties:
-        serviceRestrictions:
-          type: string
-          description: text describing service restrictions
-          example: null
-        backorderDurationMax:
-          type: string
-          description: Maximum time to delivery (in days) for a backorder
-          example: null
-        profile:
-          type: string
-          description: List of tariff differentiators
-          example: null
-        backorderDurationMin:
-          type: string
-          description: Minimum time to delivery (in days) for a backorder
-          example: null
-        status:
-          type: string
-          description: "<ul>\n  <li>\"Offered\" : product and country within your current pricelist</li>\n  <li>\"Not offered anymore\" : product and country not in your pricelist, but there are active numbers in your inventory</li>\n</ul>\n"
-          enum:
-          - Offered
-          - Not offered anymore
-          example: null
-      example: null
     addressRequirement:
       type: object
       properties:
@@ -230,5 +171,64 @@ components:
         vatNumber:
           type: boolean
           description: "<ul>\n  <li>true: VAT number is mandatory for this order according the specs</li>\n  <li>false: VAT number is not mandatory for this order according the specs</li>\n  <li>null: Not applicable for this address requirement type</li>\n</ul>\n"
+          example: null
+      example: null
+    profileSpecification:
+      type: object
+      properties:
+        serviceRestrictions:
+          type: string
+          description: text describing service restrictions
+          example: null
+        backorderDurationMax:
+          type: string
+          description: Maximum time to delivery (in days) for a backorder
+          example: null
+        profile:
+          type: string
+          description: List of tariff differentiators
+          example: null
+        backorderDurationMin:
+          type: string
+          description: Minimum time to delivery (in days) for a backorder
+          example: null
+        status:
+          type: string
+          description: "<ul>\n  <li>\"Offered\" : product and country within your current pricelist</li>\n  <li>\"Not offered anymore\" : product and country not in your pricelist, but there are active numbers in your inventory</li>\n</ul>\n"
+          enum:
+          - Offered
+          - Not offered anymore
+          example: null
+      example: null
+    specification:
+      type: object
+      properties:
+        country:
+          type: string
+          description: Country in ISO 3166-1 alpha-3 format.
+          example: null
+        product:
+          type: string
+          description: "Get specifications by product. Possible values\n<ul>\n  <li>\"IBN\" for Cloud Number</li>\n  <li>\"ITFS\" for International Freephone Number</li>\n  <li>\"GMN\" for Global Mobile Number</li>\n</ul>\n"
+          example: null
+        addressRequirement:
+          $ref: '#/components/schemas/addressRequirement'
+        nationalRegulatoryAuthority:
+          type: string
+          description: National Regulatory Authority
+          example: null
+        legalRestrictions:
+          type: string
+          description: legal restrictions.
+          example: null
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/profileSpecification'
+          example: null
+        lastModified:
+          type: string
+          description: timestamp of the last modification
+          format: date-time
           example: null
       example: null

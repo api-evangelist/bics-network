@@ -128,6 +128,71 @@ paths:
       x-operation-id-original: get Pricelist By Product And Country
 components:
   schemas:
+    usageFees:
+      type: object
+      properties:
+        accessType:
+          $ref: '#/components/schemas/accessType'
+        calendar:
+          type: string
+          description: Pricing Calendar Code.
+          example: SINT
+        tde:
+          type: string
+          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>`STD` - Standard</li> <li>`P` - Peak</li> <li>`OP` - Off Peak</li> <li>`OOP` - Off Off Peak</li> <li>`WED` - Weekend</li> </ul>
+          example: OP
+          enum:
+          - STD
+          - P
+          - OP
+          - OOP
+          - WED
+        callSetUpFee:
+          type: string
+          example: '0.001'
+        accessNetwork:
+          type: string
+          description: Parameter describing the network of the calling party. Different routes can be used per access network. If not specified the same routing will be applied to all access Networks.
+          example: SMART
+        currency:
+          $ref: '#/components/schemas/currency'
+        perMinuteFee:
+          type: string
+          example: '0.0015'
+      description: Usage fees define the call setup and per minute fees.
+      example: null
+    nonUsageFees:
+      type: object
+      properties:
+        MonthlyFee:
+          type: string
+          description: Monthly recurring fee.
+          example: '0.2'
+        setUpFee:
+          type: string
+          description: Setup Fee
+          example: '0.4'
+        currency:
+          $ref: '#/components/schemas/currency'
+      description: Non usage fees define the setup and monthly recurring fees.
+      example: null
+    error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Error code, the complete description can be found in API documentation
+          example: EXXX
+        description:
+          type: string
+          description: Description of the error, the complete description can be found in API documentation
+          example: Description of the error that occurred.
+        timestamp:
+          type: string
+          description: timestamp of error in UTC format
+          format: date-time
+          example: null
+      example: null
     fees:
       required:
       - accessArea
@@ -172,78 +237,6 @@ components:
         nonUsageFees:
           $ref: '#/components/schemas/nonUsageFees'
       example: null
-    error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Error code, the complete description can be found in API documentation
-          example: EXXX
-        description:
-          type: string
-          description: Description of the error, the complete description can be found in API documentation
-          example: Description of the error that occurred.
-        timestamp:
-          type: string
-          description: timestamp of error in UTC format
-          format: date-time
-          example: null
-      example: null
-    usageFees:
-      type: object
-      properties:
-        accessType:
-          $ref: '#/components/schemas/accessType'
-        calendar:
-          type: string
-          description: Pricing Calendar Code.
-          example: SINT
-        tde:
-          type: string
-          description: Time division element that differentiates the price based on the day and time of the call. <ul> <li>`STD` - Standard</li> <li>`P` - Peak</li> <li>`OP` - Off Peak</li> <li>`OOP` - Off Off Peak</li> <li>`WED` - Weekend</li> </ul>
-          example: OP
-          enum:
-          - STD
-          - P
-          - OP
-          - OOP
-          - WED
-        callSetUpFee:
-          type: string
-          example: '0.001'
-        accessNetwork:
-          type: string
-          description: Parameter describing the network of the calling party. Different routes can be used per access network. If not specified the same routing will be applied to all access Networks.
-          example: SMART
-        currency:
-          $ref: '#/components/schemas/currency'
-        perMinuteFee:
-          type: string
-          example: '0.0015'
-      description: Usage fees define the call setup and per minute fees.
-      example: null
-    currency:
-      type: string
-      enum:
-      - EUR
-      - USD
-      - ZAR
-      example: null
-    nonUsageFees:
-      type: object
-      properties:
-        MonthlyFee:
-          type: string
-          description: Monthly recurring fee.
-          example: '0.2'
-        setUpFee:
-          type: string
-          description: Setup Fee
-          example: '0.4'
-        currency:
-          $ref: '#/components/schemas/currency'
-      description: Non usage fees define the setup and monthly recurring fees.
-      example: null
     locationAreaCode:
       type: object
       properties:
@@ -267,4 +260,11 @@ components:
       - fixPay
       - mobPay
       - fixMobPay
+      example: null
+    currency:
+      type: string
+      enum:
+      - EUR
+      - USD
+      - ZAR
       example: null

@@ -202,43 +202,6 @@ paths:
           links: {}
 components:
   schemas:
-    CloudConnectLine:
-      type: object
-      properties:
-        vlan:
-          type: integer
-          description: VLAN
-          format: int32
-          example: null
-        customerReference:
-          type: string
-          description: Optional custom name of the line
-          example: null
-        lineType:
-          type: string
-          enum:
-          - PRIMARY
-          - SECONDARY
-          example: null
-        cloudServiceKey:
-          type: string
-          description: Service key assigned by Cloud Service Provider
-          example: null
-        serviceId:
-          type: string
-          example: null
-        interconnect:
-          $ref: '#/components/schemas/InterconnectDto'
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
-            example: null
-          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
-          example: null
-      description: Connection lines
-      example: null
     ApiError:
       type: object
       properties:
@@ -337,6 +300,200 @@ components:
           example: null
       description: Interconnect B details
       example: null
+    CloudConnectOrder:
+      required:
+      - bandwidth
+      - cloudServiceProvider
+      - cloudServiceRegion
+      - companyName
+      - contractTerm
+      - currency
+      - lines
+      - protectionScheme
+      type: object
+      properties:
+        autoVlanAssignment:
+          type: boolean
+          description: 'Optional flag, set it to ''false'' to use provided VLANs instead of auto-assigned ones (Default value: true)'
+          default: true
+          example: null
+        contactEmailAddress:
+          type: string
+          description: Requester email address
+          example: null
+        serviceType:
+          type: string
+          enum:
+          - CLOUD_CONNECT
+          default: CLOUD_CONNECT
+          example: null
+        customerComment:
+          maxLength: 310
+          minLength: 0
+          type: string
+          description: This field should not contain more than 310 symbols. Any comments are for internal use only and will not be considered as part of the automated delivery process
+          example: null
+        bandwidth:
+          type: string
+          description: Connection bandwidth (Reference data identifier)
+          example: null
+        companyName:
+          pattern: ^[a-zA-Z0-9]{1,50}$
+          type: string
+          description: Company name. Field should only contain letters and numbers
+          example: null
+        cloudServiceProvider:
+          type: string
+          description: Cloud Service Provider (Reference data identifier)
+          example: null
+        contractTerm:
+          type: string
+          description: Minimal order term (Reference data identifier)
+          example: null
+        currency:
+          type: string
+          description: Order currency (Reference data identifier)
+          example: null
+        customerPurchaseReference:
+          maxLength: 50
+          minLength: 0
+          type: string
+          description: Optional purchase reference. Field should contain no more than 50 symbols
+          example: null
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+          example: null
+        protectionScheme:
+          type: string
+          description: Connection protection scheme (Reference data identifier)
+          example: null
+        lines:
+          type: array
+          description: Connection lines details
+          items:
+            $ref: '#/components/schemas/CloudConnectOrderLine'
+          example: null
+        cloudServiceRegion:
+          type: string
+          description: Cloud Service Region (Reference data identifier)
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
+          example: null
+      example: null
+    CloudConnectLine:
+      type: object
+      properties:
+        vlan:
+          type: integer
+          description: VLAN
+          format: int32
+          example: null
+        customerReference:
+          type: string
+          description: Optional custom name of the line
+          example: null
+        lineType:
+          type: string
+          enum:
+          - PRIMARY
+          - SECONDARY
+          example: null
+        cloudServiceKey:
+          type: string
+          description: Service key assigned by Cloud Service Provider
+          example: null
+        serviceId:
+          type: string
+          example: null
+        interconnect:
+          $ref: '#/components/schemas/InterconnectDto'
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+          example: null
+      description: Connection lines
+      example: null
+    ConnectionStatus:
+      type: object
+      properties:
+        connectionStatus:
+          type: string
+          example: null
+        connectionId:
+          type: string
+          example: null
+      example: null
+    CarrierEthernetLine:
+      type: object
+      properties:
+        interconnectA:
+          $ref: '#/components/schemas/InterconnectDto'
+        interconnectB:
+          $ref: '#/components/schemas/InterconnectDto'
+        customerReference:
+          type: string
+          description: Optional custom name of the line
+          example: null
+        lineType:
+          type: string
+          enum:
+          - PRIMARY
+          - SECONDARY
+          example: null
+        serviceId:
+          type: string
+          example: null
+        vlanB:
+          type: integer
+          description: VLAN of interconnect B
+          format: int32
+          example: null
+        additionalAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+            example: null
+          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
+          example: null
+        vlanA:
+          type: integer
+          description: VLAN of interconnect A
+          format: int32
+          example: null
+      description: Connection lines details
+      example: null
+    ModifyConnectionDto:
+      required:
+      - connectionId
+      - modificationAttributes
+      type: object
+      properties:
+        connectionId:
+          type: string
+          description: Connection ID which customer want to modify
+          example: null
+        modificationAttributes:
+          type: object
+          additionalProperties:
+            type: string
+            description: 'Type of reference data and new value, ex: bandwidth, 100 Mbps'
+            example: null
+          description: 'Type of reference data and new value, ex: bandwidth, 100 Mbps'
+          example: null
+      example: null
     CarrierEthernetConnection:
       type: object
       properties:
@@ -426,55 +583,6 @@ components:
           type: string
           description: Connection status
           example: null
-      example: null
-    ConnectionStatus:
-      type: object
-      properties:
-        connectionStatus:
-          type: string
-          example: null
-        connectionId:
-          type: string
-          example: null
-      example: null
-    CloudConnectOrderLine:
-      required:
-      - cloudServiceKey
-      - interconnect
-      - lineType
-      type: object
-      properties:
-        vlan:
-          type: integer
-          description: Optional field for manual VLAN assignment. Ignored in case 'autoVlanAssignment' is set to 'true'
-          format: int32
-          example: null
-        customerReference:
-          type: string
-          description: Optional custom name of the line
-          example: null
-        lineType:
-          type: string
-          enum:
-          - PRIMARY
-          - SECONDARY
-          example: null
-        cloudServiceKey:
-          type: string
-          description: Service key assigned by Cloud Service Provider
-          example: null
-        interconnect:
-          type: string
-          example: null
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-            description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
-            example: null
-          description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
-          example: null
-      description: Connection lines details
       example: null
     CloudConnectConnection:
       type: object
@@ -582,120 +690,18 @@ components:
           description: Connection status
           example: null
       example: null
-    ModifyConnectionDto:
+    CloudConnectOrderLine:
       required:
-      - connectionId
-      - modificationAttributes
+      - cloudServiceKey
+      - interconnect
+      - lineType
       type: object
       properties:
-        connectionId:
-          type: string
-          description: Connection ID which customer want to modify
-          example: null
-        modificationAttributes:
-          type: object
-          additionalProperties:
-            type: string
-            description: 'Type of reference data and new value, ex: bandwidth, 100 Mbps'
-            example: null
-          description: 'Type of reference data and new value, ex: bandwidth, 100 Mbps'
-          example: null
-      example: null
-    CloudConnectOrder:
-      required:
-      - bandwidth
-      - cloudServiceProvider
-      - cloudServiceRegion
-      - companyName
-      - contractTerm
-      - currency
-      - lines
-      - protectionScheme
-      type: object
-      properties:
-        autoVlanAssignment:
-          type: boolean
-          description: 'Optional flag, set it to ''false'' to use provided VLANs instead of auto-assigned ones (Default value: true)'
-          default: true
-          example: null
-        contactEmailAddress:
-          type: string
-          description: Requester email address
-          example: null
-        serviceType:
-          type: string
-          enum:
-          - CLOUD_CONNECT
-          default: CLOUD_CONNECT
-          example: null
-        customerComment:
-          maxLength: 310
-          minLength: 0
-          type: string
-          description: This field should not contain more than 310 symbols. Any comments are for internal use only and will not be considered as part of the automated delivery process
-          example: null
-        bandwidth:
-          type: string
-          description: Connection bandwidth (Reference data identifier)
-          example: null
-        companyName:
-          pattern: ^[a-zA-Z0-9]{1,50}$
-          type: string
-          description: Company name. Field should only contain letters and numbers
-          example: null
-        cloudServiceProvider:
-          type: string
-          description: Cloud Service Provider (Reference data identifier)
-          example: null
-        contractTerm:
-          type: string
-          description: Minimal order term (Reference data identifier)
-          example: null
-        currency:
-          type: string
-          description: Order currency (Reference data identifier)
-          example: null
-        customerPurchaseReference:
-          maxLength: 50
-          minLength: 0
-          type: string
-          description: Optional purchase reference. Field should contain no more than 50 symbols
-          example: null
-        id:
+        vlan:
           type: integer
-          format: int64
-          readOnly: true
+          description: Optional field for manual VLAN assignment. Ignored in case 'autoVlanAssignment' is set to 'true'
+          format: int32
           example: null
-        protectionScheme:
-          type: string
-          description: Connection protection scheme (Reference data identifier)
-          example: null
-        lines:
-          type: array
-          description: Connection lines details
-          items:
-            $ref: '#/components/schemas/CloudConnectOrderLine'
-          example: null
-        cloudServiceRegion:
-          type: string
-          description: Cloud Service Region (Reference data identifier)
-          example: null
-        additionalAttributes:
-          type: object
-          additionalProperties:
-            type: string
-            description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
-            example: null
-          description: Additional attributes of the connection, depending on the service type. For more info please check the details in the service description section.
-          example: null
-      example: null
-    CarrierEthernetLine:
-      type: object
-      properties:
-        interconnectA:
-          $ref: '#/components/schemas/InterconnectDto'
-        interconnectB:
-          $ref: '#/components/schemas/InterconnectDto'
         customerReference:
           type: string
           description: Optional custom name of the line
@@ -706,13 +712,12 @@ components:
           - PRIMARY
           - SECONDARY
           example: null
-        serviceId:
+        cloudServiceKey:
           type: string
+          description: Service key assigned by Cloud Service Provider
           example: null
-        vlanB:
-          type: integer
-          description: VLAN of interconnect B
-          format: int32
+        interconnect:
+          type: string
           example: null
         additionalAttributes:
           type: object
@@ -721,11 +726,6 @@ components:
             description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
             example: null
           description: Additional attributes of the line, depending on the service type. For more info please check the details in the service description section.
-          example: null
-        vlanA:
-          type: integer
-          description: VLAN of interconnect A
-          format: int32
           example: null
       description: Connection lines details
       example: null

@@ -272,6 +272,19 @@ paths:
       x-operation-id-original: Get Delivery Infos
 components:
   schemas:
+    DeliveryCallback:
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Callback'
+      - type: object
+        properties:
+          finalDelivery:
+            type: boolean
+            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
+            example: null
+        example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
+      example: null
     DeliveryInfoList:
       type: object
       properties:
@@ -299,73 +312,6 @@ components:
         '
       x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("deliveryInfoList")'
       example: null
-    DeliveryCallback:
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Callback'
-      - type: object
-        properties:
-          finalDelivery:
-            type: boolean
-            description: This flag will determine if customer wants to only receive some of the delivery status that he considers “final”.
-            example: null
-        example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("callback")'
-      example: null
-    OutboundRequest:
-      required:
-      - address
-      - outboundSMSTextMessage
-      - senderAddress
-      type: object
-      properties:
-        senderAddress:
-          type: string
-          description: For the sender address, we allow both numeric and alphanumeric senders. Keep in mind that not all destination networks accept alphanumeric senders, and some will even refuse to terminate messages if you try to use it.
-          example: null
-        senderName:
-          type: string
-          example: null
-        finalDelivery:
-          type: boolean
-          example: null
-        address:
-          type: array
-          description: Recipient addresses
-          items:
-            type: string
-            description: Required. Recipient address
-            example: null
-          example: null
-        resourceURL:
-          type: string
-          description: A resource URL for this specific request.
-          example: null
-        deliveryInfoList:
-          $ref: '#/components/schemas/DeliveryInfoList'
-        outboundSMSTextMessage:
-          $ref: '#/components/schemas/SmsTextMessage'
-        asynchronous:
-          type: boolean
-          description: Optional, default value is false. Reduces HTTP response time by acknowledging the message directly as it enters our system, doesn't influence on actual sending time of message to destination, HTTP response is sent before message validation by the routing engine. Delivery results are available on subscription, by calling 'getDeliveryResults' endpoint or by using notifyURL field.
-          default: false
-          example: null
-        clientCorrelator:
-          type: string
-          description: 'Suppose a network issue occurs just as you''re sending a message, and you did not receive your http response. In this case you will not know whether the sms was effectively sent or not. You could send the message again, but then you risk the recipient receiving the message twice. The solution for this is the clientCorrelator. Add this optional parameter with a unique value for each message you transmit. If you transmit the message again with the same correlator, bics will not send the message again. Instead, if the message was sent before, you will simply receive the response as you would''ve received it in the original sending. Correlators stay valid for 24 hours.
-
-            '
-          example: null
-        callbackData:
-          type: string
-          description: Optional. Will be passed back in this notification, so you can use it to identify the message the receipt relates to or any other useful data, such as a function name.
-          example: null
-        notifyURL:
-          type: string
-          description: Optional. The URL-escaped URL to which a notification of delivery sent. notifyURL has presedence over delivery notification subscription that may already exist for the senderAddress.
-          example: null
-      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("outboundSMSMessageRequest")'
-      example: null
     SmsTextMessage:
       type: object
       properties:
@@ -379,6 +325,18 @@ components:
         The backspace character (\b) will be omitted, as neither has a direct representation in GSM 7-bit encoding.
 
         '
+      example: null
+    NotAcceptableCallback:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+          - NOT_HTTPS
+          example: null
+        description:
+          type: string
+          example: null
       example: null
     DeliveryState:
       type: string
@@ -435,17 +393,59 @@ components:
       - InvalidSrcAddress
       - InvalidDestAddress
       example: null
-    NotAcceptableCallback:
+    OutboundRequest:
+      required:
+      - address
+      - outboundSMSTextMessage
+      - senderAddress
       type: object
       properties:
-        code:
+        senderAddress:
           type: string
-          enum:
-          - NOT_HTTPS
+          description: For the sender address, we allow both numeric and alphanumeric senders. Keep in mind that not all destination networks accept alphanumeric senders, and some will even refuse to terminate messages if you try to use it.
           example: null
-        description:
+        senderName:
           type: string
           example: null
+        finalDelivery:
+          type: boolean
+          example: null
+        address:
+          type: array
+          description: Recipient addresses
+          items:
+            type: string
+            description: Required. Recipient address
+            example: null
+          example: null
+        resourceURL:
+          type: string
+          description: A resource URL for this specific request.
+          example: null
+        deliveryInfoList:
+          $ref: '#/components/schemas/DeliveryInfoList'
+        outboundSMSTextMessage:
+          $ref: '#/components/schemas/SmsTextMessage'
+        asynchronous:
+          type: boolean
+          description: Optional, default value is false. Reduces HTTP response time by acknowledging the message directly as it enters our system, doesn't influence on actual sending time of message to destination, HTTP response is sent before message validation by the routing engine. Delivery results are available on subscription, by calling 'getDeliveryResults' endpoint or by using notifyURL field.
+          default: false
+          example: null
+        clientCorrelator:
+          type: string
+          description: 'Suppose a network issue occurs just as you''re sending a message, and you did not receive your http response. In this case you will not know whether the sms was effectively sent or not. You could send the message again, but then you risk the recipient receiving the message twice. The solution for this is the clientCorrelator. Add this optional parameter with a unique value for each message you transmit. If you transmit the message again with the same correlator, bics will not send the message again. Instead, if the message was sent before, you will simply receive the response as you would''ve received it in the original sending. Correlators stay valid for 24 hours.
+
+            '
+          example: null
+        callbackData:
+          type: string
+          description: Optional. Will be passed back in this notification, so you can use it to identify the message the receipt relates to or any other useful data, such as a function name.
+          example: null
+        notifyURL:
+          type: string
+          description: Optional. The URL-escaped URL to which a notification of delivery sent. notifyURL has presedence over delivery notification subscription that may already exist for the senderAddress.
+          example: null
+      x-class-extra-annotation: '@com.fasterxml.jackson.annotation.JsonRootName("outboundSMSMessageRequest")'
       example: null
     DeliveryInfo:
       type: object
