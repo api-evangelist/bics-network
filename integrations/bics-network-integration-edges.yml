@@ -1,0 +1,62 @@
+generated: '2026-10-19'
+method: searched
+checked:
+- genesys/integrations/genesys-integration-edges.yml
+- https://manrs.org/netops/participants/
+- https://www.peeringdb.com/api/fac
+- https://www.peeringdb.com/api/ix
+- https://www.peeringdb.com/api/net
+source:
+- genesys/integrations/genesys-integration-edges.yml
+edges:
+- partner_name: Genesys (own)
+  partner: genesys
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://appfoundry.genesys.com/filter/genesyscloud/listing/3b9625f7-74a8-40ae-811e-d6e4fd5ffe2b
+  mirror_of: genesys/integrations/genesys-integration-edges.yml
+  apps:
+  - BICS Global Voice Connect for Genesys Cloud
+  listing_count: 1
+  detected: '2026-10-19'
+  detected_by: mirror-platform-listings.py
+  category: telephonyAndTechnology
+  publisher_verified:
+  - attestation:gdpr
+  - attestation:iso
+- partner_name: PeeringDB (interconnection register)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.peeringdb.com/net/150
+  category: network interconnection register
+  contract_reference:
+    register: PeeringDB (peeringdb.com/api net, ix, fac, org)
+    standard: null
+    spec_file: null
+    role: peeringdb-network
+    registered_name: BICS
+    register_id: https://www.peeringdb.com/net/150
+    matched_domain: bics.com
+    matched_by: domain
+    asns:
+    - 6774
+    info_types:
+    - NSP
+    ix_presence: 37
+    exchanges_operated: []
+    facilities_operated: 0
+    signal_note: 'participation only: PeeringDB is self-registered by network operators; ASNs, IX presence and facility
+      counts are context, never counted'
+    detected_by: sweep-network-edge.py
+    detected: '2026-10-20'
+  detected_by: sweep-network-edge.py
+  first_seen: '2026-10-20'
