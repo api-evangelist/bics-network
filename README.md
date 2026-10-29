@@ -1,4 +1,4 @@
-# BICS (bics-network)
+# BICS
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,127 +64,159 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-BICS is an international communications enabler and wholesale carrier, part of Proximus Global (alongside Telesign and Route Mobile). Its developer portal at [developer.bics.com](https://developer.bics.com/portal/apis) exposes OAuth2-secured REST APIs at `https://api.bics.com` for A2P SMS and OTP delivery, global number provisioning and portability (MyNumbers), call detail records, emergency services, and carrier-grade cloud connectivity. BICS also offers mobile identity capabilities — phone number verification, HLR/reachability lookup, SIM-swap detection, and device-location signals for anti-fraud and KYC — as partner and carrier contract products across the Proximus Global network rather than as self-serve endpoints.
+BICS is an international communications enabler and wholesale carrier, part of Proximus Global (alongside Telesign and Route Mobile). Its developer portal exposes OAuth2-secured REST APIs at api.bics.com for A2P SMS and OTP delivery, global number provisioning and portability (MyNumbers), call detail records, emergency services, and carrier-grade cloud connectivity. BICS also offers mobile identity capabilities - phone number verification, HLR/reachability lookup, SIM-swap detection and device-location signals for anti-fraud and KYC - as partner and carrier contract products across the Proximus Global network rather than as self-serve endpoints.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/bics-network/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/bics-network/refs/heads/main/apis.yml)
+**Areas:** Number Verification · Telecommunications · Mobile Identity · Fraud Prevention · Device Location · OTP · SMS · Numbering · Number Portability · Carrier · CPaaS
 
-## Access model (read this first)
+## BICS on APIs.io
 
-BICS's developer portal is **not fully self-serve**. To use an API you register to consume it on the portal, BICS approves the consumption request (confirmed by email), and the emailed instructions explain how to generate an **OAuth2 token** that you then send as a `Bearer` credential on every request. A **sandbox** environment (`https://sandbox.api.bics.com`) is published for the MyNumbers family for pre-production testing.
+Everything profiled for BICS is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bics-network/](https://apis.io/providers/bics-network/)** — or go straight to one of the APIs or properties below.
 
-The eight portal APIs below are **confirmed** from live OpenAPI 3.0.1 definitions (saved under `openapi/`). Their endpoints and base URLs are real.
+### APIs (24)
 
-The **Number Verification** and **Fraud Prevention / Reachability** entries are **`endpointsModeled`**: BICS markets these mobile-identity and anti-fraud capabilities (number verification, HLR/reachability lookup, SIM-swap detection, device-location signals — aligned with GSMA Open Gateway / CAMARA network APIs) and delivers them as **contact-sales carrier contract products across Proximus Global**, not as self-serve endpoints. No public OpenAPI surface is published for them, so no request definitions are fabricated here.
+- [BICS Number Verification API](https://apis.io/apis/bics-network/bics-number-verification-api/) — Phone number verification and mobile authentication for anti-fraud, KYC and onboarding - validating that a mobile number is real, active, and controlled by…
+- [BICS Fraud Prevention and Reachability API](https://apis.io/apis/bics-network/bics-fraud-prevention-reachability-api/) — Network-signal services for fraud prevention and mobile identity - HLR and reachability lookup (operator, ported status, active/blocked SIM state), SIM-swap…
+- [BICS Address Management API](https://apis.io/apis/bics-network/bics-network-address-management-api/) — Manage your addresses
+- [BICS CDR API](https://apis.io/apis/bics-network/bics-network-cdr-api/) — The following methods allows you to request your Call Detail Records (CDRs), request the status of your requests and download your CDRs. The CDRs are…
+- [BICS Connections Management API](https://apis.io/apis/bics-network/bics-network-connections-management-api/) — The Connections Management API from BICS — 3 operation(s) for connections management.
+- [BICS Conversions API](https://apis.io/apis/bics-network/bics-network-conversions-api/) — The Conversions API from BICS — 1 operation(s) for conversions.
+- [BICS Conversionsinfos API](https://apis.io/apis/bics-network/bics-network-conversionsinfos-api/) — The Conversionsinfos API from BICS — 1 operation(s) for conversionsinfos.
+- [BICS Disconnection Services API](https://apis.io/apis/bics-network/bics-network-disconnection-services-api/) — Manage your disconnection order
+- [BICS Document Management API](https://apis.io/apis/bics-network/bics-network-document-management-api/) — The Document Management API from BICS — 1 operation(s) for document management.
+- [BICS Emergency Services API](https://apis.io/apis/bics-network/bics-network-emergency-services-api/) — Manage your emergency services request
+- [BICS Inbound API](https://apis.io/apis/bics-network/bics-network-inbound-api/) — The Inbound API from BICS — 2 operation(s) for inbound.
+- [BICS Interconnects List API](https://apis.io/apis/bics-network/bics-network-interconnects-list-api/) — The Interconnects List API from BICS — 1 operation(s) for interconnects list.
+- [BICS Inventory API](https://apis.io/apis/bics-network/bics-network-inventory-api/) — Query the numbers you have bought over time.
+- [BICS Number API](https://apis.io/apis/bics-network/bics-network-number-api/) — The number API from BICS — 1 operation(s) for number.
+- [BICS Order API](https://apis.io/apis/bics-network/bics-network-order-api/) — Purchase a number from the stock.
+- [BICS Outbound API](https://apis.io/apis/bics-network/bics-network-outbound-api/) — The Outbound API from BICS — 3 operation(s) for outbound.
+- [BICS Porting API](https://apis.io/apis/bics-network/bics-network-porting-api/) — The porting API from BICS — 4 operation(s) for porting.
+- [BICS Porting Specification API](https://apis.io/apis/bics-network/bics-network-porting-specification-api/) — Recive porting specification
+- [BICS Pricelist API](https://apis.io/apis/bics-network/bics-network-pricelist-api/) — Query your pricelist.
+- [BICS Reference API](https://apis.io/apis/bics-network/bics-network-reference-api/) — Query BICS reference data.
+- [BICS Reference Data API](https://apis.io/apis/bics-network/bics-network-reference-data-api/) — The Reference Data API from BICS — 1 operation(s) for reference data.
+- [BICS Routing API](https://apis.io/apis/bics-network/bics-network-routing-api/) — Modify routing details for customer numbers.
+- [BICS Specification API](https://apis.io/apis/bics-network/bics-network-specification-api/) — The specification API from BICS — 1 operation(s) for specification.
+- [BICS Stock API](https://apis.io/apis/bics-network/bics-network-stock-api/) — Query the available stock.
 
-## Tags
+### Published properties
 
-- Number Verification
-- Telecom
-- Mobile Identity
-- Anti-Fraud
-- Device Location
-- OTP
-- SMS
-- Numbering
-- Number Portability
-- Fraud Prevention
-- Carrier
-- CPaaS
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Timestamps
+#### Agentic access (1)
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## APIs
+- [Bics Network Agentic Access](https://apis.io/agentic-access/bics-network/bics-network-agentic-access/)
 
-### BICS SMS API (confirmed)
+#### Collections (22)
 
-RESTful A2P messaging for sending text messages worldwide, including one-time passcodes (OTP) for **phone number verification** and two-factor authentication. Single and bulk outbound requests, delivery-info retrieval, inbound message subscriptions, and conversion reporting.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://developer.bics.com/portal/apis](https://developer.bics.com/portal/apis)
-- **Base URL:** `https://api.bics.com/sms/v3`
-- [OpenAPI](openapi/bics-sms-openapi.json)
+- [connect Address Management API](https://apis.io/collections/bics-network/open-bics-network-address-management-api/)
+- [connect Address Management CDR API](https://apis.io/collections/bics-network/open-bics-network-cdr-api/)
+- [connect Address Management Connections Management API](https://apis.io/collections/bics-network/open-bics-network-connections-management-api/)
+- [connect Address Management Conversions API](https://apis.io/collections/bics-network/open-bics-network-conversions-api/)
+- [connect Address Management Conversionsinfos API](https://apis.io/collections/bics-network/open-bics-network-conversionsinfos-api/)
+- [connect Address Management Disconnection Services API](https://apis.io/collections/bics-network/open-bics-network-disconnection-services-api/)
+- [connect Address Management Document Management API](https://apis.io/collections/bics-network/open-bics-network-document-management-api/)
+- [connect Address Management Emergency Services API](https://apis.io/collections/bics-network/open-bics-network-emergency-services-api/)
+- [connect Address Management Inbound API](https://apis.io/collections/bics-network/open-bics-network-inbound-api/)
+- [connect Address Management Interconnects List API](https://apis.io/collections/bics-network/open-bics-network-interconnects-list-api/)
+- [connect Address Management inventory API](https://apis.io/collections/bics-network/open-bics-network-inventory-api/)
+- [connect Address Management number API](https://apis.io/collections/bics-network/open-bics-network-number-api/)
+- [connect Address Management order API](https://apis.io/collections/bics-network/open-bics-network-order-api/)
+- [connect Address Management Outbound API](https://apis.io/collections/bics-network/open-bics-network-outbound-api/)
+- [connect Address Management porting API](https://apis.io/collections/bics-network/open-bics-network-porting-api/)
+- [connect Address Management Porting Specification API](https://apis.io/collections/bics-network/open-bics-network-porting-specification-api/)
+- [connect Address Management pricelist API](https://apis.io/collections/bics-network/open-bics-network-pricelist-api/)
+- [connect Address Management reference API](https://apis.io/collections/bics-network/open-bics-network-reference-api/)
+- [connect Address Management Reference Data API](https://apis.io/collections/bics-network/open-bics-network-reference-data-api/)
+- [connect Address Management routing API](https://apis.io/collections/bics-network/open-bics-network-routing-api/)
+- [connect Address Management specification API](https://apis.io/collections/bics-network/open-bics-network-specification-api/)
+- [connect Address Management stock API](https://apis.io/collections/bics-network/open-bics-network-stock-api/)
 
-### BICS MyNumbers API (confirmed)
+#### Security (1)
 
-Order and manage ready-to-use BICS Cloud Numbers (IBN), International Freephone Numbers (ITFS), and Global Mobile Numbers (GMN) — stock, price lists, reference data, single/bulk orders, and routes.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://developer.bics.com/portal/apis](https://developer.bics.com/portal/apis)
-- **Base URL:** `https://api.bics.com/mynumbers-number/v1` (sandbox: `https://sandbox.api.bics.com/mynumbers-number/v1`)
-- [OpenAPI](openapi/bics-mynumbers-openapi.json)
+- [Bics Network Authentication](https://apis.io/security/bics-network/bics-network-authentication/)
 
-### BICS MyNumbers Number Porting API (confirmed)
+#### Plans and pricing (1)
 
-Submit and track **number portability** requests — create requests, attach Letter of Authorization documents, update addresses, and check specifications and statuses.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://developer.bics.com/portal/apis](https://developer.bics.com/portal/apis)
-- **Base URL:** `https://api.bics.com/mynumbers-porting/v1`
-- [OpenAPI](openapi/bics-mynumbers-porting-openapi.json)
+- [Bics Network Plans Pricing](https://apis.io/plans/bics-network/bics-network-plans-pricing/)
 
-### BICS MyNumbers CDR API (confirmed)
+#### Rate limits (1)
 
-Request, poll, and download Call Detail Records (CDRs) for inbound and outbound calls, with available-date discovery and multiple download formats.
+Published request limits.
 
-- **Human URL:** [https://developer.bics.com/portal/apis](https://developer.bics.com/portal/apis)
-- **Base URL:** `https://api.bics.com/mynumbers-cdr/v1`
-- [OpenAPI](openapi/bics-mynumbers-cdr-openapi.json)
+- [Bics Network Rate Limits](https://apis.io/rate-limits/bics-network/bics-network-rate-limits/)
 
-### BICS MyNumbers Address Management API (confirmed)
+#### FinOps (1)
 
-Create, edit, retrieve, and delete the addresses and supporting documents required by local regulation for number provisioning.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://developer.bics.com/portal/apis](https://developer.bics.com/portal/apis)
-- **Base URL:** `https://api.bics.com/mynumbers-address-management/v1`
-- [OpenAPI](openapi/bics-mynumbers-address-management-openapi.json)
+- [Bics Network Finops](https://apis.io/finops/bics-network/bics-network-finops/)
 
-### BICS MyNumbers Disconnection API (confirmed)
+## Where to find this API
 
-Request disconnection of your numbers by building disconnection orders, adding or removing order items, and submitting them.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://developer.bics.com/portal/apis](https://developer.bics.com/portal/apis)
-- **Base URL:** `https://api.bics.com/mynumbers-disconnection/v1`
-- [OpenAPI](openapi/bics-mynumbers-disconnection-openapi.json)
-
-### BICS MyNumbers Emergency Services API (confirmed)
-
-Enable emergency services on SIP-T numbers — check per-country requirements and create, update, and submit emergency-service orders.
-
-- **Human URL:** [https://developer.bics.com/portal/apis](https://developer.bics.com/portal/apis)
-- **Base URL:** `https://api.bics.com/mynumbers-emergency-services/v1`
-- [OpenAPI](openapi/bics-mynumbers-emergency-services-openapi.json)
-
-### BICS Connect API (confirmed)
-
-Carrier-grade Cloud Connect service combining BICS layer-2 transport with dedicated cloud connectivity — create, list, modify, and delete connections and interconnects.
-
-- **Human URL:** [https://developer.bics.com/portal/apis](https://developer.bics.com/portal/apis)
-- **Base URL:** `https://api.bics.com/connect/v1`
-- [OpenAPI](openapi/bics-connect-openapi.json)
-
-### BICS Number Verification API (endpointsModeled — contact sales)
-
-Phone number verification and mobile authentication for **anti-fraud, KYC, and onboarding** — validating that a mobile number is real, active, and controlled by the user, including OTP-based flows. Marketed by BICS and delivered across Proximus Global as a partner/carrier contract product; access is contact-sales, not self-serve, so no OpenAPI surface is published.
-
-- **Human URL:** [https://www.bics.com/developers-hub/](https://www.bics.com/developers-hub/)
-
-### BICS Fraud Prevention and Reachability API (endpointsModeled — contact sales)
-
-Network-signal services for fraud prevention and mobile identity — **HLR / reachability lookup** (operator, ported status, active/blocked SIM state), **SIM-swap detection**, and **device-location** signals used to score login and transaction risk. Offered as carrier contract products across Proximus Global and aligned with GSMA Open Gateway / CAMARA network APIs; contact-sales, not self-serve.
-
-- **Human URL:** [https://www.bics.com/developers-hub/](https://www.bics.com/developers-hub/)
-
-## Common Properties
-
-- [Authentication](authentication/bics-network-authentication.yml)
-- [LinkedIn](https://www.linkedin.com/company/bics)
 - [Website](https://www.bics.com/)
 - [Documentation](https://developer.bics.com/portal/apis)
-- [Plans](plans/bics-network-plans-pricing.yml)
-- [Rate Limits](rate-limits/bics-network-rate-limits.yml)
-- [Fin Ops](finops/bics-network-finops.yml)
+- [Blog](https://www.bics.com/blogs/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 22.2** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 62.5 |
+| Contract quality | 47.8 |
+| Contract governance | 0.0 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 0.0 |
+
+**Agent readiness 30.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 5.0** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bics-network/](https://apis.io/providers/bics-network/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for BICS: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bics-network/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
